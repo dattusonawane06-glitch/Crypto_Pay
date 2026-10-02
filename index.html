@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Crypto Pay</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
     body { background: #0a0b0d; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px; }
-    .app { width: 100%; max-width: 420px; background: #121418; border-radius: 24px; padding: 20px; border: 1px solid #222630; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .app { width: 100%; max-width: 420px; background: #121418; border-radius: 24px; padding: 20px; border: 1px solid #222630; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+    
     header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
     .brand { display: flex; align-items: center; gap: 10px; }
     .brand-logo { width: 38px; height: 38px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; color: #000; }
@@ -16,40 +18,57 @@
     .net { font-size: 12px; font-weight: 700; color: #8b92a1; display: flex; align-items: center; gap: 6px; }
     .net:before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #3b5bff; }
     .chip { background: #2563eb; color: #fff; border: none; padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; }
-    
-    .hero { background: linear-gradient(135deg, #1e2330 0%, #151821 100%); border-radius: 18px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a3040; }
+    .chip.on { background: #10b981; }
+
+    .hero { background: linear-gradient(135deg, #1e2330 0%, #151821 100%); border-radius: 18px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a3040; text-align: left; }
     .lbl { font-size: 13px; color: #9ca3af; margin-bottom: 6px; }
     .total { font-size: 32px; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
     .feed { font-size: 13px; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 6px; }
     .pulse-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
     @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-    
+
     .acts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
     .act { background: #1a1e28; border: 1px solid #283040; border-radius: 14px; padding: 12px 6px; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
-    .act span { font-size: 18px; }
-    
-    .token-section { margin-bottom: 20px; }
+    .act span { font-size: 18px; color: #3b5bff; }
+    .act:active { background: #222736; }
+
+    .token-section { margin-bottom: 20px; flex: 1; }
     .token-title { font-size: 14px; font-weight: 600; color: #9ca3af; margin-bottom: 12px; display: flex; justify-content: space-between; }
     .token-list { display: flex; flex-direction: column; gap: 10px; }
-    .token-row { display: flex; justify-content: space-between; align-items: center; background: #161922; padding: 12px 14px; border-radius: 14px; border: 1px solid #242b38; }
+    .token-row { display: flex; justify-content: space-between; align-items: center; background: #161922; padding: 12px 14px; border-radius: 14px; border: 1px solid #242b38; cursor: pointer; transition: background 0.2s; }
+    .token-row:active { background: #1e2330; }
     .token-info { display: flex; align-items: center; gap: 12px; }
     .token-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
-    .token-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .token-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
     .token-names { display: flex; flex-direction: column; }
     .token-name { font-size: 14px; font-weight: 600; color: #fff; }
     .token-sym { font-size: 11px; color: #9ca3af; }
-    .token-price { font-size: 14px; font-weight: 600; color: #10b981; font-variant-numeric: tabular-nums; }
+    .token-right { text-align: right; }
+    .token-bal { font-size: 14px; font-weight: 700; color: #fff; }
+    .token-price { font-size: 12px; font-weight: 600; color: #10b981; font-variant-numeric: tabular-nums; }
 
-    .gullak-card { background: #231c12; border: 1px solid #4a3818; border-radius: 16px; padding: 16px; margin-bottom: 20px; }
-    .gullak-title { font-size: 13px; color: #f59e0b; margin-bottom: 4px; }
-    .gullak-bal { font-size: 20px; font-weight: 700; color: #fff; }
-    
-    .qr-box { background: #1a1e28; border-radius: 16px; padding: 20px; text-align: center; border: 1px solid #283040; margin-bottom: 20px; }
-    .qr-box img { width: 130px; height: 130px; border-radius: 10px; background: #fff; padding: 6px; }
-
-    nav { display: flex; justify-content: space-around; background: #151821; border-radius: 16px; padding: 12px; border: 1px solid #222735; }
-    nav button { background: none; border: none; color: #9ca3af; font-size: 13px; cursor: pointer; }
+    nav { display: flex; justify-content: space-around; background: #151821; border-radius: 16px; padding: 12px; border: 1px solid #222735; margin-top: auto; }
+    nav button { background: none; border: none; color: #9ca3af; font-size: 13px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
     nav button.a { color: #f59e0b; font-weight: 600; }
+
+    /* उघडणाऱ्या चालू खिडक्या (Panels) */
+    .shade { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; align-items: flex-end; justify-content: center; z-index: 100; }
+    .shade.open { display: flex; }
+    .panel { background: #161922; width: 100%; max-width: 420px; border-radius: 24px 24px 0 0; padding: 20px 20px calc(24px + env(safe-area-inset-bottom, 0px)); text-align: center; border: 1px solid #2a3040; border-bottom: none; }
+    .grab { width: 44px; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.2); margin: 0 auto 16px; }
+    .ttl { font-size: 18px; font-weight: 800; margin-bottom: 14px; color: #fff; }
+    .inp { position: relative; margin-bottom: 12px; }
+    .inp input { width: 100%; background: #0a0b0d; border: 1px solid #2a3040; border-radius: 14px; padding: 13px 56px 13px 16px; font-size: 15px; font-weight: 700; color: #fff; outline: none; }
+    .inp input:focus { border-color: #3b5bff; }
+    .inp b { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 13px; color: #8b92a1; }
+    .qrbox { background: #fff; padding: 12px; border-radius: 16px; display: inline-block; margin: 12px 0; }
+    .addr { font-family: monospace; font-size: 11px; color: #9ca3af; word-break: break-all; background: #0a0b0d; padding: 10px; border-radius: 10px; margin-bottom: 12px; }
+    .btn { width: 100%; padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 800; background: #2563eb; color: #fff; border: none; cursor: pointer; }
+    .btn.ghost { background: #0a0b0d; color: #9ca3af; margin-top: 8px; border: 1px solid #222630; }
+    .msg { font-size: 12px; font-weight: 700; color: #ff5a6a; min-height: 18px; margin-bottom: 10px; }
+    .msg.ok { color: #10b981; }
+    .srow { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid #242b38; font-size: 13px; text-align: left; }
+    .srow span:last-child { color: #9ca3af; word-break: break-all; }
   </style>
 </head>
 <body>
@@ -73,21 +92,21 @@
     </div>
 
     <div class="acts">
-      <button class="act" onclick="alert('Send feature')"><span>&uarr;</span>Send</button>
-      <button class="act" onclick="alert('Receive feature')"><span>&darr;</span>Receive</button>
-      <button class="act" onclick="alert('Buy feature')"><span>+</span>Buy</button>
-      <button class="act" onclick="alert('Swap feature')"><span>&#8644;</span>Swap</button>
+      <button class="act" onclick="openSend()"><span>&uarr;</span>Send</button>
+      <button class="act" onclick="openReceive('SHM')"><span>&darr;</span>Receive</button>
+      <button class="act" onclick="alert('Coming soon')"><span>+</span>Buy</button>
+      <button class="act" onclick="alert('Coming soon')"><span>&#8644;</span>Swap</button>
     </div>
 
     <div class="token-section">
       <div class="token-title">
-        <span>Live Token Rates (INR)</span>
-        <span style="font-size: 11px; color: #10b981;">Live Feed</span>
+        <span>Tokens (Tap to Receive / QR)</span>
+        <span style="font-size: 11px; color: #10b981;">Live Rates</span>
       </div>
       <div class="token-list">
         
-        <!-- 1. Shardeum Official Blue Logo -->
-        <div class="token-row">
+        <!-- 1. Shardeum -->
+        <div class="token-row" onclick="openReceive('SHM')">
           <div class="token-info">
             <div class="token-icon" style="background: #1c42ff;">
               <img src="https://assets.coingecko.com/coins/images/27047/large/shardeum.png" alt="SHM" />
@@ -97,11 +116,14 @@
               <span class="token-sym">SHM</span>
             </div>
           </div>
-          <div class="token-price" id="price-shm">Loading...</div>
+          <div class="token-right">
+            <div class="token-bal" id="bal-shm">0.000</div>
+            <div class="token-price" id="price-shm">Loading...</div>
+          </div>
         </div>
 
-        <!-- 2. Bitcoin Official Logo -->
-        <div class="token-row">
+        <!-- 2. Bitcoin -->
+        <div class="token-row" onclick="openReceive('BTC')">
           <div class="token-info">
             <div class="token-icon">
               <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC" />
@@ -111,11 +133,14 @@
               <span class="token-sym">BTC</span>
             </div>
           </div>
-          <div class="token-price" id="price-btc">Fetching...</div>
+          <div class="token-right">
+            <div class="token-bal">0.000000</div>
+            <div class="token-price" id="price-btc">Fetching...</div>
+          </div>
         </div>
 
-        <!-- 3. Ethereum Official Logo -->
-        <div class="token-row">
+        <!-- 3. Ethereum -->
+        <div class="token-row" onclick="openReceive('ETH')">
           <div class="token-info">
             <div class="token-icon">
               <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH" />
@@ -125,11 +150,14 @@
               <span class="token-sym">ETH</span>
             </div>
           </div>
-          <div class="token-price" id="price-eth">Fetching...</div>
+          <div class="token-right">
+            <div class="token-bal">0.0000</div>
+            <div class="token-price" id="price-eth">Fetching...</div>
+          </div>
         </div>
 
-        <!-- 4. Tether Official Logo -->
-        <div class="token-row">
+        <!-- 4. Tether -->
+        <div class="token-row" onclick="openReceive('USDT')">
           <div class="token-info">
             <div class="token-icon">
               <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT" />
@@ -139,131 +167,242 @@
               <span class="token-sym">USDT</span>
             </div>
           </div>
-          <div class="token-price" id="price-usdt">&#8377;89.50</div>
+          <div class="token-right">
+            <div class="token-bal">0.00</div>
+            <div class="token-price" id="price-usdt">&#8377;89.50</div>
+          </div>
         </div>
 
-        <!-- 5. Solana Official Logo -->
-        <div class="token-row">
+        <!-- 5. BNB -->
+        <div class="token-row" onclick="openReceive('BNB')">
           <div class="token-info">
             <div class="token-icon">
-              <img src="https://assets.coingecko.com/coins/images/4128/large/solana.png" alt="SOL" />
+              <img src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BNB" />
             </div>
             <div class="token-names">
-              <span class="token-name">Solana</span>
-              <span class="token-sym">SOL</span>
+              <span class="token-name">BNB</span>
+              <span class="token-sym">BNB</span>
             </div>
           </div>
-          <div class="token-price" id="price-sol">Fetching...</div>
+          <div class="token-right">
+            <div class="token-bal">0.0000</div>
+            <div class="token-price" id="price-bnb">Fetching...</div>
+          </div>
         </div>
 
       </div>
     </div>
 
-    <div class="gullak-card">
-      <div class="gullak-title">Total in Gullak</div>
-      <div class="gullak-bal">&#8377;0</div>
-      <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">No gullak customers yet</div>
-    </div>
-
-    <div class="qr-box">
-      <div style="font-size: 13px; color: #9ca3af; margin-bottom: 8px;">Scan QR to Pay</div>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=cryptopay-shardeum" alt="QR" />
-    </div>
-
     <nav>
-      <button class="a">Home</button>
-      <button>Swap</button>
-      <button>Settings</button>
+      <button class="a" onclick="closeAll()">Home</button>
+      <button onclick="alert('Coming soon')">Swap</button>
+      <button onclick="openSettings()">Settings</button>
     </nav>
+
+    <!-- SEND PANEL -->
+    <div class="shade" id="sheetSend" onclick="if(event.target===this)closeAll()">
+      <div class="panel">
+        <div class="grab"></div>
+        <div class="ttl">Send SHM</div>
+        <div class="inp"><input id="sendTo" placeholder="Recipient address (0x…)"></div>
+        <div class="inp"><input type="number" id="sendAmt" placeholder="Amount" step="any" min="0"><b>SHM</b></div>
+        <div class="msg" id="sendMsg"></div>
+        <button class="btn" id="sendBtn" onclick="sendSHM()">Send Now</button>
+        <button class="btn ghost" onclick="closeAll()">Close</button>
+      </div>
+    </div>
+
+    <!-- SETTINGS PANEL -->
+    <div class="shade" id="sheetSet" onclick="if(event.target===this)closeAll()">
+      <div class="panel">
+        <div class="grab"></div>
+        <div class="ttl">Settings</div>
+        <div class="srow"><span>Wallet</span><span id="setAddr">Not connected</span></div>
+        <div class="srow"><span>Network</span><span id="setNet">Shardeum EVM (8118)</span></div>
+        <div class="srow"><span>Price refresh</span><span>Live (Automatic)</span></div>
+        <button class="btn" style="margin-top:14px" onclick="fetchPrices()">Refresh prices now</button>
+        <button class="btn ghost" onclick="location.reload()">Disconnect</button>
+        <button class="btn ghost" onclick="closeAll()">Close</button>
+      </div>
+    </div>
+
+    <!-- REAL DYNAMIC RECEIVE / QR PANEL -->
+    <div class="shade" id="shade" onclick="if(event.target===this)closeAll()">
+      <div class="panel">
+        <div class="grab"></div>
+        <div class="ttl" id="ttl">Receive SHM</div>
+        <div class="inp" id="inp"><input type="number" id="payAmount" placeholder="Amount (optional)" oninput="drawQR()" step="any" min="0"><b id="qrSym">SHM</b></div>
+        <div class="qrbox" id="qrcode"></div>
+        <div class="addr" id="addrBox"></div>
+        <button class="btn" id="copyBtn" onclick="copyAddress()">Copy address</button>
+        <button class="btn ghost" onclick="closeAll()">Close</button>
+      </div>
+    </div>
   </div>
 
   <script>
-    const USDT_INR_RATE = 89.5;
+    const CHAIN = '0x1fb6'; // Shardeum EVM = 8118
+    let addr = '', sel = 'SHM', shmBal = '0.000', shmInr = 0.00375;
+    let USDT_INR_RATE = 89.5;
 
-    function getChainName(chainId) {
-      if (chainId === '0x1fb6' || chainId === 8118 || chainId === '8118') return 'Shardeum';
-      if (chainId === '0x38' || chainId === 56 || chainId === '56') return 'BNB Chain';
-      if (chainId === '0x1' || chainId === 1 || chainId === '1') return 'Ethereum';
-      if (chainId === '0x89' || chainId === 137 || chainId === '137') return 'Polygon';
-      return 'EVM (' + chainId + ')';
+    function getChainName(c) {
+      if (c === '0x1fb6' || c === 8118 || c === '8118') return 'Shardeum';
+      if (c === '0x38' || c === 56 || c === '56') return 'BNB Chain';
+      if (c === '0x1' || c === 1 || c === '1') return 'Ethereum';
+      if (c === '0x89' || c === 137 || c === '137') return 'Polygon';
+      return 'EVM (' + c + ')';
     }
 
     async function updateNetworkDisplay() {
       if (!window.ethereum) return;
       try {
-        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-        const name = getChainName(chainId);
-        const netElem = document.getElementById('netName');
-        if (netElem) netElem.innerText = name;
-      } catch (err) {}
+        const c = await window.ethereum.request({ method: 'eth_chainId' });
+        const netName = getChainName(c);
+        const elem = document.getElementById('netName');
+        if (elem) elem.innerText = netName;
+        const setNet = document.getElementById('setNet');
+        if (setNet) setNet.innerText = netName;
+      } catch(e) {}
     }
 
-    async function fetchOneSecondTicker() {
+    async function connectWallet() {
+      if (!window.ethereum) { alert('MetaMask not found!'); return; }
       try {
-        const res = await fetch("https://api.binance.com/api/v3/ticker/price?symbols=[%22BTCUSDT%22,%22ETHUSDT%22,%22SOLUSDT%22]");
-        const data = await res.json();
+        const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        addr = accs[0];
+        const short = addr.slice(0, 6) + "..." + addr.slice(-4);
+        const chip = document.getElementById('chip');
+        chip.innerText = short;
+        chip.classList.add('on');
         
-        data.forEach(item => {
-          const usdPrice = parseFloat(item.price);
-          const inrPrice = (usdPrice * USDT_INR_RATE).toFixed(2);
-          
-          if (item.symbol === "BTCUSDT") {
-            document.getElementById("price-btc").innerText = "₹" + Number(inrPrice).toLocaleString('en-IN');
-          }
-          if (item.symbol === "ETHUSDT") {
-            document.getElementById("price-eth").innerText = "₹" + Number(inrPrice).toLocaleString('en-IN');
-          }
-          if (item.symbol === "SOLUSDT") {
-            document.getElementById("price-sol").innerText = "₹" + Number(inrPrice).toLocaleString('en-IN');
-          }
-        });
-      } catch (err) {}
+        await updateNetworkDisplay();
+        await refreshBal();
+      } catch (err) { alert('Connection rejected'); }
     }
 
-    async function fetchShardeumLive() {
+    async function refreshBal() {
+      if (!addr || !window.ethereum) return;
       try {
-        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=shardeum&vs_currencies=inr");
-        const data = await res.json();
-        if (data && data.shardeum && data.shardeum.inr !== undefined) {
-          const liveSHM = data.shardeum.inr;
-          document.getElementById("price-shm").innerText = "₹" + liveSHM;
-          document.getElementById("feed").innerHTML = '<span class="pulse-dot"></span> Live SHM: ₹' + liveSHM;
+        const c = await window.ethereum.request({ method: 'eth_chainId' });
+        if (c === CHAIN) {
+          const h = await window.ethereum.request({ method: 'eth_getBalance', params: [addr, 'latest'] });
+          shmBal = (Number(BigInt(h)) / 1e18).toFixed(3);
+          document.getElementById('bal-shm').innerText = shmBal;
+          updateTotal();
+        } else {
+          document.getElementById('bal-shm').innerText = '0.000';
+          document.getElementById('total').innerText = '₹0.00';
         }
-      } catch (e) {}
+      } catch(e) {}
     }
 
-    function connectWallet() {
-      if (window.ethereum) {
-        window.ethereum.request({ method: 'eth_requestAccounts' })
-          .then(async (acc) => {
-            const short = acc[0].slice(0, 6) + "..." + acc[0].slice(-4);
-            document.getElementById("chip").innerText = short;
-            await updateNetworkDisplay();
-          })
-          .catch(() => alert("Connection rejected"));
-      } else {
-        alert("Please install MetaMask!");
-      }
+    function updateTotal() {
+      const b = parseFloat(shmBal) || 0;
+      const t = (b * shmInr).toFixed(2);
+      document.getElementById('total').innerText = '₹' + Number(t).toLocaleString('en-IN');
     }
 
-    if (window.ethereum) {
-      window.ethereum.on('chainChanged', () => {
-        updateNetworkDisplay();
-      });
-      window.ethereum.on('accountsChanged', () => {
-        location.reload();
-      });
+    function closeAll() {
+      document.querySelectorAll('.shade').forEach(s => s.classList.remove('open'));
     }
 
-    window.onload = () => {
-      fetchOneSecondTicker();
-      fetchShardeumLive();
-      updateNetworkDisplay();
+    /* SEND LOGIC */
+    function openSend() {
+      if (!addr) { connectWallet(); return; }
+      document.getElementById('sendMsg').innerText = '';
+      document.getElementById('sheetSend').classList.add('open');
+    }
+
+    function toWei(s) {
+      if (!/^\d*\.?\d*$/.test(s) || s === '.' || s === '') return null;
+      const [i, f = ''] = s.split('.');
+      const w = BigInt(i || '0') * 10n ** 18n + BigInt((f + '0'.repeat(18)).slice(0, 18));
+      return w > 0n ? w.toString() : null;
+    }
+
+    async function sendSHM() {
+      const to = document.getElementById('sendTo').value.trim();
+      const amt = document.getElementById('sendAmt').value.trim();
+      const wei = toWei(amt);
+      const msg = document.getElementById('sendMsg');
+      if (!/^0x[0-9a-fA-F]{40}$/.test(to)) { msg.innerText = 'Enter valid 0x address'; return; }
+      if (!wei) { msg.innerText = 'Enter valid amount'; return; }
+      if (parseFloat(amt) > parseFloat(shmBal)) { msg.innerText = 'Not enough SHM balance'; return; }
       
-      setInterval(fetchOneSecondTicker, 2000);
-      setInterval(fetchShardeumLive, 10000);
-    };
-  </script>
+      try {
+        if (await window.ethereum.request({ method: 'eth_chainId' }) !== CHAIN) {
+          msg.innerText = 'Switch MetaMask to Shardeum EVM (8118)';
+          return;
+        }
+        document.getElementById('sendBtn').disabled = true;
+        msg.innerText = 'Confirm in MetaMask…';
+        const hash = await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [{ from: addr, to, value: '0x' + BigInt(wei).toString(16) }]
+        });
+        msg.className = 'msg ok';
+        msg.innerText = 'Sent ✓ ' + hash.slice(0, 10) + '…';
+        document.getElementById('sendAmt').value = '';
+        setTimeout(refreshBal, 4000);
+      } catch (e) {
+        msg.className = 'msg';
+        msg.innerText = e.code === 4001 ? 'Cancelled in MetaMask' : 'Transaction failed';
+      }
+      document.getElementById('sendBtn').disabled = false;
+    }
 
-</body>
-</html>
+    /* REAL RECEIVE / QR LOGIC */
+    async function openReceive(k) {
+      if (!addr) { await connectWallet(); if (!addr) return; }
+      sel = k;
+      document.getElementById('ttl').innerText = 'Receive ' + k;
+      document.getElementById('qrSym').innerText = k;
+      document.getElementById('payAmount').value = '';
+      document.getElementById('inp').style.display = (k === 'SHM' ? 'block' : 'none');
+      document.getElementById('addrBox').innerText = addr;
+      document.getElementById('shade').classList.add('open');
+      drawQR();
+    }
+
+    function drawQR() {
+      if (!addr) return;
+      let text = addr;
+      if (sel === 'SHM') {
+        const val = document.getElementById('payAmount').value.trim();
+        const wei = toWei(val);
+        if (wei) text = 'ethereum:' + addr + '@8118?value=' + wei;
+      }
+      const box = document.getElementById('qrcode');
+      box.innerHTML = '';
+      new QRCode(box, { text, width: 160, height: 160, colorDark: '#000', colorLight: '#fff', correctLevel: QRCode.CorrectLevel.H });
+    }
+
+    function copyAddress() {
+      if (!addr) return;
+      navigator.clipboard.writeText(addr).then(() => {
+        const b = document.getElementById('copyBtn');
+        b.innerText = '✓ Copied';
+        setTimeout(() => b.innerText = 'Copy address', 2000);
+      });
+    }
+
+    function openSettings() {
+      document.getElementById('setAddr').innerText = addr || 'Not connected';
+      document.getElementById('sheetSet').classList.add('open');
+    }
+
+    /* LIVE PRICES */
+    async function fetchPrices() {
+      try {
+        const res = await fetch("https://api.binance.com/api/v3/ticker/price?symbols=[%22BTCUSDT%22,%22ETHUSDT%22,%22BNBUSDT%22]");
+        const data = await res.json();
+        data.forEach(item => {
+          const inr = (parseFloat(item.price) * USDT_INR_RATE).toFixed(2);
+          if (item.symbol === "BTCUSDT") document.getElementById("price-btc").innerText = "₹" + Number(inr).toLocaleString('en-IN');
+          if (item.symbol === "ETHUSDT") document.getElementById("price-eth").innerText = "₹" + Number(inr).toLocaleString('en-IN');
+          if (item.symbol === "BNBUSDT") document.getElementById("price-bnb").innerText = "₹" + Number(inr).toLocaleString('en-IN');
+        });
+      } catch(e) {}
+
+      try {
+        const d = await (await fetch("https://api.dexscreener.com/lates

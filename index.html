@@ -1,356 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Crypto Pay</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<style>
-:root{--bg:#0a0b0f;--sf:#14161c;--ln:rgba(255,255,255,.07);--blue:#3b5bff;--g:#2ed47a;--r:#ff5a6a;--mut:#8b92a1}
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:var(--bg);color:#fff}
-.app{width:100%;max-width:420px;height:100dvh;margin:0 auto;display:flex;flex-direction:column;position:relative;overflow:hidden}
-header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 6px}
-.chip{background:var(--sf);border:1px solid var(--ln);color:#fff;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer}
-.chip.on{color:var(--g)}
-.net{font-size:12px;font-weight:700;color:var(--mut);display:flex;align-items:center;gap:6px}
-.net:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--blue)}
-.hero{text-align:center;padding:22px 16px 8px}
-.lbl{font-size:13px;color:var(--mut);font-weight:600}
-.total{font-size:40px;font-weight:800;margin:6px 0 4px;letter-spacing:-1px}
-.feed{font-size:12px;font-weight:700;color:var(--mut)}
-.feed.ok{color:var(--g)}.feed.bad{color:var(--r)}
-.acts{display:flex;justify-content:space-around;padding:18px 12px 14px}
-.act{background:none;border:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;width:72px}
-.act span{width:52px;height:52px;border-radius:50%;background:var(--sf);border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:21px;color:var(--blue)}
-.act.dim{opacity:.45}
-.tabs{display:flex;gap:22px;padding:0 18px;border-bottom:1px solid var(--ln);font-size:15px;font-weight:700}
-.tabs b{padding:10px 0;border-bottom:2px solid var(--blue)}
-.list{flex:1;overflow-y:auto;padding:6px 8px}
-.row{display:flex;align-items:center;gap:12px;padding:12px 10px;border-radius:14px;cursor:pointer}
-.row:active{background:var(--sf)}
-.ic{border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
-.ic img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.mid{flex:1;min-width:0}
-.sym{font-size:16px;font-weight:700}
-.sub{font-size:12px;font-weight:600;color:var(--mut);margin-top:2px}
-.rt{text-align:right}
-.amt{font-size:15px;font-weight:700}
-nav{display:flex;justify-content:space-around;border-top:1px solid var(--ln);padding:8px 0 calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg)}
-nav button{background:none;border:none;color:var(--mut);font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
-nav button i{font-style:normal;font-size:19px}
-nav .a{color:var(--blue)}
-.shade{position:absolute;inset:0;background:rgba(0,0,0,.6);display:none;align-items:flex-end;z-index:5}
-.shade.open{display:flex}
-.panel{background:var(--sf);width:100%;border-radius:22px 22px 0 0;padding:16px 18px calc(18px + env(safe-area-inset-bottom,0px));text-align:center;max-height:92dvh;overflow-y:auto}
-.grab{width:40px;height:4px;border-radius:2px;background:var(--ln);margin:0 auto 14px}
-.ttl{font-size:18px;font-weight:800;margin-bottom:12px}
-.warn{font-size:12px;font-weight:700;color:var(--r);margin-bottom:10px;display:none}
-.inp{position:relative;margin-bottom:12px;display:none}
-.inp input{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:14px;padding:13px 56px 13px 16px;font-size:16px;font-weight:700;color:#fff;outline:none}
-.inp input:focus{border-color:var(--blue)}
-.inp b{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--mut)}
-.cap{font-size:12px;font-weight:600;color:var(--mut);margin-bottom:10px}
-.qrbox{background:#fff;padding:12px;border-radius:16px;display:inline-block;margin-bottom:12px}
-.addr{font-family:monospace;font-size:11px;color:var(--mut);word-break:break-all;background:var(--bg);padding:9px 12px;border-radius:10px;margin-bottom:12px}
-.btn{width:100%;padding:14px;border-radius:14px;font-size:15px;font-weight:800;background:var(--blue);color:#fff;border:none;cursor:pointer}
-.btn.ghost{background:var(--bg);color:var(--mut);margin-top:8px}
-.msg{font-size:12px;font-weight:700;color:var(--r);min-height:16px;margin-bottom:10px}
-.msg.ok{color:var(--g)}
-.srow{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--ln);font-size:14px;font-weight:600;text-align:left}
-.srow span:last-child{color:var(--mut);word-break:break-all;text-align:right}
-.gap{height:14px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Pay</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #0a0b0d; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px; }
+    .app { width: 100%; max-width: 420px; background: #121418; border-radius: 24px; padding: 20px; border: 1px solid #222630; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { width: 38px; height: 38px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; color: #000; }
+    .brand-title { font-size: 18px; font-weight: 700; color: #fff; }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .net { font-size: 12px; font-weight: 700; color: #8b92a1; display: flex; align-items: center; gap: 6px; }
+    .net:before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #3b5bff; }
+    .chip { background: #2563eb; color: #fff; border: none; padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    
+    .hero { background: linear-gradient(135deg, #1e2330 0%, #151821 100%); border-radius: 18px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a3040; }
+    .lbl { font-size: 13px; color: #9ca3af; margin-bottom: 6px; }
+    .total { font-size: 32px; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
+    .feed { font-size: 13px; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .pulse-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
+    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    
+    .acts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+    .act { background: #1a1e28; border: 1px solid #283040; border-radius: 14px; padding: 12px 6px; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
+    .act span { font-size: 18px; }
+    
+    .token-section { margin-bottom: 20px; }
+    .token-title { font-size: 14px; font-weight: 600; color: #9ca3af; margin-bottom: 12px; display: flex; justify-content: space-between; }
+    .token-list { display: flex; flex-direction: column; gap: 10px; }
+    .token-row { display: flex; justify-content: space-between; align-items: center; background: #161922; padding: 12px 14px; border-radius: 14px; border: 1px solid #242b38; }
+    .token-info { display: flex; align-items: center; gap: 12px; }
+    .token-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+    .token-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .token-names { display: flex; flex-direction: column; }
+    .token-name { font-size: 14px; font-weight: 600; color: #fff; }
+    .token-sym { font-size: 11px; color: #9ca3af; }
+    .token-price { font-size: 14px; font-weight: 600; color: #10b981; font-variant-numeric: tabular-nums; }
+
+    .gullak-card { background: #231c12; border: 1px solid #4a3818; border-radius: 16px; padding: 16px; margin-bottom: 20px; }
+    .gullak-title { font-size: 13px; color: #f59e0b; margin-bottom: 4px; }
+    .gullak-bal { font-size: 20px; font-weight: 700; color: #fff; }
+    
+    .qr-box { background: #1a1e28; border-radius: 16px; padding: 20px; text-align: center; border: 1px solid #283040; margin-bottom: 20px; }
+    .qr-box img { width: 130px; height: 130px; border-radius: 10px; background: #fff; padding: 6px; }
+
+    nav { display: flex; justify-content: space-around; background: #151821; border-radius: 16px; padding: 12px; border: 1px solid #222735; }
+    nav button { background: none; border: none; color: #9ca3af; font-size: 13px; cursor: pointer; }
+    nav button.a { color: #f59e0b; font-weight: 600; }
+  </style>
 </head>
 <body>
-<div class="app">
-  <header>
-    <button class="chip" id="chip" onclick="connectWallet()">Connect MetaMask</button>
-    <div class="net">Shardeum</div>
-  </header>
 
-  <div class="hero">
-    <div class="lbl">Total balance</div>
-    <div class="total" id="total">₹0.00</div>
-    <div class="feed" id="feed">Loading prices…</div>
-  </div>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">P</div>
+        <div class="brand-title">Crypto Pay</div>
+      </div>
+      <div class="header-right">
+        <div class="net" id="netName">Shardeum</div>
+        <button class="chip" id="chip" onclick="connectWallet()">Connect</button>
+      </div>
+    </header>
 
-  <div class="acts">
-    <button class="act" onclick="openSend()"><span>↑</span>Send</button>
-    <button class="act" onclick="openReceive('SHM')"><span>↓</span>Receive</button>
-    <button class="act dim" onclick="soon()"><span>＋</span>Buy</button>
-    <button class="act dim" onclick="soon()"><span>⇄</span>Swap</button>
-  </div>
-
-  <div class="tabs"><b>Crypto</b></div>
-  <div class="list" id="list"></div>
-
-  <nav>
-    <button class="a" onclick="closeAll()"><i>⌂</i>Home</button>
-    <button onclick="soon()"><i>⇄</i>Swap</button>
-    <button onclick="soon()"><i>✦</i>Discover</button>
-    <button onclick="openSettings()"><i>⚙</i>Settings</button>
-  </nav>
-
-  <div class="shade" id="sheetSend" onclick="if(event.target===this)closeAll()">
-    <div class="panel"><div class="grab"></div><div class="ttl">Send SHM</div>
-      <div class="inp" style="display:block"><input id="sendTo" placeholder="Recipient address (0x…)" style="padding-right:16px"></div>
-      <div class="inp" style="display:block"><input type="number" id="sendAmt" placeholder="Amount" step="any" min="0"><b>SHM</b></div>
-      <div class="msg" id="sendMsg"></div>
-      <button class="btn" id="sendBtn" onclick="sendSHM()">Send</button>
-      <button class="btn ghost" onclick="closeAll()">Close</button>
+    <div class="hero">
+      <div class="lbl">Total balance</div>
+      <div class="total" id="total">&#8377;0.00</div>
+      <div class="feed" id="feed"><span class="pulse-dot"></span> Live Rates Connected</div>
     </div>
-  </div>
 
-  <div class="shade" id="sheetSet" onclick="if(event.target===this)closeAll()">
-    <div class="panel"><div class="grab"></div><div class="ttl">Settings</div>
-      <div class="srow"><span>Wallet</span><span id="setAddr">Not connected</span></div>
-      <div class="srow"><span>Network</span><span>Shardeum EVM (8118)</span></div>
-      <div class="srow"><span>Price refresh</span><span>Every 30 seconds</span></div>
-      <div class="gap"></div>
-      <button class="btn" onclick="fetchPrices()">Refresh prices now</button>
-      <button class="btn ghost" onclick="location.reload()">Disconnect</button>
-      <button class="btn ghost" onclick="closeAll()">Close</button>
+    <div class="acts">
+      <button class="act" onclick="alert('Send feature')"><span>&uarr;</span>Send</button>
+      <button class="act" onclick="alert('Receive feature')"><span>&darr;</span>Receive</button>
+      <button class="act" onclick="alert('Buy feature')"><span>+</span>Buy</button>
+      <button class="act" onclick="alert('Swap feature')"><span>&#8644;</span>Swap</button>
     </div>
-  </div>
 
-  <div class="shade" id="shade" onclick="if(event.target===this)closeSheet()">
-    <div class="panel">
-      <div class="grab"></div>
-      <div class="ttl" id="ttl">Receive SHM</div>
-      <div class="warn" id="warn">⚠ Switch MetaMask to Shardeum EVM (chain 8118)</div>
-      <div class="inp" id="inp"><input type="number" id="payAmount" placeholder="Amount (optional)" oninput="drawQR()" step="any" min="0"><b>SHM</b></div>
-      <div class="cap" id="cap"></div>
-      <div class="qrbox" id="qrcode"></div>
-      <div class="addr" id="addrBox"></div>
-      <button class="btn" id="copyBtn" onclick="copyAddress()">Copy address</button>
-      <button class="btn ghost" onclick="closeSheet()">Close</button>
+    <div class="token-section">
+      <div class="token-title">
+        <span>Live Token Rates (INR)</span>
+        <span style="font-size: 11px; color: #10b981;">Live Feed</span>
+      </div>
+      <div class="token-list">
+        
+        <!-- 1. Shardeum Official Blue Logo -->
+        <div class="token-row">
+          <div class="token-info">
+            <div class="token-icon" style="background: #1c42ff;">
+              <img src="https://assets.coingecko.com/coins/images/27047/large/shardeum.png" alt="SHM" />
+            </div>
+            <div class="token-names">
+              <span class="token-name">Shardeum</span>
+              <span class="token-sym">SHM</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-shm">Loading...</div>
+        </div>
+
+        <!-- 2. Bitcoin Official Logo -->
+        <div class="token-row">
+          <div class="token-info">
+            <div class="token-icon">
+              <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC" />
+            </div>
+            <div class="token-names">
+              <span class="token-name">Bitcoin</span>
+              <span class="token-sym">BTC</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-btc">Fetching...</div>
+        </div>
+
+        <!-- 3. Ethereum Official Logo -->
+        <div class="token-row">
+          <div class="token-info">
+            <div class="token-icon">
+              <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH" />
+            </div>
+            <div class="token-names">
+              <span class="token-name">Ethereum</span>
+              <span class="token-sym">ETH</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-eth">Fetching...</div>
+        </div>
+
+        <!-- 4. Tether Official Logo -->
+        <div class="token-row">
+          <div class="token-info">
+            <div class="token-icon">
+              <img src="https://assets.coingecko.com/coins/images/325/large/Tether.png" alt="USDT" />
+            </div>
+            <div class="token-names">
+              <span class="token-name">Tether</span>
+              <span class="token-sym">USDT</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-usdt">&#8377;89.50</div>
+        </div>
+
+        <!-- 5. Solana Official Logo -->
+        <div class="token-row">
+          <div class="token-info">
+            <div class="token-icon">
+              <img src="https://assets.coingecko.com/coins/images/4128/large/solana.png" alt="SOL" />
+            </div>
+            <div class="token-names">
+              <span class="token-name">Solana</span>
+              <span class="token-sym">SOL</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-sol">Fetching...</div>
+        </div>
+
+      </div>
     </div>
+
+    <div class="gullak-card">
+      <div class="gullak-title">Total in Gullak</div>
+      <div class="gullak-bal">&#8377;0</div>
+      <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">No gullak customers yet</div>
+    </div>
+
+    <div class="qr-box">
+      <div style="font-size: 13px; color: #9ca3af; margin-bottom: 8px;">Scan QR to Pay</div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=cryptopay-shardeum" alt="QR" />
+    </div>
+
+    <nav>
+      <button class="a">Home</button>
+      <button>Swap</button>
+      <button>Settings</button>
+    </nav>
   </div>
-</div>
 
-<script>
-const CHAIN = '0x1fb6'; // Shardeum EVM = 8118
-const SHM_SVG = '<svg width="24" height="24" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><polygon points="100,26 138,92 62,92" fill="#ffffff"/><polygon points="56,102 94,168 18,168" fill="#ffffff"/><polygon points="144,102 182,168 106,168" fill="#ffffff"/><circle cx="100" cy="116" r="17" fill="#ffffff"/></svg>';
+  <script>
+    const USDT_INR_RATE = 89.5;
 
-const T = {
-  SHM:  {name:'Shardeum',   color:'#000000', cg:'shardeum',    bal:'0.000',    p:null, img:null},
-  USDT: {name:'Tether USD', color:'#26a17b', cg:'tether',      bal:'0.00',     p:null, img:'https://assets.coingecko.com/coins/images/325/large/Tether.png'},
-  BTC:  {name:'Bitcoin',    color:'#f7931a', cg:'bitcoin',     bn:'BTCUSDT', bal:'0.000000', p:null, img:'https://assets.coingecko.com/coins/images/1/large/bitcoin.png'},
-  ETH:  {name:'Ethereum',   color:'#627eea', cg:'ethereum',    bn:'ETHUSDT', bal:'0.0000',   p:null, img:'https://assets.coingecko.com/coins/images/279/large/ethereum.png'},
-  BNB:  {name:'BNB',        color:'#f3ba2f', cg:'binancecoin', bn:'BNBUSDT', bal:'0.0000',   p:null, img:'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png'}
-};
-let addr = '', sel = 'SHM', fxCache = 0;
-
-const fmt = n => n.toLocaleString('en-IN', {maximumFractionDigits: n < 1 ? 6 : 2});
-const soon = () => alert('Coming soon');
-
-function icon(k, s) {
-  const t = T[k];
-  if (k === 'SHM') {
-    return '<div class="ic" style="width:' + s + 'px;height:' + s + 'px;background:' + t.color + ';border:1px solid rgba(255,255,255,0.15)">' + SHM_SVG + '</div>';
-  }
-  return '<div class="ic" style="width:' + s + 'px;height:' + s + 'px;background:' + t.color + '"><img src="' + t.img + '" alt="' + k + '"></div>';
-}
-
-/* ---------- LIVE PRICES ---------- */
-async function getJSON(url) {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(r.status + ' ' + url);
-  return r.json();
-}
-async function usdToInr() {
-  if (fxCache) return fxCache;
-  const d = await getJSON('https://open.er-api.com/v6/latest/USD');
-  return (fxCache = d.rates.INR);
-}
-
-async function fetchPrices() {
-  const got = {};
-  try {
-    const d = await getJSON('https://api.coingecko.com/api/v3/simple/price?ids=' +
-      Object.values(T).map(t => t.cg).join(',') + '&vs_currencies=usd,inr&include_24hr_change=true');
-    for (const k in T) {
-      const x = d[T[k].cg];
-      if (x && x.usd) got[k] = {usd: x.usd, inr: x.inr, chg: x.inr_24h_change ?? x.usd_24h_change};
+    function getChainName(chainId) {
+      if (chainId === '0x1fb6' || chainId === 8118 || chainId === '8118') return 'Shardeum';
+      if (chainId === '0x38' || chainId === 56 || chainId === '56') return 'BNB Chain';
+      if (chainId === '0x1' || chainId === 1 || chainId === '1') return 'Ethereum';
+      if (chainId === '0x89' || chainId === 137 || chainId === '137') return 'Polygon';
+      return 'EVM (' + chainId + ')';
     }
-    if (got.USDT && got.USDT.usd) fxCache = got.USDT.inr / got.USDT.usd;
-  } catch (e) { console.error('CoinGecko failed:', e.message); }
 
-  const need = Object.keys(T).filter(k => !got[k] && T[k].bn);
-  if (need.length) {
-    try {
-      const syms = encodeURIComponent(JSON.stringify(need.map(k => T[k].bn)));
-      const [rows, fx] = await Promise.all([getJSON('https://api.binance.com/api/v3/ticker/24hr?symbols=' + syms), usdToInr()]);
-      rows.forEach(r => {
-        const k = need.find(n => T[n].bn === r.symbol), usd = parseFloat(r.lastPrice);
-        if (k && usd) got[k] = {usd, inr: usd * fx, chg: parseFloat(r.priceChangePercent)};
-      });
-    } catch (e) { console.error('Binance failed:', e.message); }
-  }
+    async function updateNetworkDisplay() {
+      if (!window.ethereum) return;
+      try {
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        const name = getChainName(chainId);
+        const netElem = document.getElementById('netName');
+        if (netElem) netElem.innerText = name;
+      } catch (err) {}
+    }
 
-  if (!got.SHM) {
-    try {
-      const d = await getJSON('https://api.dexscreener.com/latest/dex/search?q=SHM');
-      const pair = (d.pairs || [])
-        .filter(p => p.chainId === 'shardeum' && p.baseToken && p.baseToken.symbol.toUpperCase() === 'SHM' && p.priceUsd)
-        .sort((a, b) => ((b.liquidity && b.liquidity.usd) || 0) - ((a.liquidity && a.liquidity.usd) || 0))[0];
-      if (pair) {
-        const usd = parseFloat(pair.priceUsd), fx = await usdToInr();
-        got.SHM = {usd, inr: usd * fx, chg: pair.priceChange ? pair.priceChange.h24 : null};
+    async function fetchOneSecondTicker() {
+      try {
+        const res = await fetch("https://api.binance.com/api/v3/ticker/price?symbols=[%22BTCUSDT%22,%22ETHUSDT%22,%22SOLUSDT%22]");
+        const data = await res.json();
+        
+        data.forEach(item => {
+          const usdPrice = parseFloat(item.price);
+          const inrPrice = (usdPrice * USDT_INR_RATE).toFixed(2);
+          
+          if (item.symbol === "BTCUSDT") {
+            document.getElementById("price-btc").innerText = "₹" + Number(inrPrice).toLocaleString('en-IN');
+          }
+          if (item.symbol === "ETHUSDT") {
+            document.getElementById("price-eth").innerText = "₹" + Number(inrPrice).toLocaleString('en-IN');
+          }
+          if (item.symbol === "SOLUSDT") {
+            document.getElementById("price-sol").innerText = "₹" + Number(inrPrice).toLocaleString('en-IN');
+          }
+        });
+      } catch (err) {}
+    }
+
+    async function fetchShardeumLive() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=shardeum&vs_currencies=inr");
+        const data = await res.json();
+        if (data && data.shardeum && data.shardeum.inr !== undefined) {
+          const liveSHM = data.shardeum.inr;
+          document.getElementById("price-shm").innerText = "₹" + liveSHM;
+          document.getElementById("feed").innerHTML = '<span class="pulse-dot"></span> Live SHM: ₹' + liveSHM;
+        }
+      } catch (e) {}
+    }
+
+    function connectWallet() {
+      if (window.ethereum) {
+        window.ethereum.request({ method: 'eth_requestAccounts' })
+          .then(async (acc) => {
+            const short = acc[0].slice(0, 6) + "..." + acc[0].slice(-4);
+            document.getElementById("chip").innerText = short;
+            await updateNetworkDisplay();
+          })
+          .catch(() => alert("Connection rejected"));
+      } else {
+        alert("Please install MetaMask!");
       }
-    } catch (e) { console.error('DexScreener failed:', e.message); }
-  }
-
-  for (const k in T) T[k].p = got[k] || null;
-  const live = Object.values(T).some(t => t.p), f = document.getElementById('feed');
-  f.className = 'feed ' + (live ? 'ok' : 'bad');
-  f.textContent = live ? 'Live prices' : 'Price unavailable';
-  paintList();
-}
-
-/* ---------- HOME LIST ---------- */
-function paintList() {
-  let total = 0, missing = false;
-  document.getElementById('list').innerHTML = Object.keys(T).map(k => {
-    const t = T[k], p = t.p, bal = parseFloat(t.bal) || 0;
-    if (bal > 0) { if (p) total += bal * p.inr; else missing = true; }
-    const chg = p && typeof p.chg === 'number'
-      ? ' <span style="color:' + (p.chg < 0 ? 'var(--r)' : 'var(--g)') + '">' + (p.chg >= 0 ? '+' : '') + p.chg.toFixed(2) + '%</span>' : '';
-    const sub = p ? '₹' + fmt(p.inr) + chg : '<span style="color:var(--r)">Price unavailable</span>';
-    return '<div class="row" onclick="openReceive(\'' + k + '\')">' + icon(k, 42) +
-      '<div class="mid"><div class="sym">' + k + '</div><div class="sub">' + sub + '</div></div>' +
-      '<div class="rt"><div class="amt">' + t.bal + '</div><div class="sub">' + (p ? '₹' + fmt(bal * p.inr) : '—') + '</div></div></div>';
-  }).join('');
-  document.getElementById('total').textContent = missing ? '—' : '₹' + fmt(total);
-}
-
-/* ---------- RECEIVE ---------- */
-function toWei(s) {
-  if (!/^\d*\.?\d*$/.test(s) || s === '.' || s === '') return null;
-  const [i, f = ''] = s.split('.');
-  const w = BigInt(i || '0') * 10n ** 18n + BigInt((f + '0'.repeat(18)).slice(0, 18));
-  return w > 0n ? w.toString() : null;
-}
-
-async function openReceive(k) {
-  if (!addr) { await connectWallet(); if (!addr) return; }
-  sel = k;
-  document.getElementById('ttl').textContent = 'Receive ' + k;
-  document.getElementById('inp').style.display = k === 'SHM' ? 'block' : 'none';
-  document.getElementById('addrBox').textContent = addr;
-  document.getElementById('shade').classList.add('open');
-  drawQR();
-}
-function closeSheet() { document.getElementById('shade').classList.remove('open'); }
-
-function drawQR() {
-  if (!addr) return;
-  let text = addr, cap = 'Scan to send ' + sel + ' to this wallet';
-  if (sel === 'SHM') {
-    const amount = document.getElementById('payAmount').value.trim(), wei = toWei(amount);
-    if (wei) { text = 'ethereum:' + addr + '@8118?value=' + wei; cap = 'Scan to pay ' + amount + ' SHM'; }
-  } else {
-    cap = 'Address only – ' + sel + ' amount QR is not set up';
-  }
-  document.getElementById('cap').textContent = cap;
-  const box = document.getElementById('qrcode');
-  box.innerHTML = '';
-  new QRCode(box, {text, width: 170, height: 170, colorDark: '#000', colorLight: '#fff', correctLevel: QRCode.CorrectLevel.H});
-}
-
-/* ---------- WALLET ---------- */
-async function connectWallet() {
-  if (!window.ethereum) { alert('MetaMask not found!'); return; }
-  try {
-    const a = await ethereum.request({method: 'eth_requestAccounts'});
-    addr = a[0];
-    let c = await ethereum.request({method: 'eth_chainId'});
-    if (c !== CHAIN) {
-      try { await ethereum.request({method: 'wallet_switchEthereumChain', params: [{chainId: CHAIN}]}); c = await ethereum.request({method: 'eth_chainId'}); } catch (e) {}
     }
-    const ok = c === CHAIN;
-    if (ok) {
-      const h = await ethereum.request({method: 'eth_getBalance', params: [addr, 'latest']});
-      T.SHM.bal = (Number(BigInt(h)) / 1e18).toFixed(3);
+
+    if (window.ethereum) {
+      window.ethereum.on('chainChanged', () => {
+        updateNetworkDisplay();
+      });
+      window.ethereum.on('accountsChanged', () => {
+        location.reload();
+      });
     }
-    document.getElementById('warn').style.display = ok ? 'none' : 'block';
-    const chip = document.getElementById('chip');
-    chip.textContent = addr.slice(0, 6) + '…' + addr.slice(-4);
-    chip.classList.add('on');
-    chip.onclick = null;
-    paintList();
-  } catch (e) { alert('Error: ' + e.message); }
-}
 
-function copyAddress() {
-  if (!addr) return;
-  navigator.clipboard.writeText(addr).then(() => {
-    const b = document.getElementById('copyBtn');
-    b.textContent = '✓ Copied';
-    setTimeout(() => b.textContent = 'Copy address', 2000);
-  });
-}
+    window.onload = () => {
+      fetchOneSecondTicker();
+      fetchShardeumLive();
+      updateNetworkDisplay();
+      
+      setInterval(fetchOneSecondTicker, 2000);
+      setInterval(fetchShardeumLive, 10000);
+    };
+  </script>
 
-/* ---------- SEND (native SHM only) ---------- */
-function closeAll() { document.querySelectorAll('.shade').forEach(s => s.classList.remove('open')); }
-
-function sendMsg(text, good) {
-  const m = document.getElementById('sendMsg');
-  m.textContent = text;
-  m.className = 'msg' + (good ? ' ok' : '');
-}
-
-async function openSend() {
-  if (!addr) { await connectWallet(); if (!addr) return; }
-  sendMsg('');
-  document.getElementById('sheetSend').classList.add('open');
-}
-
-async function refreshBal() {
-  const h = await ethereum.request({method: 'eth_getBalance', params: [addr, 'latest']});
-  T.SHM.bal = (Number(BigInt(h)) / 1e18).toFixed(3);
-  paintList();
-}
-
-async function sendSHM() {
-  const to = document.getElementById('sendTo').value.trim();
-  const amt = document.getElementById('sendAmt').value.trim();
-  const wei = toWei(amt);
-  if (!/^0x[0-9a-fA-F]{40}$/.test(to)) return sendMsg('Enter a valid 0x address');
-  if (!wei) return sendMsg('Enter a valid amount');
-  if (parseFloat(amt) > parseFloat(T.SHM.bal)) return sendMsg('Not enough SHM balance');
-  try {
-    if (await ethereum.request({method: 'eth_chainId'}) !== CHAIN) return sendMsg('Switch MetaMask to Shardeum EVM (8118)');
-    const btn = document.getElementById('sendBtn');
-    btn.disabled = true;
-    sendMsg('Confirm in MetaMask…');
-    const hash = await ethereum.request({method: 'eth_sendTransaction', params: [{from: addr, to, value: '0x' + BigInt(wei).toString(16)}]});
-    sendMsg('Sent ✓ ' + hash.slice(0, 10) + '…', true);
-    document.getElementById('sendAmt').value = '';
-    setTimeout(refreshBal, 4000);
-  } catch (e) {
-    sendMsg(e.code === 4001 ? 'Cancelled in MetaMask' : (e.message || 'Transaction failed'));
-  }
-  document.getElementById('sendBtn').disabled = false;
-}
-
-/* ---------- SETTINGS ---------- */
-function openSettings() {
-  document.getElementById('setAddr').textContent = addr || 'Not connected';
-  document.getElementById('sheetSet').classList.add('open');
-}
-
-if (window.ethereum) {
-  ethereum.on('chainChanged', () => location.reload());
-  ethereum.on('accountsChanged', () => location.reload());
-}
-
-window.onload = () => {
-  paintList();
-  fetchPrices();
-  setInterval(fetchPrices, 30000);
-};
-</script>
 </body>
 </html>

@@ -1,13 +1,224 @@
-<!-- Shardeum चा 100% ओरिजिनल अधिकृत लोगो -->
-<div class="token-icon" style="background: #111; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-  <svg viewBox="0 0 200 200" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-    <!-- वरचा त्रिकोण -->
-    <polygon points="100,26 138,92 62,92" fill="#ffffff"/>
-    <!-- डावा खालचा त्रिकोण -->
-    <polygon points="56,102 94,168 18,168" fill="#ffffff"/>
-    <!-- उजवा खालचा त्रिकोण -->
-    <polygon points="144,102 182,168 106,168" fill="#ffffff"/>
-    <!-- मध्यभागी असलेले अधिकृत वर्तुळ -->
-    <circle cx="100" cy="116" r="17" fill="#ffffff"/>
-  </svg>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Pay</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #0a0b0d; color: #ffffff; display: flex; justify-content: center; min-height: 100vh; padding: 16px; }
+    .app { width: 100%; max-width: 420px; background: #121418; border-radius: 24px; padding: 20px; border: 1px solid #222630; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { width: 38px; height: 38px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; color: #000; }
+    .brand-title { font-size: 18px; font-weight: 700; color: #fff; }
+    .chip { background: #2563eb; color: #fff; border: none; padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    
+    .hero { background: linear-gradient(135deg, #1e2330 0%, #151821 100%); border-radius: 18px; padding: 20px; margin-bottom: 20px; border: 1px solid #2a3040; }
+    .lbl { font-size: 13px; color: #9ca3af; margin-bottom: 6px; }
+    .total { font-size: 32px; font-weight: 700; color: #ffffff; margin-bottom: 8px; }
+    .feed { font-size: 13px; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .pulse-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
+    @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    
+    .acts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+    .act { background: #1a1e28; border: 1px solid #283040; border-radius: 14px; padding: 12px 6px; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; }
+    .act span { font-size: 18px; }
+    
+    .token-section { margin-bottom: 20px; }
+    .token-title { font-size: 14px; font-weight: 600; color: #9ca3af; margin-bottom: 12px; display: flex; justify-content: space-between; }
+    .token-list { display: flex; flex-direction: column; gap: 10px; }
+    .token-row { display: flex; justify-content: space-between; align-items: center; background: #161922; padding: 12px 14px; border-radius: 14px; border: 1px solid #242b38; }
+    .token-info { display: flex; align-items: center; gap: 12px; }
+    .token-names { display: flex; flex-direction: column; }
+    .token-name { font-size: 14px; font-weight: 600; color: #fff; }
+    .token-sym { font-size: 11px; color: #9ca3af; }
+    .token-price { font-size: 14px; font-weight: 600; color: #10b981; font-variant-numeric: tabular-nums; }
+
+    .gullak-card { background: #231c12; border: 1px solid #4a3818; border-radius: 16px; padding: 16px; margin-bottom: 20px; }
+    .gullak-title { font-size: 13px; color: #f59e0b; margin-bottom: 4px; }
+    .gullak-bal { font-size: 20px; font-weight: 700; color: #fff; }
+    
+    .qr-box { background: #1a1e28; border-radius: 16px; padding: 20px; text-align: center; border: 1px solid #283040; margin-bottom: 20px; }
+    .qr-box img { width: 130px; height: 130px; border-radius: 10px; background: #fff; padding: 6px; }
+
+    nav { display: flex; justify-content: space-around; background: #151821; border-radius: 16px; padding: 12px; border: 1px solid #222735; }
+    nav button { background: none; border: none; color: #9ca3af; font-size: 13px; cursor: pointer; }
+    nav button.a { color: #f59e0b; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">P</div>
+        <div class="brand-title">Crypto Pay</div>
+      </div>
+      <button class="chip" id="chip" onclick="connectWallet()">Connect</button>
+    </header>
+
+    <div class="hero">
+      <div class="lbl">Total balance</div>
+      <div class="total" id="total">&#8377;0.00</div>
+      <div class="feed" id="feed"><span class="pulse-dot"></span> Live Rates Connected</div>
+    </div>
+
+    <div class="acts">
+      <button class="act" onclick="alert('Send')"><span>&uarr;</span>Send</button>
+      <button class="act" onclick="alert('Receive')"><span>&darr;</span>Receive</button>
+      <button class="act" onclick="alert('Buy')"><span>+</span>Buy</button>
+      <button class="act" onclick="alert('Swap')"><span>&#8644;</span>Swap</button>
+    </div>
+
+    <div class="token-section">
+      <div class="token-title">
+        <span>Live Token Rates (INR)</span>
+        <span style="font-size: 11px; color: #10b981;">Live Feed</span>
+      </div>
+      <div class="token-list">
+        
+        <div class="token-row">
+          <div class="token-info">
+            <div class="token-icon" style="background: #111; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+              <svg viewBox="0 0 200 200" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="100,26 138,92 62,92" fill="#ffffff"/>
+                <polygon points="56,102 94,168 18,168" fill="#ffffff"/>
+                <polygon points="144,102 182,168 106,168" fill="#ffffff"/>
+                <circle cx="100" cy="116" r="17" fill="#ffffff"/>
+              </svg>
+            </div>
+            <div class="token-names">
+              <span class="token-name">Shardeum</span>
+              <span class="token-sym">SHM</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-shm">Loading...</div>
+        </div>
+
+        <div class="token-row">
+          <div class="token-info">
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: #f7931a; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 15px;">BTC</div>
+            <div class="token-names">
+              <span class="token-name">Bitcoin</span>
+              <span class="token-sym">BTC</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-btc">Fetching...</div>
+        </div>
+
+        <div class="token-row">
+          <div class="token-info">
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: #627eea; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 15px;">ETH</div>
+            <div class="token-names">
+              <span class="token-name">Ethereum</span>
+              <span class="token-sym">ETH</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-eth">Fetching...</div>
+        </div>
+
+        <div class="token-row">
+          <div class="token-info">
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: #26a17b; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 15px;">USDT</div>
+            <div class="token-names">
+              <span class="token-name">Tether</span>
+              <span class="token-sym">USDT</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-usdt">&#8377;89.50</div>
+        </div>
+
+        <div class="token-row">
+          <div class="token-info">
+            <div style="width: 36px; height: 36px; border-radius: 50%; background: #9945ff; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 15px;">SOL</div>
+            <div class="token-names">
+              <span class="token-name">Solana</span>
+              <span class="token-sym">SOL</span>
+            </div>
+          </div>
+          <div class="token-price" id="price-sol">Fetching...</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="gullak-card">
+      <div class="gullak-title">Total in Gullak</div>
+      <div class="gullak-bal">&#8377;0</div>
+      <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">No gullak customers yet</div>
+    </div>
+
+    <div class="qr-box">
+      <div style="font-size: 13px; color: #9ca3af; margin-bottom: 8px;">Scan QR to Pay</div>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=cryptopay-shardeum" alt="QR" />
+    </div>
+
+    <nav>
+      <button class="a">Home</button>
+      <button>Swap</button>
+      <button>Settings</button>
+    </nav>
+  </div>
+
+  <script>
+    const USDT_INR_RATE = 89.5;
+
+    async function fetchOneSecondTicker() {
+      try {
+        const res = await fetch("https://api.binance.com/api/v3/ticker/price?symbols=[%22BTCUSDT%22,%22ETHUSDT%22,%22SOLUSDT%22]");
+        const data = await res.json();
+        
+        data.forEach(item => {
+          const usdPrice = parseFloat(item.price);
+          const inrPrice = (usdPrice * USDT_INR_RATE).toFixed(2);
+          
+          if (item.symbol === "BTCUSDT") {
+            document.getElementById("price-btc").innerText = "₹" + Number(inrPrice).toLocaleString('en-IN');
+          }
+          if (item.symbol === "ETHUSDT") {
+            document.getElementById("price-eth").innerText = "₹" + Number(inrPrice).toLocaleString('en-IN');
+          }
+          if (item.symbol === "SOLUSDT") {
+            document.getElementById("price-sol").innerText = "₹" + Number(inrPrice).toLocaleString('en-IN');
+          }
+        });
+      } catch (err) {}
+    }
+
+    async function fetchShardeumLive() {
+      try {
+        const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=shardeum&vs_currencies=inr");
+        const data = await res.json();
+        if (data && data.shardeum && data.shardeum.inr !== undefined) {
+          const liveSHM = data.shardeum.inr;
+          document.getElementById("price-shm").innerText = "₹" + liveSHM;
+          document.getElementById("feed").innerHTML = '<span class="pulse-dot"></span> Live SHM: ₹' + liveSHM;
+        }
+      } catch (e) {}
+    }
+
+    function connectWallet() {
+      if (window.ethereum) {
+        window.ethereum.request({ method: 'eth_requestAccounts' })
+          .then(acc => {
+            const short = acc[0].slice(0, 6) + "..." + acc[0].slice(-4);
+            document.getElementById("chip").innerText = short;
+          })
+          .catch(() => alert("Connection rejected"));
+      } else {
+        alert("Please install MetaMask!");
+      }
+    }
+
+    window.onload = () => {
+      fetchOneSecondTicker();
+      fetchShardeumLive();
+      
+      setInterval(fetchOneSecondTicker, 1000);
+      setInterval(fetchShardeumLive, 10000);
+    };
+  </script>
+
+</body>
+</html>

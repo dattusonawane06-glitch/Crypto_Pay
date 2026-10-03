@@ -86,20 +86,11 @@ nav .a{color:var(--yellow)}
 .srow.tap{cursor:pointer}
 .gap{height:14px}
 #scanVid{display:none;width:100%;border-radius:14px;margin-bottom:10px;background:#000;max-height:260px;object-fit:cover}
-#splash{position:absolute;inset:0;z-index:99;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .5s}
-#splash.hide{opacity:0;pointer-events:none}
-#splash svg{width:120px;height:120px;animation:pop .9s cubic-bezier(.2,1.4,.4,1) both}
-#splash .sn{font-size:26px;font-weight:900;opacity:0;animation:fin .6s .6s forwards}
-@keyframes pop{from{transform:scale(.2) rotate(-90deg);opacity:0}to{transform:none;opacity:1}}
-@keyframes fin{to{opacity:1}}
-@media(prefers-reduced-motion:reduce){#splash *{animation:none!important;opacity:1!important}}
 .risk-box{background:rgba(255,90,106,0.12);border:1px solid rgba(255,90,106,0.35);border-radius:12px;padding:10px;font-size:11px;color:#ffb3ba;margin-bottom:12px;text-align:left;line-height:1.45}
 </style>
 </head>
 <body>
 <div class="app">
- <div id="splash"><div id="splashLogo"></div><div class="sn"><span style="color:#fff">Crypto</span><span style="color:var(--yellow)">Pay</span></div></div>
-
  <div class="top-bar">
  <div class="selectors">
  <select class="pill-select" id="netSelect" onchange="changeNetwork(this.value)">
@@ -140,8 +131,29 @@ nav .a{color:var(--yellow)}
  <div class="acts">
  <button class="act" onclick="openSend()"><span>↑</span><b id="btnSend">Send</b></button>
  <button class="act" onclick="openReceive()"><span>↓</span><b id="btnRecv">Receive</b></button>
- <button class="act dim" onclick="soon()"><span>＋</span><b id="btnBuy">Buy</b>
-<!-- SEND -->
+ <button class="act dim" onclick="soon()"><span>＋</span><b id="btnBuy">Buy</b></button>
+ </div>
+
+ <div class="tabs">
+  <b id="tabAssets">Crypto Assets</b>
+ </div>
+
+ <div class="scroll-content">
+  <div id="list"></div>
+  <div class="tx-box">
+    <div class="tx-title"><span id="txtTxTitle">Recent Transactions</span></div>
+    <div class="tx-list" id="txHistory"><div class="tx-empty">No transactions yet</div></div>
+  </div>
+  <div class="disclaimer" id="disclaimer">⚠ Crypto is risky. Only use what you can afford to lose. Keys stay in your wallet. Not financial advice.</div>
+ </div>
+
+ <nav>
+  <button class="a"><i>🏠</i><span id="navHome">Home</span></button>
+  <button onclick="soon()"><i>🔄</i><span id="navSwap">Swap</span></button>
+  <button onclick="openSettings()"><i>⚙️</i><span id="navSet">Settings</span></button>
+ </nav>
+
+  <!-- SEND -->
   <div class="shade" id="sheetSend" onclick="if(event.target===this)closeAll()">
     <div class="panel">
       <div class="grab"></div>
@@ -201,11 +213,11 @@ const ls = {
 const NETWORKS = {
   shardeum: {
     name: 'Shardeum',
-    chainId: '0x1fb6',
-    chainIdDec: 8118,
+    chainId: '0x1fb7',
+    chainIdDec: 8119,
     symbol: 'SHM',
-    rpc: 'https://api.shardeum.org',
-    explorer: 'https://explorer.shardeum.org',
+    rpc: 'https://api-mezame.shardeum.org',
+    explorer: 'https://explorer-mezame.shardeum.org',
     decimals: 18
   },
   ethereum: {
@@ -296,8 +308,7 @@ function chime(){
   }catch(e){}
 }
 function applySound(){
-  $('soundBtn').className='sound-toggle '+(soundEnabled?'on':'');
-  $('soundBtn').textContent=soundEnabled?'🔊':'🔇';
+  $('soundBtn').className='sound-toggle '+(soundEnabled?'on':'');$('soundBtn').textContent=soundEnabled?'🔊':'🔇';
   if($('setSound'))$('setSound').textContent=soundEnabled?'On':'Off';
 }
 function toggleSound(){soundEnabled=!soundEnabled;ls.set('sound',soundEnabled);applySound()}
@@ -312,8 +323,7 @@ function fmt(n){
 }
 function getCurPrefix(){return currentCur==='INR'?'₹':'$'}
 function getConverted(p){return p?(currentCur==='INR'?p.inr:p.usd):0}
-const soon=()=>alert('Coming soon');
-async function getJSON(url){
+const soon=()=>alert('Coming soon');async function getJSON(url){
   const r=await fetch(url);
   if(!r.ok)throw new Error(r.status);
   return r.json();
@@ -363,8 +373,7 @@ function paintList(){
   });
   $('total').textContent=hideBal?pfx+H:pfx+fmt(total);
   const live=Date.now()-lastOk<40000;
-  $('feed').className='feed'+(live?'':' bad');
-  $('feedText').textContent=live?'Live prices':'Prices delayed';
+  $('feed').className='feed'+(live?'':' bad');$('feedText').textContent=live?'Live prices':'Prices delayed';
 }
 
 function renderTx(){
@@ -558,8 +567,7 @@ function handleScan(text){
 }
 
 function openSettings(){
-  $('setAddr').textContent=addr||'Not connected';
-  $('setNet').textContent=NETWORKS[currentNet].name;
+  $('setAddr').textContent=addr\vert{}\vert{}'Not connected';$('setNet').textContent=NETWORKS[currentNet].name;
   applySound();
   $('sheetSet').classList.add('open');
 }
@@ -571,14 +579,12 @@ if(window.ethereum){
 
 window.onload=()=>{
   $('logo').innerHTML=LOGO;
-  $('splashLogo').innerHTML=LOGO;
   applySound();
   renderTx();
   buildList();
   paintList();
   changeLang(currentLang);
   changeNetwork(currentNet);
-  setTimeout(()=>$('splash').classList.add('hide'),2000);
   usdToInr().then(fetchPrices);
   setInterval(fetchPrices,15000);
   setInterval(usdToInr,600000);

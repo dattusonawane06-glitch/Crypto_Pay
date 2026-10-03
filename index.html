@@ -45,7 +45,7 @@ header{display:flex;justify-content:space-between;align-items:center;padding:8px
 .row{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:rgba(20,22,28,0.5);border:1px solid var(--ln);margin-bottom:8px;cursor:pointer}
 .row:active{background:var(--sf)}
 .ic{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;background:#000}
-.ic img{width:100%;height:100%;object-fit:cover}
+.ic img,.ic svg{width:100%;height:100%;object-fit:cover}
 .mid{flex:1;min-width:0}
 .sym{font-size:15px;font-weight:800}
 .sub{font-size:12px;font-weight:600;color:var(--mut);margin-top:2px}
@@ -116,7 +116,7 @@ nav .a{color:var(--yellow)}
  <div class="brand-badge" id="logo"></div>
  <div>
  <div class="brand-name"><span class="c-white">Crypto</span><span class="c-yellow">Pay</span></div>
- <div style="font-size:11px;font-weight:700;color:var(--yellow)" id="netLabel">Shardeum</div>
+ <div style="font-size:11px;font-weight:700;color:var(--yellow)" id="netLabel">Shardeum EVM</div>
  </div>
  </div>
  <button class="chip" id="chip" onclick="connectWallet()">Connect Wallet</button>
@@ -125,7 +125,7 @@ nav .a{color:var(--yellow)}
  <div class="hero">
  <div class="lbl" id="lblTotal">Total Balance</div>
  <div class="total" id="total">₹0.00</div>
- <div class="feed" id="feed"><span class="pulse-dot"></span> <span id="feedText">Live prices</span></div>
+ <div class="feed" id="feed"><span class="pulse-dot"></span> <span id="feedText">Live Market Connected</span></div>
  </div>
 
  <div class="acts">
@@ -150,6 +150,7 @@ nav .a{color:var(--yellow)}
  <nav>
   <button class="a"><i>🏠</i><span id="navHome">Home</span></button>
   <button onclick="soon()"><i>🔄</i><span id="navSwap">Swap</span></button>
+  <button onclick="soon()"><i>🧭</i><span id="navDisc">Discover</span></button>
   <button onclick="openSettings()"><i>⚙️</i><span id="navSet">Settings</span></button>
  </nav>
 
@@ -175,7 +176,7 @@ nav .a{color:var(--yellow)}
       <div class="grab"></div>
       <div class="ttl">Settings</div>
       <div class="srow"><span>Wallet</span><span id="setAddr">Not connected</span></div>
-      <div class="srow"><span>Network</span><span id="setNet">Shardeum</span></div>
+      <div class="srow"><span>Network</span><span id="setNet">Shardeum EVM</span></div>
       <div class="srow tap" onclick="toggleSound()"><span>Sound</span><span id="setSound">On</span></div>
       <div class="srow tap" onclick="togglePriv()"><span>Hide balance</span><span id="setPriv">Off</span></div>
       <div class="srow"><span>Version</span><span>CryptoPay 1.3 Multi</span></div>
@@ -202,7 +203,6 @@ nav .a{color:var(--yellow)}
     </div>
   </div>
 </div>
-
 <script>
 const $ = id => document.getElementById(id);
 const ls = {
@@ -212,7 +212,7 @@ const ls = {
 
 const NETWORKS = {
   shardeum: {
-    name: 'Shardeum',
+    name: 'Shardeum EVM',
     chainId: '0x1fb7',
     chainIdDec: 8119,
     symbol: 'SHM',
@@ -253,12 +253,20 @@ let txs = ls.get('txs', []);
 
 const LOGO = '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="24" fill="#000"/><circle cx="50" cy="50" r="36" fill="#FFC21A"/><circle cx="50" cy="50" r="40" fill="none" stroke="#fff" stroke-width="3"/><path d="M63 37a19 19 0 1 0 0 26" fill="none" stroke="#000" stroke-width="9" stroke-linecap="round"/></svg>';
 
+const ICONS = {
+  SHM: '<svg viewBox="0 0 32 32" width="100%" height="100%"><circle cx="16" cy="16" r="16" fill="#2563eb"/><path d="M16 8l8 13H8z" fill="#fff"/></svg>',
+  USDT: '<svg viewBox="0 0 32 32" width="100%" height="100%"><circle cx="16" cy="16" r="16" fill="#26a17b"/><path d="M17.5 15.5v-3.5h3v-2.5h-9v2.5h3v3.5c-3.2.2-5.5 1-5.5 2s2.3 1.8 5.5 2v4.5h3v-4.5c3.2-.2 5.5-1 5.5-2s-2.3-1.8-5.5-2zm-1.5 3.5c-2.2 0-4-.6-4-1.2s1.8-1.2 4-1.2 4 .6 4 1.2-1.8 1.2-4 1.2z" fill="#fff"/></svg>',
+  BTC: '<svg viewBox="0 0 32 32" width="100%" height="100%"><circle cx="16" cy="16" r="16" fill="#f7931a"/><path d="M21.5 14.5c.3-.8.1-2.4-1-3.3-.9-.7-2.3-.9-3.9-.9h-3.6v9.4h4.1c1.8 0 3.2-.3 4-1.1.7-.8.9-2.3.4-4.1zm-4.7-3.4c.8 0 1.5.2 1.9.6.4.4.6 1.1.2 2-.4.9-1.2 1.4-2.1 1.4h-1.8v-4h2zm.5 7.7h-2.3v4.4h2.5c1 0 1.8-.2 2.3-.7.5-.5.7-1.3.3-2.2-.4-.9-1.1-1.5-2.8-1.5z" fill="#fff"/></svg>',
+  ETH: '<svg viewBox="0 0 32 32" width="100%" height="100%"><circle cx="16" cy="16" r="16" fill="#627eea"/><path d="M16 6l-7 11.5L16 21l7-3.5z" fill="#c0cbef"/><path d="M16 6v15l7-3.5z" fill="#fff"/><path d="M16 22l-7-3.5L16 26l7-7.5z" fill="#c0cbef"/><path d="M16 22v4l7-7.5z" fill="#fff"/></svg>',
+  BNB: '<svg viewBox="0 0 32 32" width="100%" height="100%"><circle cx="16" cy="16" r="16" fill="#f3ba2f"/><path d="M16 9l-4 4 4 4 4-4-4-4zm-6 6l-3 3 3 3 3-3-3-3zm12 0l-3 3 3 3 3-3-3-3zm-6 6l-4 4 4 4 4-4-4-4z" fill="#fff"/></svg>'
+};
+
 const T = {
-  SHM: {name:'Shardeum', bal:'0.0000', p:null},
-  ETH: {name:'Ethereum', bal:'0.0000', p:null},
-  BNB: {name:'BNB', bal:'0.0000', p:null},
+  SHM: {name:'Shardeum', bal:'0.000', p:null},
+  USDT:{name:'Tether', bal:'0.00', p:null},
   BTC: {name:'Bitcoin', bal:'0.000000', p:null},
-  USDT:{name:'Tether', bal:'0.00', p:null}
+  ETH: {name:'Ethereum', bal:'0.0000', p:null},
+  BNB: {name:'BNB', bal:'0.0000', p:null}
 };
 
 const I18N = {
@@ -349,10 +357,11 @@ async function fetchPrices(){
 function refreshAll(){usdToInr();fetchPrices()}
 
 function buildList(){
-  const order=['SHM','ETH','BNB','BTC','USDT'];
+  const order=['SHM','USDT','BTC','ETH','BNB'];
   $('list').innerHTML=order.map(k=>{
+    const iconSvg = ICONS[k] || '';
     return `<div class="row" onclick="openReceive()">
-      <div class="ic" style="background:#111;font-size:18px;font-weight:800;color:var(--yellow)">${k[0]}</div>
+      <div class="ic">${iconSvg}</div>
       <div class="mid"><div class="sym">${k}</div><div class="sub" id="s-${k}"></div></div>
       <div class="rt"><div class="amt" id="b-${k}"></div><div class="sub" id="v-${k}"></div></div>
     </div>`;
@@ -368,12 +377,12 @@ function paintList(){
     if(bal>0&&rate)total+=bal*rate;
     const chg=p&&typeof p.chg==='number'?` <span style="color:${p.chg<0?'var(--r)':'var(--g)'}">${p.chg>=0?'+':''}${p.chg.toFixed(2)}%</span>`:'';
     if($('s-'+k))$('s-'+k).innerHTML=p?pfx+fmt(rate)+chg:pfx+'--';
-    if($('b-'+k))$('b-'+k).textContent=hideBal?H:(k===nativeKey?t.bal:'—');
-    if($('v-'+k))$('v-'+k).textContent=hideBal?H:(p&&k===nativeKey?pfx+fmt(bal*rate):'—');
+    if($('b-'+k))$('b-'+k).textContent=hideBal?H:(k===nativeKey?t.bal:'0.000');
+    if($('v-'+k))$('v-'+k).textContent=hideBal?H:(p&&k===nativeKey?pfx+fmt(bal*rate):pfx+'0.00');
   });
   $('total').textContent=hideBal?pfx+H:pfx+fmt(total);
   const live=Date.now()-lastOk<40000;
-  $('feed').className='feed'+(live?'':' bad');$('feedText').textContent=live?'Live prices':'Prices delayed';
+  $('feed').className='feed'+(live?'':' bad');$('feedText').textContent=live?'Live Market Connected':'Prices delayed';
 }
 
 function renderTx(){
@@ -455,7 +464,6 @@ async function readBal(detect){
     }
     lastBal=val;
     T[key].bal=val.toFixed(4);
-    ['SHM','ETH','BNB'].forEach(k=>{if(k!==key)T[k].bal='0.0000'});
     paintList();
   }catch(e){}
 }

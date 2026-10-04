@@ -1,183 +1,1019 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoPay - Secure Web3 Payments</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: #0b0e14;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background-color: #121824;
-            border-bottom: 1px solid #1f293d;
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0a0b0f">
+<title>CryptoPay – Honest Web3 Payments</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23000'/%3E%3Ccircle cx='50' cy='50' r='36' fill='%23FFC21A'/%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23fff' stroke-width='3'/%3E%3Cpath d='M63 37a19 19 0 1 0 0 26' fill='none' stroke='%23000' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root {
+  --bg: #0a0b0f;
+  --sf: #14161c;
+  --card: #181b24;
+  --ln: rgba(255,255,255,.08);
+  --yellow: #f5a623;
+  --yellow-glow: rgba(245,166,35,0.25);
+  --g: #2ed47a;
+  --r: #ff5a6a;
+  --mut: #8b92a1;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; background: var(--bg); color: #fff; }
+.app {
+  width: 100%;
+  max-width: 420px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: radial-gradient(circle at 50% 0%, #151824 0%, var(--bg) 75%);
+}
 
-        /* 🪙 कॉइन हवेतून खाली येऊन सेट होण्याचे सुंदर ॲनिमेशन */
-        .app-logo {
-            width: 45px;
-            height: 45px;
-            background-color: #000000;
-            border: 2px solid #ffffff;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: coinDrop 1.2s ease-out forwards;
-        }
-        @keyframes coinDrop {
-            0% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-            100% { transform: translateY(0) rotate(0deg); opacity: 1; }
-        }
+/* Top bar */
+.top-bar { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px 4px; flex-shrink: 0; }
+.selectors { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill-select { background: var(--sf); border: 1px solid var(--ln); color: var(--yellow); padding: 4px 9px; border-radius: 12px; font-size: 11px; font-weight: 700; outline: none; cursor: pointer; }
+.pill-select option { background: var(--sf); color: #fff; }
+.sound-toggle { background: none; border: none; color: var(--mut); cursor: pointer; font-size: 18px; padding: 2px 6px; }
+.sound-toggle.on { color: var(--g); }
 
-        .inner-circle {
-            width: 32px;
-            height: 32px;
-            background-color: #f3ba2f;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .logo-text {
-            color: #000000;
-            font-size: 18px;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
-        }
-        .brand-name {
-            font-size: 22px;
-            font-weight: bold;
-            color: #ffffff;
-        }
-        .nav-btn {
-            background-color: #f3ba2f;
-            color: #0b0e14;
-            padding: 10px 25px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .nav-btn:hover {
-            background-color: #e0aa20;
-        }
-        .hero {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 50px 20px;
-        }
-        .hero h1 {
-            font-size: 46px;
-            margin-bottom: 20px;
-            color: #ffffff;
-        }
-        .hero p {
-            font-size: 17px;
-            color: #9ca3af;
-            max-width: 600px;
-            margin-bottom: 35px;
-            line-height: 1.6;
-        }
-        .cta-btn {
-            background-color: #f3ba2f;
-            color: #0b0e14;
-            padding: 15px 40px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: 0.3s;
-            margin-bottom: 25px;
-            display: inline-block;
-        }
-        .cta-btn:hover {
-            background-color: #e0aa20;
-            transform: translateY(-2px);
-        }
-        .social-section {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-        .social-link {
-            color: #f3ba2f;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: bold;
-            border: 1px solid #f3ba2f;
-            padding: 8px 20px;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
-        .social-link:hover {
-            background-color: #f3ba2f;
-            color: #0b0e14;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #121824;
-            color: #6b7280;
-            border-top: 1px solid #1f293d;
-        }
-    </style>
+/* Header */
+header { display: flex; justify-content: space-between; align-items: center; padding: 6px 16px 8px; flex-shrink: 0; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-badge { width: 38px; height: 38px; border-radius: 10px; overflow: hidden; box-shadow: 0 0 12px var(--yellow-glow); }
+.brand-badge svg { width: 100%; height: 100%; display: block; }
+.brand-name { font-size: 19px; font-weight: 900; letter-spacing: -0.5px; }
+.brand-name .c-white { color: #fff; }
+.brand-name .c-yellow { color: var(--yellow); }
+.net-chip { font-size: 11px; font-weight: 700; color: var(--yellow); margin-top: 1px; }
+.chip { background: var(--sf); border: 1px solid var(--ln); color: #fff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; }
+.chip.on { color: var(--g); border-color: rgba(46,212,122,0.35); }
+
+/* Hero */
+.hero { text-align: center; padding: 12px 16px 4px; flex-shrink: 0; }
+.lbl { font-size: 12px; color: var(--mut); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.total { font-size: 36px; font-weight: 800; margin: 4px 0 2px; letter-spacing: -1px; }
+.feed { font-size: 12px; font-weight: 700; color: var(--mut); display: flex; align-items: center; justify-content: center; gap: 6px; }
+.pulse-dot { width: 7px; height: 7px; background: var(--g); border-radius: 50%; display: inline-block; animation: blink 1.2s infinite; }
+.feed.bad .pulse-dot { background: var(--r); animation: none; }
+@keyframes blink { 0%{opacity:1} 50%{opacity:0.3} 100%{opacity:1} }
+
+/* Action buttons */
+.acts { display: flex; justify-content: space-around; padding: 14px 12px 10px; flex-shrink: 0; }
+.act { background: none; border: none; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; cursor: pointer; width: 72px; }
+.act span { width: 52px; height: 52px; border-radius: 16px; background: var(--card); border: 1px solid var(--ln); display: flex; align-items: center; justify-content: center; font-size: 21px; color: var(--yellow); box-shadow: 0 4px 15px rgba(0,0,0,0.4); }
+.act:active span { transform: scale(0.95); }
+.act.dim { opacity: 0.45; }
+
+/* Tabs */
+.tabs { display: flex; gap: 20px; padding: 0 18px; border-bottom: 1px solid var(--ln); font-size: 14px; font-weight: 800; flex-shrink: 0; }
+.tabs b { padding: 8px 0; border-bottom: 2px solid var(--yellow); color: #fff; }
+
+/* Assets list - IMPORTANT: always visible */
+.scroll-content {
+  flex: 1 1 auto;
+  min-height: 220px;
+  overflow-y: auto;
+  padding: 10px 12px 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(20,22,28,0.55);
+  border: 1px solid var(--ln);
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.row:active { background: var(--sf); }
+.ic {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #111;
+  overflow: hidden;
+}
+.ic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mid { flex: 1; min-width: 0; }
+.sym { font-size: 15px; font-weight: 800; }
+.sub { font-size: 12px; font-weight: 600; color: var(--mut); margin-top: 2px; }
+.rt { text-align: right; }
+.amt { font-size: 15px; font-weight: 800; }
+
+/* Disclaimer */
+.disclaimer {
+  font-size: 11px;
+  color: var(--mut);
+  text-align: center;
+  padding: 10px 14px;
+  line-height: 1.45;
+  border-top: 1px solid var(--ln);
+  flex-shrink: 0;
+}
+
+/* Bottom nav */
+nav {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid var(--ln);
+  padding: 8px 0 calc(10px + env(safe-area-inset-bottom, 0px));
+  background: var(--sf);
+  flex-shrink: 0;
+}
+nav button {
+  background: none;
+  border: none;
+  color: var(--mut);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+}
+nav button i { font-style: normal; font-size: 19px; }
+nav .a { color: var(--yellow); }
+
+/* Sheets */
+.shade {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.78);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: flex-end;
+  z-index: 100;
+  max-width: 420px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+.shade.open { display: flex; }
+.panel {
+  background: var(--sf);
+  width: 100%;
+  border-radius: 24px 24px 0 0;
+  padding: 16px 18px calc(20px + env(safe-area-inset-bottom,0px));
+  text-align: center;
+  max-height: 92dvh;
+  overflow-y: auto;
+  border-top: 1px solid var(--ln);
+}
+.grab { width: 40px; height: 4px; border-radius: 2px; background: var(--ln); margin: 0 auto 14px; }
+.ttl { font-size: 18px; font-weight: 800; margin-bottom: 12px; }
+.warn { font-size: 12px; font-weight: 700; color: var(--r); margin-bottom: 10px; display: none; line-height: 1.4; }
+.inp { position: relative; margin-bottom: 12px; }
+.inp input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--ln);
+  border-radius: 14px;
+  padding: 13px 56px 13px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  outline: none;
+}
+.inp input:focus { border-color: var(--yellow); }
+.inp b { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--yellow); }
+.cap { font-size: 12px; font-weight: 600; color: var(--mut); margin-bottom: 10px; line-height: 1.4; }
+.qrbox { background: #fff; padding: 12px; border-radius: 16px; display: inline-block; margin-bottom: 12px; }
+.addr {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--mut);
+  word-break: break-all;
+  background: var(--bg);
+  padding: 9px 12px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  border: 1px solid var(--ln);
+}
+.btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 800;
+  background: var(--yellow);
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+.btn:disabled { opacity: 0.5; }
+.btn.ghost {
+  background: var(--bg);
+  color: var(--mut);
+  margin-top: 8px;
+  border: 1px solid var(--ln);
+}
+.msg { font-size: 12px; font-weight: 700; color: var(--r); min-height: 16px; margin-bottom: 10px; }
+.msg.ok { color: var(--g); }
+.risk-box {
+  background: rgba(255,90,106,0.12);
+  border: 1px solid rgba(255,90,106,0.35);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 11px;
+  color: #ffb3ba;
+  margin-bottom: 12px;
+  text-align: left;
+  line-height: 1.45;
+}
+.srow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--ln);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+.srow span:last-child { color: var(--mut); word-break: break-all; text-align: right; }
+.srow.tap { cursor: pointer; }
+.gap { height: 14px; }
+#scanVid {
+  display: none;
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  background: #000;
+  max-height: 260px;
+  object-fit: cover;
+}
+
+/* Splash */
+#splash {
+  position: absolute;
+  inset: 0;
+  z-index: 99;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  transition: opacity .5s;
+}
+#splash.hide { opacity: 0; pointer-events: none; }
+#splash svg { width: 110px; height: 110px; animation: pop .9s cubic-bezier(.2,1.4,.4,1) both; }
+#splash .sn { font-size: 26px; font-weight: 900; opacity: 0; animation: fin .6s .55s forwards; }
+@keyframes pop { from { transform: scale(.2) rotate(-90deg); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fin { to { opacity: 1; } }
+</style>
 </head>
 <body>
+<div class="app">
+  <!-- Splash -->
+  <div id="splash">
+    <div id="splashLogo"></div>
+    <div class="sn"><span style="color:#fff">Crypto</span><span style="color:var(--yellow)">Pay</span></div>
+  </div>
 
-    <header>
-        <div class="logo-container">
-            <div class="app-logo">
-                <div class="inner-circle">
-                    <span class="logo-text">C</span>
-                </div>
-            </div>
-            <span class="brand-name">CryptoPay</span>
-        </div>
-        <a href="https://cryptopay-app.vercel.app" class="nav-btn" target="_blank">Open App</a>
-    </header>
+  <!-- Top selectors -->
+  <div class="top-bar">
+    <div class="selectors">
+      <select class="pill-select" id="netSelect" onchange="changeNetwork(this.value)">
+        <option value="shardeum-testnet">Shardeum Testnet</option>
+        <option value="shardeum">Shardeum Mainnet</option>
+        <option value="ethereum">Ethereum</option>
+        <option value="bsc">BNB Chain</option>
+      </select>
+      <select class="pill-select" id="curSelect" onchange="changeCurrency(this.value)">
+        <option value="INR">₹ INR</option>
+        <option value="USD">$ USD</option>
+      </select>
+      <select class="pill-select" id="langSelect" onchange="changeLang(this.value)">
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+        <option value="mr">मराठी</option>
+      </select>
+    </div>
+    <button class="sound-toggle on" id="soundBtn" onclick="toggleSound()">🔊</button>
+  </div>
 
-    <div class="hero">
-        <h1>Fast & Secure Crypto Payments</h1>
-        <p>Experience the next generation of decentralized transactions. Send, receive, and manage your digital assets seamlessly on a professional platform.</p>
-        
-        <a href="https://cryptopay-app.vercel.app" class="cta-btn" target="_blank">Launch App Dashboard</a>
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-badge" id="logo"></div>
+      <div>
+        <div class="brand-name"><span class="c-white">Crypto</span><span class="c-yellow">Pay</span></div>
+        <div class="net-chip" id="netLabel">Shardeum Testnet</div>
+      </div>
+    </div>
+    <button class="chip" id="chip" onclick="connectWallet()">Connect Wallet</button>
+  </header>
 
-        <!-- ट्विटर आणि गिटहब लिंक्स -->
-        <div class="social-section">
-            <a href="https://x.com/cryptopay_shm" target="_blank" class="social-link">🐦 Twitter / X</a>
-            <a href="https://github.com/dattusonawane06-glitch/Crypto_Pay" target="_blank" class="social-link">📂 GitHub Source</a>
-        </div>
+  <!-- Balance -->
+  <div class="hero">
+    <div class="lbl" id="lblTotal">Total Balance</div>
+    <div class="total" id="total">₹0.00</div>
+    <div class="feed" id="feed"><span class="pulse-dot"></span> <span id="feedText">Live Market Connected</span></div>
+  </div>
+
+  <!-- Actions -->
+  <div class="acts">
+    <button class="act" onclick="openSend()"><span>↑</span><b id="btnSend">Send</b></button>
+    <button class="act" onclick="openReceive()"><span>↓</span><b id="btnRecv">Receive</b></button>
+    <button class="act dim" onclick="soon()"><span>＋</span><b id="btnBuy">Buy</b></button>
+  </div>
+
+  <!-- Tab -->
+  <div class="tabs"><b id="tabAssets">Crypto Assets</b></div>
+
+  <!-- Assets list - ALWAYS VISIBLE -->
+  <div class="scroll-content" id="listArea">
+    <div id="list">
+      <div class="row"><div class="ic"><img src="https://assets.coingecko.com/coins/images/31307/small/shardeum.png" alt="SHM" onerror="this.parentElement.innerHTML='S'"></div><div class="mid"><div class="sym">SHM</div><div class="sub">Loading...</div></div><div class="rt"><div class="amt">0.0000</div><div class="sub">₹0.00</div></div></div>
+      <div class="row"><div class="ic"><img src="https://assets.coingecko.com/coins/images/325/small/Tether.png" alt="USDT" onerror="this.parentElement.innerHTML='U'"></div><div class="mid"><div class="sym">USDT</div><div class="sub">Loading...</div></div><div class="rt"><div class="amt">0.00</div><div class="sub">₹0.00</div></div></div>
+      <div class="row"><div class="ic"><img src="https://assets.coingecko.com/coins/images/1/small/bitcoin.png" alt="BTC" onerror="this.parentElement.innerHTML='B'"></div><div class="mid"><div class="sym">BTC</div><div class="sub">Loading...</div></div><div class="rt"><div class="amt">0.000000</div><div class="sub">₹0.00</div></div></div>
+      <div class="row"><div class="ic"><img src="https://assets.coingecko.com/coins/images/279/small/ethereum.png" alt="ETH" onerror="this.parentElement.innerHTML='E'"></div><div class="mid"><div class="sym">ETH</div><div class="sub">Loading...</div></div><div class="rt"><div class="amt">0.0000</div><div class="sub">₹0.00</div></div></div>
+      <div class="row"><div class="ic"><img src="https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png" alt="BNB" onerror="this.parentElement.innerHTML='B'"></div><div class="mid"><div class="sym">BNB</div><div class="sub">Loading...</div></div><div class="rt"><div class="amt">0.0000</div><div class="sub">₹0.00</div></div></div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 CryptoPay. All rights reserved.</p>
-    </footer>
+    <!-- Recent Transactions -->
+    <div style="margin-top:14px;background:var(--card);border-radius:16px;border:1px solid var(--ln);padding:14px;">
+      <div style="font-size:13px;font-weight:800;color:var(--yellow);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+        <span id="txtTxTitle">Recent Transactions</span>
+        <span style="font-size:11px;color:var(--mut);cursor:pointer;" onclick="clearTxs()">Clear</span>
+      </div>
+      <div id="txHistory" style="display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:12px;color:var(--mut);text-align:center;padding:6px;">No transactions yet</div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Disclaimer -->
+  <div class="disclaimer" id="disclaimer">⚠ Crypto is risky. Only use what you can afford to lose. Keys stay in your wallet. Non-custodial. Not financial advice.</div>
+
+  <!-- Bottom nav -->
+  <nav>
+    <button class="a" onclick="goHome()"><i>🏠</i><span id="navHome">Home</span></button>
+    <button onclick="soon()"><i>⇄</i><span id="navSwap">Swap</span></button>
+    <button onclick="soon()"><i>🧭</i><span id="navDiscover">Discover</span></button>
+    <button onclick="openSettings()"><i>⚙</i><span id="navSettings">Settings</span></button>
+  </nav>
+
+  <!-- ========== SEND SHEET ========== -->
+  <div class="shade" id="sheetSend" onclick="if(event.target===this)closeAll()">
+    <div class="panel">
+      <div class="grab"></div>
+      <div class="ttl" id="sendTitle">Send</div>
+      <div class="risk-box">Only send the native token of the selected network. Wrong network = permanent loss of funds.</div>
+      <video id="scanVid" playsinline muted></video>
+      <div class="inp"><input id="sendTo" placeholder="Recipient 0x address" autocomplete="off"></div>
+      <div class="inp"><input type="number" id="sendAmt" placeholder="Amount" step="any" min="0"><b id="sendUnit">SHM</b></div>
+      <div class="msg" id="sendMsg"></div>
+      <button class="btn" id="sendBtn" onclick="doSend()">Send</button>
+      <button class="btn ghost" onclick="scanQR()">📷 Scan QR</button>
+      <button class="btn ghost" onclick="closeAll()">Close</button>
+    </div>
+  </div>
+
+  <!-- ========== RECEIVE SHEET ========== -->
+  <div class="shade" id="sheetRecv" onclick="if(event.target===this)closeAll()">
+    <div class="panel">
+      <div class="grab"></div>
+      <div class="ttl" id="recvTitle">Receive Payment</div>
+      <div class="warn" id="recvWarn">Switch to the correct network in your wallet</div>
+      <div class="inp"><input type="number" id="payAmount" placeholder="Amount (optional)" oninput="drawQR()" step="any" min="0"><b id="recvUnit">SHM</b></div>
+      <div class="cap" id="recvCap">Only send SHM on Shardeum</div>
+      <div class="qrbox" id="qrcode"></div>
+      <div class="addr" id="addrBox"></div>
+      <button class="btn" id="copyBtn" onclick="copyAddress()">Copy Address</button>
+      <button class="btn ghost" onclick="shareWhatsApp()">📲 Share on WhatsApp</button>
+      <button class="btn ghost" onclick="closeAll()">Close</button>
+    </div>
+  </div>
+
+  <!-- ========== SETTINGS SHEET ========== -->
+  <div class="shade" id="sheetSet" onclick="if(event.target===this)closeAll()">
+    <div class="panel">
+      <div class="grab"></div>
+      <div class="ttl">Settings</div>
+      <div class="srow"><span>Wallet</span><span id="setAddr">Not connected</span></div>
+      <div class="srow"><span>Network</span><span id="setNet">Shardeum Testnet</span></div>
+      <div class="srow tap" onclick="toggleSound()"><span>Sound</span><span id="setSound">On</span></div>
+      <div class="srow tap" onclick="togglePriv()"><span>Hide balance</span><span id="setPriv">Off</span></div>
+      <div class="srow"><span>Version</span><span>CryptoPay 2.1</span></div>
+      <div class="gap"></div>
+      <div class="risk-box">Non-custodial. We never hold or see your private keys. Always double-check network and address before sending.</div>
+      <button class="btn" onclick="refreshAll()">Refresh Prices</button>
+      <button class="btn ghost" onclick="testVoice()">🔊 Test Voice Alert</button>
+      <button class="btn ghost" id="faucetBtn" onclick="openFaucet()" style="display:none;">💧 Get Testnet SHM (Faucet)</button>
+      <button class="btn ghost" onclick="openExplorer()">🔗 Open Explorer</button>
+      <button class="btn ghost" onclick="location.reload()">Reload App</button>
+      <button class="btn ghost" onclick="closeAll()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const ls = {
+  get: (k, d) => { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+
+const NETWORKS = {
+  "shardeum-testnet": {
+    name: "Shardeum Testnet",
+    chainId: "0x1fb7",
+    chainIdDec: 8119,
+    symbol: "SHM",
+    rpc: "https://api-mezame.shardeum.org",
+    explorer: "https://explorer-mezame.shardeum.org",
+    decimals: 18
+  },
+  shardeum: {
+    name: "Shardeum Mainnet",
+    chainId: "0x1fb6",
+    chainIdDec: 8118,
+    symbol: "SHM",
+    rpc: "https://api.shardeum.org",
+    explorer: "https://explorer.shardeum.org",
+    decimals: 18
+  },
+  ethereum: {
+    name: "Ethereum",
+    chainId: "0x1",
+    chainIdDec: 1,
+    symbol: "ETH",
+    rpc: "https://cloudflare-eth.com",
+    explorer: "https://etherscan.io",
+    decimals: 18
+  },
+  bsc: {
+    name: "BNB Chain",
+    chainId: "0x38",
+    chainIdDec: 56,
+    symbol: "BNB",
+    rpc: "https://bsc-dataseed.binance.org",
+    explorer: "https://bscscan.com",
+    decimals: 18
+  }
+};
+
+let currentNet = "shardeum-testnet";
+let addr = "";
+let fxCache = 89.5;
+let lastBal = null;
+let lastOk = 0;
+let currentCur = "INR";
+let currentLang = "en";
+let soundEnabled = ls.get("sound", true);
+let hideBal = ls.get("hide", false);
+let txs = ls.get("txs", []);
+
+const LOGO = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="24" fill="#000"/><circle cx="50" cy="50" r="36" fill="#FFC21A"/><circle cx="50" cy="50" r="40" fill="none" stroke="#fff" stroke-width="3"/><path d="M63 37a19 19 0 1 0 0 26" fill="none" stroke="#000" stroke-width="9" stroke-linecap="round"/></svg>`;
+
+const T = {
+  SHM:  { name: "Shardeum", bal: "0.0000", p: null },
+  USDT: { name: "Tether",  bal: "0.00", p: null },
+  BTC:  { name: "Bitcoin", bal: "0.000000", p: null },
+  ETH:  { name: "Ethereum", bal: "0.0000", p: null },
+  BNB:  { name: "BNB",     bal: "0.0000", p: null }
+};
+
+const I18N = {
+  en: {
+    total: "Total Balance", send: "Send", recv: "Receive", buy: "Buy",
+    assets: "Crypto Assets", home: "Home", swap: "Swap", discover: "Discover", settings: "Settings",
+    disc: "⚠ Crypto is risky. Only use what you can afford to lose. Keys stay in your wallet. Non-custodial. Not financial advice."
+  },
+  hi: {
+    total: "कुल बैलेंस", send: "भेजें", recv: "प्राप्त करें", buy: "खरीदें",
+    assets: "क्रिप्टो एसेट्स", home: "होम", swap: "स्वैप", discover: "डिस्कवर", settings: "सेटिंग्स",
+    disc: "⚠ क्रिप्टो जोखिम भरा है। केवल उतना ही इस्तेमाल करें जितना खो सकते हैं। कुंजियाँ आपके वॉलेट में रहती हैं।"
+  },
+  mr: {
+    total: "एकूण शिल्लक", send: "पाठवा", recv: "स्वीकारा", buy: "खरेदी",
+    assets: "क्रिप्टो मालमत्ता", home: "होम", swap: "स्वॅप", discover: "डिस्कव्हर", settings: "सेटिंग्ज",
+    disc: "⚠ क्रिप्टो जोखमीचे आहे. फक्त गमावू शकता तेवढेच वापरा. की तुमच्या वॉलेटमध्ये राहतात."
+  }
+};
+
+function changeCurrency(c) { currentCur = c; paintList(); }
+function changeLang(l) {
+  currentLang = l;
+  const d = I18N[l];
+  $("lblTotal").textContent = d.total;
+  $("btnSend").textContent = d.send;
+  $("btnRecv").textContent = d.recv;
+  $("btnBuy").textContent = d.buy;
+  $("tabAssets").textContent = d.assets;
+  $("navHome").textContent = d.home;
+  $("navSwap").textContent = d.swap;
+  $("navDiscover").textContent = d.discover;
+  $("navSettings").textContent = d.settings;
+  $("disclaimer").textContent = d.disc;
+}
+function changeNetwork(key) {
+  currentNet = key;
+  const n = NETWORKS[key];
+  $("netLabel").textContent = n.name;
+  $("setNet").textContent = n.name;
+  $("sendUnit").textContent = n.symbol;
+  $("recvUnit").textContent = n.symbol;
+  $("sendTitle").textContent = "Send " + n.symbol;
+  $("recvTitle").textContent = "Receive " + n.symbol;
+  $("recvCap").textContent = "Only send " + n.symbol + " on " + n.name;
+  if (addr) ensureNetwork().then(function(){ readBal(false); });
+  paintList();
+}
+
+let AC;
+function chime() {
+  if (!soundEnabled) return;
+  try {
+    AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+    if (AC.state === "suspended") AC.resume();
+    [523.25, 659.25, 783.99].forEach(function(f, i) {
+      var o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + i * 0.12;
+      o.type = "sine"; o.frequency.value = f;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.2, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+      o.connect(g); g.connect(AC.destination);
+      o.start(t); o.stop(t + 0.45);
+    });
+  } catch (e) {}
+}
+
+/* ===== Voice Alert (Soundbox) ===== */
+function speakAlert(amount, symbol) {
+  if (!soundEnabled) return;
+  if (!("speechSynthesis" in window)) return;
+  try {
+    window.speechSynthesis.cancel();
+    var rate = T[symbol] && T[symbol].p ? getConverted(T[symbol].p) : 0;
+    var inrVal = rate ? (parseFloat(amount) * rate) : 0;
+    var msg = "";
+    if (currentLang === "hi") {
+      msg = "क्रिप्टो पे पर " + amount + " " + symbol;
+      if (inrVal > 0) msg += " यानी लगभग " + Math.round(inrVal) + " रुपये";
+      msg += " प्राप्त हुए।";
+    } else if (currentLang === "mr") {
+      msg = "क्रिप्टो पे वर " + amount + " " + symbol;
+      if (inrVal > 0) msg += " म्हणजे सुमारे " + Math.round(inrVal) + " रुपये";
+      msg += " मिळाले.";
+    } else {
+      msg = "Crypto Pay received " + amount + " " + symbol;
+      if (inrVal > 0) msg += ", about " + Math.round(inrVal) + " rupees";
+      msg += ".";
+    }
+    var u = new SpeechSynthesisUtterance(msg);
+    u.lang = currentLang === "hi" ? "hi-IN" : (currentLang === "mr" ? "mr-IN" : "en-IN");
+    u.rate = 0.95;
+    u.pitch = 1;
+    u.volume = 1;
+    // Prefer Indian voice if available
+    var voices = window.speechSynthesis.getVoices();
+    var preferred = voices.filter(function(v) {
+      return v.lang.indexOf(u.lang.slice(0, 2)) === 0;
+    });
+    if (preferred.length) u.voice = preferred[0];
+    window.speechSynthesis.speak(u);
+  } catch (e) {}
+}
+function testVoice() {
+  speakAlert("5", "SHM");
+}
+
+function applySound() {
+  $("soundBtn").className = "sound-toggle " + (soundEnabled ? "on" : "");
+  $("soundBtn").textContent = soundEnabled ? "🔊" : "🔇";
+  if ($("setSound")) $("setSound").textContent = soundEnabled ? "On" : "Off";
+}
+function toggleSound() { soundEnabled = !soundEnabled; ls.set("sound", soundEnabled); applySound(); }
+function togglePriv() { hideBal = !hideBal; ls.set("hide", hideBal); if ($("setPriv")) $("setPriv").textContent = hideBal ? "On" : "Off"; paintList(); }
+
+function fmt(n) {
+  if (!n || n === 0) return "0.00";
+  if (n < 0.0001) return n.toFixed(8);
+  if (n < 0.01) return n.toFixed(5);
+  if (n < 1) return n.toFixed(4);
+  return n.toLocaleString("en-IN", { maximumFractionDigits: 2 });
+}
+function getCurPrefix() { return currentCur === "INR" ? "₹" : "$"; }
+function getConverted(p) { return p ? (currentCur === "INR" ? p.inr : p.usd) : 0; }
+function soon() { alert("Coming soon"); }
+
+function getJSON(url) {
+  return fetch(url).then(function(r) {
+    if (!r.ok) throw new Error(r.status);
+    return r.json();
+  });
+}
+function usdToInr() {
+  return getJSON("https://open.er-api.com/v6/latest/USD").then(function(d) {
+    if (d && d.rates && d.rates.INR) fxCache = d.rates.INR;
+  }).catch(function(){});
+}
+function fetchPrices() {
+  return getJSON("https://api.coingecko.com/api/v3/simple/price?ids=shardeum,ethereum,binancecoin,bitcoin,tether&vs_currencies=usd,inr&include_24hr_change=true")
+    .then(function(cg) {
+      if (cg.shardeum) T.SHM.p = { usd: cg.shardeum.usd, inr: cg.shardeum.inr || cg.shardeum.usd * fxCache, chg: cg.shardeum.usd_24h_change || 0 };
+      if (cg.ethereum) T.ETH.p = { usd: cg.ethereum.usd, inr: cg.ethereum.inr || cg.ethereum.usd * fxCache, chg: cg.ethereum.usd_24h_change || 0 };
+      if (cg.binancecoin) T.BNB.p = { usd: cg.binancecoin.usd, inr: cg.binancecoin.inr || cg.binancecoin.usd * fxCache, chg: cg.binancecoin.usd_24h_change || 0 };
+      if (cg.bitcoin) T.BTC.p = { usd: cg.bitcoin.usd, inr: cg.bitcoin.inr || cg.bitcoin.usd * fxCache, chg: cg.bitcoin.usd_24h_change || 0 };
+      if (cg.tether) T.USDT.p = { usd: cg.tether.usd, inr: cg.tether.inr || fxCache, chg: 0 };
+      lastOk = Date.now();
+    })
+    .catch(function(){})
+    .then(function(){ paintList(); });
+}
+function refreshAll() { usdToInr(); fetchPrices(); }
+
+function buildList() {
+  var logos = {
+    SHM:  "https://assets.coingecko.com/coins/images/31307/small/shardeum.png",
+    USDT: "https://assets.coingecko.com/coins/images/325/small/Tether.png",
+    BTC:  "https://assets.coingecko.com/coins/images/1/small/bitcoin.png",
+    ETH:  "https://assets.coingecko.com/coins/images/279/small/ethereum.png",
+    BNB:  "https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png"
+  };
+  var order = ["SHM", "USDT", "BTC", "ETH", "BNB"];
+  var html = "";
+  for (var i = 0; i < order.length; i++) {
+    var k = order[i];
+    var logo = logos[k] || "";
+    html += '<div class="row" onclick="openReceive()">' +
+      '<div class="ic"><img src="' + logo + '" alt="' + k + '" onerror="this.parentElement.textContent=\'' + k[0] + '\'"></div>' +
+      '<div class="mid"><div class="sym">' + k + '</div><div class="sub" id="s-' + k + '">—</div></div>' +
+      '<div class="rt"><div class="amt" id="b-' + k + '">0.00</div><div class="sub" id="v-' + k + '">₹0.00</div></div>' +
+      '</div>';
+  }
+  $("list").innerHTML = html;
+}
+
+function paintList() {
+  var total = 0;
+  var pfx = getCurPrefix();
+  var H = "••••";
+  var net = NETWORKS[currentNet];
+  var nativeKey = net.symbol;
+  var keys = Object.keys(T);
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    var t = T[k];
+    var p = t.p;
+    var bal = parseFloat(t.bal) || 0;
+    var rate = getConverted(p);
+    if (bal > 0 && rate) total += bal * rate;
+    var chg = "";
+    if (p && typeof p.chg === "number") {
+      var col = p.chg < 0 ? "var(--r)" : "var(--g)";
+      chg = ' <span style="color:' + col + '">' + (p.chg >= 0 ? "+" : "") + p.chg.toFixed(2) + "%</span>";
+    }
+    if ($("s-" + k)) $("s-" + k).innerHTML = p ? pfx + fmt(rate) + chg : pfx + "--";
+    if ($("b-" + k)) $("b-" + k).textContent = hideBal ? H : (k === nativeKey ? t.bal : "—");
+    if ($("v-" + k)) $("v-" + k).textContent = hideBal ? H : (p && k === nativeKey ? pfx + fmt(bal * rate) : "—");
+  }
+  $("total").textContent = hideBal ? pfx + H : pfx + fmt(total);
+  var live = Date.now() - lastOk < 40000;
+  $("feed").className = "feed" + (live ? "" : " bad");
+  $("feedText").textContent = live ? "Live Market Connected" : "Prices delayed";
+}
+
+function toWei(s) {
+  if (!/^\d*\.?\d*$/.test(s) || s === "" || s === ".") return null;
+  var parts = s.split(".");
+  var i = parts[0] || "0";
+  var f = parts[1] || "";
+  return (BigInt(i) * BigInt("1000000000000000000") + BigInt((f + "000000000000000000").slice(0, 18))).toString();
+}
+
+function ensureNetwork() {
+  var n = NETWORKS[currentNet];
+  return ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: n.chainId }] })
+    .then(function(){ return true; })
+    .catch(function(e) {
+      if (e.code === 4902 || e.code === -32603) {
+        return ethereum.request({
+          method: "wallet_addEthereumChain",
+          params: [{
+            chainId: n.chainId,
+            chainName: n.name,
+            nativeCurrency: { name: n.symbol, symbol: n.symbol, decimals: 18 },
+            rpcUrls: [n.rpc],
+            blockExplorerUrls: [n.explorer]
+          }]
+        }).then(function(){ return true; }).catch(function(){ return false; });
+      }
+      return false;
+    });
+}
+
+function connectWallet() {
+  if (!window.ethereum) { alert("Please install MetaMask or another EVM wallet"); return; }
+  ethereum.request({ method: "eth_requestAccounts" })
+    .then(function(accounts) {
+      addr = accounts[0];
+      return ensureNetwork();
+    })
+    .then(function() {
+      return ethereum.request({ method: "eth_chainId" });
+    })
+    .then(function(chainId) {
+      var ok = chainId === NETWORKS[currentNet].chainId;
+      if (ok) readBal(false);
+      $("recvWarn").style.display = ok ? "none" : "block";
+      var chip = $("chip");
+      chip.textContent = addr.slice(0, 6) + "…" + addr.slice(-4);
+      chip.classList.add("on");
+      chip.onclick = null;
+      paintList();
+    })
+    .catch(function(e) {
+      if (e.code !== 4001) alert("Error: " + (e.message || "Failed"));
+    });
+}
+
+function readBal(detect) {
+  if (!addr) return;
+  var n = NETWORKS[currentNet];
+  ethereum.request({ method: "eth_getBalance", params: [addr, "latest"] })
+    .then(function(h) {
+      var val = Number(BigInt(h)) / 1e18;
+      var key = n.symbol;
+      if (detect && lastBal !== null && val > lastBal + 1e-9) {
+        var got = (val - lastBal).toFixed(4);
+        logTx("in", got, key, "");
+        chime();
+        speakAlert(got, key);
+      }
+      lastBal = val;
+      T[key].bal = val.toFixed(4);
+      ["SHM", "ETH", "BNB"].forEach(function(k) {
+        if (k !== key) T[k].bal = "0.0000";
+      });
+      paintList();
+    })
+    .catch(function(){});
+}
+
+function pollBal() {
+  if (!addr || !window.ethereum) return;
+  ethereum.request({ method: "eth_chainId" })
+    .then(function(chainId) {
+      if (chainId === NETWORKS[currentNet].chainId) readBal(true);
+    })
+    .catch(function(){});
+}
+
+function closeAll() {
+  stopScan();
+  var sheets = document.querySelectorAll(".shade");
+  for (var i = 0; i < sheets.length; i++) sheets[i].classList.remove("open");
+}
+function sendMsg(t, ok) {
+  var m = $("sendMsg");
+  m.textContent = t;
+  m.className = "msg" + (ok ? " ok" : "");
+}
+
+function openSend() {
+  if (!addr) {
+    connectWallet();
+    return;
+  }
+  sendMsg("");
+  $("sheetSend").classList.add("open");
+}
+
+function doSend() {
+  var to = $("sendTo").value.trim();
+  var amt = $("sendAmt").value.trim();
+  var wei = toWei(amt);
+  var n = NETWORKS[currentNet];
+  if (!/^0x[0-9a-fA-F]{40}$/.test(to)) return sendMsg("Invalid address");
+  if (!wei) return sendMsg("Invalid amount");
+  if (parseFloat(amt) > parseFloat(T[n.symbol].bal) + 0.0001) return sendMsg("Insufficient balance");
+  if (!confirm("Send " + amt + " " + n.symbol + " to\n" + to + "\n\nConfirm?")) return;
+
+  ethereum.request({ method: "eth_chainId" })
+    .then(function(chainId) {
+      if (chainId !== n.chainId) {
+        sendMsg("Wrong network. Switch first.");
+        return;
+      }
+      $("sendBtn").disabled = true;
+      sendMsg("Confirm in wallet…");
+      return ethereum.request({
+        method: "eth_sendTransaction",
+        params: [{ from: addr, to: to, value: "0x" + BigInt(wei).toString(16) }]
+      });
+    })
+    .then(function(hash) {
+      if (!hash) return;
+      sendMsg("Sent ✓ " + hash.slice(0, 12) + "…", true);
+      chime();
+      logTx("out", amt, n.symbol, hash);
+      $("sendAmt").value = "";
+      setTimeout(pollBal, 6000);
+    })
+    .catch(function(e) {
+      sendMsg(e.code === 4001 ? "Cancelled" : (e.message || "Failed"));
+    })
+    .then(function() {
+      $("sendBtn").disabled = false;
+    });
+}
+
+function openReceive() {
+  if (!addr) {
+    connectWallet();
+    return;
+  }
+  var n = NETWORKS[currentNet];
+  $("recvTitle").textContent = "Receive " + n.symbol;
+  $("recvUnit").textContent = n.symbol;
+  $("recvCap").textContent = "Only send " + n.symbol + " on " + n.name;
+  $("addrBox").textContent = addr;
+  $("sheetRecv").classList.add("open");
+  drawQR();
+}
+
+function drawQR() {
+  if (!addr) return;
+  var box = $("qrcode");
+  box.innerHTML = "";
+  var n = NETWORKS[currentNet];
+  var text = addr;
+  var amount = $("payAmount").value.trim();
+  var wei = toWei(amount);
+  if (wei) {
+    text = "ethereum:" + addr + "@" + n.chainIdDec + "?value=" + wei;
+  }
+  if (typeof QRCode !== "undefined") {
+    new QRCode(box, { text: text, width: 170, height: 170, colorDark: "#000", colorLight: "#fff", correctLevel: QRCode.CorrectLevel.H });
+  } else {
+    box.innerHTML = "<div style='padding:20px;color:#000;font-size:12px'>QR library loading...</div>";
+  }
+}
+
+function copyAddress() {
+  if (!addr) return;
+  navigator.clipboard.writeText(addr).then(function() {
+    var b = $("copyBtn");
+    b.textContent = "✓ Copied";
+    setTimeout(function(){ b.textContent = "Copy Address"; }, 2000);
+  });
+}
+
+var scanning = false, scanStream = null;
+function stopScan() {
+  scanning = false;
+  if (scanStream) {
+    scanStream.getTracks().forEach(function(t){ t.stop(); });
+    scanStream = null;
+  }
+  $("scanVid").style.display = "none";
+}
+
+function scanQR() {
+  if (!("BarcodeDetector" in window)) {
+    sendMsg("QR scan not supported on this device. Paste address.");
+    return;
+  }
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+    .then(function(stream) {
+      scanStream = stream;
+      var v = $("scanVid");
+      v.srcObject = scanStream;
+      v.style.display = "block";
+      return v.play();
+    })
+    .then(function() {
+      var det = new BarcodeDetector({ formats: ["qr_code"] });
+      scanning = true;
+      function loop() {
+        if (!scanning) return;
+        det.detect($("scanVid")).then(function(r) {
+          if (r.length) {
+            handleScan(r[0].rawValue);
+          } else {
+            setTimeout(loop, 300);
+          }
+        }).catch(function(){ setTimeout(loop, 300); });
+      }
+      loop();
+    })
+    .catch(function() {
+      sendMsg("Camera permission needed");
+      stopScan();
+    });
+}
+
+function handleScan(text) {
+  stopScan();
+  var m = text.match(/0x[0-9a-fA-F]{40}/);
+  if (!m) return sendMsg("No address found");
+  $("sendTo").value = m[0];
+  sendMsg("Scanned ✓", true);
+}
+
+function logTx(type, amt, symbol, hash) {
+  txs.unshift({ type: type, amt: amt, symbol: symbol, hash: hash || "", time: Date.now() });
+  txs = txs.slice(0, 25);
+  ls.set("txs", txs);
+  renderTx();
+}
+function renderTx() {
+  var box = $("txHistory");
+  if (!box) return;
+  if (!txs.length) {
+    box.innerHTML = '<div style="font-size:12px;color:var(--mut);text-align:center;padding:6px;">No transactions yet</div>';
+    return;
+  }
+  box.innerHTML = txs.map(function(x) {
+    var d = new Date(x.time).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
+    var color = x.type === "in" ? "var(--g)" : "var(--r)";
+    var sign = x.type === "in" ? "+" : "-";
+    var link = x.hash ? ' · <a href="' + NETWORKS[currentNet].explorer + "/tx/" + x.hash + '" target="_blank" style="color:var(--yellow);text-decoration:none;">View</a>' : "";
+    return '<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:8px 10px;background:var(--sf);border-radius:10px;border:1px solid var(--ln);">' +
+      '<div><b>' + (x.type === "in" ? "Received" : "Sent") + " " + x.symbol + '</b><div style="color:var(--mut);font-size:10px;">' + d + link + '</div></div>' +
+      '<div style="color:' + color + ';font-weight:700;">' + sign + x.amt + " " + x.symbol + '</div></div>';
+  }).join("");
+}
+function clearTxs() {
+  if (!confirm("Clear all local transaction history?")) return;
+  txs = [];
+  ls.set("txs", []);
+  renderTx();
+}
+function shareWhatsApp() {
+  if (!addr) return;
+  var n = NETWORKS[currentNet];
+  var amount = $("payAmount").value.trim();
+  var msg = "Pay me on CryptoPay%0A%0ANetwork: " + n.name + "%0AToken: " + n.symbol + "%0AAddress: " + addr;
+  if (amount) msg += "%0AAmount: " + amount + " " + n.symbol;
+  msg += "%0A%0AScan QR or copy address. Non-custodial payment.";
+  window.open("https://wa.me/?text=" + msg, "_blank");
+}
+function openFaucet() {
+  window.open("https://docs.shardeum.org/docs/developer/faucet", "_blank");
+}
+function openExplorer() {
+  var n = NETWORKS[currentNet];
+  var url = n.explorer;
+  if (addr) url += "/address/" + addr;
+  window.open(url, "_blank");
+}
+function openSettings() {
+  $("setAddr").textContent = addr || "Not connected";
+  $("setNet").textContent = NETWORKS[currentNet].name;
+  applySound();
+  // Show faucet only on testnet
+  var fb = $("faucetBtn");
+  if (fb) fb.style.display = (currentNet === "shardeum-testnet") ? "block" : "none";
+  $("sheetSet").classList.add("open");
+}
+function goHome() { closeAll(); }
+
+if (window.ethereum) {
+  ethereum.on("chainChanged", function(){ location.reload(); });
+  ethereum.on("accountsChanged", function(){ location.reload(); });
+}
+
+window.onload = function() {
+  $("logo").innerHTML = LOGO;
+  $("splashLogo").innerHTML = LOGO;
+  applySound();
+  buildList();
+  paintList();
+  renderTx();
+  changeLang(currentLang);
+  changeNetwork(currentNet);
+  // Preload voices for speech synthesis
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = function() { window.speechSynthesis.getVoices(); };
+  }
+  setTimeout(function(){ $("splash").classList.add("hide"); }, 1800);
+  usdToInr().then(fetchPrices);
+  setInterval(fetchPrices, 15000);
+  setInterval(usdToInr, 600000);
+  setInterval(pollBal, 10000);
+};
+</script>
 </body>
 </html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoPay - Secure Web3 Payments</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0b0e14;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #121824;
+            border-bottom: 1px solid #1f293d;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        /* 🪙 कॉइन हवेतून खाली येऊन सेट होण्याचे सुंदर ॲनिमेशन */
+        .app-logo {
+            width: 45px;
+            height: 45px;
+            background-color: #000000;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: coinDrop 1.2s ease-out forwards;
+        }
+        @keyframes coinDrop {
+            0% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        }
+
+        .inner-circle {
+            width: 32px;
+            height: 32px;
+            background-color: #f3ba2f;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .logo-text {
+            color: #000000;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+        .brand-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .nav-btn {
+            background-color: #f3ba2f;
+            color: #0b0e14;
+            padding: 10px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .nav-btn:hover {
+            background-color: #e0aa20;
+        }
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .hero h1 {
+            font-size: 46px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .hero p {
+            font-size: 17px;
+            color: #9ca3af;
+            max-width: 600px;
+            margin-bottom: 35px;
+            line-height: 1.6;
+        }
+        .cta-btn {
+            background-color: #f3ba2f;
+            color: #0b0e14;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+            margin-bottom: 25px;
+            display: inline-block;
+        }
+        .cta-btn:hover {
+            background-color: #e0aa20;
+            transform: translateY(-2px);
+        }
+        .social-section {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .social-link {
+            color: #f3ba2f;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: bold;
+            border: 1px solid #f3ba2f;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+        .social-link:hover {
+            background-color: #f3ba2f;
+            color: #0b0e14;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #121824;
+            color: #6b7280;
+            border-top: 1px solid #1f293d;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <div class="app-logo">
+                <div class="inner-circle">
+                    <span class="logo-text">C</span>
+                </div>
+            </div>
+            <span class="brand-name">CryptoPay</span>
+        </div>
+        <a href="https://cryptopay-app.vercel.app" class="nav-btn" target="_blank">Open App</a>
+    </header>
+
+    <div class="hero">
+        <h1>Fast & Secure Crypto Payments</h1>
+        <p>Experience the next generation of decentralized transactions. Send, receive, and manage your digital assets seamlessly on a professional platform.</p>
+        
+        <a href="https://cryptopay-app.vercel.app" class="cta-btn" target="_blank">Launch App Dashboard</a>
+
+        <!-- ट्विटर आणि गिटहब लिंक्स -->
+        <div class="social-section">
+            <a href="https://x.com/cryptopay_shm" target="_blank" class="social-link">🐦 Twitter / X</a>
+            <a href="https://github.com/dattusonawane06-glitch/Crypto_Pay" target="_blank" class="social-link">📂 GitHub Source</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 CryptoPay. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

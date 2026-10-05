@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CryptoPay  - Secure Web3 Payments</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0b0f">
+    <title>CryptoPay - Professional Web3 Enterprise & Secure Decentralized Payments</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='150' fill='%23000'/%3E%3Cpath d='M340 160C315 135 280 120 240 120c-88 0-160 72-160 160s72 160 160 160c40 0 75-15 100-40' stroke='%23f5a623' stroke-width='45' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
+        :root {
+            --bg: #0a0b0f;
+            --sf: #14161c;
+            --card: #181b24;
+            --ln: rgba(255,255,255,.08);
+            --yellow: #f5a623;
+            --yellow-glow: rgba(245,166,35,0.25);
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -12,172 +28,315 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #0b0e14;
-            color: #ffffff;
+            background-color: var(--bg);
+            color: var(--text-main);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
-            background-color: #121824;
-            border-bottom: 1px solid #1f293d;
+            padding: 24px 48px;
+            background: var(--sf);
+            border-bottom: 1px solid var(--ln);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .logo-container {
+        .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
-            text-decoration: none;
+            gap: 14px;
         }
-
-        /* 🪙 कॉइन हवेतून खाली येऊन सेट होण्याचे सुंदर ॲनिमेशन */
-        .app-logo {
-            width: 45px;
-            height: 45px;
-            background-color: #000000;
-            border: 2px solid #ffffff;
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            background: var(--yellow);
             border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            animation: coinDrop 1.2s ease-out forwards;
+            justify-content: center;
+            color: #000;
+            font-weight: 800;
+            font-size: 26px;
+            box-shadow: 0 0 20px var(--yellow-glow);
         }
-        @keyframes coinDrop {
-            0% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-            100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        .brand-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
-
-        .inner-circle {
-            width: 32px;
-            height: 32px;
-            background-color: #f3ba2f;
-            border-radius: 50%;
+        nav {
             display: flex;
-            justify-content: center;
+            gap: 30px;
             align-items: center;
         }
-        .logo-text {
-            color: #000000;
-            font-size: 18px;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
-        }
-        .brand-name {
-            font-size: 22px;
-            font-weight: bold;
-            color: #ffffff;
-        }
-        .nav-btn {
-            background-color: #f3ba2f;
-            color: #0b0e14;
-            padding: 10px 25px;
-            border-radius: 6px;
+        nav a {
+            color: var(--text-muted);
             text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
-        .nav-btn:hover {
-            background-color: #e0aa20;
+        nav a:hover {
+            color: var(--yellow);
         }
-        .hero {
+        .main-container {
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 50px 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 35px;
         }
-        .hero h1 {
-            font-size: 46px;
+        @media(max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+        }
+        .card {
+            background: var(--card);
+            border: 1px solid var(--ln);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            margin-bottom: 30px;
+        }
+        .hero-title {
+            font-size: 44px;
+            font-weight: 800;
+            line-height: 1.2;
             margin-bottom: 20px;
-            color: #ffffff;
         }
-        .hero p {
-            font-size: 17px;
-            color: #9ca3af;
-            max-width: 600px;
-            margin-bottom: 35px;
-            line-height: 1.6;
+        .hero-title span {
+            color: var(--yellow);
         }
-        .cta-btn {
-            background-color: #f3ba2f;
-            color: #0b0e14;
-            padding: 15px 40px;
+        .hero-desc {
+            color: var(--text-muted);
             font-size: 18px;
-            font-weight: bold;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: 0.3s;
+            line-height: 1.7;
             margin-bottom: 25px;
+        }
+        .btn-primary {
+            background: var(--yellow);
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px var(--yellow-glow);
+            text-align: center;
+            text-decoration: none;
             display: inline-block;
         }
-        .cta-btn:hover {
-            background-color: #e0aa20;
-            transform: translateY(-2px);
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            opacity: 0.95;
         }
-        .social-section {
-            margin-top: 20px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
         }
-        .social-link {
-            color: #f3ba2f;
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: bold;
-            border: 1px solid #f3ba2f;
-            padding: 8px 20px;
-            border-radius: 6px;
-            transition: 0.3s;
-        }
-        .social-link:hover {
-            background-color: #f3ba2f;
-            color: #0b0e14;
-        }
-        footer {
+        .stat-box {
+            background: var(--sf);
+            padding: 24px;
+            border-radius: 14px;
+            border: 1px solid var(--ln);
             text-align: center;
-            padding: 20px;
-            background-color: #121824;
-            color: #6b7280;
-            border-top: 1px solid #1f293d;
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--yellow);
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-
     <header>
-        <div class="logo-container">
-            <div class="app-logo">
-                <div class="inner-circle">
-                    <span class="logo-text">C</span>
+        <div class="logo-area">
+            <div class="logo-circle">C</div>
+            <div class="brand-title">CryptoPay Enterprise</div>
+        </div>
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#analytics">Analytics</a>
+            <a href="#transactions">Transactions</a>
+            <a href="#security">Security Nodes</a>
+            <a href="https://github.com/dattusonawane06-glitch/Crypto_Pay" target="_blank">GitHub</a>
+        </nav>
+    </header>
+    <div class="main-container">
+        <div>
+            <div class="card">
+                <h1 class="hero-title">Next-Generation <span>Web3 Enterprise</span> Decentralized Gateway</h1>
+                <p class="hero-desc">
+                    Engineered for high-frequency transactions, advanced crypto asset management, multi-chain liquidity routing, and seamless enterprise-grade scalability across large monitors with absolute performance optimization.
+                </p>
+                <a href="https://cryptopay-app.vercel.app" class="btn-primary" target="_blank">Launch Live Enterprise App</a>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-value">10x</div>
+                        <div class="stat-label">Performance Boost</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Decentralized Security</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">4K+</div>
+                        <div class="stat-label">Optimized Architecture</div>
+                    </div>
                 </div>
             </div>
-            <span class="brand-name">CryptoPay</span>
-        </div>
-        <a href="https://cryptopay-app.vercel.app" class="nav-btn" target="_blank">Open App</a>
-    </header>
+            <div class="card" id="dashboard">
+                <h2 style="font-size: 26px; font-weight: 700; margin-bottom: 20px; color: var(--text-main);">Enterprise Transaction Management & Nodes</h2>
+                <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 25px;">
+                    Monitor real-time cryptographic settlement pipelines, gas optimization metrics, and automated cross-chain bridge validation. Built specifically for high-throughput desktop display environments.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                    <div style="background: var(--sf); padding: 20px; border-radius: 12px; border: 1px solid var(--ln);">
+                        <h4 style="color: var(--yellow); font-size: 16px; margin-bottom: 10px;">Polygon Liquidity Pool</h4>
+                        <p style="color: var(--text-muted); font-size: 14px;">Active volume routing with sub-second finality and minimal slippage guarantees.</p>
+                    </div>
+                    <div style="background: var(--sf); padding: 20px; border-radius: 12px; border: 1px solid var(--ln);">
+                        <h4 style="color: var(--accent-green); font-size: 16px; margin-bottom: 10px;">Ethereum Mainnet Bridge</h4>
+                        <p style="color: var(--text-muted); font-size: 14px;">Secure institutional-grade asset transfer protocol with multi-signature verification.</p>
+                    </div>
+                </div>
+            </div>
 
-    <div class="hero">
-        <h1>Fast & Secure Crypto Payments</h1>
-        <p>Experience the next generation of decentralized transactions. Send, receive, and manage your digital assets seamlessly on a professional platform.</p>
+            <div class="card" id="analytics">
+                <h2 style="font-size: 26px; font-weight: 700; margin-bottom: 20px; color: var(--text-main);">Advanced Analytics & Performance Metrics</h2>
+                <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
+                    Comprehensive statistical breakdown of transaction velocity, node latency, and block confirmation speeds across decentralized ledgers.
+                </p>
+                <div style="background: var(--sf); padding: 25px; border-radius: 14px; border: 1px solid var(--ln); display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-size: 14px; color: var(--text-muted);">Average Settlement Time</div>
+                        <div style="font-size: 22px; font-weight: 700; color: var(--yellow); margin-top: 5px;">0.42 Seconds</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; color: var(--text-muted);">Network Efficiency</div>
+                        <div style="font-size: 22px; font-weight: 700; color: var(--accent-green); margin-top: 5px;">99.99% Uptime</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 14px; color: var(--text-muted);">Total Volume Processed</div>
+                        <div style="font-size: 22px; font-weight: 700; color: var(--accent-blue); margin-top: 5px;">$1.42B USD</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="transactions">
+                <h2 style="font-size: 26px; font-weight: 700; margin-bottom: 20px; color: var(--text-main);">Live Ledger & Cryptographic Transactions</h2>
+                <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 25px;">
+                    Real-time tracking of decentralized payment logs, wallet validations, and secure block hashes. Designed for absolute transparency and deep enterprise auditing.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="background: var(--sf); padding: 18px 22px; border-radius: 12px; border: 1px solid var(--ln); display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 16px; color: var(--text-main);">USDT Settlement #98421</div>
+                            <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Polygon Node - 0x71f...3a92</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; font-size: 16px; color: var(--accent-green);">+ $12,500.00</div>
+                            <div style="font-size: 12px; color: var(--accent-green); margin-top: 4px;">Completed</div>
+                        </div>
+                    </div>
+                    <div style="background: var(--sf); padding: 18px 22px; border-radius: 12px; border: 1px solid var(--ln); display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 16px; color: var(--text-main);">Ethereum Bridge Transfer #88120</div>
+                            <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Mainnet Protocol - 0x44c...91b1</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; font-size: 16px; color: var(--yellow);">- 4.25 ETH</div>
+                            <div style="font-size: 12px; color: var(--yellow); margin-top: 4px;">Validating</div>
+                        </div>
+                    </div>
+                    <div style="background: var(--sf); padding: 18px 22px; border-radius: 12px; border: 1px solid var(--ln); display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 16px; color: var(--text-main);">Polygon Gas Fee Optimization</div>
+                            <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Validator Node - 0x99a...11f4</div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; font-size: 16px; color: var(--accent-blue);">+ 850.00 MATIC</div>
+                            <div style="font-size: 12px; color: var(--accent-green); margin-top: 4px;">Optimized</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="security">
+                <h2 style="font-size: 26px; font-weight: 700; margin-bottom: 20px; color: var(--text-main);">Enterprise Security & Node Architecture</h2>
+                <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
+                    Multi-layered cryptographic protection utilizing advanced zero-knowledge proofs, hardware security modules, and decentralized consensus validation.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                    <div style="background: var(--sf); padding: 20px; border-radius: 12px; border: 1px solid var(--ln); text-align: center;">
+                        <div style="font-size: 18px; font-weight: 700; color: var(--yellow); margin-bottom: 8px;">ZK-Rollups</div>
+                        <div style="font-size: 13px; color: var(--text-muted);">Instant Layer-2 verification ensuring maximum privacy and speed.</div>
+                    </div>
+                    <div style="background: var(--sf); padding: 20px; border-radius: 12px; border: 1px solid var(--ln); text-align: center;">
+                        <div style="font-size: 18px; font-weight: 700; color: var(--accent-green); margin-bottom: 8px;">Multi-Sig</div>
+                        <div style="font-size: 13px; color: var(--text-muted);">Distributed key management for high-value treasury accounts.</div>
+                    </div>
+                    <div style="background: var(--sf); padding: 20px; border-radius: 12px; border: 1px solid var(--ln); text-align: center;">
+                        <div style="font-size: 18px; font-weight: 700; color: var(--accent-blue); margin-bottom: 8px;">AES-256</div>
+                        <div style="font-size: 13px; color: var(--text-muted);">Military-grade encryption standard for all active web sessions.</div>
+                    </div>
+                </div>
+            </div>
+            </div>
         
-        <a href="https://cryptopay-app.vercel.app" class="cta-btn" target="_blank">Launch App Dashboard</a>
+        <div>
+            <div class="card" style="position: sticky; top: 100px;">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 15px; color: var(--text-main);">Active Treasury Node</h3>
+                <div style="font-size: 32px; font-weight: 800; color: var(--accent-green); margin-bottom: 10px;">$148,850.00</div>
+                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 25px;">Connected Network: Polygon / Ethereum Mainnet</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 25px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                        <span style="color: var(--text-muted);">Gas Price:</span>
+                        <span style="font-weight: 600; color: var(--yellow);">24 Gwei</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                        <span style="color: var(--text-muted);">Node Latency:</span>
+                        <span style="font-weight: 600; color: var(--accent-green);">12 ms</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                        <span style="color: var(--text-muted);">Validator Status:</span>
+                        <span style="font-weight: 600; color: var(--accent-blue);">Active (0x88...31)</span>
+                    </div>
+                </div>
 
-        <!-- ट्विटर आणि गिटहब लिंक्स -->
-        <div class="social-section">
-            <a href="https://x.com/cryptopay_shm" target="_blank" class="social-link">🐦 Twitter / X</a>
-            <a href="https://github.com/dattusonawane06-glitch/Crypto_Pay" target="_blank" class="social-link">📂 GitHub Source</a>
+                <button class="btn-primary" style="width: 100%;">Secure Disconnect</button>
+            </div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2026 CryptoPay. All rights reserved.</p>
+    <footer style="background: var(--sf); border-top: 1px solid var(--ln); padding: 30px 48px; display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
+        <div style="color: var(--text-muted); font-size: 15px;">
+            &copy; 2026 CryptoPay Enterprise. All rights reserved. Architected by Dattu Sonawane.
+        </div>
+        <div style="display: flex; gap: 25px; align-items: center;">
+            <a href="https://github.com/dattusonawane06-glitch/Crypto_Pay" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 16px; transition: color 0.3s ease;">GitHub</a>
+            <a href="https://twitter.com" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 16px; display: flex; align-items: center; gap: 8px; transition: color 0.3s ease;"><span style="font-weight: 900; font-size: 16px; background: #fff; color: #000; width: 24px; height: 24px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center;">𝕏</span> X (Twitter)</a>
+        </div>
     </footer>
-
 </body>
 </html>

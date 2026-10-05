@@ -1,319 +1,575 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#0a0b0f">
-    <title>CryptoPay - Professional Web3 Secure Decentralized Payments & RWA Gateway</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='150' fill='%23000'/%3E%3Cpath d='M340 160C315 135 280 120 240 120c-88 0-160 72-160 160s72 160 160 160c40 0 75-15 100-40' stroke='%23f5a623' stroke-width='45' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        :root {
-            --bg: #0a0b0f;
-            --sf: #14161c;
-            --card: #181b24;
-            --ln: rgba(255,255,255,.08);
-            --yellow: #f5a623;
-            --yellow-glow: rgba(245,166,35,0.25);
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --accent-green: #10b981;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-        }
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background-color: var(--bg);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background: var(--sf);
-            border-bottom: 1px solid var(--ln);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .logo-circle {
-            width: 48px;
-            height: 48px;
-            background: var(--yellow);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            font-weight: 800;
-            font-size: 26px;
-            box-shadow: 0 0 20px var(--yellow-glow);
-            flex-shrink: 0;
-        }
-        .brand-title {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: var(--text-main);
-            white-space: nowrap;
-        }
-        nav {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        nav a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 15px;
-            font-weight: 500;
-            transition: color 0.3s ease;
-            white-space: nowrap;
-        }
-        nav a:hover {
-            color: var(--yellow);
-        }
-        .main-container {
-            flex: 1;
-            max-width: 1600px;
-            margin: 0 auto;
-            width: 100%;
-            padding: 40px;
-            display: grid;
-            grid-template-columns: 2.5fr 1fr;
-            gap: 35px;
-        }
-        @media(max-width: 1024px) {
-            .main-container {
-                grid-template-columns: 1fr;
-                padding: 20px;
-            }
-        }
-        .card {
-            background: var(--card);
-            border: 1px solid var(--ln);
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            margin-bottom: 30px;
-        }
-        .hero-title {
-            font-size: 40px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-        .hero-title span {
-            color: var(--yellow);
-        }
-        .hero-desc {
-            color: var(--text-muted);
-            font-size: 17px;
-            line-height: 1.7;
-            margin-bottom: 25px;
-        }
-        .btn-primary {
-            background: var(--yellow);
-            color: #000;
-            border: none;
-            padding: 15px 30px;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 25px var(--yellow-glow);
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            opacity: 0.95;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 25px;
-        }
-        .stat-box {
-            background: var(--sf);
-            padding: 20px;
-            border-radius: 14px;
-            border: 1px solid var(--ln);
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--yellow);
-            margin-bottom: 6px;
-        }
-        .stat-label {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#0b0e11">
+<meta name="description" content="CryptoPay — Honest non-custodial crypto payments. UPI-simple. Real on-chain.">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>CryptoPay</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='72' font-size='78' font-weight='900' font-family='Arial Black,Arial' fill='%23F0B90B' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{
+  --bg:#0b0e11;--sf:#12161c;--card:#1e2329;--ln:rgba(255,255,255,.08);
+  --y:#F0B90B;--yg:rgba(240,185,11,.28);--g:#0ecb81;--r:#f6465d;--mut:#848e9c;
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:#eaecef}
+.app{width:100%;max-width:420px;min-height:100dvh;margin:0 auto;display:flex;flex-direction:column;position:relative;background:radial-gradient(ellipse 120% 60% at 50% -10%,rgba(240,185,11,.08),transparent 55%),var(--bg)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px 4px;flex-shrink:0}
+.sels{display:flex;gap:6px;flex-wrap:wrap}
+.pill{background:var(--sf);border:1px solid var(--ln);color:var(--y);padding:5px 10px;border-radius:12px;font-size:11px;font-weight:700;outline:none;cursor:pointer}
+.pill option{background:var(--sf);color:#fff}
+.snd{background:none;border:none;color:var(--mut);cursor:pointer;font-size:18px;padding:2px 6px}
+.snd.on{color:var(--g)}
+header{display:flex;justify-content:space-between;align-items:center;padding:6px 16px 10px;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:10px}
+.cmark{width:40px;height:40px;border-radius:10px;background:#000;border:1px solid rgba(240,185,11,.4);box-shadow:0 0 16px var(--yg);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:var(--y);font-family:"Arial Black",Arial,sans-serif;letter-spacing:-2px}
+.bname{font-size:19px;font-weight:900;letter-spacing:-.4px}
+.bname b{color:var(--y)}
+.nchip{font-size:11px;font-weight:700;color:var(--y);margin-top:1px}
+.chip{background:var(--sf);border:1px solid var(--ln);color:#fff;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer}
+.chip.on{color:var(--g);border-color:rgba(14,203,129,.35)}
+.hero{text-align:center;padding:8px 16px 4px;flex-shrink:0}
+.lbl{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:1.2px}
+.total{font-size:38px;font-weight:900;margin:6px 0 4px;letter-spacing:-1.2px;font-variant-numeric:tabular-nums}
+.feed{font-size:12px;font-weight:700;color:var(--mut);display:flex;align-items:center;justify-content:center;gap:6px}
+.dot{width:7px;height:7px;background:var(--g);border-radius:50%;animation:blink 1.2s infinite}
+.feed.bad .dot{background:var(--r);animation:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.acts{display:flex;justify-content:space-around;padding:16px 12px 12px;flex-shrink:0}
+.act{background:none;border:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;font-weight:700;cursor:pointer;width:76px}
+.act span{width:54px;height:54px;border-radius:16px;background:var(--card);border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--y);box-shadow:0 6px 20px rgba(0,0,0,.35);transition:transform .12s}
+.act:active span{transform:scale(.94)}
+.act.dim{opacity:.4}
+.tabs{display:flex;gap:20px;padding:0 18px;border-bottom:1px solid var(--ln);font-size:14px;font-weight:800;flex-shrink:0}
+.tabs b{padding:10px 0;border-bottom:2px solid var(--y);color:#fff}
+.scroll{flex:1 1 auto;min-height:200px;overflow-y:auto;padding:12px 12px 16px;-webkit-overflow-scrolling:touch}
+.row{display:flex;align-items:center;gap:12px;padding:13px;border-radius:14px;background:rgba(30,35,41,.7);border:1px solid var(--ln);margin-bottom:8px;cursor:pointer}
+.row:active{background:var(--sf)}
+.ic{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#111;overflow:hidden;font-size:14px;font-weight:800;color:var(--y)}
+.ic img{width:100%;height:100%;object-fit:cover}
+.mid{flex:1;min-width:0}
+.sym{font-size:15px;font-weight:800}
+.sub{font-size:12px;font-weight:600;color:var(--mut);margin-top:2px}
+.rt{text-align:right}
+.amt{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+.txbox{margin-top:14px;background:var(--card);border-radius:16px;border:1px solid var(--ln);padding:14px}
+.txh{font-size:13px;font-weight:800;color:var(--y);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.txh span:last-child{font-size:11px;color:var(--mut);cursor:pointer}
+.txi{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:9px 10px;background:var(--sf);border-radius:10px;border:1px solid var(--ln);margin-bottom:6px}
+.disc{font-size:11px;color:var(--mut);text-align:center;padding:10px 14px;line-height:1.45;border-top:1px solid var(--ln);flex-shrink:0}
+nav.bn{display:flex;justify-content:space-around;border-top:1px solid var(--ln);padding:8px 0 calc(10px + env(safe-area-inset-bottom,0px));background:var(--sf);flex-shrink:0}
+nav.bn button{background:none;border:none;color:var(--mut);font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+nav.bn button i{font-style:normal;font-size:18px}
+nav.bn .a{color:var(--y)}
+.shade{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);display:none;align-items:flex-end;z-index:100;max-width:420px;margin:0 auto;left:0;right:0}
+.shade.open{display:flex}
+.panel{background:var(--sf);width:100%;border-radius:24px 24px 0 0;padding:16px 18px calc(22px + env(safe-area-inset-bottom,0px));text-align:center;max-height:92dvh;overflow-y:auto;border-top:1px solid var(--ln)}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--ln);margin:0 auto 14px}
+.ttl{font-size:18px;font-weight:800;margin-bottom:12px}
+.warn{font-size:12px;font-weight:700;color:var(--r);margin-bottom:10px;display:none;line-height:1.4}
+.inp{position:relative;margin-bottom:12px}
+.inp input,.inp select{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:14px;padding:13px 56px 13px 16px;font-size:16px;font-weight:700;color:#fff;outline:none}
+.inp input:focus,.inp select:focus{border-color:var(--y)}
+.inp b{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--y)}
+.cap{font-size:12px;font-weight:600;color:var(--mut);margin-bottom:10px;line-height:1.4}
+.qrbox{background:#fff;padding:12px;border-radius:16px;display:inline-block;margin-bottom:12px}
+.addr{font-family:ui-monospace,monospace;font-size:11px;color:var(--mut);word-break:break-all;background:var(--bg);padding:10px 12px;border-radius:10px;margin-bottom:12px;border:1px solid var(--ln)}
+.btn{width:100%;padding:14px;border-radius:14px;font-size:15px;font-weight:800;background:var(--y);color:#0b0e11;border:none;cursor:pointer}
+.btn:disabled{opacity:.45}
+.btn.ghost{background:var(--bg);color:var(--mut);margin-top:8px;border:1px solid var(--ln)}
+.msg{font-size:12px;font-weight:700;color:var(--r);min-height:16px;margin-bottom:10px}
+.msg.ok{color:var(--g)}
+.risk{background:rgba(246,70,93,.1);border:1px solid rgba(246,70,93,.35);border-radius:12px;padding:10px;font-size:11px;color:#ffb3ba;margin-bottom:12px;text-align:left;line-height:1.45}
+.srow{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--ln);font-size:14px;font-weight:600;text-align:left}
+.srow span:last-child{color:var(--mut);word-break:break-all;text-align:right}
+.srow.tap{cursor:pointer}
+#scanVid{display:none;width:100%;border-radius:14px;margin-bottom:10px;background:#000;max-height:240px;object-fit:cover}
+#splash{position:absolute;inset:0;z-index:99;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .5s}
+#splash.hide{opacity:0;pointer-events:none}
+#splash .cmark{width:88px;height:88px;font-size:52px;border-radius:20px;animation:pop .9s cubic-bezier(.2,1.4,.4,1) both}
+#splash .sn{font-size:26px;font-weight:900;opacity:0;animation:fin .6s .5s forwards}
+@keyframes pop{from{transform:scale(.2) rotate(-20deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes fin{to{opacity:1}}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:var(--card);border:1px solid var(--ln);color:#fff;padding:12px 18px;border-radius:12px;font-size:13px;font-weight:700;z-index:200;opacity:0;transition:all .25s;pointer-events:none;max-width:90%}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.paylink{font-size:11px;color:var(--mut);word-break:break-all;background:var(--bg);padding:8px;border-radius:8px;margin:8px 0;border:1px solid var(--ln);text-align:left}
+</style>
 </head>
 <body>
-    <header>
-        <div class="logo-area">
-            <div class="logo-circle">C</div>
-            <div class="brand-title">CryptoPay</div>
-        </div>
-        <nav>
-            <a href="#dashboard">Dashboard</a>
-            <a href="#rwa">RWA Assets</a>
-            <a href="#swap">Crypto Swap</a>
-            <a href="#transactions">Transactions</a>
-            <a href="#security">Security Nodes</a>
-            <a href="https://github.com/dattusonawane06-glitch/Crypto_Pay" target="_blank">GitHub</a>
-        </nav>
-    </header>
-    
-    <div class="main-container">
-        <div>
-            <div class="card">
-                <h1 class="hero-title">Next-Generation <span>Web3 Decentralized</span> Payment & RWA Gateway</h1>
-                <p class="hero-desc">
-                    High-performance cryptographic settlement engine supporting Real World Assets (RWA) tokenization, cross-chain multi-asset routing, and automated decentralized liquidity pools engineered for massive monitor environments.
-                </p>
-                <a href="#swap" class="btn-primary">Launch Live App Engine</a>
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-value">10x</div>
-                        <div class="stat-label">Throughput Velocity</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value">100%</div>
-                        <div class="stat-label">Non-Custodial Security</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value">RWA+</div>
-                        <div class="stat-label">Asset Tokenization</div>
-                    </div>
-                </div>
-            </div>
+<div class="app" id="app">
+  <div id="splash"><div class="cmark">C</div><div class="sn"><span style="color:#fff">Crypto</span><span style="color:var(--y)">Pay</span></div></div>
 
-            <div class="card" id="rwa">
-                <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 15px; color: var(--text-main);">Real World Assets (RWA) Tokenization Protocol</h2>
-                <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
-                    Bridge physical commodities, real estate equity, and institutional debt instruments onto high-speed blockchain ledgers with instant verification.
-                </p>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
-                    <div style="background: var(--sf); padding: 20px; border-radius: 12px; border: 1px solid var(--ln);">
-                        <h4 style="color: var(--yellow); font-size: 16px; margin-bottom: 8px;">Commodity Gold-Backed Token</h4>
-                        <p style="color: var(--text-muted); font-size: 13px;">Fully audited physical bullion reserves securely locked in Swiss institutional vaults.</p>
-                    </div>
-                    <div style="background: var(--sf); padding: 20px; border-radius: 12px; border: 1px solid var(--ln);">
-                        <h4 style="color: var(--accent-green); font-size: 16px; margin-bottom: 8px;">Real Estate Equity Pool</h4>
-                        <p style="color: var(--text-muted); font-size: 13px;">Fractionalized commercial real estate yields distributed automatically via smart contracts.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card" id="swap">
-                <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 15px; color: var(--text-main);">Cross-Chain Crypto Swap Engine</h2>
-                <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
-                    Execute instantaneous, zero-slippage token exchanges across Polygon, Ethereum, and Arbitrum with optimal liquidity routing.
-                </p>
-                <div style="background: var(--sf); padding: 25px; border-radius: 14px; border: 1px solid var(--ln); display: flex; flex-direction: column; gap: 15px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="color: var(--text-muted); font-size: 14px;">You Pay: 1.0 ETH</span>
-                        <span style="color: var(--yellow); font-size: 14px; font-weight: 600;">Balance: 12.45 ETH</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="color: var(--text-muted); font-size: 14px;">You Receive: 2,850.40 USDT</span>
-                        <span style="color: var(--accent-green); font-size: 14px; font-weight: 600;">Rate: 1 ETH = 2,850.40 USDT</span>
-                    </div>
-                    <button class="btn-primary" style="width: 100%; margin-top: 10px;">Execute Instant Crypto Swap</button>
-                </div>
-            </div>
-
-            <div class="card" id="transactions">
-                <h2 style="font-size: 24px; font-weight: 700; margin-bottom: 15px; color: var(--text-main);">Live Settlement Ledger</h2>
-                <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
-                    Real-time transaction tracking across decentralized validation nodes with cryptographic proof signatures.
-                </p>
-                <div style="display: flex; flex-direction: column; gap: 12px;">
-                    <div style="background: var(--sf); padding: 16px 20px; border-radius: 12px; border: 1px solid var(--ln); display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-weight: 600; font-size: 15px; color: var(--text-main);">RWA Gold Tokenization #4092</div>
-                            <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">Polygon Network - 0x82a...19e4</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-weight: 700; font-size: 15px; color: var(--accent-green);">+ $45,000.00</div>
-                            <div style="font-size: 11px; color: var(--accent-green); margin-top: 3px;">Verified</div>
-                        </div>
-                    </div>
-                    <div style="background: var(--sf); padding: 16px 20px; border-radius: 12px; border: 1px solid var(--ln); display: flex; justify-content: space-between; align-items: center;">
-                        <div>
-                            <div style="font-weight: 600; font-size: 15px; color: var(--text-main);">Cross-Chain Swap (ETH to USDT)</div>
-                            <div style="font-size: 12px; color: var(--text-muted); margin-top: 3px;">Mainnet Bridge - 0x11c...77f9</div>
-                        </div>
-                        <div style="text-align: right;">
-                            <div style="font-weight: 700; font-size: 15px; color: var(--yellow);">2.50 ETH</div>
-                            <div style="font-size: 11px; color: var(--yellow); margin-top: 3px;">Processing</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div>
-            <div class="card" style="position: sticky; top: 100px;">
-                <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px; color: var(--text-main);">Wallet & Node Status</h3>
-                <div style="font-size: 28px; font-weight: 800; color: var(--accent-green); margin-bottom: 8px;">Connected</div>
-                <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Network: Polygon / Ethereum Mainnet</p>
-                
-                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
-                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
-                        <span style="color: var(--text-muted);">Gas Price:</span>
-                        <span style="font-weight: 600; color: var(--yellow);">18 Gwei</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
-                        <span style="color: var(--text-muted);">Node Latency:</span>
-                        <span style="font-weight: 600; color: var(--accent-green);">8 ms</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 13px;">
-                        <span style="color: var(--text-muted);">Validator:</span>
-                        <span style="font-weight: 600; color: var(--accent-blue);">Active (0x7F...92)</span>
-                    </div>
-                </div>
-
-                <button class="btn-primary" style="width: 100%;">Disconnect Wallet</button>
-            </div>
-        </div>
+  <div class="top">
+    <div class="sels">
+      <select class="pill" id="netSelect" onchange="changeNetwork(this.value)">
+        <option value="shardeum-testnet">Shardeum Testnet</option>
+        <option value="shardeum">Shardeum Mainnet</option>
+        <option value="ethereum">Ethereum</option>
+        <option value="bsc">BNB Chain</option>
+      </select>
+      <select class="pill" id="curSelect" onchange="changeCurrency(this.value)">
+        <option value="INR">₹ INR</option>
+        <option value="USD">$ USD</option>
+      </select>
+      <select class="pill" id="langSelect" onchange="changeLang(this.value)">
+        <option value="en">EN</option>
+        <option value="hi">हिंदी</option>
+        <option value="mr">मराठी</option>
+      </select>
     </div>
+    <button class="snd on" id="soundBtn" onclick="toggleSound()">🔊</button>
+  </div>
 
-    <footer style="background: var(--sf); border-top: 1px solid var(--ln); padding: 25px 40px; display: flex; justify-content: space-between; align-items: center; margin-top: auto; flex-wrap: wrap; gap: 15px;">
-        <div style="color: var(--text-muted); font-size: 14px;">
-            &copy; 2026 CryptoPay. All rights reserved. Architected by Dattu Sonawane.
-        </div>
-        <div style="display: flex; gap: 20px; align-items: center;">
-            <a href="https://github.com/dattusonawane06-glitch/Crypto_Pay" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 15px;">GitHub</a>
-            <a href="https://twitter.com" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 15px;">X (Twitter)</a>
-        </div>
-    </footer>
+  <header>
+    <div class="brand">
+      <div class="cmark">C</div>
+      <div>
+        <div class="bname">Crypto<b>Pay</b></div>
+        <div class="nchip" id="netLabel">Shardeum Testnet</div>
+      </div>
+    </div>
+    <button class="chip" id="chip" onclick="connectWallet()">Connect Wallet</button>
+  </header>
+
+  <div class="hero">
+    <div class="lbl" id="lblTotal">Total Balance</div>
+    <div class="total" id="total">₹0.00</div>
+    <div class="feed" id="feed"><span class="dot"></span> <span id="feedText">Live Market Connected</span></div>
+  </div>
+
+  <div class="acts">
+    <button class="act" onclick="openSend()"><span>↑</span><b id="btnSend">Send</b></button>
+    <button class="act" onclick="openReceive()"><span>↓</span><b id="btnRecv">Receive</b></button>
+    <button class="act" onclick="openRequest()"><span>⌘</span><b id="btnReq">Request</b></button>
+  </div>
+
+  <div class="tabs"><b id="tabAssets">Crypto Assets</b></div>
+
+  <div class="scroll">
+    <div id="list"></div>
+    <div class="txbox">
+      <div class="txh"><span id="txtTx">Recent</span><span onclick="clearTxs()">Clear</span></div>
+      <div id="txHistory"><div style="font-size:12px;color:var(--mut);text-align:center;padding:6px">No transactions yet</div></div>
+    </div>
+  </div>
+
+  <div class="disc" id="disclaimer">⚠ Crypto is risky. Only use what you can afford to lose. Keys stay in your wallet. Non-custodial. Not financial advice.</div>
+
+  <nav class="bn">
+    <button class="a" onclick="goHome()"><i>🏠</i><span id="navHome">Home</span></button>
+    <button onclick="openBook()"><i>📒</i><span id="navBook">Contacts</span></button>
+    <button onclick="openTools()"><i>✨</i><span id="navTools">Tools</span></button>
+    <button onclick="openSettings()"><i>⚙</i><span id="navSettings">Settings</span></button>
+  </nav>
+
+  <!-- SEND -->
+  <div class="shade" id="sheetSend" onclick="if(event.target===this)closeAll()">
+    <div class="panel">
+      <div class="grab"></div>
+      <div class="ttl" id="sendTitle">Send</div>
+      <div class="risk">Only send the native coin of the selected network. Wrong network = permanent loss.</div>
+      <video id="scanVid" playsinline muted></video>
+      <div class="inp"><input id="sendTo" placeholder="0x recipient address" autocomplete="off"></div>
+      <div class="inp"><input type="number" id="sendAmt" placeholder="Amount" step="any" min="0"><b id="sendUnit">SHM</b></div>
+      <div class="msg" id="sendMsg"></div>
+      <button class="btn" id="sendBtn" onclick="doSend()">Send</button>
+      <button class="btn ghost" onclick="scanQR()">📷 Scan QR</button>
+      <button class="btn ghost" onclick="closeAll()">Close</button>
+    </div>
+  </div>
+
+  <!-- RECEIVE -->
+  <div class="shade" id="sheetRecv" onclick="if(event.target===this)closeAll()">
+    <div class="panel">
+      <div class="grab"></div>
+      <div class="ttl" id="recvTitle">Receive</div>
+      <div class="warn" id="recvWarn">Switch to the correct network in your wallet</div>
+      <div class="inp"><input type="number" id="payAmount" placeholder="Amount (optional)" oninput="drawQR()" step="any" min="0"><b id="recvUnit">SHM</b></div>
+      <div class="cap" id="recvCap">Only send native coin on this network</div>
+      <div class="qrbox" id="qrcode"></div>
+      <div class="addr" id="addrBox"></div>
+      <div class="paylink" id="payLink" style="display:none"></div>
+      <button class="btn" id="copyBtn" onclick="copyAddress()">Copy Address</button>
+      <button class="btn ghost" onclick="copyPayLink()">Copy Payment Link</button>
+      <button class="btn ghost" onclick="shareWhatsApp()">📲 WhatsApp</button>
+      <button class="btn ghost" onclick="closeAll()">Close</button>
+    </div>
+  </div>
+
+  <!-- REQUEST (merchant amount-first) -->
+  <div class="shade" id="sheetReq" onclick="if(event.target===this)closeAll()">
+    <div class="panel">
+      <div class="grab"></div>
+      <div class="ttl">Payment Request</div>
+      <div class="cap">Enter amount → show QR. Customer pays exactly this amount.</div>
+      <div class="inp"><input type="number" id="reqAmt" placeholder="Amount" step="any" min="0" oninput="drawReqQR()"><b id="reqUnit">SHM</b></div>
+      <div class="inp"><input id="reqNote" placeholder="Note (optional)" oninput="drawReqQR()"></div>
+      <div class="qrbox" id="reqQR"></div>
+      <div class="addr" id="reqAddr"></div>
+      <button class="btn" onclick="copyReqLink()">Copy Request Link</button>
+      <button class="btn ghost" onclick="shareReqWA()">📲 Share Request</button>
+      <button class="btn ghost" onclick="closeAll()">Close</button>
+    </div>
+  </div>
+
+  <!-- CONTACTS -->
+  <div class="shade" id="sheetBook" onclick="if(event.target===this)closeAll()">
+    <div class="panel">
+      <div class="grab"></div>
+      <div class="ttl">Address Book</div>
+      <div class="inp"><input id="bookName" placeholder="Name"></div>
+      <div class="inp"><input id="bookAddr" placeholder="0x address"></div>
+      <button class="btn" onclick="saveContact()">Save Contact</button>
+      <div id="bookList" style="margin-top:14px;text-align:left"></div>
+      <button class="btn ghost" onclick="closeAll()">Close</button>
+    </div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="shade" id="sheetTools" onclick="if(event.target===this)closeAll()">
+    <div class="panel">
+      <div class="grab"></div>
+      <div class="ttl">Tools</div>
+      <button class="btn ghost" style="margin-top:0" onclick="toolGas()">⛽ Estimate network fee</button>
+      <button class="btn ghost" onclick="toolConvert()">🔁 Price converter</button>
+      <button class="btn ghost" onclick="toolExport()">📥 Export history CSV</button>
+      <button class="btn ghost" onclick="openExplorer()">🔗 Open block explorer</button>
+      <div id="toolOut" class="cap" style="margin-top:12px;text-align:left;min-height:40px"></div>
+      <button class="btn ghost" onclick="closeAll()">Close</button>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="shade" id="sheetSet" onclick="if(event.target===this)closeAll()">
+    <div class="panel">
+      <div class="grab"></div>
+      <div class="ttl">Settings</div>
+      <div class="srow"><span>Wallet</span><span id="setAddr">Not connected</span></div>
+      <div class="srow"><span>Network</span><span id="setNet">Shardeum Testnet</span></div>
+      <div class="srow tap" onclick="toggleSound()"><span>Sound</span><span id="setSound">On</span></div>
+      <div class="srow tap" onclick="togglePriv()"><span>Hide balance</span><span id="setPriv">Off</span></div>
+      <div class="srow"><span>Version</span><span>CryptoPay 3.0</span></div>
+      <div style="height:12px"></div>
+      <div class="risk">Non-custodial. We never hold keys. Always verify network and address before sending.</div>
+      <button class="btn" onclick="refreshAll()">Refresh Prices</button>
+      <button class="btn ghost" onclick="testVoice()">🔊 Test Voice Alert</button>
+      <button class="btn ghost" id="faucetBtn" onclick="openFaucet()" style="display:none">💧 Testnet Faucet</button>
+      <button class="btn ghost" onclick="location.reload()">Reload</button>
+      <button class="btn ghost" onclick="closeAll()">Close</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const ls={get:(k,d)=>{try{const v=localStorage.getItem('cp3_'+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set:(k,v)=>{try{localStorage.setItem('cp3_'+k,JSON.stringify(v))}catch(e){}}};
+
+const NETWORKS={
+  "shardeum-testnet":{name:"Shardeum Testnet",chainId:"0x1fb7",chainIdDec:8119,symbol:"SHM",rpc:"https://api-mezame.shardeum.org",explorer:"https://explorer-mezame.shardeum.org"},
+  shardeum:{name:"Shardeum Mainnet",chainId:"0x1fb6",chainIdDec:8118,symbol:"SHM",rpc:"https://api.shardeum.org",explorer:"https://explorer.shardeum.org"},
+  ethereum:{name:"Ethereum",chainId:"0x1",chainIdDec:1,symbol:"ETH",rpc:"https://cloudflare-eth.com",explorer:"https://etherscan.io"},
+  bsc:{name:"BNB Chain",chainId:"0x38",chainIdDec:56,symbol:"BNB",rpc:"https://bsc-dataseed.binance.org",explorer:"https://bscscan.com"}
+};
+
+const LOGOS={
+  SHM:"https://assets.coingecko.com/coins/images/31307/small/shardeum.png",
+  USDT:"https://assets.coingecko.com/coins/images/325/small/Tether.png",
+  BTC:"https://assets.coingecko.com/coins/images/1/small/bitcoin.png",
+  ETH:"https://assets.coingecko.com/coins/images/279/small/ethereum.png",
+  BNB:"https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png"
+};
+
+let currentNet="shardeum-testnet",addr="",fx=89.5,lastBal=null,lastOk=0,cur="INR",lang="en",soundOn=ls.get("sound",true),hideBal=ls.get("hide",false),txs=ls.get("txs",[]),contacts=ls.get("contacts",[]);
+
+const T={SHM:{bal:"0.0000",p:null},USDT:{bal:"0.00",p:null},BTC:{bal:"0.000000",p:null},ETH:{bal:"0.0000",p:null},BNB:{bal:"0.0000",p:null}};
+
+const I18N={
+  en:{total:"Total Balance",send:"Send",recv:"Receive",req:"Request",assets:"Crypto Assets",home:"Home",book:"Contacts",tools:"Tools",settings:"Settings",disc:"⚠ Crypto is risky. Only use what you can afford to lose. Keys stay in your wallet. Non-custodial. Not financial advice.",tx:"Recent"},
+  hi:{total:"कुल बैलेंस",send:"भेजें",recv:"प्राप्त",req:"अनुरोध",assets:"एसेट्स",home:"होम",book:"संपर्क",tools:"टूल्स",settings:"सेटिंग्स",disc:"⚠ क्रिप्टो जोखिम भरा है। कुंजियाँ आपके वॉलेट में रहती हैं।",tx:"हालिया"},
+  mr:{total:"एकूण शिल्लक",send:"पाठवा",recv:"स्वीकारा",req:"विनंती",assets:"मालमत्ता",home:"होम",book:"संपर्क",tools:"टूल्स",settings:"सेटिंग्ज",disc:"⚠ क्रिप्टो जोखमीचे. की तुमच्या वॉलेटमध्ये राहतात.",tx:"अलीकडील"}
+};
+
+function toast(m,ms){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),ms||2200)}
+function fmt(n){if(!n&&n!==0)return"0.00";if(n<0.0001)return n.toFixed(8);if(n<0.01)return n.toFixed(5);if(n<1)return n.toFixed(4);return n.toLocaleString("en-IN",{maximumFractionDigits:2})}
+function pfx(){return cur==="INR"?"₹":"$"}
+function rate(p){return p?(cur==="INR"?p.inr:p.usd):0}
+
+function changeCurrency(c){cur=c;paint()}
+function changeLang(l){
+  lang=l;const d=I18N[l];
+  $("lblTotal").textContent=d.total;$("btnSend").textContent=d.send;$("btnRecv").textContent=d.recv;$("btnReq").textContent=d.req;
+  $("tabAssets").textContent=d.assets;$("navHome").textContent=d.home;$("navBook").textContent=d.book;
+  $("navTools").textContent=d.tools;$("navSettings").textContent=d.settings;$("disclaimer").textContent=d.disc;$("txtTx").textContent=d.tx;
+}
+function changeNetwork(key){
+  currentNet=key;const n=NETWORKS[key];
+  $("netLabel").textContent=n.name;$("setNet").textContent=n.name;
+  $("sendUnit").textContent=n.symbol;$("recvUnit").textContent=n.symbol;$("reqUnit").textContent=n.symbol;
+  $("sendTitle").textContent="Send "+n.symbol;$("recvTitle").textContent="Receive "+n.symbol;
+  $("recvCap").textContent="Only send "+n.symbol+" on "+n.name;
+  $("faucetBtn").style.display=key==="shardeum-testnet"?"block":"none";
+  if(addr)ensureNetwork().then(()=>readBal(false));
+  paint();
+}
+
+let AC;
+function chime(){
+  if(!soundOn)return;
+  try{
+    AC=AC||new(window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==="suspended")AC.resume();
+    [523.25,659.25,783.99].forEach((f,i)=>{
+      const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+i*.12;
+      o.type="sine";o.frequency.value=f;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.18,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+.4);
+      o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.45);
+    });
+  }catch(e){}
+}
+function speakAlert(amount,symbol){
+  if(!soundOn||!("speechSynthesis"in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    const r=T[symbol]&&T[symbol].p?rate(T[symbol].p):0;
+    const inr=r?Math.round(parseFloat(amount)*r):0;
+    let msg;
+    if(lang==="hi")msg="क्रिप्टो पे पर "+amount+" "+symbol+(inr?" यानी लगभग "+inr+" रुपये":"")+" प्राप्त हुए।";
+    else if(lang==="mr")msg="क्रिप्टो पे वर "+amount+" "+symbol+(inr?" म्हणजे सुमारे "+inr+" रुपये":"")+" मिळाले.";
+    else msg="Crypto Pay received "+amount+" "+symbol+(inr?", about "+inr+" rupees":"")+".";
+    const u=new SpeechSynthesisUtterance(msg);
+    u.lang=lang==="hi"?"hi-IN":lang==="mr"?"mr-IN":"en-IN";u.rate=.95;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function applySound(){$("soundBtn").className="snd"+(soundOn?" on":"");$("soundBtn").textContent=soundOn?"🔊":"🔇";if($("setSound"))$("setSound").textContent=soundOn?"On":"Off"}
+function toggleSound(){soundOn=!soundOn;ls.set("sound",soundOn);applySound()}
+function togglePriv(){hideBal=!hideBal;ls.set("hide",hideBal);if($("setPriv"))$("setPriv").textContent=hideBal?"On":"Off";paint()}
+function testVoice(){speakAlert("5","SHM")}
+
+function toWei(s){
+  if(!/^\d*\.?\d*$/.test(s)||s===""||s===".")return null;
+  const[i,f=""]=s.split(".");
+  return(BigInt(i||"0")*10n**18n+BigInt((f+"0".repeat(18)).slice(0,18))).toString();
+}
+
+function buildList(){
+  const order=["SHM","USDT","BTC","ETH","BNB"];
+  $("list").innerHTML=order.map(k=>`<div class="row" onclick="openReceive()"><div class="ic"><img src="${LOGOS[k]}" alt="${k}" onerror="this.parentElement.textContent='${k[0]}'"></div><div class="mid"><div class="sym">${k}</div><div class="sub" id="s-${k}">—</div></div><div class="rt"><div class="amt" id="b-${k}">0</div><div class="sub" id="v-${k}">—</div></div></div>`).join("");
+}
+function paint(){
+  let total=0;const H="••••";const native=NETWORKS[currentNet].symbol;
+  Object.keys(T).forEach(k=>{
+    const t=T[k],bal=parseFloat(t.bal)||0,rt=rate(t.p);
+    if(bal>0&&rt)total+=bal*rt;
+    let chg="";
+    if(t.p&&typeof t.p.chg==="number"){const c=t.p.chg<0?"var(--r)":"var(--g)";chg=` <span style="color:${c}">${t.p.chg>=0?"+":""}${t.p.chg.toFixed(2)}%</span>`}
+    if($("s-"+k))$("s-"+k).innerHTML=t.p?pfx()+fmt(rt)+chg:pfx()+"--";
+    if($("b-"+k))$("b-"+k).textContent=hideBal?H:(k===native?t.bal:"—");
+    if($("v-"+k))$("v-"+k).textContent=hideBal?H:(t.p&&k===native?pfx()+fmt(bal*rt):"—");
+  });
+  $("total").textContent=hideBal?pfx()+H:pfx()+fmt(total);
+  const live=Date.now()-lastOk<45000;
+  $("feed").className="feed"+(live?"":" bad");
+  $("feedText").textContent=live?"Live Market Connected":"Prices delayed";
+}
+
+async function fetchPrices(){
+  try{
+    const cg=await(await fetch("https://api.coingecko.com/api/v3/simple/price?ids=shardeum,ethereum,binancecoin,bitcoin,tether&vs_currencies=usd,inr&include_24hr_change=true")).json();
+    if(cg.shardeum)T.SHM.p={usd:cg.shardeum.usd,inr:cg.shardeum.inr||cg.shardeum.usd*fx,chg:cg.shardeum.usd_24h_change||0};
+    if(cg.ethereum)T.ETH.p={usd:cg.ethereum.usd,inr:cg.ethereum.inr||cg.ethereum.usd*fx,chg:cg.ethereum.usd_24h_change||0};
+    if(cg.binancecoin)T.BNB.p={usd:cg.binancecoin.usd,inr:cg.binancecoin.inr||cg.binancecoin.usd*fx,chg:cg.binancecoin.usd_24h_change||0};
+    if(cg.bitcoin)T.BTC.p={usd:cg.bitcoin.usd,inr:cg.bitcoin.inr||cg.bitcoin.usd*fx,chg:cg.bitcoin.usd_24h_change||0};
+    if(cg.tether)T.USDT.p={usd:cg.tether.usd,inr:cg.tether.inr||fx,chg:0};
+    lastOk=Date.now();
+  }catch(e){}
+  paint();
+}
+async function usdToInr(){try{const d=await(await fetch("https://open.er-api.com/v6/latest/USD")).json();if(d?.rates?.INR)fx=d.rates.INR}catch(e){}}
+function refreshAll(){usdToInr();fetchPrices();toast("Refreshing…")}
+
+function ensureNetwork(){
+  const n=NETWORKS[currentNet];
+  return ethereum.request({method:"wallet_switchEthereumChain",params:[{chainId:n.chainId}]}).catch(e=>{
+    if(e.code===4902||e.code===-32603){
+      return ethereum.request({method:"wallet_addEthereumChain",params:[{chainId:n.chainId,chainName:n.name,nativeCurrency:{name:n.symbol,symbol:n.symbol,decimals:18},rpcUrls:[n.rpc],blockExplorerUrls:[n.explorer]}]});
+    }
+    throw e;
+  });
+}
+
+async function connectWallet(){
+  if(!window.ethereum){toast("Install MetaMask");return}
+  try{
+    const accounts=await ethereum.request({method:"eth_requestAccounts"});
+    addr=accounts[0];
+    await ensureNetwork();
+    const chainId=await ethereum.request({method:"eth_chainId"});
+    const ok=chainId===NETWORKS[currentNet].chainId;
+    if(ok)await readBal(false);
+    $("recvWarn").style.display=ok?"none":"block";
+    const chip=$("chip");chip.textContent=addr.slice(0,6)+"…"+addr.slice(-4);chip.classList.add("on");chip.onclick=null;
+    paint();toast("Wallet connected");
+  }catch(e){if(e.code!==4001)toast(e.message||"Failed")}
+}
+
+async function readBal(detect){
+  if(!addr)return;
+  try{
+    const n=NETWORKS[currentNet];
+    const h=await ethereum.request({method:"eth_getBalance",params:[addr,"latest"]});
+    const val=Number(BigInt(h))/1e18;
+    const key=n.symbol;
+    if(detect&&lastBal!==null&&val>lastBal+1e-9){
+      const got=(val-lastBal).toFixed(4);
+      logTx("in",got,key,"");
+      chime();speakAlert(got,key);toast("+"+got+" "+key+" received");
+    }
+    lastBal=val;T[key].bal=val.toFixed(4);
+    ["SHM","ETH","BNB"].forEach(k=>{if(k!==key)T[k].bal="0.0000"});
+    paint();
+  }catch(e){}
+}
+function pollBal(){if(!addr||!window.ethereum)return;ethereum.request({method:"eth_chainId"}).then(id=>{if(id===NETWORKS[currentNet].chainId)readBal(true)}).catch(()=>{})}
+
+function logTx(type,amt,symbol,hash){txs.unshift({type,amt,symbol,hash:hash||"",time:Date.now()});txs=txs.slice(0,40);ls.set("txs",txs);renderTx()}
+function renderTx(){
+  const box=$("txHistory");if(!box)return;
+  if(!txs.length){box.innerHTML='<div style="font-size:12px;color:var(--mut);text-align:center;padding:6px">No transactions yet</div>';return}
+  box.innerHTML=txs.map(x=>{
+    const d=new Date(x.time).toLocaleString("en-IN",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"});
+    const col=x.type==="in"?"var(--g)":"var(--r)";const sign=x.type==="in"?"+":"-";
+    const link=x.hash?` · <a href="${NETWORKS[currentNet].explorer}/tx/${x.hash}" target="_blank" style="color:var(--y);text-decoration:none">View</a>`:"";
+    return`<div class="txi"><div><b>${x.type==="in"?"In":"Out"} ${x.symbol}</b><div style="color:var(--mut);font-size:10px">${d}${link}</div></div><div style="color:${col};font-weight:800">${sign}${x.amt}</div></div>`;
+  }).join("");
+}
+function clearTxs(){if(!confirm("Clear history?"))return;txs=[];ls.set("txs",[]);renderTx()}
+
+function closeAll(){stopScan();document.querySelectorAll(".shade").forEach(s=>s.classList.remove("open"))}
+function sendMsg(t,ok){const m=$("sendMsg");m.textContent=t;m.className="msg"+(ok?" ok":"")}
+
+async function openSend(){if(!addr){await connectWallet();if(!addr)return}sendMsg("");$("sheetSend").classList.add("open")}
+async function doSend(){
+  const to=$("sendTo").value.trim(),amt=$("sendAmt").value.trim(),wei=toWei(amt),n=NETWORKS[currentNet];
+  if(!/^0x[0-9a-fA-F]{40}$/.test(to))return sendMsg("Invalid address");
+  if(!wei)return sendMsg("Invalid amount");
+  if(parseFloat(amt)>parseFloat(T[n.symbol].bal)+0.0001)return sendMsg("Insufficient balance");
+  if(!confirm(`Send ${amt} ${n.symbol} to\n${to}?`))return;
+  try{
+    const chainId=await ethereum.request({method:"eth_chainId"});
+    if(chainId!==n.chainId)return sendMsg("Wrong network");
+    $("sendBtn").disabled=true;sendMsg("Confirm in wallet…");
+    const hash=await ethereum.request({method:"eth_sendTransaction",params:[{from:addr,to,value:"0x"+BigInt(wei).toString(16)}]});
+    sendMsg("Sent ✓ "+hash.slice(0,12)+"…",true);chime();logTx("out",amt,n.symbol,hash);$("sendAmt").value="";setTimeout(pollBal,5000);toast("Sent");
+  }catch(e){sendMsg(e.code===4001?"Cancelled":(e.message||"Failed"))}
+  $("sendBtn").disabled=false;
+}
+
+async function openReceive(){if(!addr){await connectWallet();if(!addr)return}
+  const n=NETWORKS[currentNet];$("recvTitle").textContent="Receive "+n.symbol;$("recvUnit").textContent=n.symbol;
+  $("recvCap").textContent="Only send "+n.symbol+" on "+n.name;$("addrBox").textContent=addr;$("sheetRecv").classList.add("open");drawQR()}
+function drawQR(){
+  if(!addr)return;const box=$("qrcode");box.innerHTML="";const n=NETWORKS[currentNet];
+  let text=addr;const amount=$("payAmount").value.trim(),wei=toWei(amount);
+  if(wei)text=`ethereum:${addr}@${n.chainIdDec}?value=${wei}`;
+  if(typeof QRCode!=="undefined")new QRCode(box,{text,width:168,height:168,colorDark:"#000",colorLight:"#fff",correctLevel:QRCode.CorrectLevel.H});
+  const pl=$("payLink");if(wei){pl.style.display="block";pl.textContent=text}else pl.style.display="none";
+}
+function copyAddress(){if(!addr)return;navigator.clipboard.writeText(addr).then(()=>{toast("Address copied");$("copyBtn").textContent="✓ Copied";setTimeout(()=>$("copyBtn").textContent="Copy Address",1500)})}
+function copyPayLink(){const t=$("payLink").textContent||addr;navigator.clipboard.writeText(t).then(()=>toast("Payment link copied"))}
+function shareWhatsApp(){
+  if(!addr)return;const n=NETWORKS[currentNet],amount=$("payAmount").value.trim();
+  let msg=`Pay me on CryptoPay%0ANetwork: ${n.name}%0AToken: ${n.symbol}%0AAddress: ${addr}`;
+  if(amount)msg+=`%0AAmount: ${amount} ${n.symbol}`;
+  window.open("https://wa.me/?text="+msg,"_blank");
+}
+
+async function openRequest(){if(!addr){await connectWallet();if(!addr)return}
+  $("reqUnit").textContent=NETWORKS[currentNet].symbol;$("reqAddr").textContent=addr;$("sheetReq").classList.add("open");drawReqQR()}
+function drawReqQR(){
+  if(!addr)return;const box=$("reqQR");box.innerHTML="";const n=NETWORKS[currentNet];
+  const amount=$("reqAmt").value.trim(),wei=toWei(amount);
+  const text=wei?`ethereum:${addr}@${n.chainIdDec}?value=${wei}`:addr;
+  if(typeof QRCode!=="undefined")new QRCode(box,{text,width:180,height:180,colorDark:"#000",colorLight:"#fff",correctLevel:QRCode.CorrectLevel.H});
+}
+function copyReqLink(){
+  if(!addr)return;const n=NETWORKS[currentNet],amount=$("reqAmt").value.trim(),wei=toWei(amount);
+  const text=wei?`ethereum:${addr}@${n.chainIdDec}?value=${wei}`:addr;
+  navigator.clipboard.writeText(text).then(()=>toast("Request link copied"));
+}
+function shareReqWA(){
+  if(!addr)return;const n=NETWORKS[currentNet],amount=$("reqAmt").value.trim(),note=$("reqNote").value.trim();
+  let msg=`CryptoPay payment request%0A${n.name} · ${n.symbol}%0A`;
+  if(amount)msg+=`Amount: ${amount} ${n.symbol}%0A`;
+  if(note)msg+=`Note: ${note}%0A`;
+  msg+=`Address: ${addr}`;
+  window.open("https://wa.me/?text="+encodeURIComponent(msg.replace(/%0A/g,"\n")),"_blank");
+}
+
+let scanning=false,scanStream=null;
+function stopScan(){scanning=false;if(scanStream){scanStream.getTracks().forEach(t=>t.stop());scanStream=null}$("scanVid").style.display="none"}
+async function scanQR(){
+  if(!("BarcodeDetector"in window)){sendMsg("QR scan not supported — paste address");return}
+  try{
+    scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+    const v=$("scanVid");v.srcObject=scanStream;v.style.display="block";await v.play();
+    const det=new BarcodeDetector({formats:["qr_code"]});scanning=true;
+    while(scanning){try{const r=await det.detect(v);if(r.length){handleScan(r[0].rawValue);break}}catch(e){}await new Promise(r=>setTimeout(r,300))}
+  }catch(e){sendMsg("Camera permission needed");stopScan()}
+}
+function handleScan(text){stopScan();const m=text.match(/0x[0-9a-fA-F]{40}/);if(!m)return sendMsg("No address found");$("sendTo").value=m[0];sendMsg("Scanned ✓",true)}
+
+function openBook(){renderBook();$("sheetBook").classList.add("open")}
+function renderBook(){
+  const box=$("bookList");
+  if(!contacts.length){box.innerHTML='<div class="cap">No contacts yet</div>';return}
+  box.innerHTML=contacts.map((c,i)=>`<div class="srow"><span><b>${c.n}</b><br><span style="font-size:11px;color:var(--mut)">${c.a.slice(0,8)}…${c.a.slice(-6)}</span></span><span><u style="color:var(--y);cursor:pointer" onclick="useContact(${i})">Send</u> · <u style="color:var(--r);cursor:pointer" onclick="delContact(${i})">✕</u></span></div>`).join("");
+}
+function saveContact(){
+  const n=$("bookName").value.trim(),a=$("bookAddr").value.trim();
+  if(!n||!/^0x[0-9a-fA-F]{40}$/.test(a)){toast("Name + valid address");return}
+  contacts.push({n,a});ls.set("contacts",contacts);$("bookName").value="";$("bookAddr").value="";renderBook();toast("Saved");
+}
+function useContact(i){closeAll();$("sendTo").value=contacts[i].a;openSend()}
+function delContact(i){contacts.splice(i,1);ls.set("contacts",contacts);renderBook()}
+
+function openTools(){$("toolOut").textContent="";$("sheetTools").classList.add("open")}
+async function toolGas(){
+  const out=$("toolOut");out.textContent="Fetching…";
+  try{
+    const n=NETWORKS[currentNet];
+    const r=await fetch(n.rpc,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_gasPrice",params:[]})});
+    const d=await r.json();const fe=parseInt(d.result,16)*21000/1e18;const p=rate(T[n.symbol].p);
+    out.textContent=`≈ ${fe.toFixed(8)} ${n.symbol}`+(p?` (₹${(fe*p).toFixed(4)})`:"");
+  }catch(e){out.textContent="Could not fetch fee"}
+}
+function toolConvert(){
+  const n=NETWORKS[currentNet].symbol,p=rate(T[n].p);
+  $("toolOut").textContent=p?`1 ${n} ≈ ${pfx()}${fmt(p)}`:"Price not loaded yet";
+}
+function toolExport(){
+  const c="type,amount,symbol,hash,time\n"+txs.map(x=>[x.type,x.amt,x.symbol,x.hash,new Date(x.time).toISOString()].join(",")).join("\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([c],{type:"text/csv"}));a.download="cryptopay-history.csv";a.click();toast("CSV downloaded");
+}
+function openExplorer(){const n=NETWORKS[currentNet];window.open(addr?n.explorer+"/address/"+addr:n.explorer,"_blank")}
+function openFaucet(){window.open("https://docs.shardeum.org/docs/developer/faucet","_blank")}
+
+function openSettings(){$("setAddr").textContent=addr||"Not connected";$("setNet").textContent=NETWORKS[currentNet].name;applySound();$("faucetBtn").style.display=currentNet==="shardeum-testnet"?"block":"none";$("sheetSet").classList.add("open")}
+function goHome(){closeAll()}
+
+if(window.ethereum){ethereum.on("chainChanged",()=>location.reload());ethereum.on("accountsChanged",()=>location.reload())}
+
+window.onload=()=>{
+  applySound();buildList();paint();renderTx();changeLang(lang);changeNetwork(currentNet);
+  if("speechSynthesis"in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
+  setTimeout(()=>$("splash").classList.add("hide"),1600);
+  usdToInr().then(fetchPrices);
+  setInterval(fetchPrices,15000);setInterval(usdToInr,600000);setInterval(pollBal,8000);
+};
+</script>
 </body>
 </html>

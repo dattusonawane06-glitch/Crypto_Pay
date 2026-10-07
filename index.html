@@ -11,85 +11,162 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
 :root{
-  --bg:#0b0e11;--sf:#12161c;--card:#1e2329;--ln:rgba(255,255,255,.08);
-  --y:#F0B90B;--yg:rgba(240,185,11,.28);--g:#0ecb81;--r:#f6465d;--mut:#848e9c;
+  --bg:#0a0c10;--sf:#12161c;--card:rgba(30,35,45,.85);--ln:rgba(255,255,255,.09);
+  --y:#F0B90B;--yg:rgba(240,185,11,.35);--g:#0ecb81;--r:#f6465d;--mut:#848e9c;
+  --glass:rgba(18,22,28,.72);--glow:0 0 40px rgba(240,185,11,.12);
 }
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:var(--bg);color:#eaecef}
-.app{width:100%;max-width:420px;min-height:100dvh;margin:0 auto;display:flex;flex-direction:column;position:relative;background:radial-gradient(ellipse 120% 60% at 50% -10%,rgba(240,185,11,.08),transparent 55%),var(--bg)}
-.top{display:flex;justify-content:space-between;align-items:center;padding:10px 14px 4px;flex-shrink:0}
+.app{
+  width:100%;max-width:420px;min-height:100dvh;margin:0 auto;display:flex;flex-direction:column;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% -20%,rgba(240,185,11,.14),transparent 50%),
+    radial-gradient(ellipse 60% 40% at 100% 50%,rgba(14,203,129,.06),transparent 45%),
+    radial-gradient(ellipse 50% 30% at 0% 80%,rgba(240,185,11,.05),transparent 40%),
+    linear-gradient(180deg,#0d1118 0%,var(--bg) 40%,#080a0e 100%);
+}
+.app::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  z-index:0;
+}
+.app>*{position:relative;z-index:1}
+.top{display:flex;justify-content:space-between;align-items:center;padding:12px 16px 6px;flex-shrink:0}
 .sels{display:flex;gap:6px;flex-wrap:wrap}
-.pill{background:var(--sf);border:1px solid var(--ln);color:var(--y);padding:5px 10px;border-radius:12px;font-size:11px;font-weight:700;outline:none;cursor:pointer}
-.pill option{background:var(--sf);color:#fff}
-.snd{background:none;border:none;color:var(--mut);cursor:pointer;font-size:18px;padding:2px 6px}
+.pill{
+  background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--ln);color:var(--y);padding:6px 12px;border-radius:14px;font-size:11px;font-weight:700;outline:none;cursor:pointer;
+  transition:border-color .2s,box-shadow .2s;
+}
+.pill:hover,.pill:focus{border-color:rgba(240,185,11,.4);box-shadow:0 0 12px var(--yg)}
+.pill option{background:#1a1f28;color:#fff}
+.snd{background:none;border:none;color:var(--mut);cursor:pointer;font-size:18px;padding:4px 8px;border-radius:10px;transition:color .2s,background .2s}
+.snd:hover{background:rgba(255,255,255,.05)}
 .snd.on{color:var(--g)}
-header{display:flex;justify-content:space-between;align-items:center;padding:6px 16px 10px;flex-shrink:0}
-.brand{display:flex;align-items:center;gap:10px}
-.cmark{width:40px;height:40px;border-radius:10px;background:#000;border:1px solid rgba(240,185,11,.4);box-shadow:0 0 16px var(--yg);display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:var(--y);font-family:"Arial Black",Arial,sans-serif;letter-spacing:-2px}
-.bname{font-size:19px;font-weight:900;letter-spacing:-.4px}
-.bname b{color:var(--y)}
-.nchip{font-size:11px;font-weight:700;color:var(--y);margin-top:1px}
-.chip{background:var(--sf);border:1px solid var(--ln);color:#fff;padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer}
-.chip.on{color:var(--g);border-color:rgba(14,203,129,.35)}
-.hero{text-align:center;padding:8px 16px 4px;flex-shrink:0}
-.lbl{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:1.2px}
-.total{font-size:38px;font-weight:900;margin:6px 0 4px;letter-spacing:-1.2px;font-variant-numeric:tabular-nums}
+header{display:flex;justify-content:space-between;align-items:center;padding:8px 16px 12px;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:12px}
+.cmark{
+  width:44px;height:44px;border-radius:12px;background:linear-gradient(145deg,#111,#000);
+  border:1px solid rgba(240,185,11,.45);box-shadow:0 0 24px var(--yg),inset 0 1px 0 rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:var(--y);
+  font-family:"Arial Black",Arial,sans-serif;letter-spacing:-2px;animation:logoPulse 3s ease-in-out infinite;
+}
+@keyframes logoPulse{0%,100%{box-shadow:0 0 20px var(--yg)}50%{box-shadow:0 0 32px rgba(240,185,11,.45)}}
+.bname{font-size:20px;font-weight:900;letter-spacing:-.5px}
+.bname b{color:var(--y);text-shadow:0 0 20px var(--yg)}
+.nchip{font-size:11px;font-weight:700;color:var(--y);margin-top:2px;opacity:.9}
+.chip{
+  background:linear-gradient(135deg,rgba(240,185,11,.15),rgba(240,185,11,.05));
+  border:1px solid rgba(240,185,11,.35);color:#fff;padding:9px 16px;border-radius:22px;font-size:12px;font-weight:700;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);transition:transform .15s,box-shadow .2s;
+}
+.chip:hover{transform:translateY(-1px);box-shadow:0 6px 20px var(--yg)}
+.chip.on{color:var(--g);border-color:rgba(14,203,129,.45);background:linear-gradient(135deg,rgba(14,203,129,.12),rgba(14,203,129,.04))}
+.hero{text-align:center;padding:12px 16px 8px;flex-shrink:0}
+.lbl{font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:1.4px}
+.total{
+  font-size:42px;font-weight:900;margin:8px 0 6px;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg,#fff 30%,#c8cdd5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
 .feed{font-size:12px;font-weight:700;color:var(--mut);display:flex;align-items:center;justify-content:center;gap:6px}
-.dot{width:7px;height:7px;background:var(--g);border-radius:50%;animation:blink 1.2s infinite}
-.feed.bad .dot{background:var(--r);animation:none}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.acts{display:flex;justify-content:space-around;padding:16px 12px 12px;flex-shrink:0}
-.act{background:none;border:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;font-weight:700;cursor:pointer;width:76px}
-.act span{width:54px;height:54px;border-radius:16px;background:var(--card);border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--y);box-shadow:0 6px 20px rgba(0,0,0,.35);transition:transform .12s}
-.act:active span{transform:scale(.94)}
+.dot{width:7px;height:7px;background:var(--g);border-radius:50%;box-shadow:0 0 8px var(--g);animation:blink 1.2s infinite}
+.feed.bad .dot{background:var(--r);box-shadow:0 0 8px var(--r);animation:none}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+.acts{display:flex;justify-content:space-around;padding:18px 12px 14px;flex-shrink:0}
+.act{background:none;border:none;color:#fff;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;font-weight:700;cursor:pointer;width:78px}
+.act span{
+  width:56px;height:56px;border-radius:18px;
+  background:linear-gradient(160deg,rgba(40,46,58,.95),rgba(24,28,36,.95));
+  border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--y);
+  box-shadow:0 8px 24px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06);
+  transition:transform .15s,box-shadow .2s,border-color .2s;
+}
+.act:hover span{border-color:rgba(240,185,11,.35);box-shadow:0 8px 28px var(--yg)}
+.act:active span{transform:scale(.92)}
 .act.dim{opacity:.4}
-.tabs{display:flex;gap:20px;padding:0 18px;border-bottom:1px solid var(--ln);font-size:14px;font-weight:800;flex-shrink:0}
-.tabs b{padding:10px 0;border-bottom:2px solid var(--y);color:#fff}
-.scroll{flex:1 1 auto;min-height:200px;overflow-y:auto;padding:12px 12px 16px;-webkit-overflow-scrolling:touch}
-.row{display:flex;align-items:center;gap:12px;padding:13px;border-radius:14px;background:rgba(30,35,41,.7);border:1px solid var(--ln);margin-bottom:8px;cursor:pointer}
-.row:active{background:var(--sf)}
-.ic{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#111;overflow:hidden;font-size:14px;font-weight:800;color:var(--y)}
+.tabs{display:flex;gap:22px;padding:0 20px;border-bottom:1px solid var(--ln);font-size:14px;font-weight:800;flex-shrink:0}
+.tabs b{padding:12px 0;border-bottom:2px solid var(--y);color:#fff;text-shadow:0 0 12px var(--yg)}
+.scroll{flex:1 1 auto;min-height:200px;overflow-y:auto;padding:14px 14px 18px;-webkit-overflow-scrolling:touch}
+.row{
+  display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;
+  background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--ln);margin-bottom:10px;cursor:pointer;
+  transition:border-color .2s,transform .12s,box-shadow .2s;
+}
+.row:hover{border-color:rgba(240,185,11,.25);box-shadow:0 4px 20px rgba(0,0,0,.25)}
+.row:active{transform:scale(.98);background:var(--sf)}
+.ic{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#0e1116;overflow:hidden;font-size:14px;font-weight:800;color:var(--y);border:1px solid var(--ln);box-shadow:0 2px 10px rgba(0,0,0,.3)}
 .ic img{width:100%;height:100%;object-fit:cover}
 .mid{flex:1;min-width:0}
 .sym{font-size:15px;font-weight:800}
-.sub{font-size:12px;font-weight:600;color:var(--mut);margin-top:2px}
+.sub{font-size:12px;font-weight:600;color:var(--mut);margin-top:3px}
 .rt{text-align:right}
 .amt{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
-.txbox{margin-top:14px;background:var(--card);border-radius:16px;border:1px solid var(--ln);padding:14px}
-.txh{font-size:13px;font-weight:800;color:var(--y);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.txbox{margin-top:16px;background:var(--glass);backdrop-filter:blur(10px);border-radius:18px;border:1px solid var(--ln);padding:16px;box-shadow:var(--glow)}
+.txh{font-size:13px;font-weight:800;color:var(--y);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
 .txh span:last-child{font-size:11px;color:var(--mut);cursor:pointer}
-.txi{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:9px 10px;background:var(--sf);border-radius:10px;border:1px solid var(--ln);margin-bottom:6px}
-.disc{font-size:11px;color:var(--mut);text-align:center;padding:10px 14px;line-height:1.45;border-top:1px solid var(--ln);flex-shrink:0}
-nav.bn{display:flex;justify-content:space-around;border-top:1px solid var(--ln);padding:8px 0 calc(10px + env(safe-area-inset-bottom,0px));background:var(--sf);flex-shrink:0}
-nav.bn button{background:none;border:none;color:var(--mut);font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.txi{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:10px 12px;background:rgba(0,0,0,.25);border-radius:12px;border:1px solid var(--ln);margin-bottom:6px}
+.disc{font-size:11px;color:var(--mut);text-align:center;padding:12px 16px;line-height:1.5;border-top:1px solid var(--ln);flex-shrink:0;background:rgba(0,0,0,.2)}
+nav.bn{
+  display:flex;justify-content:space-around;border-top:1px solid var(--ln);
+  padding:10px 0 calc(12px + env(safe-area-inset-bottom,0px));
+  background:rgba(12,15,20,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);flex-shrink:0;
+}
+nav.bn button{background:none;border:none;color:var(--mut);font-size:11px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:color .2s}
+nav.bn button:hover{color:var(--y)}
 nav.bn button i{font-style:normal;font-size:18px}
 nav.bn .a{color:var(--y)}
-.shade{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(6px);display:none;align-items:flex-end;z-index:100;max-width:420px;margin:0 auto;left:0;right:0}
-.shade.open{display:flex}
-.panel{background:var(--sf);width:100%;border-radius:24px 24px 0 0;padding:16px 18px calc(22px + env(safe-area-inset-bottom,0px));text-align:center;max-height:92dvh;overflow-y:auto;border-top:1px solid var(--ln)}
-.grab{width:40px;height:4px;border-radius:2px;background:var(--ln);margin:0 auto 14px}
-.ttl{font-size:18px;font-weight:800;margin-bottom:12px}
+.shade{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:none;align-items:flex-end;z-index:100;max-width:420px;margin:0 auto;left:0;right:0}
+.shade.open{display:flex;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.panel{
+  background:linear-gradient(180deg,#161b24 0%,#0e1218 100%);width:100%;
+  border-radius:28px 28px 0 0;padding:18px 18px calc(24px + env(safe-area-inset-bottom,0px));
+  text-align:center;max-height:92dvh;overflow-y:auto;
+  border-top:1px solid rgba(240,185,11,.15);box-shadow:0 -12px 40px rgba(0,0,0,.5);
+  animation:slideUp .3s cubic-bezier(.2,.9,.3,1);
+}
+@keyframes slideUp{from{transform:translateY(40px);opacity:.6}to{transform:translateY(0);opacity:1}}
+.grab{width:44px;height:5px;border-radius:3px;background:rgba(255,255,255,.15);margin:0 auto 16px}
+.ttl{font-size:19px;font-weight:800;margin-bottom:14px;letter-spacing:-.3px}
 .warn{font-size:12px;font-weight:700;color:var(--r);margin-bottom:10px;display:none;line-height:1.4}
 .inp{position:relative;margin-bottom:12px}
-.inp input,.inp select{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:14px;padding:13px 56px 13px 16px;font-size:16px;font-weight:700;color:#fff;outline:none}
-.inp input:focus,.inp select:focus{border-color:var(--y)}
+.inp input,.inp select{
+  width:100%;background:rgba(0,0,0,.35);border:1px solid var(--ln);border-radius:16px;
+  padding:14px 56px 14px 16px;font-size:16px;font-weight:700;color:#fff;outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.inp input:focus,.inp select:focus{border-color:var(--y);box-shadow:0 0 0 3px rgba(240,185,11,.12)}
 .inp b{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--y)}
 .cap{font-size:12px;font-weight:600;color:var(--mut);margin-bottom:10px;line-height:1.4}
-.qrbox{background:#fff;padding:12px;border-radius:16px;display:inline-block;margin-bottom:12px}
-.addr{font-family:ui-monospace,monospace;font-size:11px;color:var(--mut);word-break:break-all;background:var(--bg);padding:10px 12px;border-radius:10px;margin-bottom:12px;border:1px solid var(--ln)}
-.btn{width:100%;padding:14px;border-radius:14px;font-size:15px;font-weight:800;background:var(--y);color:#0b0e11;border:none;cursor:pointer}
-.btn:disabled{opacity:.45}
-.btn.ghost{background:var(--bg);color:var(--mut);margin-top:8px;border:1px solid var(--ln)}
+.qrbox{background:#fff;padding:14px;border-radius:18px;display:inline-block;margin-bottom:14px;box-shadow:0 8px 32px rgba(0,0,0,.35)}
+.addr{font-family:ui-monospace,monospace;font-size:11px;color:var(--mut);word-break:break-all;background:rgba(0,0,0,.35);padding:12px;border-radius:12px;margin-bottom:12px;border:1px solid var(--ln)}
+.btn{
+  width:100%;padding:15px;border-radius:16px;font-size:15px;font-weight:800;
+  background:linear-gradient(180deg,#ffd54a,#F0B90B);color:#0b0e11;border:none;cursor:pointer;
+  box-shadow:0 6px 24px rgba(240,185,11,.35);transition:transform .12s,box-shadow .2s;
+}
+.btn:hover{box-shadow:0 8px 28px rgba(240,185,11,.5)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.45;box-shadow:none}
+.btn.ghost{
+  background:rgba(255,255,255,.04);color:#c8cdd5;margin-top:8px;border:1px solid var(--ln);
+  box-shadow:none;font-weight:700;
+}
+.btn.ghost:hover{border-color:rgba(240,185,11,.3);color:var(--y);background:rgba(240,185,11,.06)}
 .msg{font-size:12px;font-weight:700;color:var(--r);min-height:16px;margin-bottom:10px}
 .msg.ok{color:var(--g)}
-.risk{background:rgba(246,70,93,.1);border:1px solid rgba(246,70,93,.35);border-radius:12px;padding:10px;font-size:11px;color:#ffb3ba;margin-bottom:12px;text-align:left;line-height:1.45}
-.srow{display:flex;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid var(--ln);font-size:14px;font-weight:600;text-align:left}
+.risk{background:rgba(246,70,93,.1);border:1px solid rgba(246,70,93,.35);border-radius:14px;padding:12px;font-size:11px;color:#ffb3ba;margin-bottom:12px;text-align:left;line-height:1.45}
+.srow{display:flex;justify-content:space-between;gap:12px;padding:14px 0;border-bottom:1px solid var(--ln);font-size:14px;font-weight:600;text-align:left}
 .srow span:last-child{color:var(--mut);word-break:break-all;text-align:right}
 .srow.tap{cursor:pointer}
 #scanVid{display:none;width:100%;border-radius:14px;margin-bottom:10px;background:#000;max-height:240px;object-fit:cover}
-#splash{position:absolute;inset:0;z-index:99;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .5s}
+#splash{
+  position:absolute;inset:0;z-index:99;
+  background:radial-gradient(ellipse at 50% 40%,rgba(240,185,11,.12),transparent 55%),#050608;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .55s ease;
+}
 #splash.hide{opacity:0;pointer-events:none}
-#splash .cmark{width:88px;height:88px;font-size:52px;border-radius:20px;animation:pop .9s cubic-bezier(.2,1.4,.4,1) both}
+#splash .cmark{width:96px;height:96px;font-size:56px;border-radius:24px;animation:pop .9s cubic-bezier(.2,1.4,.4,1) both}
 #splash .sn{font-size:26px;font-weight:900;opacity:0;animation:fin .6s .5s forwards}
 @keyframes pop{from{transform:scale(.2) rotate(-20deg);opacity:0}to{transform:none;opacity:1}}
 @keyframes fin{to{opacity:1}}
@@ -131,7 +208,7 @@ nav.bn .a{color:var(--y)}
         <div class="nchip" id="netLabel">Shardeum Testnet</div>
       </div>
     </div>
-    <button class="chip" id="chip" onclick="connectWallet()">Connect Wallet</button>
+    <button class="chip" id="chip" onclick="connectWallet()" style="display:inline-flex;align-items:center;gap:6px"><span id="chipIcon">🦊</span><span id="chipText">MetaMask</span></button>
   </header>
 
   <div class="hero">
@@ -141,9 +218,9 @@ nav.bn .a{color:var(--y)}
   </div>
 
   <div class="acts">
-    <button class="act" onclick="openSend()"><span>↑</span><b id="btnSend">Send</b></button>
-    <button class="act" onclick="openReceive()"><span>↓</span><b id="btnRecv">Receive</b></button>
-    <button class="act" onclick="openRequest()"><span>⌘</span><b id="btnReq">Request</b></button>
+    <button class="act" onclick="openSend()"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span><b id="btnSend">Send</b></button>
+    <button class="act" onclick="openReceive()"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7L7 17M15 17H7V9"/></svg></span><b id="btnRecv">Receive</b></button>
+    <button class="act" onclick="openRequest()"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10a1 1 0 0 1 1 1v15l-3-2-3 2-3-2-3 2V5a1 1 0 0 1 1-1zM9 9h6M9 13h4"/></svg></span><b id="btnReq">Request</b></button>
   </div>
 
   <div class="tabs"><b id="tabAssets">Crypto Assets</b></div>
@@ -159,10 +236,9 @@ nav.bn .a{color:var(--y)}
   <div class="disc" id="disclaimer">⚠ Crypto is risky. Only use what you can afford to lose. Keys stay in your wallet. Non-custodial. Not financial advice.</div>
 
   <nav class="bn">
-    <button class="a" onclick="goHome()"><i>🏠</i><span id="navHome">Home</span></button>
-    <button onclick="openBook()"><i>📒</i><span id="navBook">Contacts</span></button>
-    <button onclick="openTools()"><i>✨</i><span id="navTools">Tools</span></button>
-    <button onclick="openSettings()"><i>⚙</i><span id="navSettings">Settings</span></button>
+    <button class="a" onclick="goHome()"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg></i><span id="navHome">Home</span></button>
+    <button onclick="openTools()"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><path d="M16.5 13v7M13 16.5h7"/></svg></i><span id="navTools">Tools</span></button>
+    <button onclick="openSettings()"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></i><span id="navSettings">Settings</span></button>
   </nav>
 
   <!-- SEND -->
@@ -232,23 +308,23 @@ nav.bn .a{color:var(--y)}
   <div class="shade" id="sheetTools" onclick="if(event.target===this)closeAll()">
     <div class="panel" style="max-height:88dvh">
       <div class="grab"></div>
-      <div class="ttl">Tools</div>
-      <div style="font-size:11px;color:var(--mut);font-weight:700;margin:8px 0 6px">CRYPTO</div>
-      <button class="btn ghost" style="margin-top:0" onclick="toolGas()">⛽ Estimate network fee</button>
-      <button class="btn ghost" onclick="toolConvert()">🔁 Price converter</button>
-      <button class="btn ghost" onclick="toolExport()">📥 Export history CSV</button>
-      <button class="btn ghost" onclick="openExplorer()">🔗 Open block explorer</button>
-      <button class="btn ghost" onclick="toolAddToken()">➕ Add custom token</button>
-      <div style="font-size:11px;color:var(--mut);font-weight:700;margin:14px 0 6px">CALCULATORS (REAL MATH)</div>
-      <button class="btn ghost" onclick="showCalc('sip')">📈 SIP Calculator</button>
-      <button class="btn ghost" onclick="showCalc('emi')">🏦 EMI Calculator</button>
-      <button class="btn ghost" onclick="showCalc('yield')">🏠 Rental Yield</button>
-      <button class="btn ghost" onclick="showCalc('frac')">🏢 Fractional Ownership</button>
-      <button class="btn ghost" onclick="showCalc('roi')">💹 ROI Calculator</button>
-      <button class="btn ghost" onclick="showCalc('comp')">📊 Compound Interest</button>
+      <div class="ttl" id="toolsTitle">Tools</div>
+      <div id="cryptoSec" style="font-size:11px;color:var(--mut);font-weight:700;margin:8px 0 6px">CRYPTO</div>
+      <button class="btn ghost" style="margin-top:0" id="btnGas" onclick="toolGas()">⛽ Estimate network fee</button>
+      <button class="btn ghost" id="btnPrice" onclick="toolConvert()">🔁 Price converter</button>
+      <button class="btn ghost" id="btnCsv" onclick="toolExport()">📥 Export history CSV</button>
+      <button class="btn ghost" id="btnExp" onclick="openExplorer()">🔗 Open block explorer</button>
+      <button class="btn ghost" id="btnTok" onclick="toolAddToken()">➕ Add custom token</button>
+      <div id="calcSec" style="font-size:11px;color:var(--mut);font-weight:700;margin:14px 0 6px">CALCULATORS (REAL MATH)</div>
+      <button class="btn ghost" id="btnSip" onclick="showCalc('sip')">📈 SIP Calculator</button>
+      <button class="btn ghost" id="btnEmi" onclick="showCalc('emi')">🏦 EMI Calculator</button>
+      <button class="btn ghost" id="btnYield" onclick="showCalc('yield')">🏠 Rental Yield</button>
+      <button class="btn ghost" id="btnFrac" onclick="showCalc('frac')">🏢 Fractional Ownership</button>
+      <button class="btn ghost" id="btnRoi" onclick="showCalc('roi')">💹 ROI Calculator</button>
+      <button class="btn ghost" id="btnComp" onclick="showCalc('comp')">📊 Compound Interest</button>
       <div id="calcBox" style="display:none;margin-top:12px;padding:12px;background:var(--sf);border-radius:12px;border:1px solid var(--ln)"></div>
       <div id="toolOut" class="cap" style="margin-top:12px;text-align:left;min-height:24px"></div>
-      <button class="btn ghost" onclick="closeAll()">Close</button>
+      <button class="btn ghost" id="btnToolsClose" onclick="closeAll()">Close</button>
     </div>
   </div>
 
@@ -261,7 +337,7 @@ nav.bn .a{color:var(--y)}
       <div class="srow"><span>Network</span><span id="setNet">Shardeum Testnet</span></div>
       <div class="srow tap" onclick="toggleSound()"><span>Sound</span><span id="setSound">On</span></div>
       <div class="srow tap" onclick="togglePriv()"><span>Hide balance</span><span id="setPriv">Off</span></div>
-      <div class="srow"><span>Version</span><span>CryptoPay 3.1</span></div>
+      <div class="srow"><span>Version</span><span>CryptoPay Pro 4.0</span></div>
       <div style="height:12px"></div>
       <div class="risk">Non-custodial. We never hold keys. Always verify network and address before sending.</div>
       <button class="btn" onclick="refreshAll()">Refresh Prices</button>
@@ -293,14 +369,56 @@ const LOGOS={
   BNB:"https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png"
 };
 
-let currentNet="shardeum-testnet",addr="",fx=89.5,lastBal=null,lastOk=0,cur="INR",lang="en",soundOn=ls.get("sound",true),hideBal=ls.get("hide",false),txs=ls.get("txs",[]),contacts=ls.get("contacts",[]);
+let currentNet="shardeum-testnet",addr="",fx=89.5,lastBal=null,lastOk=0,cur="INR",lang=ls.get("lang","en"),soundOn=ls.get("sound",true),hideBal=ls.get("hide",false),txs=ls.get("txs",[]),contacts=ls.get("contacts",[]);
 
 const T={SHM:{bal:"0.0000",p:null},USDT:{bal:"0.00",p:null},BTC:{bal:"0.000000",p:null},ETH:{bal:"0.0000",p:null},BNB:{bal:"0.0000",p:null}};
 
 const I18N={
-  en:{total:"Total Balance",send:"Send",recv:"Receive",req:"Request",assets:"Crypto Assets",home:"Home",book:"Contacts",tools:"Tools",settings:"Settings",disc:"⚠ Crypto is risky. Only use what you can afford to lose. Keys stay in your wallet. Non-custodial. Not financial advice.",tx:"Recent"},
-  hi:{total:"कुल बैलेंस",send:"भेजें",recv:"प्राप्त",req:"अनुरोध",assets:"एसेट्स",home:"होम",book:"संपर्क",tools:"टूल्स",settings:"सेटिंग्स",disc:"⚠ क्रिप्टो जोखिम भरा है। कुंजियाँ आपके वॉलेट में रहती हैं।",tx:"हालिया"},
-  mr:{total:"एकूण शिल्लक",send:"पाठवा",recv:"स्वीकारा",req:"विनंती",assets:"मालमत्ता",home:"होम",book:"संपर्क",tools:"टूल्स",settings:"सेटिंग्ज",disc:"⚠ क्रिप्टो जोखमीचे. की तुमच्या वॉलेटमध्ये राहतात.",tx:"अलीकडील"}
+  en:{
+    total:"Total Balance",send:"Send",recv:"Receive",req:"Request",assets:"Crypto Assets",home:"Home",book:"Contacts",tools:"Tools",settings:"Settings",
+    disc:"⚠ Crypto is risky. Only use what you can afford to lose. Keys stay in your wallet. Non-custodial. Not financial advice.",tx:"Recent",
+    cryptoSec:"CRYPTO",calcSec:"CALCULATORS (REAL MATH)",gas:"⛽ Estimate network fee",price:"🔁 Price converter",csv:"📥 Export history CSV",
+    explorer:"🔗 Open block explorer",addTok:"➕ Add custom token",close:"Close",
+    sip:"📈 SIP Calculator",emi:"🏦 EMI Calculator",yield:"🏠 Rental Yield",frac:"🏢 Fractional Ownership",roi:"💹 ROI Calculator",comp:"📊 Compound Interest",
+    calc:"Calculate",edu:"Educational only. Not financial advice.",
+    sipM:"Monthly investment ₹",sipR:"Expected return % / year",sipY:"Years",
+    emiP:"Loan amount ₹",emiR:"Interest % / year",emiN:"Tenure (months)",
+    yV:"Property value ₹",yR:"Annual rent ₹",yE:"Annual expenses ₹",
+    fV:"Property value ₹",fI:"Your investment ₹",fT:"Total tokens (optional)",
+    rI:"Invested ₹",rC:"Current / returned ₹",
+    cP:"Principal ₹",cR:"Rate % / year",cY:"Years",
+    toolsTitle:"Tools",settingsTitle:"Settings"
+  },
+  hi:{
+    total:"कुल बैलेंस",send:"भेजें",recv:"प्राप्त",req:"अनुरोध",assets:"एसेट्स",home:"होम",book:"संपर्क",tools:"टूल्स",settings:"सेटिंग्स",
+    disc:"⚠ क्रिप्टो जोखिम भरा है। केवल उतना ही उपयोग करें जितना खो सकें। कुंजियाँ आपके वॉलेट में रहती हैं। नॉन-कस्टोडियल।",tx:"हालिया",
+    cryptoSec:"क्रिप्टो",calcSec:"कैलकुलेटर (असली गणित)",gas:"⛽ नेटवर्क शुल्क अनुमान",price:"🔁 कीमत कन्वर्टर",csv:"📥 इतिहास CSV निर्यात",
+    explorer:"🔗 ब्लॉक एक्सप्लोरर खोलें",addTok:"➕ कस्टम टोकन जोड़ें",close:"बंद करें",
+    sip:"📈 SIP कैलकुलेटर",emi:"🏦 EMI कैलकुलेटर",yield:"🏠 किराया यील्ड",frac:"🏢 आंशिक स्वामित्व",roi:"💹 ROI कैलकुलेटर",comp:"📊 चक्रवृद्धि ब्याज",
+    calc:"गणना करें",edu:"केवल शैक्षिक। वित्तीय सलाह नहीं।",
+    sipM:"मासिक निवेश ₹",sipR:"अपेक्षित रिटर्न % / वर्ष",sipY:"वर्ष",
+    emiP:"ऋण राशि ₹",emiR:"ब्याज % / वर्ष",emiN:"अवधि (महीने)",
+    yV:"संपत्ति मूल्य ₹",yR:"वार्षिक किराया ₹",yE:"वार्षिक खर्च ₹",
+    fV:"संपत्ति मूल्य ₹",fI:"आपका निवेश ₹",fT:"कुल टोकन (वैकल्पिक)",
+    rI:"निवेशित ₹",rC:"वर्तमान / वापसी ₹",
+    cP:"मूलधन ₹",cR:"दर % / वर्ष",cY:"वर्ष",
+    toolsTitle:"टूल्स",settingsTitle:"सेटिंग्स"
+  },
+  mr:{
+    total:"एकूण शिल्लक",send:"पाठवा",recv:"स्वीकारा",req:"विनंती",assets:"मालमत्ता",home:"होम",book:"संपर्क",tools:"टूल्स",settings:"सेटिंग्ज",
+    disc:"⚠ क्रिप्टो जोखमीचे. फक्त गमावता येईल इतकेच वापरा. की तुमच्या वॉलेटमध्ये राहतात. नॉन-कस्टोडियल.",tx:"अलीकडील",
+    cryptoSec:"क्रिप्टो",calcSec:"कॅल्क्युलेटर (खरे गणित)",gas:"⛽ नेटवर्क शुल्क अंदाज",price:"🔁 किंमत कन्व्हर्टर",csv:"📥 इतिहास CSV निर्यात",
+    explorer:"🔗 ब्लॉक एक्सप्लोरर उघडा",addTok:"➕ कस्टम टोकन जोडा",close:"बंद करा",
+    sip:"📈 SIP कॅल्क्युलेटर",emi:"🏦 EMI कॅल्क्युलेटर",yield:"🏠 भाडे यील्ड",frac:"🏢 अंशतः मालकी",roi:"💹 ROI कॅल्क्युलेटर",comp:"📊 चक्रवाढ व्याज",
+    calc:"गणना करा",edu:"फक्त शैक्षणिक. आर्थिक सल्ला नाही.",
+    sipM:"मासिक गुंतवणूक ₹",sipR:"अपेक्षित परतावा % / वर्ष",sipY:"वर्षे",
+    emiP:"कर्ज रक्कम ₹",emiR:"व्याज % / वर्ष",emiN:"कालावधी (महिने)",
+    yV:"मालमत्ता मूल्य ₹",yR:"वार्षिक भाडे ₹",yE:"वार्षिक खर्च ₹",
+    fV:"मालमत्ता मूल्य ₹",fI:"तुमची गुंतवणूक ₹",fT:"एकूण टोकन्स (ऐच्छिक)",
+    rI:"गुंतवले ₹",rC:"सध्याचे / परत ₹",
+    cP:"मुद्दल ₹",cR:"दर % / वर्ष",cY:"वर्षे",
+    toolsTitle:"टूल्स",settingsTitle:"सेटिंग्ज"
+  }
 };
 
 function toast(m,ms){const t=$("toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),ms||2200)}
@@ -310,10 +428,26 @@ function rate(p){return p?(cur==="INR"?p.inr:p.usd):0}
 
 function changeCurrency(c){cur=c;paint()}
 function changeLang(l){
-  lang=l;const d=I18N[l];
+  lang=l;ls.set("lang",l);const d=I18N[l]||I18N.en;
   $("lblTotal").textContent=d.total;$("btnSend").textContent=d.send;$("btnRecv").textContent=d.recv;$("btnReq").textContent=d.req;
   $("tabAssets").textContent=d.assets;$("navHome").textContent=d.home;$("navBook").textContent=d.book;
   $("navTools").textContent=d.tools;$("navSettings").textContent=d.settings;$("disclaimer").textContent=d.disc;$("txtTx").textContent=d.tx;
+  if($("toolsTitle"))$("toolsTitle").textContent=d.toolsTitle;
+  if($("cryptoSec"))$("cryptoSec").textContent=d.cryptoSec;
+  if($("calcSec"))$("calcSec").textContent=d.calcSec;
+  if($("btnGas"))$("btnGas").textContent=d.gas;
+  if($("btnPrice"))$("btnPrice").textContent=d.price;
+  if($("btnCsv"))$("btnCsv").textContent=d.csv;
+  if($("btnExp"))$("btnExp").textContent=d.explorer;
+  if($("btnTok"))$("btnTok").textContent=d.addTok;
+  if($("btnSip"))$("btnSip").textContent=d.sip;
+  if($("btnEmi"))$("btnEmi").textContent=d.emi;
+  if($("btnYield"))$("btnYield").textContent=d.yield;
+  if($("btnFrac"))$("btnFrac").textContent=d.frac;
+  if($("btnRoi"))$("btnRoi").textContent=d.roi;
+  if($("btnComp"))$("btnComp").textContent=d.comp;
+  if($("btnToolsClose"))$("btnToolsClose").textContent=d.close;
+  const lsEl=$("langSelect");if(lsEl)lsEl.value=l;
 }
 function changeNetwork(key){
   currentNet=key;const n=NETWORKS[key];
@@ -366,9 +500,17 @@ function toWei(s){
   return(BigInt(i||"0")*10n**18n+BigInt((f+"0".repeat(18)).slice(0,18))).toString();
 }
 
+function getCustoms(){
+  return (ls.get("customTokens",[])||[]).map(x=>typeof x==="string"?{addr:x,symbol:"TOKEN"}:x).filter(x=>x&&x.addr);
+}
 function buildList(){
   const order=["SHM","USDT","BTC","ETH","BNB"];
-  $("list").innerHTML=order.map(k=>`<div class="row" onclick="openReceive()"><div class="ic"><img src="${LOGOS[k]}" alt="${k}" onerror="this.parentElement.textContent='${k[0]}'"></div><div class="mid"><div class="sym">${k}</div><div class="sub" id="s-${k}">—</div></div><div class="rt"><div class="amt" id="b-${k}">0</div><div class="sub" id="v-${k}">—</div></div></div>`).join("");
+  let html=order.map(k=>`<div class="row" onclick="openReceive()"><div class="ic"><img src="${LOGOS[k]}" alt="${k}" onerror="this.parentElement.textContent='${k[0]}'"></div><div class="mid"><div class="sym">${k}</div><div class="sub" id="s-${k}">—</div></div><div class="rt"><div class="amt" id="b-${k}">0</div><div class="sub" id="v-${k}">—</div></div></div>`).join("");
+  getCustoms().forEach((t,i)=>{
+    const id="ct"+i;
+    html+=`<div class="row" onclick="openReceive()"><div class="ic">${(t.symbol||"T")[0]}</div><div class="mid"><div class="sym">${t.symbol||"TOKEN"}</div><div class="sub" id="s-${id}">Custom token</div></div><div class="rt"><div class="amt" id="b-${id}">…</div><div class="sub" id="v-${id}">on-chain</div></div></div>`;
+  });
+  $("list").innerHTML=html;
 }
 function paint(){
   let total=0;const H="••••";const native=NETWORKS[currentNet].symbol;
@@ -381,10 +523,42 @@ function paint(){
     if($("b-"+k))$("b-"+k).textContent=hideBal?H:(k===native?t.bal:"—");
     if($("v-"+k))$("v-"+k).textContent=hideBal?H:(t.p&&k===native?pfx()+fmt(bal*rt):"—");
   });
+  getCustoms().forEach((t,i)=>{
+    const id="ct"+i,bal=t.bal!=null?parseFloat(t.bal):null;
+    if($("b-"+id))$("b-"+id).textContent=hideBal?H:(bal!=null?fmt(bal):"—");
+    if($("s-"+id))$("s-"+id).textContent=(t.symbol||"TOKEN")+" · custom";
+  });
   $("total").textContent=hideBal?pfx()+H:pfx()+fmt(total);
   const live=Date.now()-lastOk<45000;
   $("feed").className="feed"+(live?"":" bad");
   $("feedText").textContent=live?"Live Market Connected":"Prices delayed";
+}
+async function ethCall(to,data){
+  return ethereum.request({method:"eth_call",params:[{to,data},"latest"]});
+}
+async function readCustomBalances(){
+  if(!addr||!window.ethereum)return;
+  const list=getCustoms();
+  if(!list.length)return;
+  const updated=[];
+  for(const t of list){
+    try{
+      const data="0x70a08231"+addr.slice(2).toLowerCase().padStart(64,"0");
+      const raw=await ethCall(t.addr,data);
+      let decimals=18;
+      try{
+        const draw=await ethCall(t.addr,"0x313ce567");
+        decimals=parseInt(draw,16)||18;
+      }catch(e){}
+      const bal=Number(BigInt(raw||"0x0"))/Math.pow(10,decimals);
+      updated.push({...t,bal:bal.toFixed(Math.min(6,decimals)),decimals});
+    }catch(e){
+      updated.push({...t,bal:null});
+    }
+  }
+  ls.set("customTokens",updated);
+  buildList();
+  paint();
 }
 
 async function fetchPrices(){
@@ -413,17 +587,28 @@ function ensureNetwork(){
 }
 
 async function connectWallet(){
-  if(!window.ethereum){toast("Install MetaMask");return}
+  if(!window.ethereum){
+    toast("Install MetaMask");
+    if(confirm("MetaMask not found. Open download page?"))window.open("https://metamask.io/download/","_blank");
+    return;
+  }
   try{
     const accounts=await ethereum.request({method:"eth_requestAccounts"});
     addr=accounts[0];
     await ensureNetwork();
     const chainId=await ethereum.request({method:"eth_chainId"});
     const ok=chainId===NETWORKS[currentNet].chainId;
-    if(ok)await readBal(false);
+    if(ok){await readBal(false);await readCustomBalances()}
     $("recvWarn").style.display=ok?"none":"block";
-    const chip=$("chip");chip.textContent=addr.slice(0,6)+"…"+addr.slice(-4);chip.classList.add("on");chip.onclick=null;
-    paint();toast("Wallet connected");
+    const chip=$("chip");
+    chip.innerHTML="";
+    chip.classList.add("on");
+    const t=document.createElement("span");
+    t.id="chipText";
+    t.textContent=addr.slice(0,6)+"…"+addr.slice(-4);
+    chip.appendChild(t);
+    chip.onclick=null;
+    buildList();paint();toast("Wallet connected");
   }catch(e){if(e.code!==4001)toast(e.message||"Failed")}
 }
 
@@ -569,29 +754,60 @@ function openFaucet(){window.open("https://docs.shardeum.org/docs/developer/fauc
 
 function openTools(){$("toolOut").textContent="";$("calcBox").style.display="none";$("sheetTools").classList.add("open")}
 function toolAddToken(){
-  const a=prompt("Token contract address (0x…):");
-  if(!a||!/^0x[0-9a-fA-F]{40}$/.test(a.trim())){toast("Invalid address");return}
-  toast("Token address saved locally. Balance needs ABI/RPC support — use MetaMask Add Token for full support.");
-  const list=ls.get("customTokens",[]);list.push(a.trim());ls.set("customTokens",list);
-  $("toolOut").textContent="Saved: "+a.trim().slice(0,10)+"… (also add in MetaMask for balance)";
+  $("toolOut").textContent="";
+  const box=$("calcBox");
+  box.style.display="block";
+  const list=ls.get("customTokens",[]);
+  const saved=list.length?`<div style="margin-top:10px;font-size:11px;color:var(--mut);text-align:left">Saved (${list.length}):<br>`+list.map(x=>{const a=typeof x==="string"?x:x.addr;const s=typeof x==="object"&&x.symbol?x.symbol+" ":"";return `<code style="color:var(--y)">${s}${a.slice(0,10)}…${a.slice(-6)}</code>`}).join("<br>")+`</div>`:"";
+  box.innerHTML=`
+    <b style="display:block;margin-bottom:8px">➕ Add custom token</b>
+    <p style="font-size:12px;color:var(--mut);margin-bottom:10px;line-height:1.4">Paste the token <b style="color:#fff">contract address</b> (0x…). This is NOT your wallet address.</p>
+    <input id="tokAddr" type="text" placeholder="0x..." spellcheck="false" style="width:100%;margin:4px 0;padding:12px;border-radius:12px;border:1px solid var(--ln);background:var(--bg);color:#fff;font-size:13px;font-family:monospace">
+    <input id="tokSym" type="text" placeholder="Symbol (e.g. USDT)" style="width:100%;margin:4px 0;padding:12px;border-radius:12px;border:1px solid var(--ln);background:var(--bg);color:#fff;font-size:14px">
+    <button class="btn" style="margin-top:10px" onclick="saveCustomToken()">Save token</button>
+    <p style="font-size:10px;color:var(--mut);margin-top:8px;line-height:1.4">For live balance, also add the same token in MetaMask (Import tokens).</p>
+    ${saved}`;
+}
+async function saveCustomToken(){
+  const a=($("tokAddr").value||"").trim();
+  const sym=($("tokSym").value||"").trim()||"TOKEN";
+  if(!/^0x[0-9a-fA-F]{40}$/.test(a)){
+    toast("Invalid contract address — need 0x + 40 hex characters");
+    return;
+  }
+  const list=getCustoms();
+  if(list.some(x=>x.addr.toLowerCase()===a.toLowerCase())){toast("Already saved");return}
+  if(!addr){
+    toast("Connect MetaMask first, then add token");
+    return;
+  }
+  toast("Reading on-chain balance…");
+  list.push({addr:a,symbol:sym,time:Date.now()});
+  ls.set("customTokens",list);
+  buildList();
+  await readCustomBalances();
+  toast("Token added: "+sym);
+  toolAddToken();
+  $("toolOut").textContent=sym+" added. Balance shows on Home if contract is on current network.";
 }
 function showCalc(type){
+  const d=I18N[lang]||I18N.en;
   const box=$("calcBox");box.style.display="block";$("toolOut").textContent="";
   const inp=(id,ph,val)=>`<input id="${id}" type="number" placeholder="${ph}" value="${val||""}" style="width:100%;margin:4px 0;padding:10px;border-radius:8px;border:1px solid var(--ln);background:var(--bg);color:#fff;font-size:14px">`;
-  const btn=(fn,t)=>`<button class="btn" style="margin-top:8px" onclick="${fn}">${t}</button>`;
-  const out=`<div id="calcRes" style="margin-top:10px;font-size:14px;font-weight:700;color:var(--y);line-height:1.5"></div><div style="font-size:10px;color:var(--mut);margin-top:6px">Educational only. Not financial advice.</div>`;
+  const btn=(fn)=>`<button class="btn" style="margin-top:8px" onclick="${fn}">${d.calc}</button>`;
+  const out=`<div id="calcRes" style="margin-top:10px;font-size:14px;font-weight:700;color:var(--y);line-height:1.5"></div><div style="font-size:10px;color:var(--mut);margin-top:6px">${d.edu}</div>`;
   if(type==="sip"){
-    box.innerHTML=`<b>SIP Calculator</b>${inp("c1","Monthly investment ₹",5000)}${inp("c2","Expected return % / year",12)}${inp("c3","Years",10)}${btn("runSIP()","Calculate")}${out}`;
+    box.innerHTML=`<b>${d.sip}</b>${inp("c1",d.sipM,5000)}${inp("c2",d.sipR,12)}${inp("c3",d.sipY,10)}${btn("runSIP()")}${out}`;
   }else if(type==="emi"){
-    box.innerHTML=`<b>EMI Calculator</b>${inp("c1","Loan amount ₹",500000)}${inp("c2","Interest % / year",10)}${inp("c3","Tenure (months)",60)}${btn("runEMI()","Calculate")}${out}`;
+    box.innerHTML=`<b>${d.emi}</b>${inp("c1",d.emiP,500000)}${inp("c2",d.emiR,10)}${inp("c3",d.emiN,60)}${btn("runEMI()")}${out}`;
   }else if(type==="yield"){
-    box.innerHTML=`<b>Rental Yield</b>${inp("c1","Property value ₹",5000000)}${inp("c2","Annual rent ₹",300000)}${inp("c3","Annual expenses ₹",50000)}${btn("runYield()","Calculate")}${out}`;
+    box.innerHTML=`<b>${d.yield}</b>${inp("c1",d.yV,5000000)}${inp("c2",d.yR,300000)}${inp("c3",d.yE,50000)}${btn("runYield()")}${out}`;
   }else if(type==="frac"){
-    box.innerHTML=`<b>Fractional Ownership</b>${inp("c1","Property value ₹",10000000)}${inp("c2","Your investment ₹",500000)}${inp("c3","Total tokens (optional)",1000)}${btn("runFrac()","Calculate")}${out}`;
+    box.innerHTML=`<b>${d.frac}</b>${inp("c1",d.fV,10000000)}${inp("c2",d.fI,500000)}${inp("c3",d.fT,1000)}${btn("runFrac()")}${out}`;
   }else if(type==="roi"){
-    box.innerHTML=`<b>ROI Calculator</b>${inp("c1","Invested ₹",100000)}${inp("c2","Current / returned ₹",125000)}${btn("runROI()","Calculate")}${out}`;
+    box.innerHTML=`<b>${d.roi}</b>${inp("c1",d.rI,100000)}${inp("c2",d.rC,125000)}${btn("runROI()")}${out}`;
   }else if(type==="comp"){
-    box.innerHTML=`<b>Compound Interest</b>${inp("c1","Principal ₹",100000)}${inp("c2","Rate % / year",8)}${inp("c3","Years",5)}${btn("runComp()","Calculate")}${out}`;
+    box.innerHTML=`<b>${d.comp}</b>${inp("c1",d.cP,100000)}${inp("c2",d.cR,8)}${inp("c3",d.cY,5)}${btn("runComp()")}${out}`;
   }
 }
 function runSIP(){
@@ -646,5 +862,128 @@ window.onload=()=>{
   setInterval(fetchPrices,15000);setInterval(usdToInr,600000);setInterval(pollBal,8000);
 };
 </script>
+<!-- ===== CryptoPay EXTRA FEATURES (add-on, existing code untouched) ===== -->
+<style>
+
+
+.bn i{display:flex;font-style:normal;font-size:0}.bn i svg{width:25px;height:25px}
+.act span{display:flex;align-items:center;justify-content:center;color:var(--y);font-size:0;background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(240,185,11,.05));box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 20px rgba(0,0,0,.35)}.act span svg{width:26px;height:26px}
+.chip{position:relative;padding:8px 14px 8px 12px;border-radius:999px;border:1px solid rgba(240,185,11,.35);background:linear-gradient(135deg,rgba(240,185,11,.2),rgba(240,185,11,.04));color:#fff;font-weight:700;box-shadow:0 4px 18px var(--yg)}
+#chipIcon{font-size:0;width:18px;height:18px;display:inline-block;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F0B90B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 8a2 2 0 0 1 2-2h12v3M4 8v9a2 2 0 0 0 2 2h14V9H6a2 2 0 0 1-2-2'/%3E%3Cpath d='M16 14h2'/%3E%3C/svg%3E") center/contain no-repeat}
+.chip::after{content:"";width:8px;height:8px;border-radius:50%;background:#555;margin-left:2px}.chip.on::after{background:var(--g);box-shadow:0 0 8px var(--g);animation:xtp 1.6s infinite}@keyframes xtp{50%{opacity:.4}}
+.xt-g button svg{margin:0 auto 6px}
+.xt-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.xt-g button{display:block;background:var(--card);color:inherit;border:1px solid var(--ln);border-radius:12px;padding:12px 6px;font-size:12px;font-weight:700}
+.xt-p{text-align:left;font-size:13px}
+.xt-p input,.xt-p select,.xt-p textarea{width:100%;padding:10px;margin:4px 0;border-radius:10px;border:1px solid var(--ln);background:var(--bg);color:inherit;font-size:14px}
+.xt-p input[type=checkbox]{width:auto;margin-right:8px}
+.xt-o{padding:7px 0;border-bottom:1px solid var(--ln);font-size:12px}
+.xt-r{color:var(--y);font-weight:800;font-size:14px;padding:6px 0}
+#xtLock{position:fixed;inset:0;background:#000;z-index:999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:30px}
+#xtLock input{padding:12px;border-radius:12px;font-size:20px;text-align:center;width:200px}
+.xt-tz{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:var(--y);color:#000;padding:10px 16px;border-radius:12px;font-weight:700;font-size:13px;z-index:998;max-width:90%}
+html.xt-light{--bg:#f4f5f8;--sf:#fff;--card:#eef0f4;--ln:rgba(0,0,0,.12);--mut:#555}
+html.xt-light body,html.xt-light .app{color:#111;background:var(--bg)}
+</style>
+<script>
+(function(){
+var K=function(k,d){return ls.get("xt_"+k,d)},S=function(k,v){ls.set("xt_"+k,v)};
+var R=document.documentElement,A=document.querySelector(".app"),V={},cur="",last=Date.now(),XT=window.XT={};
+var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return"&#"+c.charCodeAt(0)+";"})};
+var g=function(i){return $("x_"+i)},nv=function(i){return parseFloat(g(i).value)||0};
+var f=function(n){return n.toLocaleString("en-IN",{maximumFractionDigits:2})};
+var I=function(id,ph,t){return'<input id="x_'+id+'" placeholder="'+ph+'" type="'+(t||"number")+'" step="any" oninput="XT.u()">'};
+var B=function(l,fn){return'<button class="btn ghost" onclick="'+fn+'">'+l+'</button>'};
+var O=function(id){return'<div id="x_'+id+'" class="xt-r"></div>'};
+var C=function(id){return'<select id="x_'+id+'" onchange="XT.u()">'+Object.keys(T).map(function(k){return"<option>"+k+"</option>"}).join("")+"</select>"};
+var inr=function(s){var p=T[s]&&T[s].p;return p?(p.inr||p.usd*fxCache):0};
+var ADDR=/^0x[a-fA-F0-9]{40}$/;
+function tz(m){var d=document.createElement("div");d.className="xt-tz";d.textContent=m;document.body.appendChild(d);setTimeout(function(){d.remove()},3500)}
+function nf(m){var n=K("nt",[]);n.unshift({m:m,t:Date.now()});S("nt",n.slice(0,50));tz(m);try{if(soundOn)chime()}catch(e){}}
+function ta(){R.classList.toggle("xt-light",!!K("light",0));document.body.style.zoom=K("zoom",1)}
+function rpc(m,p){return fetch(NETWORKS[currentNet].rpc,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:1,method:m,params:p})}).then(function(r){return r.json()})}
+function list(key,fn,del){return K(key,[]).map(function(x,i){return'<div class="xt-o">'+fn(x,i)+(del?' <b style="float:right" onclick="XT.dl(\''+key+"',"+i+')">✕</b>':"")+"</div>"}).join("")}
+XT.dl=function(k,i){var a=K(k,[]);a.splice(i,1);S(k,a);XT.go(cur)};
+XT.ad=function(k,o){var a=K(k,[]);a.push(o);S(k,a);XT.go(cur)};
+XT.u=function(){if(V[cur]&&V[cur].u)V[cur].u()};
+XT.go=function(n){cur=n;$("xtT").textContent=V[n].t;$("xtB").innerHTML=V[n].h();if(V[n].u)V[n].u();$("xtSheet").classList.add("open")};
+
+var sh=document.createElement("div");sh.className="shade";sh.id="xtSheet";
+sh.innerHTML='<div class="panel xt-p"><div class="grab"></div><div class="ttl" id="xtT"></div><div id="xtB"></div><button class="btn ghost" onclick="XT.go(\'home\')">← Menu</button><button class="btn ghost" onclick="closeAll()">Close</button></div>';
+sh.onclick=function(e){if(e.target===sh)closeAll()};A.appendChild(sh);
+
+/* ---- Menu ---- */
+var ICO={"set": "<path d=\"M4 7h9m4 0h3M4 17h3m4 0h9\"/><circle cx=\"15\" cy=\"7\" r=\"2\"/><circle cx=\"9\" cy=\"17\" r=\"2\"/>", "al": "<circle cx=\"12\" cy=\"13\" r=\"8\"/><path d=\"M12 9v4l3 2M5 4l-2 2M19 4l2 2\"/>", "nt": "<path d=\"M12 3a6 6 0 0 0-6 6v4l-2 3h16l-2-3V9a6 6 0 0 0-6-6zM10 20h4\"/>", "pl": "<path d=\"M4 19V5M4 19h16M7 15l4-4 3 3 5-6\"/>", "bs": "<circle cx=\"8\" cy=\"12\" r=\"4.5\"/><circle cx=\"16\" cy=\"12\" r=\"4.5\"/>", "tx": "<circle cx=\"11\" cy=\"11\" r=\"6\"/><path d=\"M16 16l4 4\"/>", "st": "<path d=\"M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9z\"/>", "qz": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7M12 17v.1\"/>", "sec": "<path d=\"M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z\"/><path d=\"M9 12l2 2 4-4\"/>", "ra": "<path d=\"M5 21V5h9v16M14 10h5v11M8 9h3M8 13h3M8 17h3\"/>", "rr": "<path d=\"M4 6h16v14H4zM4 10h16M8 3v4M16 3v4\"/>", "ck": "<path d=\"M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2\"/>", "sc": "<path d=\"M6 21V4M6 5h11l-2 4 2 4H6\"/>", "ln": "<path d=\"M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 19h15\"/>"};var ic=function(k){return'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="url(#gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:0 auto 6px">'+ICO[k]+"</svg>"};
+
+V.home={t:"✨ More tools",h:function(){var m=[["set","Settings & Lock"],["al","Price Alarm"],["nt","Notifications"],["pl","Profit / Loss"],["bs","Bill Split"],["tx","History Search"],["st","Daily Streak"],["qz","Crypto Quiz"],["sec","Security Tips"]],r=[["ra","My RWA Assets"],["rr","Rent Records"],["ck","Docs Checklist"],["sc","Scam Check"],["ln","Learn RWA"]];
+var b=function(a){return'<div class="xt-g">'+a.map(function(x){return"<button onclick=\"XT.go('"+x[0]+"')\">"+ic(x[0])+x[1]+"</button>"}).join("")+"</div>"};
+return b(m)+'<div class="ttl" style="margin:12px 0 8px">RWA tools</div>'+b(r)}};
+
+/* ---- Settings: theme, font, PIN, blur, auto-lock, backup ---- */
+V.set={t:"Settings & Lock",h:function(){return'<div class="xt-g"><button onclick="XT.th()">🌗 Light/Dark</button><button onclick="XT.bl()">Blur: '+(K("bl",1)?"On":"Off")+'</button><button onclick="XT.zm(.1)">A +</button><button onclick="XT.zm(-.1)">A −</button></div>'+I("pin","New PIN (4-6 digits)","password")+B("Set PIN","XT.pin()")+B("Remove PIN","XT.rp()")+I("am","Auto-lock minutes (now "+K("am",2)+")")+B("Save auto-lock","XT.am()")+'<textarea id="x_bk" rows="3" placeholder="Backup / restore data"></textarea>'+B("Backup (show data)","XT.bk()")+B("Restore from box","XT.rs()")}};
+XT.th=function(){S("light",!K("light",0));ta()};
+XT.zm=function(d){S("zoom",Math.min(1.3,Math.max(.8,+(K("zoom",1)+d).toFixed(2))));ta()};
+XT.bl=function(){S("bl",!K("bl",1));XT.go("set")};
+XT.pin=function(){var v=g("pin").value;if(!/^\d{4,6}$/.test(v))return tz("PIN must be 4-6 digits");S("pin",btoa(v+"cp"));tz("PIN set")};
+XT.rp=function(){S("pin","");tz("PIN removed")};
+XT.am=function(){S("am",nv("am")||2);XT.go("set")};
+XT.bk=function(){var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);o[k]=localStorage.getItem(k)}g("bk").value=JSON.stringify(o)};
+XT.rs=function(){try{var o=JSON.parse(g("bk").value);Object.keys(o).forEach(function(k){localStorage.setItem(k,o[k])});location.reload()}catch(e){tz("Invalid backup data")}};
+
+/* ---- PIN lock, background blur, auto-lock ---- */
+var lk=document.createElement("div");lk.id="xtLock";lk.innerHTML='<div style="font-size:42px">🔒</div><input id="xtPin" type="password" inputmode="numeric" placeholder="PIN"><button class="btn" style="width:200px" onclick="XT.un()">Unlock</button>';document.body.appendChild(lk);
+function lock(){if(K("pin","")){lk.style.display="flex";$("xtPin").value=""}}
+XT.un=function(){if(btoa($("xtPin").value+"cp")===K("pin","")){lk.style.display="none";last=Date.now()}else tz("Wrong PIN")};
+["click","touchstart","keydown"].forEach(function(e){document.addEventListener(e,function(){last=Date.now()})});
+var hid=0;document.addEventListener("visibilitychange",function(){if(document.hidden){hid=Date.now();if(K("bl",1))A.style.filter="blur(16px)"}else{A.style.filter="";if(hid&&Date.now()-hid>30000)lock()}});
+setInterval(function(){if(K("pin","")&&Date.now()-last>K("am",2)*60000)lock()},5000);
+
+/* ---- Alarm & notifications ---- */
+V.al={t:"⏰ Price Alarm",h:function(){return C("c")+'<select id="x_d"><option value="a">Above ≥</option><option value="b">Below ≤</option></select>'+I("p","Price in USD")+B("Add alarm","XT.aa()")+list("al",function(a){return a.s+(a.d=="a"?" ≥ ":" ≤ ")+"$"+a.p+(a.x?" ✅":"")},1)}};
+XT.aa=function(){if(nv("p")>0)XT.ad("al",{s:g("c").value,d:g("d").value,p:nv("p")})};
+setInterval(function(){var a=K("al",[]),ch=0;a.forEach(function(x){var p=T[x.s]&&T[x.s].p;if(!p||x.x)return;if(x.d=="a"?p.usd>=x.p:p.usd<=x.p){x.x=1;ch=1;nf("⏰ "+x.s+(x.d=="a"?" reached $":" fell to $")+x.p)}});if(ch)S("al",a)},15000);
+V.nt={t:"🔔 Notifications",h:function(){return(list("nt",function(n){return esc(n.m)+'<div style="color:var(--mut);font-size:10px">'+new Date(n.t).toLocaleString("en-IN")+"</div>"})||"No alerts yet")+B("Clear all","S('nt',[]);XT.go('nt')".replace("S(","XT.cl(").replace(/'nt',\[\]\)/,"'nt')"))}};
+XT.cl=function(k){S(k,[]);XT.go(cur)};
+
+/* ---- Address book ---- */
+
+/* ---- Calculators ---- */
+V.bs={t:"🧾 Bill Split",h:function(){return I("t","Total bill ₹")+I("p","People")+I("tp","Tip %")+O("o")},u:function(){var p=nv("p");g("o").textContent=p?"Each pays ₹"+f(nv("t")*(1+nv("tp")/100)/p):""}};
+V.pl={t:"💹 Profit / Loss",h:function(){return C("c")+I("q","Quantity")+I("b","Buy price ₹ per coin")+B("Add","XT.pa()")+O("o")+list("pl",function(x){var cv=x.q*inr(x.s),cs=x.q*x.b,d=cv-cs;return x.s+" × "+x.q+' — <b style="color:'+(d>=0?"var(--g)":"var(--r)")+'">'+(inr(x.s)?(d>=0?"+":"")+"₹"+f(d):"price n/a")+"</b>"},1)},u:function(){}};
+XT.pa=function(){if(nv("q")>0)XT.ad("pl",{s:g("c").value,q:nv("q"),b:nv("b")})};
+
+/* ---- Merchant QR, fee, history ---- */
+V.tx={t:"🔍 History / CSV",h:function(){return I("s","Search coin / in / out / hash","text")+'<div id="x_l"></div>'},u:function(){var q=(g("s").value||"").toLowerCase();g("l").innerHTML=txs.filter(function(x){return(x.symbol+x.type+x.hash).toLowerCase().indexOf(q)>-1}).map(function(x){return'<div class="xt-o">'+(x.type=="in"?"+":"-")+x.amt+" "+x.symbol+' <span style="color:var(--mut)">'+new Date(x.time).toLocaleString("en-IN")+"</span></div>"}).join("")||"No match"}};
+
+/* ---- Streak & quiz & tips ---- */
+var td=new Date().toISOString().slice(0,10),st=K("st",{d:"",n:0});
+if(st.d!=td){var yd=new Date(Date.now()-864e5).toISOString().slice(0,10);st={d:td,n:st.d==yd?st.n+1:1};S("st",st)}
+V.st={t:"🔥 Daily Streak",h:function(){return'<div style="text-align:center;font-size:44px">🔥 '+K("st",st).n+'</div><p style="text-align:center">day(s) in a row — open the app daily!</p>'}};
+var Q=[["What does 'non-custodial' mean?",["App holds your keys","You hold your keys","Bank holds funds"],1],["Sending to the wrong network usually…",["Gets refunded","Can lose funds","Is free"],1],["Should you share your seed phrase?",["Yes, with support","Never","Only on WhatsApp"],1],["RWA stands for…",["Real World Assets","Random Wallet Address","Rapid Web App"],0],["A 'guaranteed' very high return is usually…",["Safe","A red flag","Government backed"],1]],qi=0,qs=0;
+V.qz={t:"🧠 Crypto Quiz",h:function(){if(qi>=Q.length){var r="Score: "+qs+"/"+Q.length+B("Retry","qi=0;qs=0;XT.go('qz')".replace("qi=0;qs=0;","XT.qr();"));return r}var q=Q[qi];return"<b>"+(qi+1)+". "+q[0]+"</b>"+q[1].map(function(o,i){return B(o,"XT.qa("+i+")")}).join("")}};
+XT.qa=function(i){if(i==Q[qi][2]){qs++;tz("✅ Correct")}else tz("❌ Wrong");qi++;XT.go("qz")};XT.qr=function(){qi=0;qs=0;XT.go("qz")};
+V.sec={t:"🛡 Security Tips",h:function(){return["Never share seed phrase or private key — nobody from support will ask.","Check network and address before every send.","Test with a small amount first.","Avoid unknown links and fake airdrops.","Use a PIN and keep your phone updated.","If it promises guaranteed profit, walk away."].map(function(x){return'<div class="xt-o">🛡 '+x+"</div>"}).join("")}};
+
+/* ---- RWA ---- */
+V.ra={t:"🏠 My RWA Assets",h:function(){var tot=K("ra",[]).reduce(function(a,x){return a+x.v},0);return I("n","Asset name","text")+'<select id="x_k"><option>Flat</option><option>Land</option><option>Shop</option><option>Gold token</option><option>Other</option></select>'+I("v","Value ₹")+B("Add","XT.ra()")+'<div class="xt-r">Total ₹'+f(tot)+"</div>"+list("ra",function(x){return esc(x.n)+" ("+x.k+") — ₹"+f(x.v)},1)}};
+XT.ra=function(){if(g("n").value&&nv("v")>0)XT.ad("ra",{n:g("n").value,k:g("k").value,v:nv("v")})};
+V.rr={t:"📅 Rent Records",h:function(){return I("n","Tenant name","text")+I("a","Rent ₹")+'<input id="x_d" type="date">'+B("Add","XT.rr()")+list("rr",function(x,i){var od=!x.p&&x.d<td;return esc(x.n)+" ₹"+f(x.a)+" · due "+x.d+' <u onclick="XT.rt('+i+')" style="color:'+(x.p?"var(--g)":od?"var(--r)":"var(--y)")+'">'+(x.p?"Paid ✓":od?"Overdue!":"Mark paid")+"</u>"},1)}};
+XT.rr=function(){if(g("n").value&&g("d").value)XT.ad("rr",{n:g("n").value,a:nv("a"),d:g("d").value,p:0})};
+XT.rt=function(i){var a=K("rr",[]);a[i].p=!a[i].p;S("rr",a);XT.go("rr")};
+setTimeout(function(){var o=K("rr",[]).filter(function(x){return!x.p&&x.d<td}).length;if(o)nf("📅 "+o+" rent payment(s) overdue")},3000);
+var CK=["7/12 extract (land)","Sale / title deed","Property tax receipts","Electricity & water bills","Society NOC","Encumbrance certificate","Rent agreement","Owner ID & PAN"];
+V.ck={t:"📋 Docs Checklist",h:function(){var c=K("ck",{});return CK.map(function(x,i){return'<div class="xt-o" onclick="XT.ct('+i+')">'+(c[i]?"☑":"☐")+" "+x+"</div>"}).join("")+O("o")},u:function(){}};
+XT.ct=function(i){var c=K("ck",{});c[i]=!c[i];S("ck",c);XT.go("ck")};
+var SC=["Promises guaranteed / very high returns","No legal documents shown","Pressure to invest quickly","Owner or company can't be verified","Asked to pay to a personal account","Title / 7-12 not verified","Token contract not public","No rent or income proof"];
+V.sc={t:"🚩 Scam Check",h:function(){return SC.map(function(x,i){return'<label class="xt-o" style="display:block"><input type="checkbox" id="x_c'+i+'" onchange="XT.u()">'+x+"</label>"}).join("")+O("o")},u:function(){var n=SC.filter(function(x,i){return g("c"+i).checked}).length;g("o").textContent=n+" red flag(s) — "+(n<=1?"Lower risk, still verify":n<=3?"⚠ Medium risk — be careful":"🚨 High risk — avoid")}};
+V.ln={t:"📚 Learn RWA",h:function(){return["<b>RWA</b> = Real World Assets (property, gold, etc.) represented as digital tokens.","<b>Fractional ownership</b> lets many people own small shares of one asset.","<b>Benefits:</b> small entry amount, easy records, transparent history.","<b>Risks:</b> legal rules, fake projects, low liquidity, price swings.","Always verify documents and legality before investing."].map(function(x){return'<div class="xt-o">'+x+"</div>"}).join("")}};
+
+A.insertAdjacentHTML("afterbegin",'<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE066"/><stop offset="1" stop-color="#F0A500"/></linearGradient></defs></svg>');
+var tp=document.querySelector("#sheetTools .ttl");if(tp){var mb=document.createElement("button");mb.className="btn";mb.style.cssText="margin:8px 0";mb.textContent="✨ More tools & RWA";mb.onclick=function(){XT.go("home")};tp.after(mb)}
+setInterval(function(){var c=$("chip"),t=$("chipText");if(c)c.classList.toggle("on",!!addr);if(t&&!addr&&t.textContent=="MetaMask")t.textContent="Connect Wallet"},800);
+ta();lock();
+})();
+</script>
+
 </body>
 </html>

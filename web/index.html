@@ -179,10 +179,22 @@ section { padding: 100px 5%; position: relative; }
 .feature-icon {
   width: 52px; height: 52px; border-radius: 14px;
   background: rgba(240,185,11,0.12); display: flex; align-items: center; justify-content: center;
-  font-size: 26px; margin-bottom: 20px;
+  margin-bottom: 20px; border: 1px solid rgba(240,185,11,0.2);
+}
+.feature-icon svg {
+  width: 26px; height: 26px; stroke: var(--yellow); fill: none;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
 }
 .feature-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
 .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.app-bridge {
+  max-width: 1100px; margin: 0 auto 48px; padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(240,185,11,0.12), rgba(14,203,129,0.06));
+  border: 1px solid rgba(240,185,11,0.3); border-radius: 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+.app-bridge p { font-size: 15px; font-weight: 600; color: var(--text); margin: 0; }
+.app-bridge span { color: var(--muted); font-weight: 500; font-size: 13px; }
 .rwa-section {
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 50%, var(--bg) 100%);
 }
@@ -341,6 +353,48 @@ footer { border-top: 1px solid var(--border); padding: 48px 5% 32px; }
   .founder-info p { margin: 0 auto; }
 }
 
+
+/* Live Tools */
+.tools-section { background: linear-gradient(180deg, var(--bg) 0%, #0e1218 50%, var(--bg) 100%); }
+.tools-layout { display: grid; grid-template-columns: 220px 1fr; gap: 24px; max-width: 1100px; margin: 0 auto; }
+.tools-nav { display: flex; flex-direction: column; gap: 8px; }
+.tools-nav button {
+  text-align: left; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border);
+  background: var(--card); color: var(--text); font-weight: 700; font-size: 14px; cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.tools-nav button:hover, .tools-nav button.active {
+  border-color: rgba(240,185,11,.45); background: rgba(240,185,11,.08); color: var(--yellow);
+}
+.tools-panel {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px;
+  min-height: 320px;
+}
+.tools-panel h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+.tools-panel .hint { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+.tools-panel label { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin: 12px 0 6px; text-transform: uppercase; letter-spacing: .5px; }
+.tools-panel input {
+  width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--bg); color: var(--text); font-size: 15px; font-weight: 600; outline: none;
+}
+.tools-panel input:focus { border-color: var(--yellow); }
+.tools-panel .calc-btn {
+  margin-top: 18px; width: 100%; padding: 14px; border: none; border-radius: 10px;
+  background: var(--yellow); color: #0b0e11; font-weight: 800; font-size: 15px; cursor: pointer;
+}
+.tools-panel .calc-btn:hover { box-shadow: 0 8px 28px var(--yellow-glow); }
+.tools-result {
+  margin-top: 18px; padding: 16px; border-radius: 12px; background: rgba(240,185,11,.08);
+  border: 1px solid rgba(240,185,11,.25); font-size: 15px; font-weight: 700; color: var(--yellow);
+  line-height: 1.6; white-space: pre-line; display: none;
+}
+.tools-edu { font-size: 11px; color: var(--muted); margin-top: 12px; }
+@media (max-width: 768px) {
+  .tools-layout { grid-template-columns: 1fr; }
+  .tools-nav { flex-direction: row; flex-wrap: wrap; }
+  .tools-nav button { flex: 1 1 40%; text-align: center; }
+}
+
 </style>
 </head>
 <body>
@@ -352,6 +406,7 @@ footer { border-top: 1px solid var(--border); padding: 48px 5% 32px; }
   </a>
   <div class="nav-links">
     <a href="#features">Features</a>
+    <a href="#tools">Tools</a>
     <a href="#rwa">RWA</a>
     <a href="#how">How it works</a>
     <a href="#security">Security</a>
@@ -384,40 +439,62 @@ footer { border-top: 1px solid var(--border); padding: 48px 5% 32px; }
 
 <section id="features">
   <div style="max-width:1100px;margin:0 auto;" class="reveal">
-    <div class="section-label">Why CryptoPay</div>
-    <h2 class="section-title">Built for merchants &amp; the next generation of assets</h2>
-    <p class="section-desc">Local shops and global users deserve blockchain without complexity. Payments and RWA tools that work in the real world.</p>
+    <div class="section-label">One product · Website + App</div>
+    <h2 class="section-title">Everything in CryptoPay — clear and honest</h2>
+    <p class="section-desc">Website explains and runs live calculators. The app is where you connect MetaMask, send, receive, and use the full toolkit.</p>
+  </div>
+  <div class="app-bridge reveal">
+    <div>
+      <p>CryptoPay App = live wallet · QR · voice · tools</p>
+      <span>Same brand · Same network · Shardeum-first · Non-custodial</span>
+    </div>
+    <a href="https://cryptopay-app.vercel.app" class="btn-primary" target="_blank" rel="noopener" onclick="playClick()">Open App</a>
   </div>
   <div class="features-grid">
     <div class="feature-card reveal">
-      <div class="feature-icon">⚡</div>
-      <h3>UPI-like payments</h3>
-      <p>Customer scans QR → pays in crypto → you receive instantly. No long addresses. Works like the UPI you already trust.</p>
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12h8M12 8v8"/></svg></div>
+      <h3>QR payments</h3>
+      <p>Receive with QR, copy address, WhatsApp share. UPI-simple flow for SHM and multi-chain.</p>
     </div>
     <div class="feature-card reveal">
-      <div class="feature-icon">🔐</div>
-      <h3>Non-custodial forever</h3>
-      <p>Your keys stay in your wallet. We never hold funds. Designed so even a small shop can trust it completely.</p>
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h3>Non-custodial</h3>
+      <p>MetaMask connect. Keys stay with you. We never hold funds or private keys.</p>
     </div>
     <div class="feature-card reveal">
-      <div class="feature-icon">👁</div>
-      <h3>Radical transparency</h3>
-      <p>Only real on-chain balances. No fake numbers. What you see is what the blockchain has — always.</p>
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
+      <h3>Send · Receive · Request</h3>
+      <p>Full payment actions in the app — amount, network check, on-chain send.</p>
     </div>
     <div class="feature-card reveal">
-      <div class="feature-icon">🌐</div>
-      <h3>Multi-chain ready</h3>
-      <p>Shardeum, Ethereum, BNB Chain. Switch in one tap. Network guards protect you from costly mistakes.</p>
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+      <h3>Multi-chain</h3>
+      <p>Shardeum Testnet/Mainnet, Ethereum, BNB. Switch network; wrong-chain warnings.</p>
     </div>
     <div class="feature-card reveal">
-      <div class="feature-icon">🔊</div>
-      <h3>Voice Soundbox</h3>
-      <p>Payment received? Hear it in Marathi, Hindi or English — just like a UPI soundbox, but for crypto.</p>
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M16 9a4 4 0 010 6M18.5 7a7 7 0 010 10"/></svg></div>
+      <h3>Voice alerts</h3>
+      <p>Payment soundbox in English, Hindi, Marathi — hear when funds arrive.</p>
     </div>
     <div class="feature-card reveal">
-      <div class="feature-icon">🏢</div>
-      <h3>RWA tools built-in</h3>
-      <p>Fractional ownership, rent yield, document checklists, scam checks — practical tools for real assets.</p>
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l3-4 3 3 4-5"/></svg></div>
+      <h3>Live calculators</h3>
+      <p>SIP, EMI, rental yield, fractional share, ROI, compound — on this site and in the app.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 01-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9z"/></svg></div>
+      <h3>Custom tokens</h3>
+      <p>Add ERC-20 contract in app; read on-chain balance for the current network.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></div>
+      <h3>Tools &amp; RWA helpers</h3>
+      <p>Gas estimate, price, CSV export, explorer, rent/docs/scam checklists inside the app.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></div>
+      <h3>EN · हिंदी · मराठी</h3>
+      <p>Full UI language switch so local merchants can use it without English-only friction.</p>
     </div>
   </div>
 </section>
@@ -500,6 +577,31 @@ footer { border-top: 1px solid var(--border); padding: 48px 5% 32px; }
       <p>No hidden fees. No fake balances. Clear warnings.</p>
     </div>
   </div>
+</section>
+
+
+
+<section id="tools" class="tools-section">
+  <div style="max-width:1100px;margin:0 auto;" class="reveal">
+    <div class="section-label">Live tools</div>
+    <h2 class="section-title">Same calculators as the app</h2>
+    <p class="section-desc">Real math. No fake APY. Educational only — not financial advice. Full wallet &amp; QR live in the app.</p>
+  </div>
+  <div class="tools-layout reveal">
+    <div class="tools-nav">
+      <button type="button" class="active" data-tool="sip" onclick="showTool('sip')">SIP</button>
+      <button type="button" data-tool="emi" onclick="showTool('emi')">EMI</button>
+      <button type="button" data-tool="yield" onclick="showTool('yield')">Rental Yield</button>
+      <button type="button" data-tool="frac" onclick="showTool('frac')">Fractional</button>
+      <button type="button" data-tool="roi" onclick="showTool('roi')">ROI</button>
+      <button type="button" data-tool="comp" onclick="showTool('comp')">Compound</button>
+      <button type="button" data-tool="price" onclick="showTool('price')">Price (SHM)</button>
+    </div>
+    <div class="tools-panel" id="toolPanel"></div>
+  </div>
+  <p style="text-align:center;margin-top:28px;" class="reveal">
+    <a href="https://cryptopay-app.vercel.app" class="btn-primary" target="_blank" rel="noopener" onclick="playClick()">Open full app — wallet, QR, MetaMask</a>
+  </p>
 </section>
 
 
@@ -638,5 +740,74 @@ window.addEventListener("scroll", function() {
   }
 }, { passive: true });
 </script>
+
+<script>
+function fmtINR(n){ return "₹" + Math.round(n).toLocaleString("en-IN"); }
+function showTool(name){
+  document.querySelectorAll(".tools-nav button").forEach(function(b){
+    b.classList.toggle("active", b.getAttribute("data-tool")===name);
+  });
+  var p = document.getElementById("toolPanel");
+  var forms = {
+    sip: { title:"SIP Calculator", hint:"Monthly investment growth estimate",
+      fields:[["m","Monthly investment ₹","5000"],["r","Expected return % / year","12"],["y","Years","10"]],
+      run:function(){ var m=+document.getElementById("tf_m").value,r=+(document.getElementById("tf_r").value)/100/12,n=+(document.getElementById("tf_y").value)*12;
+        if(!m||!n)return "Enter values";
+        var fv=r?m*((Math.pow(1+r,n)-1)/r)*(1+r):m*n;
+        return "Invested: "+fmtINR(m*n)+"\nMaturity ≈ "+fmtINR(fv)+"\nGain ≈ "+fmtINR(fv-m*n); }},
+    emi: { title:"EMI Calculator", hint:"Loan monthly installment",
+      fields:[["p","Loan amount ₹","500000"],["r","Interest % / year","10"],["n","Tenure (months)","60"]],
+      run:function(){ var p=+document.getElementById("tf_p").value,r=+(document.getElementById("tf_r").value)/100/12,n=+document.getElementById("tf_n").value;
+        if(!p||!n)return "Enter values";
+        var emi=r?p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):p/n;
+        return "EMI ≈ "+fmtINR(emi)+"/month\nTotal ≈ "+fmtINR(emi*n)+"\nInterest ≈ "+fmtINR(emi*n-p); }},
+    yield: { title:"Rental Yield", hint:"Property net rental yield %",
+      fields:[["v","Property value ₹","5000000"],["rent","Annual rent ₹","300000"],["exp","Annual expenses ₹","50000"]],
+      run:function(){ var v=+document.getElementById("tf_v").value,rent=+document.getElementById("tf_rent").value,exp=+document.getElementById("tf_exp").value||0;
+        if(!v||!rent)return "Enter values";
+        var net=rent-exp; return "Net income: "+fmtINR(net)+"\nGross yield: "+((rent/v)*100).toFixed(2)+"%\nNet yield: "+((net/v)*100).toFixed(2)+"%"; }},
+    frac: { title:"Fractional Ownership", hint:"Your share of a property",
+      fields:[["v","Property value ₹","10000000"],["inv","Your investment ₹","500000"],["tok","Total tokens (optional)","1000"]],
+      run:function(){ var v=+document.getElementById("tf_v").value,inv=+document.getElementById("tf_inv").value,tok=+document.getElementById("tf_tok").value;
+        if(!v||!inv)return "Enter values";
+        var t="Your share: "+((inv/v)*100).toFixed(4)+"%";
+        if(tok)t+="\nTokens ≈ "+((inv/v)*tok).toFixed(4)+"\n1 token ≈ "+fmtINR(v/tok);
+        return t; }},
+    roi: { title:"ROI Calculator", hint:"Return on investment %",
+      fields:[["a","Invested ₹","100000"],["b","Current / returned ₹","125000"]],
+      run:function(){ var a=+document.getElementById("tf_a").value,b=+document.getElementById("tf_b").value;
+        if(!a)return "Enter values"; return "P/L: "+fmtINR(b-a)+"\nROI: "+(((b-a)/a)*100).toFixed(2)+"%"; }},
+    comp: { title:"Compound Interest", hint:"Principal growth over years",
+      fields:[["p","Principal ₹","100000"],["r","Rate % / year","8"],["y","Years","5"]],
+      run:function(){ var p=+document.getElementById("tf_p").value,r=+(document.getElementById("tf_r").value)/100,y=+document.getElementById("tf_y").value;
+        if(!p||!y)return "Enter values"; var fv=p*Math.pow(1+r,y); return "After "+y+" yrs ≈ "+fmtINR(fv)+"\nInterest ≈ "+fmtINR(fv-p); }},
+    price: { title:"SHM Price", hint:"Live from CoinGecko when available",
+      fields:[], run:null }
+  };
+  var t = forms[name];
+  if(name==="price"){
+    p.innerHTML = "<h3>"+t.title+"</h3><p class='hint'>"+t.hint+"</p><div class='tools-result' id='toolRes' style='display:block'>Loading…</div><p class='tools-edu'>Educational. Rates may lag.</p>";
+    fetch("https://api.coingecko.com/api/v3/simple/price?ids=shardeum&vs_currencies=inr,usd")
+      .then(function(r){return r.json()})
+      .then(function(d){
+        var s=d.shardeum;
+        document.getElementById("toolRes").textContent = s ? ("1 SHM ≈ ₹"+(s.inr||0).toFixed(4)+"\n1 SHM ≈ $"+(s.usd||0).toFixed(6)) : "Price unavailable";
+      }).catch(function(){ document.getElementById("toolRes").textContent = "Could not load price"; });
+    return;
+  }
+  var html = "<h3>"+t.title+"</h3><p class='hint'>"+t.hint+"</p>";
+  t.fields.forEach(function(f){ html += "<label>"+f[1]+"</label><input id='tf_"+f[0]+"' type='number' value='"+f[2]+"'>"; });
+  html += "<button type='button' class='calc-btn' id='runCalc'>Calculate</button><div class='tools-result' id='toolRes'></div><p class='tools-edu'>Educational only. Not financial advice.</p>";
+  p.innerHTML = html;
+  document.getElementById("runCalc").onclick = function(){
+    var res = t.run();
+    var el = document.getElementById("toolRes");
+    el.style.display = "block";
+    el.textContent = res;
+  };
+}
+document.addEventListener("DOMContentLoaded", function(){ if(document.getElementById("toolPanel")) showTool("sip"); });
+</script>
+
 </body>
 </html>

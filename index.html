@@ -429,9 +429,10 @@ function rate(p){return p?(cur==="INR"?p.inr:p.usd):0}
 function changeCurrency(c){cur=c;paint()}
 function changeLang(l){
   lang=l;ls.set("lang",l);const d=I18N[l]||I18N.en;
-  $("lblTotal").textContent=d.total;$("btnSend").textContent=d.send;$("btnRecv").textContent=d.recv;$("btnReq").textContent=d.req;
-  $("tabAssets").textContent=d.assets;$("navHome").textContent=d.home;$("navBook").textContent=d.book;
-  $("navTools").textContent=d.tools;$("navSettings").textContent=d.settings;$("disclaimer").textContent=d.disc;$("txtTx").textContent=d.tx;
+  const set=(id,v)=>{const el=$(id);if(el)el.textContent=v};
+  set("lblTotal",d.total);set("btnSend",d.send);set("btnRecv",d.recv);set("btnReq",d.req);
+  set("tabAssets",d.assets);set("navHome",d.home);set("navBook",d.book);
+  set("navTools",d.tools);set("navSettings",d.settings);set("disclaimer",d.disc);set("txtTx",d.tx);
   if($("toolsTitle"))$("toolsTitle").textContent=d.toolsTitle;
   if($("cryptoSec"))$("cryptoSec").textContent=d.cryptoSec;
   if($("calcSec"))$("calcSec").textContent=d.calcSec;
@@ -451,11 +452,12 @@ function changeLang(l){
 }
 function changeNetwork(key){
   currentNet=key;const n=NETWORKS[key];
-  $("netLabel").textContent=n.name;$("setNet").textContent=n.name;
-  $("sendUnit").textContent=n.symbol;$("recvUnit").textContent=n.symbol;$("reqUnit").textContent=n.symbol;
-  $("sendTitle").textContent="Send "+n.symbol;$("recvTitle").textContent="Receive "+n.symbol;
-  $("recvCap").textContent="Only send "+n.symbol+" on "+n.name;
-  $("faucetBtn").style.display=key==="shardeum-testnet"?"block":"none";
+  const set=(id,v)=>{const el=$(id);if(el)el.textContent=v};
+  set("netLabel",n.name);set("setNet",n.name);
+  set("sendUnit",n.symbol);set("recvUnit",n.symbol);set("reqUnit",n.symbol);
+  set("sendTitle","Send "+n.symbol);set("recvTitle","Receive "+n.symbol);
+  set("recvCap","Only send "+n.symbol+" on "+n.name);
+  const fb=$("faucetBtn");if(fb)fb.style.display=key==="shardeum-testnet"?"block":"none";
   if(addr)ensureNetwork().then(()=>readBal(false));
   paint();
 }
@@ -855,11 +857,13 @@ function goHome(){closeAll()}
 if(window.ethereum){ethereum.on("chainChanged",()=>location.reload());ethereum.on("accountsChanged",()=>location.reload())}
 
 window.onload=()=>{
-  applySound();buildList();paint();renderTx();changeLang(lang);changeNetwork(currentNet);
-  if("speechSynthesis"in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
-  setTimeout(()=>$("splash").classList.add("hide"),1600);
-  usdToInr().then(fetchPrices);
-  setInterval(fetchPrices,15000);setInterval(usdToInr,600000);setInterval(pollBal,8000);
+  try{
+    applySound();buildList();paint();renderTx();changeLang(lang);changeNetwork(currentNet);
+    if("speechSynthesis"in window){speechSynthesis.getVoices();speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}
+    usdToInr().then(fetchPrices);
+    setInterval(fetchPrices,15000);setInterval(usdToInr,600000);setInterval(pollBal,8000);
+  }catch(e){console.error(e)}
+  setTimeout(()=>{const s=$("splash");if(s)s.classList.add("hide")},1600);
 };
 </script>
 <!-- ===== CryptoPay EXTRA FEATURES (add-on, existing code untouched) ===== -->

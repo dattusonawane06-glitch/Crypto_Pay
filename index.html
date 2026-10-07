@@ -246,26 +246,157 @@ nav.bn .a{color:var(--y)}
     <div class="panel">
       <div class="grab"></div>
       <div class="ttl" id="sendTitle">Send</div>
-      <!-- Network Selector with Custom Coded Unique Icon -->
-    <div class="network-selector-container" style="background: #1a1a1a; padding: 12px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #333;">
-        <label style="color: #ffd700; font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <!-- Special Custom Coded SVG Icon -->
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9"></circle>
-                <path d="M12 3v18"></path>
-                <path d="M3 12h18"></path>
-                <circle cx="12" cy="12" r="3" fill="#ffd700"></circle>
-            </svg>
-            Select Network
-        </label>
-        
-        <select id="networkDropdown" style="width: 100%; background: #262626; color: #fff; padding: 10px; border-radius: 8px; border: 1px solid #444; font-size: 14px;">
-            <option value="bsc">BNB Smart Chain (BEP20)</option>
-            <option value="eth">Ethereum (ERC20)</option>
-            <option value="polygon">Polygon (MATIC)</option>
-            <option value="shardeum">Shardeum Testnet</option>
-        </select>
+      <!-- Custom Network Selector with Original Brand Logos -->
+    <style>
+        /* Custom Dropdown Styling */
+        .custom-dropdown-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .dropdown-selected {
+            background: #262626;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 12px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+        .dropdown-selected:hover {
+            background: #333;
+        }
+        .selected-logo-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chain-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+        .dropdown-arrow {
+            width: 10px;
+            height: 10px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            transform: rotate(45deg);
+            margin-right: 5px;
+        }
+        /* Hidden Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 12px;
+            margin-top: 10px;
+            z-index: 100;
+            max-height: 200px;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .dropdown-menu.show {
+            display: block;
+        }
+        .dropdown-item {
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 14px;
+        }
+        .dropdown-item:hover {
+            background: #333;
+        }
+        .dropdown-item.active {
+            background: #444;
+            font-weight: bold;
+        }
+        /* Chain Specific Backgrounds */
+        .chain-logo.bsc { background: #F3BA2F; padding: 2px; }
+        .chain-logo.eth { background: #627EEA; padding: 2px; }
+        .chain-logo.poly { background: #8247E5; padding: 2px; }
+        .chain-logo.shard { background: #2563EB; padding: 2px; } /* Shardeum Official Blue BG */
+    </style>
+
+    <div class="custom-dropdown-container">
+        <!-- Selected Item Box -->
+        <div class="dropdown-selected" onclick="toggleDropdown()">
+            <div class="selected-logo-name" id="selectedChainDisplay">
+                <svg class="chain-logo bsc" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.6378 12.0012L19.1368 14.5002L16.6378 16.9992L14.1388 14.5002L16.6378 12.0012Z" fill="white"/><path d="M12.0008 7.3642L14.4998 9.8632L12.0008 12.3622L9.5018 9.8632L12.0008 7.3642Z" fill="white"/><path d="M7.3638 12.0012L9.8628 14.5002L7.3638 16.9992L4.8648 14.5002L7.3638 12.0012Z" fill="white"/><path d="M12.0008 16.6392L14.4998 19.1382L12.0008 21.6372L9.5018 19.1382L12.0008 16.6392Z" fill="white"/><path d="M21.328 8.43657L18.829 10.9356L16.33 8.43657L18.829 5.93757L21.328 8.43657Z" fill="white"/><path d="M7.71797 2.67188L10.217 5.17088L7.71797 7.66988L5.21897 5.17088L7.71797 2.67188Z" fill="white"/><path d="M12.0008 0L15.5356 3.53477L12.0008 7.06954L8.46603 3.53477L12.0008 0Z" fill="#FCD535"/><path d="M3.53477 8.46603L0 12.0008L3.53477 15.5356L7.06954 12.0008L3.53477 8.46603Z" fill="#FCD535"/><path d="M12.0008 12.0008L15.5356 15.5356L12.0008 19.0703L8.46603 15.5356L12.0008 12.0008Z" fill="#FCD535"/><path d="M20.4652 15.5356L16.9305 19.0703L20.4652 22.6051L24 19.0703L20.4652 15.5356Z" fill="#FCD535"/></svg>
+                BNB Smart Chain (BEP20)
+            </div>
+            <span class="dropdown-arrow"></span>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu" id="chainDropdownMenu">
+            <!-- BNB Item -->
+            <div class="dropdown-item active" onclick="selectChain('bsc', 'BNB Smart Chain (BEP20)', this)">
+                <svg class="chain-logo bsc" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.6378 12.0012L19.1368 14.5002L16.6378 16.9992L14.1388 14.5002L16.6378 12.0012Z" fill="white"/><path d="M12.0008 7.3642L14.4998 9.8632L12.0008 12.3622L9.5018 9.8632L12.0008 7.3642Z" fill="white"/><path d="M7.3638 12.0012L9.8628 14.5002L7.3638 16.9992L4.8648 14.5002L7.3638 12.0012Z" fill="white"/><path d="M12.0008 16.6392L14.4998 19.1382L12.0008 21.6372L9.5018 19.1382L12.0008 16.6392Z" fill="white"/><path d="M21.328 8.43657L18.829 10.9356L16.33 8.43657L18.829 5.93757L21.328 8.43657Z" fill="white"/><path d="M7.71797 2.67188L10.217 5.17088L7.71797 7.66988L5.21897 5.17088L7.71797 2.67188Z" fill="white"/><path d="M12.0008 0L15.5356 3.53477L12.0008 7.06954L8.46603 3.53477L12.0008 0Z" fill="#FCD535"/><path d="M3.53477 8.46603L0 12.0008L3.53477 15.5356L7.06954 12.0008L3.53477 8.46603Z" fill="#FCD535"/><path d="M12.0008 12.0008L15.5356 15.5356L12.0008 19.0703L8.46603 15.5356L12.0008 12.0008Z" fill="#FCD535"/><path d="M20.4652 15.5356L16.9305 19.0703L20.4652 22.6051L24 19.0703L20.4652 15.5356Z" fill="#FCD535"/></svg>
+                BNB Smart Chain (BEP20)
+            </div>
+            <!-- Ethereum Item -->
+            <div class="dropdown-item" onclick="selectChain('eth', 'Ethereum (ERC20)', this)">
+                <svg class="chain-logo eth" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 13.4943L17.8724 9.99889L12.0001 2.50348L6.12793 9.99889L12.0001 13.4943ZM12.0001 15.001L17.8724 11.5055L12.0001 21.4988L6.12793 11.5055L12.0001 15.001Z" fill="white" fill-opacity="0.6"/><path d="M12.0001 13.4943L6.12793 9.99889L12.0001 2.50348V13.4943Z" fill="white" fill-opacity="0.9"/><path d="M12.0001 15.001L6.12793 11.5055L12.0001 21.4988V15.001Z" fill="white"/></svg>
+                Ethereum (ERC20)
+            </div>
+            <!-- Polygon Item -->
+            <div class="dropdown-item" onclick="selectChain('poly', 'Polygon (MATIC)', this)">
+                <svg class="chain-logo poly" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.0002 20H8.00019L4.00019 13L8.00019 6H16.0002L20.0002 13L16.0002 20Z" fill="#8247E5" stroke="white" stroke-width="1.5"/><path d="M15.25 7.25L18.125 12.25L15.25 17.25H9.5L6.625 12.25L9.5 7.25H15.25Z" fill="white" fill-opacity="0.1"/><path d="M12.3031 12.25L14.2031 8.95512H18.0031L16.1031 12.25L18.0031 15.5449H14.2031L12.3031 12.25Z" fill="white"/><path d="M6 15.5449H9.8L7.9 12.25L9.8 8.95512H6L4.1 12.25L6 15.5449Z" fill="white"/></svg>
+                Polygon (MATIC)
+            </div>
+            <!-- Shardeum Item (Exact Official Match with Blue BG & White Triangles/Circle) -->
+            <div class="dropdown-item" onclick="selectChain('shard', 'Shardeum Testnet', this)">
+                <svg class="chain-logo shard" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.25 4.5L3.75 17.25H8.75L11.25 12.75L13.75 17.25H18.75L11.25 4.5Z" fill="white"/>
+                    <path d="M18.75 6.75L11.25 19.5L13.75 19.5L18.75 10.75V6.75Z" fill="white" fill-opacity="0.9"/>
+                    <path d="M8.75 19.5H15.25L12 13.5L8.75 19.5Z" fill="white"/>
+                    <circle cx="12" cy="12" r="2.2" fill="#2563EB"/>
+                </svg>
+                Shardeum Testnet
+            </div>
+        </div>
     </div>
+
+    <!-- JavaScript for Dropdown Interaction -->
+    <script>
+        function toggleDropdown() {
+            const menu = document.getElementById('chainDropdownMenu');
+            menu.classList.toggle('show');
+        }
+
+        function selectChain(chainId, chainName, element) {
+            const display = document.getElementById('selectedChainDisplay');
+            display.innerHTML = element.innerHTML;
+
+            const items = document.querySelectorAll('.dropdown-item');
+            items.forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+
+            toggleDropdown();
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('.custom-dropdown-container')) {
+                const menu = document.getElementById('chainDropdownMenu');
+                if (menu.classList.contains('show')) {
+                    menu.classList.remove('show');
+                }
+            }
+        }
+    </script>
       
       <div class="risk">Only send the native coin of the selected network. Wrong network = permanent loss.</div>
       <video id="scanVid" playsinline muted></video>

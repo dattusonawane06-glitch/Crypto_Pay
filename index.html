@@ -230,14 +230,24 @@ nav.bn .a{color:var(--y)}
 
   <!-- TOOLS -->
   <div class="shade" id="sheetTools" onclick="if(event.target===this)closeAll()">
-    <div class="panel">
+    <div class="panel" style="max-height:88dvh">
       <div class="grab"></div>
       <div class="ttl">Tools</div>
+      <div style="font-size:11px;color:var(--mut);font-weight:700;margin:8px 0 6px">CRYPTO</div>
       <button class="btn ghost" style="margin-top:0" onclick="toolGas()">⛽ Estimate network fee</button>
       <button class="btn ghost" onclick="toolConvert()">🔁 Price converter</button>
       <button class="btn ghost" onclick="toolExport()">📥 Export history CSV</button>
       <button class="btn ghost" onclick="openExplorer()">🔗 Open block explorer</button>
-      <div id="toolOut" class="cap" style="margin-top:12px;text-align:left;min-height:40px"></div>
+      <button class="btn ghost" onclick="toolAddToken()">➕ Add custom token</button>
+      <div style="font-size:11px;color:var(--mut);font-weight:700;margin:14px 0 6px">CALCULATORS (REAL MATH)</div>
+      <button class="btn ghost" onclick="showCalc('sip')">📈 SIP Calculator</button>
+      <button class="btn ghost" onclick="showCalc('emi')">🏦 EMI Calculator</button>
+      <button class="btn ghost" onclick="showCalc('yield')">🏠 Rental Yield</button>
+      <button class="btn ghost" onclick="showCalc('frac')">🏢 Fractional Ownership</button>
+      <button class="btn ghost" onclick="showCalc('roi')">💹 ROI Calculator</button>
+      <button class="btn ghost" onclick="showCalc('comp')">📊 Compound Interest</button>
+      <div id="calcBox" style="display:none;margin-top:12px;padding:12px;background:var(--sf);border-radius:12px;border:1px solid var(--ln)"></div>
+      <div id="toolOut" class="cap" style="margin-top:12px;text-align:left;min-height:24px"></div>
       <button class="btn ghost" onclick="closeAll()">Close</button>
     </div>
   </div>
@@ -251,7 +261,7 @@ nav.bn .a{color:var(--y)}
       <div class="srow"><span>Network</span><span id="setNet">Shardeum Testnet</span></div>
       <div class="srow tap" onclick="toggleSound()"><span>Sound</span><span id="setSound">On</span></div>
       <div class="srow tap" onclick="togglePriv()"><span>Hide balance</span><span id="setPriv">Off</span></div>
-      <div class="srow"><span>Version</span><span>CryptoPay 3.0</span></div>
+      <div class="srow"><span>Version</span><span>CryptoPay 3.1</span></div>
       <div style="height:12px"></div>
       <div class="risk">Non-custodial. We never hold keys. Always verify network and address before sending.</div>
       <button class="btn" onclick="refreshAll()">Refresh Prices</button>
@@ -537,7 +547,6 @@ function saveContact(){
 function useContact(i){closeAll();$("sendTo").value=contacts[i].a;openSend()}
 function delContact(i){contacts.splice(i,1);ls.set("contacts",contacts);renderBook()}
 
-function openTools(){$("toolOut").textContent="";$("sheetTools").classList.add("open")}
 async function toolGas(){
   const out=$("toolOut");out.textContent="Fetching…";
   try{
@@ -557,6 +566,72 @@ function toolExport(){
 }
 function openExplorer(){const n=NETWORKS[currentNet];window.open(addr?n.explorer+"/address/"+addr:n.explorer,"_blank")}
 function openFaucet(){window.open("https://docs.shardeum.org/docs/developer/faucet","_blank")}
+
+function openTools(){$("toolOut").textContent="";$("calcBox").style.display="none";$("sheetTools").classList.add("open")}
+function toolAddToken(){
+  const a=prompt("Token contract address (0x…):");
+  if(!a||!/^0x[0-9a-fA-F]{40}$/.test(a.trim())){toast("Invalid address");return}
+  toast("Token address saved locally. Balance needs ABI/RPC support — use MetaMask Add Token for full support.");
+  const list=ls.get("customTokens",[]);list.push(a.trim());ls.set("customTokens",list);
+  $("toolOut").textContent="Saved: "+a.trim().slice(0,10)+"… (also add in MetaMask for balance)";
+}
+function showCalc(type){
+  const box=$("calcBox");box.style.display="block";$("toolOut").textContent="";
+  const inp=(id,ph,val)=>`<input id="${id}" type="number" placeholder="${ph}" value="${val||""}" style="width:100%;margin:4px 0;padding:10px;border-radius:8px;border:1px solid var(--ln);background:var(--bg);color:#fff;font-size:14px">`;
+  const btn=(fn,t)=>`<button class="btn" style="margin-top:8px" onclick="${fn}">${t}</button>`;
+  const out=`<div id="calcRes" style="margin-top:10px;font-size:14px;font-weight:700;color:var(--y);line-height:1.5"></div><div style="font-size:10px;color:var(--mut);margin-top:6px">Educational only. Not financial advice.</div>`;
+  if(type==="sip"){
+    box.innerHTML=`<b>SIP Calculator</b>${inp("c1","Monthly investment ₹",5000)}${inp("c2","Expected return % / year",12)}${inp("c3","Years",10)}${btn("runSIP()","Calculate")}${out}`;
+  }else if(type==="emi"){
+    box.innerHTML=`<b>EMI Calculator</b>${inp("c1","Loan amount ₹",500000)}${inp("c2","Interest % / year",10)}${inp("c3","Tenure (months)",60)}${btn("runEMI()","Calculate")}${out}`;
+  }else if(type==="yield"){
+    box.innerHTML=`<b>Rental Yield</b>${inp("c1","Property value ₹",5000000)}${inp("c2","Annual rent ₹",300000)}${inp("c3","Annual expenses ₹",50000)}${btn("runYield()","Calculate")}${out}`;
+  }else if(type==="frac"){
+    box.innerHTML=`<b>Fractional Ownership</b>${inp("c1","Property value ₹",10000000)}${inp("c2","Your investment ₹",500000)}${inp("c3","Total tokens (optional)",1000)}${btn("runFrac()","Calculate")}${out}`;
+  }else if(type==="roi"){
+    box.innerHTML=`<b>ROI Calculator</b>${inp("c1","Invested ₹",100000)}${inp("c2","Current / returned ₹",125000)}${btn("runROI()","Calculate")}${out}`;
+  }else if(type==="comp"){
+    box.innerHTML=`<b>Compound Interest</b>${inp("c1","Principal ₹",100000)}${inp("c2","Rate % / year",8)}${inp("c3","Years",5)}${btn("runComp()","Calculate")}${out}`;
+  }
+}
+function runSIP(){
+  const m=+$("c1").value,r=+$("c2").value/100/12,n=+$("c3").value*12;
+  if(!m||!n){$("calcRes").textContent="Enter values";return}
+  const fv=r?m*((Math.pow(1+r,n)-1)/r)*(1+r):m*n;
+  $("calcRes").innerHTML=`Invested: ₹${(m*n).toLocaleString("en-IN")}<br>Maturity ≈ ₹${Math.round(fv).toLocaleString("en-IN")}<br>Gain ≈ ₹${Math.round(fv-m*n).toLocaleString("en-IN")}`;
+}
+function runEMI(){
+  const p=+$("c1").value,r=+$("c2").value/100/12,n=+$("c3").value;
+  if(!p||!n){$("calcRes").textContent="Enter values";return}
+  const emi=r?p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):p/n;
+  $("calcRes").innerHTML=`EMI ≈ ₹${Math.round(emi).toLocaleString("en-IN")}/month<br>Total ≈ ₹${Math.round(emi*n).toLocaleString("en-IN")}<br>Interest ≈ ₹${Math.round(emi*n-p).toLocaleString("en-IN")}`;
+}
+function runYield(){
+  const v=+$("c1").value,rent=+$("c2").value,exp=+$("c3").value||0;
+  if(!v||!rent){$("calcRes").textContent="Enter values";return}
+  const net=rent-exp,y=(net/v)*100;
+  $("calcRes").innerHTML=`Net annual income: ₹${net.toLocaleString("en-IN")}<br>Gross yield: ${((rent/v)*100).toFixed(2)}%<br>Net yield: ${y.toFixed(2)}%`;
+}
+function runFrac(){
+  const v=+$("c1").value,inv=+$("c2").value,tok=+$("c3").value;
+  if(!v||!inv){$("calcRes").textContent="Enter values";return}
+  const pct=(inv/v)*100;
+  let t=`Your share: ${pct.toFixed(4)}%`;
+  if(tok)t+=`<br>Tokens ≈ ${((inv/v)*tok).toFixed(4)}<br>1 token ≈ ₹${(v/tok).toLocaleString("en-IN")}`;
+  $("calcRes").innerHTML=t;
+}
+function runROI(){
+  const a=+$("c1").value,b=+$("c2").value;
+  if(!a){$("calcRes").textContent="Enter values";return}
+  const roi=((b-a)/a)*100;
+  $("calcRes").innerHTML=`Profit/Loss: ₹${(b-a).toLocaleString("en-IN")}<br>ROI: ${roi.toFixed(2)}%`;
+}
+function runComp(){
+  const p=+$("c1").value,r=+$("c2").value/100,y=+$("c3").value;
+  if(!p||!y){$("calcRes").textContent="Enter values";return}
+  const fv=p*Math.pow(1+r,y);
+  $("calcRes").innerHTML=`After ${y} yrs ≈ ₹${Math.round(fv).toLocaleString("en-IN")}<br>Interest ≈ ₹${Math.round(fv-p).toLocaleString("en-IN")}`;
+}
 
 function openSettings(){$("setAddr").textContent=addr||"Not connected";$("setNet").textContent=NETWORKS[currentNet].name;applySound();$("faucetBtn").style.display=currentNet==="shardeum-testnet"?"block":"none";$("sheetSet").classList.add("open")}
 function goHome(){closeAll()}

@@ -246,6 +246,26 @@ nav.bn .a{color:var(--y)}
     <div class="panel">
       <div class="grab"></div>
       <div class="ttl" id="sendTitle">Send</div>
+      <!-- Network Selector and Original SVG Icon -->
+    <div class="network-selector-container" style="background: #1a1a1a; padding: 12px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #333;">
+        <label style="color: #ffd700; font-size: 14px; display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <!-- Original SVG Network Icon -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            Select Network
+        </label>
+        
+        <select id="networkDropdown" style="width: 100%; background: #262626; color: #fff; padding: 10px; border-radius: 8px; border: 1px solid #444; font-size: 14px;">
+            <option value="bsc">BNB Smart Chain (BEP20)</option>
+            <option value="eth">Ethereum (ERC20)</option>
+            <option value="polygon">Polygon (MATIC)</option>
+            <option value="shardeum">Shardeum Testnet</option>
+        </select>
+    </div>
+      
       <div class="risk">Only send the native coin of the selected network. Wrong network = permanent loss.</div>
       <video id="scanVid" playsinline muted></video>
       <div class="inp"><input id="sendTo" placeholder="0x recipient address" autocomplete="off"></div>

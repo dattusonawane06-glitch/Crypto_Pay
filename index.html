@@ -89,6 +89,28 @@
       <div class="inp"><input id="sendTo" placeholder="0x recipient address" autocomplete="off"></div>
       <div class="inp"><input type="number" id="sendAmt" placeholder="Amount" step="any" min="0"><b id="sendUnit">SHM</b></div>
       <div class="msg" id="sendMsg"></div>
+      <!-- ========== Purpose Tag + Daily Limit ========== -->
+<div class="purpose-box">
+  <p class="purpose-title">Purpose / कारण</p>
+  <div class="purpose-buttons" id="purposeButtons">
+    <button type="button" class="purpose-btn" data-purpose="Rent">Rent</button>
+    <button type="button" class="purpose-btn" data-purpose="Salary">Salary</button>
+    <button type="button" class="purpose-btn" data-purpose="Gift">Gift</button>
+    <button type="button" class="purpose-btn" data-purpose="Business">Business</button>
+    <button type="button" class="purpose-btn" data-purpose="Food">Food</button>
+    <button type="button" class="purpose-btn" data-purpose="Other">Other</button>
+  </div>
+  <input type="text" id="purposeNote" placeholder="Note लिहा (optional)" class="purpose-note">
+</div>
+
+<div class="limit-box">
+  <p class="limit-title">Daily Spending Limit</p>
+  <div class="limit-row">
+    <input type="number" id="dailyLimitInput" placeholder="उदा. 5000" class="limit-input">
+    <button type="button" id="setLimitBtn" class="limit-btn">Set Limit</button>
+  </div>
+  <p class="limit-info">आज खर्च: ₹<span id="spentToday">0</span> | शिल्लक: ₹<span id="remaining">∞</span></p>
+</div>
       <button class="btn" id="sendBtn" onclick="doSend()">Send</button>
       <button class="btn ghost" onclick="scanQR()">📷 Scan QR</button>
       <button class="btn ghost" onclick="closeAll()">Close</button>

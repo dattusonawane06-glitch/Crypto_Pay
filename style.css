@@ -247,3 +247,81 @@ html[data-theme=light] nav.bn{background:rgba(255,255,255,.96)}
 html[data-theme=light] .toast{background:#fff;color:#111}html[data-theme=light] .shade{background:rgba(0,0,0,.35)}
 html[data-theme=light] .xwarn{background:#fff4e5;color:#6b4a14}html[data-theme=light] .xt-g button,html[data-theme=light] .xt-o{color:#111}
 html[data-theme=light] .bkb,html[data-theme=light] .xnc,html[data-theme=light] .xbtns button{background:#f2f4f7}
+/* ========== Purpose Tag + Daily Limit ========== */
+.purpose-box, .limit-box {
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 14px;
+  margin: 14px 0;
+  border: 1px solid #eee;
+}
+
+.purpose-title, .limit-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.purpose-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.purpose-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: white;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.purpose-btn.active {
+  background: #facc15;
+  border-color: #facc15;
+  font-weight: 600;
+  color: #000;
+}
+
+.purpose-note {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.limit-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.limit-input {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.limit-btn {
+  background: #facc15;
+  border: none;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.limit-info {
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+}

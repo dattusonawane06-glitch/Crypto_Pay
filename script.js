@@ -304,7 +304,7 @@ async function doSend(){
   if(!wei)return sendMsg("Invalid amount");
   if(parseFloat(amt)>parseFloat(T[n.symbol].bal)+0.0001)return sendMsg("Insufficient balance");
   // Amount INR मध्ये काढ (तुझ्या प्राइसनुसार)
-const amt = Number(document.getElementById("sendAmt").value) || 0;
+ amt = Number(document.getElementById("sendAmt").value) || 0;
 const price = 0.0085; // उदाहरण — तुझ्या लाइव्ह प्राइसने बदला
 const amountInINR = amt * price;
 

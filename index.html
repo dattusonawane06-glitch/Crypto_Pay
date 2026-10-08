@@ -7,7 +7,7 @@
 <meta name="description" content="CryptoPay — Honest non-custodial crypto payments. UPI-simple. Real on-chain.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>CryptoPay</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23000'/%3E%3Ctext x='50' y='72' font-size='78' font-weight='900' font-family='Arial Black,Arial' fill='%23E6B422' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23E6B422'/%3E%3Cpath d='M358.5 176A130 130 0 1 0 358.5 336' fill='none' stroke='%230B0E11' stroke-width='64'/%3E%3Ccircle cx='342' cy='256' r='34' fill='%230B0E11'/%3E%3C/svg%3E">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -89,28 +89,6 @@
       <div class="inp"><input id="sendTo" placeholder="0x recipient address" autocomplete="off"></div>
       <div class="inp"><input type="number" id="sendAmt" placeholder="Amount" step="any" min="0"><b id="sendUnit">SHM</b></div>
       <div class="msg" id="sendMsg"></div>
-      <!-- ========== Purpose Tag + Daily Limit ========== -->
-<div class="purpose-box">
-  <p class="purpose-title">Purpose / कारण</p>
-  <div class="purpose-buttons" id="purposeButtons">
-    <button type="button" class="purpose-btn" data-purpose="Rent">Rent</button>
-    <button type="button" class="purpose-btn" data-purpose="Salary">Salary</button>
-    <button type="button" class="purpose-btn" data-purpose="Gift">Gift</button>
-    <button type="button" class="purpose-btn" data-purpose="Business">Business</button>
-    <button type="button" class="purpose-btn" data-purpose="Food">Food</button>
-    <button type="button" class="purpose-btn" data-purpose="Other">Other</button>
-  </div>
-  <input type="text" id="purposeNote" placeholder="Note लिहा (optional)" class="purpose-note">
-</div>
-
-<div class="limit-box">
-  <p class="limit-title">Daily Spending Limit</p>
-  <div class="limit-row">
-    <input type="number" id="dailyLimitInput" placeholder="उदा. 5000" class="limit-input">
-    <button type="button" id="setLimitBtn" class="limit-btn">Set Limit</button>
-  </div>
-  <p class="limit-info">आज खर्च: ₹<span id="spentToday">0</span> | शिल्लक: ₹<span id="remaining">∞</span></p>
-</div>
       <button class="btn" id="sendBtn" onclick="doSend()">Send</button>
       <button class="btn ghost" onclick="scanQR()">📷 Scan QR</button>
       <button class="btn ghost" onclick="closeAll()">Close</button>
@@ -165,7 +143,8 @@
   </div>
 
   <!-- TOOLS -->
-  <div class="shade" id="sheetTools" onclick="if(event.target===this)closeAll()">
+  <div class="shade" id="sheetTok"><div class="panel"><div class="ttl">Add token</div><div class="cap" style="text-align:left">Paste the token <b>contract address</b> (starts with 0x). This is not your wallet address.</div><div class="inp"><input id="tokAddr" placeholder="Contract address 0x…" spellcheck="false" autocomplete="off" style="padding-right:90px"><button class="pastebtn" onclick="pasteTok()">Paste</button></div><div class="inp"><input id="tokSym" placeholder="Symbol (e.g. USDT)" autocomplete="off"></div><div class="cap" style="text-align:left">The balance shows on Home when the token exists on the selected network.</div><button class="btn" onclick="saveTok()">Add token</button></div></div>
+<div class="shade" id="sheetTools" onclick="if(event.target===this)closeAll()">
     <div class="panel" style="max-height:88dvh">
       <div class="grab"></div>
       <div class="ttl" id="toolsTitle">Tools</div>

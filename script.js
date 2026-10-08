@@ -303,16 +303,6 @@ async function doSend(){
   if(!/^0x[0-9a-fA-F]{40}$/.test(to))return sendMsg("Invalid address");
   if(!wei)return sendMsg("Invalid amount");
   if(parseFloat(amt)>parseFloat(T[n.symbol].bal)+0.0001)return sendMsg("Insufficient balance");
-  // Amount INR मध्ये काढ (तुझ्या प्राइसनुसार)
- amt = Number(document.getElementById("sendAmt").value) || 0;
-const price = 0.0085; // उदाहरण — तुझ्या लाइव्ह प्राइसने बदला
-const amountInINR = amt * price;
-
-if (!checkDailyLimit(amountInINR)) {
-  return; // limit ओलांडला तर थांब
-}
-
-// इथे तुझा जुना send कोड चालू राहील
   if(!confirm(`Send ${amt} ${n.symbol} to\n${to}?`))return;
   try{
     const chainId=await ethereum.request({method:"eth_chainId"});
@@ -512,7 +502,7 @@ function runComp(){
 function openSettings(){$("setAddr").textContent=addr||"Not connected";$("setNet").textContent=NETWORKS[currentNet].name;applySound();$("faucetBtn").style.display=currentNet==="shardeum-testnet"?"block":"none";$("sheetSet").classList.add("open")}
 function goHome(){closeAll()}
 
-if(window.ethereum){ethereum.on("chainChanged",()=>location.reload());ethereum.on("accountsChanged",()=>location.reload())}
+if(window.ethereum){ethereum.on("chainChanged",()=>{try{readBal(false);readCustomBalances()}catch(e){}});ethereum.on("accountsChanged",()=>location.reload())}
 
 window.onload=()=>{
   try{
@@ -626,8 +616,9 @@ ta();lock();
 /* CryptoPay extras: runs after index.html. If this file fails, the main app still works. */
 (function(){
 "use strict";
-var NL={"shardeum-testnet":["#2563EB","S","Testnet · test coins"],shardeum:["#2563EB","S","Mainnet · real money"],ethereum:["#627EEA","E","Mainnet · real money"],bsc:["#E6B422","B","Mainnet · real money"]};
-var lg=function(k){var l=NL[k]||["#555","?"];return'<span class="nlg" style="background:'+l[0]+(k==="bsc"?";color:#111":"")+'">'+l[1]+"</span>"};
+var NL={"shardeum-testnet":["#2563EB","S","Testnet · test coins"],shardeum:["#2563EB","S","Mainnet · real money"],ethereum:["#627EEA","E","Mainnet · real money"],bsc:["#F0B90B","B","Mainnet · real money"],polygon:["#8247E5","P","Mainnet · real money"],base:["#0052FF","B","Mainnet · real money"],optimism:["#FF0420","O","Mainnet · real money"],arbitrum:["#28A0F0","A","Mainnet · real money"]};
+var NU={"shardeum-testnet":LOGOS.SHM,shardeum:LOGOS.SHM,ethereum:LOGOS.ETH,bsc:LOGOS.BNB,polygon:"https://assets.coingecko.com/coins/images/4713/small/polygon.png",optimism:"https://assets.coingecko.com/coins/images/25244/small/Optimism.png",arbitrum:"https://assets.coingecko.com/coins/images/16547/small/arb.jpg"};
+var lg=function(k){var l=NL[k]||["#555","?"],u=NU[k];return'<span class="nlg" style="background:'+l[0]+(k==="bsc"?";color:#111":"")+'">'+l[1]+(u?'<img src="'+u+'" alt="" onerror="this.remove()">':"")+"</span>"};
 var S=function(p){return'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+p+"</svg>"};
 var A=document.querySelector(".app");
 
@@ -662,7 +653,7 @@ var sp=document.querySelector("#sheetSend .ttl");if(sp){var d=document.createEle
 
 /* ---- Receive sheet (Trust-style) ---- */
 var rp=document.querySelector("#sheetRecv .panel");
-if(rp)rp.innerHTML='<div class="grab"></div><div class="rc-h"><button class="rc-x bkb" onclick="BK(this)" aria-label="Back">'+S('<path d="M15 5l-7 7 7 7"/>')+'</button><div class="ttl" id="recvTitle">Receive</div><i></i></div><div class="xnc-slot"></div><div class="warn" id="recvWarn">Switch to the correct network in your wallet</div><div class="inp"><input type="number" id="payAmount" placeholder="Amount (optional)" oninput="drawQR()" step="any" min="0"><b id="recvUnit">SHM</b></div><div class="qrbox" id="qrcode"></div><div class="addr" id="addrBox"></div><div class="paylink" id="payLink" style="display:none"></div><div class="xwarn">'+S('<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.1"/>')+'<span id="recvCap"></span></div><div class="xbtns"><button onclick="copyAddress()">'+S('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/>')+'<span id="copyBtn">Copy</span></button><button onclick="xShare()">'+S(P.share)+'<span>Share</span></button></div><button class="btn ghost" onclick="copyPayLink()">Copy payment link</button>';
+if(rp)rp.innerHTML='<div class="grab"></div><div class="rc-h"><button class="rc-x bkb" onclick="BK(this)" aria-label="Back">'+S('<path d="M15 5l-7 7 7 7"/>')+'</button><div class="ttl" id="recvTitle">Receive</div><i></i></div><div class="xnc-slot"></div><div class="warn" id="recvWarn">Switch to the correct network in your wallet</div><div class="inp"><input type="number" id="payAmount" placeholder="Amount (optional)" oninput="drawQR()" step="any" min="0"><b id="recvUnit">SHM</b></div><div class="qrbox" id="qrcode"></div><div class="addr" id="addrBox"></div><div class="cap" style="font-size:11px">One address works on all EVM networks (Ethereum, BNB, Polygon, Base…).</div><div class="paylink" id="payLink" style="display:none"></div><div class="xwarn">'+S('<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16v.1"/>')+'<span id="recvCap"></span></div><div class="xbtns"><button onclick="copyAddress()">'+S('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/>')+'<span id="copyBtn">Copy</span></button><button onclick="xShare()">'+S(P.share)+'<span>Share</span></button></div><button class="btn ghost" onclick="copyPayLink()">Copy payment link</button>';
 window.xShare=function(){if(navigator.share&&addr){navigator.share({title:"CryptoPay",text:nm()+" address:\n"+addr}).catch(function(){})}else shareWhatsApp()};
 
 /* ---- Styled QR: round dots, round corner eyes, logo in the middle ---- */
@@ -701,7 +692,7 @@ var sc=document.querySelector(".scroll"),ds=$("disclaimer");if(sc&&ds)sc.appendC
 /* ---- 6-box PIN ---- */
 var pinHTML=function(id){return'<div class="pinw" onclick="$(\''+id+'\').focus()"><div class="pbs"><i></i><i></i><i></i><i></i><i></i><i></i></div><input id="'+id+'" class="pin-h" type="password" inputmode="numeric" maxlength="6" autocomplete="off" oninput="PB(this)"></div>'};
 window.PB=function(el){var n=el.value.replace(/\D/g,"");el.value=n;var b=el.parentNode.querySelectorAll("i");for(var i=0;i<6;i++)b[i].className=i<n.length?"f":i===n.length?"c":"";if(n.length===6){var f=PB.h[el.id];setTimeout(function(){if(f)f(n);el.value="";PB(el)},150)}};PB.h={};
-var lk=$("xtLock");if(lk){lk.innerHTML='<div class="lkic">'+sv('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>')+'</div><div class="pt">Enter PIN</div>'+pinHTML("xtPin");PB.h.xtPin=function(){XT.un()};
+var lk=$("xtLock");if(lk){lk.innerHTML='<div class="lkic">'+sv('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>')+'</div><div class="pt">Enter PIN</div>'+pinHTML("xtPin")+'<a class="forgot" onclick="XT.fp()">Forgot PIN?</a>';PB.h.xtPin=function(){XT.un()};
 new MutationObserver(function(){if(lk.style.display==="flex")setTimeout(function(){$("xtPin").focus()},80)}).observe(lk,{attributes:true,attributeFilter:["style"]})}
 var pa=document.createElement("div");pa.id="pinAsk";pa.className="shade";pa.innerHTML='<div class="panel"><div class="bkh"><button class="bkb" onclick="BK(this)" aria-label="Back">'+AR+'</button><div class="ttl" id="paT"></div></div><div style="padding:24px 0">'+pinHTML("paIn")+"</div></div>";
 document.querySelector(".app").appendChild(pa);
@@ -723,7 +714,7 @@ pin:["PIN lock",function(){return hasPin()?'<div class="sr" onclick="SB.chg()"><
 noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggleSound();SB.r()")+'<div class="sr" onclick="XT.go(\'al\')"><span class="sl">Price alarms</span>'+CH+'</div><div class="sr" onclick="XT.go(\'nt\')"><span class="sl">Notification centre</span>'+CH+"</div>"}],
 disp:["Display",function(){return T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
-abt:["About",function(){return'<div style="text-align:center;padding:18px 6px"><div class="cmark" style="margin:0 auto 12px">C</div><b>CryptoPay</b><div class="cap">Version 5.0 · Non-custodial. We never hold your keys.</div><div class="xw">'+XL+'</div><div class="cap" style="margin-top:12px">Crypto is risky. Not financial advice.</div></div>'}]};
+abt:["About",function(){return'<div style="text-align:center;padding:18px 6px"><div style="margin:0 auto 12px"><svg viewBox="0 0 512 512" style="width:84px;height:84px"><path d="M358.5 176A130 130 0 1 0 358.5 336" fill="none" stroke="#E6B422" stroke-width="64"/><circle cx="342" cy="256" r="34" fill="#E6B422"/></svg></div><b>CryptoPay</b><div class="cap">Version 5.0<br>Non-custodial. We never hold your keys.</div><div class="xw">'+XL+'</div><div class="cap" style="margin-top:12px">Crypto is risky. Not financial advice.<br>© 2026 CryptoPay</div></div>'}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
 set:function(){setPin()},chg:function(){pinAsk("Enter current PIN",function(v){if(chk(v))setPin();else toast("Wrong PIN")})},rm:function(){pinAsk("Enter current PIN",function(v){if(chk(v)){ls.set("xt_pin","");toast("PIN removed");SB.r()}else toast("Wrong PIN")})}};
@@ -747,5 +738,21 @@ window.addEventListener("popstate",function(){if(skip){skip=0;return}var t=ST[ST
 var sh=function(t){if(navigator.share)navigator.share({title:"CryptoPay",text:t}).catch(function(){});else navigator.clipboard.writeText(t).then(function(){toast("Copied")})};
 shareWhatsApp=function(){if(addr)sh(NETWORKS[currentNet].name+" address:\n"+addr)};
 shareReqWA=function(){if(!addr)return;var n=NETWORKS[currentNet],a=$("reqAmt").value.trim(),t=$("reqNote").value.trim(),m="CryptoPay payment request\n"+n.name+" · "+n.symbol+"\n";if(a)m+="Amount: "+a+" "+n.symbol+"\n";if(t)m+="Note: "+t+"\n";sh(m+"Address: "+addr)};
-if(hasPin())lk&&(lk.style.display="flex");
+XT.fp=function(){if(confirm("Remove the PIN lock? Your wallet and funds are not affected.")){ls.set("xt_pin","");lk.style.display="none"}};(function(){var p=ls.get("xt_pin",""),ok=false;try{ok=/^\d{6}cp$/.test(atob(p))}catch(e){}if(p&&!ok)ls.set("xt_pin","");if(lk)lk.style.display=ok?"flex":"none"})();
+})();
+
+/* ===== Part 1-C: logo, more networks, single Add-token entry ===== */
+(function(){
+var GL='<svg viewBox="0 0 512 512"><path d="M358.5 176A130 130 0 1 0 358.5 336" fill="none" stroke="#E6B422" stroke-width="64"/><circle cx="342" cy="256" r="34" fill="#E6B422"/></svg>';
+document.querySelectorAll(".cmark").forEach(function(e){e.innerHTML=GL});
+var sp=$("splash");if(sp){if(sessionStorage.getItem("cp_s"))sp.remove();else sessionStorage.setItem("cp_s","1")}
+var X={polygon:{name:"Polygon",chainId:"0x89",chainIdDec:137,symbol:"POL",rpc:"https://polygon-rpc.com",explorer:"https://polygonscan.com"},base:{name:"Base",chainId:"0x2105",chainIdDec:8453,symbol:"ETH",rpc:"https://mainnet.base.org",explorer:"https://basescan.org"},optimism:{name:"Optimism",chainId:"0xa",chainIdDec:10,symbol:"ETH",rpc:"https://mainnet.optimism.io",explorer:"https://optimistic.etherscan.io"},arbitrum:{name:"Arbitrum One",chainId:"0xa4b1",chainIdDec:42161,symbol:"ETH",rpc:"https://arb1.arbitrum.io/rpc",explorer:"https://arbiscan.io"}};
+Object.keys(X).forEach(function(k){NETWORKS[k]=X[k];var o=document.createElement("option");o.value=k;o.textContent=X[k].name;$("netSelect").appendChild(o)});
+T.POL={bal:"0.0000",p:null};
+var tb=$("btnTok");if(tb)tb.remove();
+document.querySelector(".tabs").insertAdjacentHTML("beforeend",'<button class="addtok" aria-label="Add token" onclick="$(\'sheetTok\').classList.add(\'open\')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>');
+async function autoSym(){var a=$("tokAddr").value.trim();if(!/^0x[0-9a-fA-F]{40}$/.test(a)||!window.ethereum)return;try{var r=await ethereum.request({method:"eth_call",params:[{to:a,data:"0x95d89b41"},"latest"]}),h=r.slice(2),n=parseInt(h.slice(64,128),16),s=(h.slice(128,128+n*2).match(/../g)||[]).map(function(b){return String.fromCharCode(parseInt(b,16))}).join("");if(s&&!$("tokSym").value)$("tokSym").value=s}catch(e){}}
+$("tokAddr").addEventListener("input",autoSym);
+window.pasteTok=function(){navigator.clipboard.readText().then(function(t){$("tokAddr").value=t.trim();autoSym()}).catch(function(){toast("Paste manually")})};
+window.saveTok=async function(){var a=$("tokAddr").value.trim(),s=($("tokSym").value||"").trim()||"TOKEN";if(!/^0x[0-9a-fA-F]{40}$/.test(a))return toast("Invalid contract address");var l=getCustoms();if(l.some(function(x){return x.addr.toLowerCase()===a.toLowerCase()}))return toast("Already added");if(!addr){await connectWallet();if(!addr)return}l.push({addr:a,symbol:s,time:Date.now()});ls.set("customTokens",l);buildList();await readCustomBalances();$("sheetTok").classList.remove("open");$("tokAddr").value="";$("tokSym").value="";toast(s+" added")};
 })();

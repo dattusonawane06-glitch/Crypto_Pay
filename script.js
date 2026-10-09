@@ -511,7 +511,7 @@ window.onload=()=>{
     usdToInr().then(fetchPrices);
     setInterval(fetchPrices,15000);setInterval(usdToInr,600000);setInterval(pollBal,8000);
   }catch(e){console.error(e)}
-  setTimeout(()=>{const s=$("splash");if(s)s.classList.add("hide")},1600);
+  setTimeout(()=>{const s=$("splash");if(s)s.classList.add("hide")},3400);
 };
 
 
@@ -607,7 +607,7 @@ var SC=["Promises guaranteed / very high returns","No legal documents shown","Pr
 V.sc={t:"🚩 Scam Check",h:function(){return SC.map(function(x,i){return'<label class="xt-o" style="display:block"><input type="checkbox" id="x_c'+i+'" onchange="XT.u()">'+x+"</label>"}).join("")+O("o")},u:function(){var n=SC.filter(function(x,i){return g("c"+i).checked}).length;g("o").textContent=n+" red flag(s) — "+(n<=1?"Lower risk, still verify":n<=3?"⚠ Medium risk — be careful":"🚨 High risk — avoid")}};
 V.ln={t:"📚 Learn RWA",h:function(){return["<b>RWA</b> = Real World Assets (property, gold, etc.) represented as digital tokens.","<b>Fractional ownership</b> lets many people own small shares of one asset.","<b>Benefits:</b> small entry amount, easy records, transparent history.","<b>Risks:</b> legal rules, fake projects, low liquidity, price swings.","Always verify documents and legality before investing."].map(function(x){return'<div class="xt-o">'+x+"</div>"}).join("")}};
 
-A.insertAdjacentHTML("afterbegin",'<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7DC6F"/><stop offset="1" stop-color="#B8860B"/></linearGradient></defs></svg>');
+A.insertAdjacentHTML("afterbegin",'<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6EA2FF"/><stop offset="1" stop-color="#2B6DF6"/></linearGradient></defs></svg>');
 var tp=document.querySelector("#sheetTools .ttl");if(tp){var mb=document.createElement("button");mb.className="btn";mb.style.cssText="margin:8px 0";mb.textContent="✨ More tools & RWA";mb.onclick=function(){XT.go("home")};tp.after(mb)}
 setInterval(function(){var c=$("chip"),t=$("chipText");if(c)c.classList.toggle("on",!!addr);if(t&&!addr&&t.textContent=="MetaMask")t.textContent="Connect Wallet"},800);
 ta();lock();
@@ -661,7 +661,7 @@ function rr(x,X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);
 function sq(el,text,Z){if(!el||typeof QRCode==="undefined")return;
 var t=document.createElement("div"),o=new QRCode(t,{text:text,width:64,height:64,correctLevel:QRCode.CorrectLevel.H}),m=o._oQRCode,N=m.getModuleCount(),d=window.devicePixelRatio||1,c=document.createElement("canvas");
 c.width=c.height=Z*d;c.style.cssText="width:"+Z+"px;height:"+Z+"px";var x=c.getContext("2d");x.scale(d,d);x.fillStyle="#fff";x.fillRect(0,0,Z,Z);
-var u=Z/(N+2),mid=N/2,h=N*.13,dk="#0b0e11";x.fillStyle=dk;
+var u=Z/(N+2),mid=N/2,h=N*.13,dk="#0A0F1A";x.fillStyle=dk;
 for(var r=0;r<N;r++)for(var q=0;q<N;q++){if((r<7&&q<7)||(r<7&&q>=N-7)||(r>=N-7&&q<7))continue;if(Math.abs(r+.5-mid)<h&&Math.abs(q+.5-mid)<h)continue;if(m.isDark(r,q)){x.beginPath();x.arc(u*(q+1.5),u*(r+1.5),u*.46,0,6.2832);x.fill()}}
 [[0,0],[0,N-7],[N-7,0]].forEach(function(p){var X=u*(p[1]+1),Y=u*(p[0]+1);x.fillStyle=dk;rr(x,X,Y,7*u,7*u,2.4*u);x.fillStyle="#fff";rr(x,X+u,Y+u,5*u,5*u,1.7*u);x.fillStyle=dk;rr(x,X+2*u,Y+2*u,3*u,3*u,1.2*u)});
 var L=Z*.2,l=NL[currentNet]||["#555","?"],cx=Z/2-L/2;x.fillStyle="#fff";rr(x,cx-L*.12,cx-L*.12,L*1.24,L*1.24,L*.3);x.fillStyle=l[0];rr(x,cx,cx,L,L,L*.26);
@@ -682,7 +682,7 @@ var IC={w:'<path d="M4 8a2 2 0 0 1 2-2h12v3M4 8v9a2 2 0 0 0 2 2h14V9H6a2 2 0 0 1
 var L=function(k,d){return ls.get(k,d)};
 
 /* ---- Theme: auto / dark / light ---- */
-function applyTheme(){var m=L("theme","auto"),mq=matchMedia("(prefers-color-scheme: light)").matches,l=m==="light"||(m==="auto"&&mq);document.documentElement.setAttribute("data-theme",l?"light":"dark");var c=document.querySelector("meta[name=theme-color]");if(c)c.content=l?"#f5f6f8":"#0b0e11"}
+function applyTheme(){var m=L("theme","auto"),mq=matchMedia("(prefers-color-scheme: light)").matches,l=m==="light"||(m==="auto"&&mq);document.documentElement.setAttribute("data-theme",l?"light":"dark");var c=document.querySelector("meta[name=theme-color]");if(c)c.content=l?"#f5f6f8":"#0A0F1A"}
 try{matchMedia("(prefers-color-scheme: light)").addEventListener("change",applyTheme)}catch(e){}
 applyTheme();
 
@@ -714,7 +714,7 @@ pin:["PIN lock",function(){return hasPin()?'<div class="sr" onclick="SB.chg()"><
 noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggleSound();SB.r()")+'<div class="sr" onclick="XT.go(\'al\')"><span class="sl">Price alarms</span>'+CH+'</div><div class="sr" onclick="XT.go(\'nt\')"><span class="sl">Notification centre</span>'+CH+"</div>"}],
 disp:["Display",function(){return T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
-abt:["About",function(){return'<div style="text-align:center;padding:18px 6px"><div style="margin:0 auto 12px"><svg viewBox="0 0 512 512" style="width:84px;height:84px"><path d="M358.5 176A130 130 0 1 0 358.5 336" fill="none" stroke="#E6B422" stroke-width="64"/><circle cx="342" cy="256" r="34" fill="#E6B422"/></svg></div><b>CryptoPay</b><div class="cap">Version 5.0<br>Non-custodial. We never hold your keys.</div><div class="xw">'+XL+'</div><div class="cap" style="margin-top:12px">Crypto is risky. Not financial advice.<br>© 2026 CryptoPay</div></div>'}]};
+abt:["About",function(){return'<div style="text-align:center;padding:18px 6px"><div style="margin:0 auto 12px"><svg viewBox="0 0 512 512" style="width:96px;height:96px"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg></div><b>CryptoPay</b><div class="cap">Version 5.0<br>Non-custodial. We never hold your keys.</div><div class="xw">'+XL+'</div><div class="cap" style="margin-top:12px">Crypto is risky. Not financial advice.<br>© 2026 CryptoPay</div></div>'}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
 set:function(){setPin()},chg:function(){pinAsk("Enter current PIN",function(v){if(chk(v))setPin();else toast("Wrong PIN")})},rm:function(){pinAsk("Enter current PIN",function(v){if(chk(v)){ls.set("xt_pin","");toast("PIN removed");SB.r()}else toast("Wrong PIN")})}};
@@ -743,7 +743,7 @@ XT.fp=function(){if(confirm("Remove the PIN lock? Your wallet and funds are not 
 
 /* ===== Part 1-C: logo, more networks, single Add-token entry ===== */
 (function(){
-var GL='<svg viewBox="0 0 512 512"><path d="M358.5 176A130 130 0 1 0 358.5 336" fill="none" stroke="#E6B422" stroke-width="64"/><circle cx="342" cy="256" r="34" fill="#E6B422"/></svg>';
+var GL='<svg viewBox="0 0 512 512"><path d="M358.5 176A130 130 0 1 0 358.5 336" fill="none" stroke="#3B7BFF" stroke-width="64"/><circle cx="342" cy="256" r="34" fill="#3B7BFF"/></svg>';
 document.querySelectorAll(".cmark").forEach(function(e){e.innerHTML=GL});
 var sp=$("splash");if(sp){if(sessionStorage.getItem("cp_s"))sp.remove();else sessionStorage.setItem("cp_s","1")}
 var X={polygon:{name:"Polygon",chainId:"0x89",chainIdDec:137,symbol:"POL",rpc:"https://polygon-rpc.com",explorer:"https://polygonscan.com"},base:{name:"Base",chainId:"0x2105",chainIdDec:8453,symbol:"ETH",rpc:"https://mainnet.base.org",explorer:"https://basescan.org"},optimism:{name:"Optimism",chainId:"0xa",chainIdDec:10,symbol:"ETH",rpc:"https://mainnet.optimism.io",explorer:"https://optimistic.etherscan.io"},arbitrum:{name:"Arbitrum One",chainId:"0xa4b1",chainIdDec:42161,symbol:"ETH",rpc:"https://arb1.arbitrum.io/rpc",explorer:"https://arbiscan.io"}};
@@ -756,3 +756,6 @@ $("tokAddr").addEventListener("input",autoSym);
 window.pasteTok=function(){navigator.clipboard.readText().then(function(t){$("tokAddr").value=t.trim();autoSym()}).catch(function(){toast("Paste manually")})};
 window.saveTok=async function(){var a=$("tokAddr").value.trim(),s=($("tokSym").value||"").trim()||"TOKEN";if(!/^0x[0-9a-fA-F]{40}$/.test(a))return toast("Invalid contract address");var l=getCustoms();if(l.some(function(x){return x.addr.toLowerCase()===a.toLowerCase()}))return toast("Already added");if(!addr){await connectWallet();if(!addr)return}l.push({addr:a,symbol:s,time:Date.now()});ls.set("customTokens",l);buildList();await readCustomBalances();$("sheetTok").classList.remove("open");$("tokAddr").value="";$("tokSym").value="";toast(s+" added")};
 })();
+
+/* ===== Part 2: brand (blue/teal), splash only ===== */
+(function(){var s=$("splash");if(!s)return;s.innerHTML='<svg viewBox="0 0 512 512" width="150" height="150"><style>.sa{stroke-dasharray:1300;stroke-dashoffset:1300;animation:spd 1s ease-out forwards}.sg{opacity:0;animation:spf .4s 1s forwards}.ss{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);animation:spu .5s 1.2s ease-out forwards}.sk{transform:translateY(-330px);animation:spdr .9s 1.7s cubic-bezier(.3,1.3,.5,1) forwards}.ssp{transform-box:fill-box;transform-origin:center;animation:spsp .9s 1.7s ease-in-out}@keyframes spd{to{stroke-dashoffset:0}}@keyframes spf{to{opacity:1}}@keyframes spu{to{transform:scaleY(1)}}@keyframes spdr{to{transform:none}}@keyframes spsp{0%{transform:scaleX(1)}25%{transform:scaleX(-1)}50%{transform:scaleX(1)}75%{transform:scaleX(-1)}100%{transform:scaleX(1)}}</style><path class="sa" d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><g class="sg"><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/></g><g class="ss"><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/></g><g class="sk"><g class="ssp"><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></g></g></svg><div class="sn" style="animation-delay:2.4s"><span style="color:#fff">Crypto</span><span style="color:var(--y)">Pay</span></div>'})();

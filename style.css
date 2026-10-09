@@ -271,3 +271,14 @@ html[data-theme=light] .xwarn{background:#fff4e5;color:#6b4a14}html[data-theme=l
 html[data-theme=light] .bkb,html[data-theme=light] .xnc,html[data-theme=light] .xbtns button{background:#f2f4f7}
 
 html[data-theme=light] .addtok,html[data-theme=light] .btn.ghost{color:#111}html[data-theme=light] .cmark{background:#0A0F1A}
+
+/* ===== Part 3: Services grid ===== */
+.svq input{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--ln);background:var(--card);color:inherit;font-size:15px;margin-bottom:10px}
+.svc-chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:4px}.svc-chips button{flex:none;padding:8px 14px;border-radius:999px;border:1px solid var(--ln);background:var(--card);color:inherit;font-weight:700;font-size:13px;cursor:pointer}
+.svg-h{text-align:left;font-weight:800;font-size:15px;margin:16px 4px 10px}
+.svg-g{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 6px}
+.svg-g button{background:none;border:0;color:inherit;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;font-weight:600;line-height:1.2;cursor:pointer;padding:0}
+.svi{width:56px;height:56px;border-radius:16px;background:var(--card);border:1px solid var(--ln);display:flex;align-items:center;justify-content:center;color:var(--y)}.svi svg{width:26px;height:26px}
+.svl{min-height:26px}
+#sheetTools .panel>.btn,#sheetTools .panel>#cryptoSec,#sheetTools .panel>#calcSec{display:none}
+html[data-theme=light] .svq input{background:#f2f4f7}

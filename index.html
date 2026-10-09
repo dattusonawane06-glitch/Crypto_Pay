@@ -74,7 +74,7 @@
 
   <nav class="bn">
     <button class="a" onclick="goHome()"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg></i><span id="navHome">Home</span></button>
-    <button onclick="openTools()"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><path d="M16.5 13v7M13 16.5h7"/></svg></i><span id="navTools">Tools</span></button>
+    <button onclick="openTools()"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><path d="M16.5 13v7M13 16.5h7"/></svg></i><span id="navTools">Services</span></button>
     <button onclick="openSettings()"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></i><span id="navSettings">Settings</span></button>
   </nav>
 
@@ -145,6 +145,7 @@
 
   <!-- TOOLS -->
   <div class="shade" id="sheetTok"><div class="panel"><div class="ttl">Add token</div><div class="cap" style="text-align:left">Paste the token <b>contract address</b> (starts with 0x). This is not your wallet address.</div><div class="inp"><input id="tokAddr" placeholder="Contract address 0x…" spellcheck="false" autocomplete="off" style="padding-right:90px"><button class="pastebtn" onclick="pasteTok()">Paste</button></div><div class="inp"><input id="tokSym" placeholder="Symbol (e.g. USDT)" autocomplete="off"></div><div class="cap" style="text-align:left">The balance shows on Home when the token exists on the selected network.</div><button class="btn" onclick="saveTok()">Add token</button></div></div>
+<div class="shade" id="sheetSvc"><div class="panel"><div class="ttl">Services</div><div id="svcBody"></div></div></div>
 <div class="shade" id="sheetTools" onclick="if(event.target===this)closeAll()">
     <div class="panel" style="max-height:88dvh">
       <div class="grab"></div>

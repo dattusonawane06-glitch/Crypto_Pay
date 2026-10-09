@@ -282,3 +282,11 @@ html[data-theme=light] .addtok,html[data-theme=light] .btn.ghost{color:#111}html
 .svl{min-height:26px}
 #sheetTools .panel>.btn,#sheetTools .panel>#cryptoSec,#sheetTools .panel>#calcSec{display:none}
 html[data-theme=light] .svq input{background:#f2f4f7}
+
+/* ===== Part 4 ===== */
+.shade:not(#xnSheet):not(#xaSheet):not(#pinAsk) .panel{height:100dvh;max-height:100dvh;border-radius:0;border-top:0}
+.bkh{padding-top:calc(12px + env(safe-area-inset-top,0px))}
+.cpl{background:#0A0F1A;padding:5px;border:1px solid var(--ln)}.cpl svg{width:100%;height:100%}
+.ic svg{width:68%;height:68%}
+#sheetSend [onclick="scanQR()"]{display:none}
+.scroll .hero{padding-top:6px}.scroll .tabs{margin:0 -14px}

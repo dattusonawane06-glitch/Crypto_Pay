@@ -146,6 +146,7 @@
   <!-- TOOLS -->
   <div class="shade" id="sheetTok"><div class="panel"><div class="ttl">Add token</div><div class="cap" style="text-align:left">Paste the token <b>contract address</b> (starts with 0x). This is not your wallet address.</div><div class="inp"><input id="tokAddr" placeholder="Contract address 0x…" spellcheck="false" autocomplete="off" style="padding-right:90px"><button class="pastebtn" onclick="pasteTok()">Paste</button></div><div class="inp"><input id="tokSym" placeholder="Symbol (e.g. USDT)" autocomplete="off"></div><div class="cap" style="text-align:left">The balance shows on Home when the token exists on the selected network.</div><button class="btn" onclick="saveTok()">Add token</button></div></div>
 <div class="shade" id="sheetSvc"><div class="panel"><div class="ttl">Services</div><div id="svcBody"></div></div></div>
+<div class="shade" id="xaSheet"><div class="panel"><div class="ttl">Select asset</div><div id="xaList"></div></div></div>
 <div class="shade" id="sheetTools" onclick="if(event.target===this)closeAll()">
     <div class="panel" style="max-height:88dvh">
       <div class="grab"></div>

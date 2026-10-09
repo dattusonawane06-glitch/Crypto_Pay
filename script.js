@@ -155,10 +155,10 @@ function getCustoms(){
 }
 function buildList(){
   const order=["SHM","USDT","BTC","ETH","BNB"];
-  let html=order.map(k=>`<div class="row" onclick="openReceive()"><div class="ic"><img src="${LOGOS[k]}" alt="${k}" onerror="this.parentElement.textContent='${k[0]}'"></div><div class="mid"><div class="sym">${k}</div><div class="sub" id="s-${k}">—</div></div><div class="rt"><div class="amt" id="b-${k}">0</div><div class="sub" id="v-${k}">—</div></div></div>`).join("");
+  let html=order.map(k=>`<div class="row" onclick="XA.tap('${k}')"><div class="ic"><img src="${LOGOS[k]}" alt="${k}" onerror="this.parentElement.textContent='${k[0]}'"></div><div class="mid"><div class="sym">${k}</div><div class="sub" id="s-${k}">—</div></div><div class="rt"><div class="amt" id="b-${k}">0</div><div class="sub" id="v-${k}">—</div></div></div>`).join("");
   getCustoms().forEach((t,i)=>{
     const id="ct"+i;
-    html+=`<div class="row" onclick="openReceive()"><div class="ic">${(t.symbol||"T")[0]}</div><div class="mid"><div class="sym">${t.symbol||"TOKEN"}</div><div class="sub" id="s-${id}">Custom token</div></div><div class="rt"><div class="amt" id="b-${id}">…</div><div class="sub" id="v-${id}">on-chain</div></div></div>`;
+    html+=`<div class="row" onclick="XA.tap('${t.symbol}')"><div class="ic">${t.symbol==="CPAY"?CPLOGO:(t.symbol||"T")[0]}</div><div class="mid"><div class="sym">${t.symbol||"TOKEN"}</div><div class="sub" id="s-${id}">Custom token</div></div><div class="rt"><div class="amt" id="b-${id}">…</div><div class="sub" id="v-${id}">on-chain</div></div></div>`;
   });
   $("list").innerHTML=html;
 }
@@ -713,7 +713,7 @@ sec:["Security",function(){return R("s","PIN lock",hasPin()?"On":"Off","SB.g('pi
 pin:["PIN lock",function(){return hasPin()?'<div class="sr" onclick="SB.chg()"><span class="sl">Change PIN</span>'+CH+'</div><div class="sr" onclick="SB.rm()"><span class="sl" style="color:var(--r)">Remove PIN</span></div>':'<div class="sr" onclick="SB.set()"><span class="sl">Set 6-digit PIN</span>'+CH+"</div>"}],
 noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggleSound();SB.r()")+'<div class="sr" onclick="XT.go(\'al\')"><span class="sl">Price alarms</span>'+CH+'</div><div class="sr" onclick="XT.go(\'nt\')"><span class="sl">Notification centre</span>'+CH+"</div>"}],
 disp:["Display",function(){return T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
-dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
+dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){return'<div style="text-align:center;padding:18px 6px"><div style="margin:0 auto 12px"><svg viewBox="0 0 512 512" style="width:96px;height:96px"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg></div><b>CryptoPay</b><div class="cap">Version 5.0<br>Non-custodial. We never hold your keys.</div><div class="xw">'+XL+'</div><div class="cap" style="margin-top:12px">Crypto is risky. Not financial advice.<br>© 2026 CryptoPay</div></div>'}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -766,8 +766,7 @@ var P={send:'<path d="M7 17L17 7M9 7h8v8"/>',recv:'<path d="M17 7L7 17M15 17H7V9
 var ic=function(k){return'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+P[k]+"</svg>"};
 var D=function(t,f){return function(){$("toolOut").textContent="";$("calcBox").style.display="none";$("sheetTools").classList.add("open");$("toolsTitle").textContent=t;f()}};
 var C=function(k,t){return D(t,function(){showCalc(k)})},X=function(k){return function(){XT.go(k)}},H=function(f){return function(){closeAll();f()}};
-var G=[["Common",[["Send","send",H(openSend)],["Receive","recv",H(openReceive)],["Request","req",H(openRequest)],["Add token","tok",function(){$("sheetTok").classList.add("open")}]]],
-["Crypto",[["Network fee","gas",D("Network fee",toolGas)],["Price converter","cv",D("Price converter",toolConvert)],["History CSV","csv",toolExport],["Block explorer","exp",openExplorer],["Price alarm","al",X("al")]]],
+var G=[["Crypto",[["Network fee","gas",D("Network fee",toolGas)],["Price converter","cv",D("Price converter",toolConvert)],["History CSV","csv",toolExport],["Block explorer","exp",openExplorer],["Price alarm","al",X("al")]]],
 ["Calculators",[["SIP","sip",C("sip","SIP calculator")],["EMI","emi",C("emi","EMI calculator")],["Rental yield","yld",C("yield","Rental yield")],["Fractional","frac",C("frac","Fractional ownership")],["ROI","roi",C("roi","ROI calculator")],["Compound","comp",C("comp","Compound interest")],["Bill split","bs",X("bs")],["Profit / Loss","pl",X("pl")]]],
 ["RWA",[["My assets","ra",X("ra")],["Rent records","rr",X("rr")],["Docs checklist","ck",X("ck")],["Scam check","sc",X("sc")],["Learn RWA","ln",X("ln")]]],
 ["Safety",[["Security tips","sec",X("sec")],["Crypto quiz","qz",X("qz")],["Daily streak","st",X("st")],["Notifications","nt",X("nt")],["History search","tx",X("tx")]]]];
@@ -775,4 +774,65 @@ function render(q){q=(q||"").toLowerCase();var h='<div class="svq"><input id="sv
 G.forEach(function(g,gi){var t=g[1].filter(function(x){return x[0].toLowerCase().indexOf(q)>-1});if(!t.length)return;h+='<div class="svg-h" id="svg'+gi+'">'+g[0]+'</div><div class="svg-g">'+t.map(function(x){return'<button onclick="SV.go('+gi+","+g[1].indexOf(x)+')"><span class="svi">'+ic(x[1])+'</span><span class="svl">'+x[0]+"</span></button>"}).join("")+"</div>"});$("svcBody").innerHTML=h}
 window.SV={q:function(v){render(v);var i=$("svqi");i.value=v;i.focus()},j:function(i){$("svg"+i).scrollIntoView({behavior:"smooth",block:"start"})},go:function(g,i){G[g][1][i][2]()}};
 openTools=function(){render("");$("sheetSvc").classList.add("open")};
+})();
+
+/* ===== Part 4: assets (CPAY), token send, scan icon, scrolling home ===== */
+(function(){
+var DEF={addr:"0xeB24350E1117083d27ab0fef346D2d25f03E380a",symbol:"CPAY",chain:"shardeum-testnet",decimals:18};
+var CPL='<svg viewBox="0 0 512 512"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg>';
+window.CPLOGO=CPL;
+var _g=getCustoms;getCustoms=function(){var l=_g();if(!l.some(function(x){return x.addr.toLowerCase()===DEF.addr.toLowerCase()}))l.unshift(Object.assign({},DEF));return l.filter(function(x){return!x.chain||x.chain===currentNet})};
+var XA=window.XA={sel:null},nat=function(){return NETWORKS[currentNet].symbol};
+function assets(){var a=[{s:nat(),n:1}];getCustoms().forEach(function(t){a.push({s:t.symbol||"TOKEN",t:t})});return a}
+function cur(){var a=assets();for(var i=0;i<a.length;i++)if(a[i].s===XA.sel)return a[i];XA.sel=nat();return a[0]}
+function alg(a){if(a.n){var u=LOGOS[a.s];return'<span class="nlg" style="background:#2B3A55">'+a.s[0]+(u?'<img src="'+u+'" alt="" onerror="this.remove()">':"")+"</span>"}if(a.s==="CPAY")return'<span class="nlg cpl">'+CPL+"</span>";return'<span class="nlg" style="background:#2B3A55">'+a.s[0]+"</span>"}
+document.querySelectorAll("#sheetSend .xnc-slot,#sheetRecv .xnc-slot").forEach(function(s){var d=document.createElement("div");d.className="xas-slot";s.after(d)});
+function upd2(){var c=cur(),n=NETWORKS[currentNet],s=function(i,v){var e=$(i);if(e)e.textContent=v};
+document.querySelectorAll(".xas-slot").forEach(function(e){e.innerHTML='<div class="xnc" onclick="XA.open()">'+alg(c)+"<span>"+c.s+"</span></div>"});
+s("sendTitle","Send "+c.s);s("sendUnit",c.s);s("recvTitle","Receive "+c.s);s("recvUnit",c.s);
+s("recvCap","Only send "+c.s+" ("+n.name+") to this address. Other assets will be lost forever.");
+var r=document.querySelector("#sheetSend .risk");if(r)r.textContent="Only send "+c.s+" on "+n.name+". Wrong token or network = permanent loss.";
+var pa=$("payAmount");if(pa&&pa.parentNode)pa.parentNode.style.display=c.t?"none":""}
+XA.open=function(){var cs=cur().s;$("xaList").innerHTML=assets().map(function(a){var b=a.n?(T[a.s]&&T[a.s].bal):a.t.bal;return'<div class="xni'+(a.s===cs?" on":"")+'" onclick="XA.pick(\''+a.s+'\')">'+alg(a)+"<div>"+a.s+"<small>"+(a.n?NETWORKS[currentNet].name+" · native":a.t.addr.slice(0,8)+"…"+a.t.addr.slice(-6))+'</small></div><span style="margin-left:auto;color:var(--mut)">'+(b!=null?b:"—")+"</span></div>"}).join("");$("xaSheet").classList.add("open")};
+XA.pick=function(s){XA.sel=s;$("xaSheet").classList.remove("open");upd2();if($("sheetRecv").classList.contains("open"))drawQR()};
+XA.tap=function(s){var a=assets().filter(function(x){return x.s===s})[0];if(!a){toast(s+": price only here")}else{XA.sel=s;openReceive()}};
+XA.tok=function(){return cur().t||null};
+var _cn=changeNetwork;changeNetwork=function(k){_cn(k);XA.sel=null;upd2()};
+var _os=openSend;openSend=async function(){await _os.apply(this,arguments);upd2()};
+var _or=openReceive;openReceive=async function(){await _or.apply(this,arguments);upd2();if(addr)drawQR()};
+var _dq=drawQR;drawQR=function(){var e=$("payAmount"),v=e.value;if(XA.tok())e.value="";_dq();e.value=v};
+var _ds=doSend;doSend=async function(){var t=XA.tok();if(!t)return _ds.apply(this,arguments);
+var to=$("sendTo").value.trim(),amt=$("sendAmt").value.trim(),d=t.decimals||18,n=NETWORKS[currentNet];
+if(!/^0x[0-9a-fA-F]{40}$/.test(to))return sendMsg("Invalid address");
+if(!/^\d*\.?\d+$/.test(amt)||+amt<=0)return sendMsg("Invalid amount");
+if(t.bal!=null&&+amt>+t.bal)return sendMsg("Insufficient "+t.symbol+" balance");
+var p=amt.split("."),w=(BigInt(p[0]||"0")*10n**BigInt(d)+BigInt(((p[1]||"")+"0".repeat(d)).slice(0,d))).toString(16);
+if(!confirm("Send "+amt+" "+t.symbol+" to\n"+to+"?"))return;
+try{var c=await ethereum.request({method:"eth_chainId"});if(c!==n.chainId)return sendMsg("Wrong network");$("sendBtn").disabled=true;sendMsg("Confirm in wallet…");
+var h=await ethereum.request({method:"eth_sendTransaction",params:[{from:addr,to:t.addr,data:"0xa9059cbb"+to.slice(2).toLowerCase().padStart(64,"0")+w.padStart(64,"0")}]});
+sendMsg("Sent ✓ "+h.slice(0,12)+"…",true);logTx("out",amt,t.symbol,h);$("sendAmt").value="";setTimeout(readCustomBalances,6000);toast("Sent")}catch(e){sendMsg(e.code===4001?"Cancelled":(e.message||"Failed"))}
+$("sendBtn").disabled=false};
+/* scan icon (top right), shown only here */
+var sb=$("soundBtn"),rb=document.createElement("div");rb.style.cssText="display:flex;gap:2px";sb.before(rb);rb.appendChild(sb);
+rb.insertAdjacentHTML("beforeend",'<button class="snd" aria-label="Scan QR" onclick="homeScan()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M4 12h16"/></svg></button>');
+window.homeScan=async function(){await openSend();if(addr)scanQR()};
+/* balance, buttons and tabs scroll together with the token list */
+var sc=document.querySelector(".scroll");[document.querySelector(".tabs"),document.querySelector(".acts"),document.querySelector(".hero")].forEach(function(e){if(e)sc.prepend(e)});
+upd2();
+})();
+
+/* ===== Part 5: SHM price from several sources + price check ===== */
+(function(){
+var SRC=[["KuCoin",function(){return fetch("https://api.kucoin.com/api/v1/market/orderbook/level1?symbol=SHM-USDT").then(function(r){return r.json()}).then(function(d){return+d.data.price})}],
+["MEXC",function(){return fetch("https://api.mexc.com/api/v3/ticker/price?symbol=SHMUSDT").then(function(r){return r.json()}).then(function(d){return+d.price})}],
+["CoinGecko",function(){return fetch("https://api.coingecko.com/api/v3/simple/price?ids=shardeum&vs_currencies=usd").then(function(r){return r.json()}).then(function(d){return+d.shardeum.usd})}]];
+var ok=function(x){return isFinite(x)&&x>0};
+function med(a){a=a.slice().sort(function(x,y){return x-y});var m=a.length>>1;return a.length%2?a[m]:(a[m-1]+a[m])/2}
+function all(){return Promise.all(SRC.map(function(s){return s[1]().then(function(v){return{n:s[0],v:v}}).catch(function(e){return{n:s[0],e:String(e&&e.message||e).slice(0,40)}})}))}
+var last=0,_fp=fetchPrices;
+fetchPrices=async function(){await _fp();if(Date.now()-last<60000)return;last=Date.now();
+try{var r=await all(),v=r.filter(function(x){return ok(x.v)}).map(function(x){return x.v}),c=T.SHM.p;
+if(v.length>=2||(v.length===1&&!c)){var m=med(v);T.SHM.p={usd:m,inr:m*fx,chg:(c&&c.chg)||0};lastOk=Date.now();paint()}}catch(e){}};
+window.PC={run:async function(){var o=$("pcout");if(o)o.textContent="Checking…";var r=await all(),c=T.SHM.p;
+if(o)o.innerHTML=r.map(function(x){return x.n+": "+(x.v!=null?"$"+x.v:"failed ("+x.e+")")}).join("<br>")+"<br>App shows: "+(c?"$"+c.usd:"—")}};
 })();

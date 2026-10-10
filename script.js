@@ -769,7 +769,7 @@ var C=function(k,t){return D(t,function(){showCalc(k)})},X=function(k){return fu
 var G=[["Crypto",[["Network fee","gas",D("Network fee",toolGas)],["Price converter","cv",D("Price converter",toolConvert)],["History CSV","csv",toolExport],["Block explorer","exp",openExplorer],["Price alarm","al",X("al")]]],
 ["Calculators",[["SIP","sip",C("sip","SIP calculator")],["EMI","emi",C("emi","EMI calculator")],["Rental yield","yld",C("yield","Rental yield")],["Fractional","frac",C("frac","Fractional ownership")],["ROI","roi",C("roi","ROI calculator")],["Compound","comp",C("comp","Compound interest")],["Bill split","bs",X("bs")],["Profit / Loss","pl",X("pl")]]],
 ["RWA",[["My assets","ra",X("ra")],["Rent records","rr",X("rr")],["Docs checklist","ck",X("ck")],["Scam check","sc",X("sc")],["Learn RWA","ln",X("ln")]]],
-["Safety",[["Security tips","sec",X("sec")],["Crypto quiz","qz",X("qz")],["Daily streak","st",X("st")],["Notifications","nt",X("nt")],["History search","tx",X("tx")]]]];
+["Safety",[["Security tips","sec",X("sec")],["Crypto quiz","qz",X("qz")],["Daily streak","st",X("st")],["Notifications","nt",X("nt")],["History","tx",X("tx")]]]];
 function render(q){q=(q||"").toLowerCase();var h='<div class="svq"><input id="svqi" placeholder="Search services" autocomplete="off" oninput="SV.q(this.value)"></div>';if(!q)h+='<div class="svc-chips">'+G.map(function(g,i){return'<button onclick="SV.j('+i+')">'+g[0]+"</button>"}).join("")+"</div>";
 G.forEach(function(g,gi){var t=g[1].filter(function(x){return x[0].toLowerCase().indexOf(q)>-1});if(!t.length)return;h+='<div class="svg-h" id="svg'+gi+'">'+g[0]+'</div><div class="svg-g">'+t.map(function(x){return'<button onclick="SV.go('+gi+","+g[1].indexOf(x)+')"><span class="svi">'+ic(x[1])+'</span><span class="svl">'+x[0]+"</span></button>"}).join("")+"</div>"});$("svcBody").innerHTML=h}
 window.SV={q:function(v){render(v);var i=$("svqi");i.value=v;i.focus()},j:function(i){$("svg"+i).scrollIntoView({behavior:"smooth",block:"start"})},go:function(g,i){G[g][1][i][2]()}};
@@ -840,7 +840,7 @@ if(o)o.innerHTML=r.map(function(x){return x.n+": "+(x.v!=null?"$"+x.v:"failed ("
 /* ===== Part 6: per-network tokens, flat list, short history, MetaMask mobile link, server price ===== */
 (function(){
 var CPAY="0xeB24350E1117083d27ab0fef346D2d25f03E380a".toLowerCase();
-var DEFTOK={"shardeum-testnet":[{addr:CPAY,symbol:"CPAY"}],
+var DEFTOK=window.DEFTOK={"shardeum-testnet":[{addr:CPAY,symbol:"CPAY"}],
 ethereum:[{addr:"0xdAC17F958D2ee523a2206206994597C13D831ec7",symbol:"USDT"},{addr:"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",symbol:"USDC"},{addr:"0x6B175474E89094C44Da98b954EedeAC495271d0F",symbol:"DAI"}],
 bsc:[{addr:"0x55d398326f99059fF775485246999027B3197955",symbol:"USDT"},{addr:"0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",symbol:"USDC"}],
 polygon:[{addr:"0xc2132D05D31c914a87C6611C10748AEb04B58e8F",symbol:"USDT"},{addr:"0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",symbol:"USDC"}],
@@ -869,4 +869,23 @@ renderTx();
 var _cw=connectWallet;connectWallet=async function(){if(!window.ethereum&&/Android|iPhone|iPad/i.test(navigator.userAgent)){location.href="https://metamask.app.link/dapp/"+location.host+(location.pathname||"/");return}return _cw.apply(this,arguments)};
 /* SHM price from our server (no browser blocking) */
 var _fp=fetchPrices;fetchPrices=async function(){await _fp();try{var r=await fetch("/api/price");if(r.ok){var d=await r.json();if(d.usd>0){var c=T.SHM.p;T.SHM.p={usd:d.usd,inr:d.inr||d.usd*fx,chg:(c&&c.chg)||0};lastOk=Date.now();paint()}}}catch(e){}};
+})();
+
+/* ===== Part 7: all-network asset picker, Connect button in top bar, no Recent box ===== */
+(function(){
+var D=window.DEFTOK;
+D.ethereum.push({addr:"0x95aD61b0a150d79219dCF64E1E6Cc01f0B64C4cE",symbol:"SHIB"},{addr:"0x514910771AF9Ca656af840dff83E8264EcF986CA",symbol:"LINK"},{addr:"0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",symbol:"WBTC"},{addr:"0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",symbol:"UNI"},{addr:"0x6982508145454Ce325dDbE47a25d4ec3d2311933",symbol:"PEPE"});
+D.bsc.push({addr:"0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c",symbol:"BTCB"},{addr:"0x2170Ed0880ac9A755fd29B2688956BD959F933F8",symbol:"ETH"},{addr:"0xbA2aE424d960c26247Dd6c32edC70B295c744C43",symbol:"DOGE"},{addr:"0x2859e4544C4bB03966803b044A93563Bd2D0DD4D",symbol:"SHIB"},{addr:"0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82",symbol:"CAKE"},{addr:"0x1D2F0da169ceB9fC7B3144628dB156f3F6c60dBE",symbol:"XRP"});
+function userTok(k){return(ls.get("customTokens",[])||[]).filter(function(x){return x&&x.addr&&x.chain===k&&x.addr.toLowerCase()!=="0xeb24350e1117083d27ab0fef346d2d25f03e380a"})}
+function logo(s){var u=LOGOS[s];return'<span class="nlg" style="background:#2B3A55">'+s[0]+(u?'<img src="'+u+'" alt="" onerror="this.remove()">':"")+"</span>"}
+function rows(q){q=(q||"").toLowerCase();var cs=XA.sel,h="";Object.keys(NETWORKS).forEach(function(k){var n=NETWORKS[k],list=[{symbol:n.symbol,n:1}].concat(D[k]||[],userTok(k)),here=k===currentNet,
+out=list.filter(function(t){return!q||t.symbol.toLowerCase().indexOf(q)>-1||n.name.toLowerCase().indexOf(q)>-1});if(!out.length)return;
+h+='<div class="xnh">'+n.name+(k==="shardeum-testnet"?" · test":"")+"</div>"+out.map(function(t){var b="";if(here){if(t.n)b=T[t.symbol]&&T[t.symbol].bal;else{var c=getCustoms().filter(function(x){return x.addr.toLowerCase()===t.addr.toLowerCase()})[0];b=c&&c.bal}}
+var on=here&&XA.sel===t.symbol;return'<div class="xni'+(on?" on":"")+'" onclick="XA.pickN(\''+k+"','"+t.symbol+'\')">'+(t.symbol==="CPAY"?'<span class="nlg cpl">'+CPLOGO+"</span>":logo(t.symbol))+"<div>"+t.symbol+"<small>"+(t.n?"native coin":t.addr.slice(0,8)+"…"+t.addr.slice(-6))+'</small></div><span style="margin-left:auto;color:var(--mut)">'+(b!=null&&b!==""?b:"")+"</span></div>"}).join("")});
+$("xaRows").innerHTML=h||'<div class="cap">No match</div>'}
+XA.open=function(){$("xaList").innerHTML='<div class="svq"><input id="xaq" placeholder="Search token or network" autocomplete="off" oninput="XA.q(this.value)"></div><div id="xaRows"></div>';rows("");$("xaSheet").classList.add("open")};
+XA.q=function(v){rows(v)};
+XA.pickN=function(net,sym){if(net!==currentNet)changeNetwork(net);XA.pick(sym)};
+/* Connect button next to the scan icon (same top row) */
+var chip=$("chip"),top=document.querySelector(".top");if(chip&&top){top.insertBefore(chip,top.lastElementChild);var t=$("chipText");if(t&&!window.addr&&t.textContent==="MetaMask")t.textContent="Connect"}
 })();

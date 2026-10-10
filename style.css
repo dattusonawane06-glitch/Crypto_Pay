@@ -297,3 +297,9 @@ html[data-theme=light] .svq input{background:#f2f4f7}
 .row:hover,.row:active{background:none;box-shadow:none;transform:none}
 .txbox{background:none!important;border:0;padding:0;margin-top:10px;box-shadow:none}
 .txi{background:none;border:0;border-bottom:1px solid var(--ln);border-radius:0;padding:12px 2px;margin:0}
+
+/* ===== Part 7 ===== */
+header{display:none}
+.top{gap:8px;flex-wrap:nowrap}.top .chip{margin-left:auto;padding:7px 12px;font-size:12px;white-space:nowrap}
+.txbox{display:none!important}
+.xnh{text-align:left;color:var(--mut);font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:16px 4px 4px}

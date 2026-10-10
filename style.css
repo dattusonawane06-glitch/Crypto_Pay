@@ -290,3 +290,10 @@ html[data-theme=light] .svq input{background:#f2f4f7}
 .ic svg{width:68%;height:68%}
 #sheetSend [onclick="scanQR()"]{display:none}
 .scroll .hero{padding-top:6px}.scroll .tabs{margin:0 -14px}
+
+/* ===== Part 6: flat token list, language/currency/sound live in Settings ===== */
+#curSelect,#langSelect,#soundBtn{display:none!important}
+.row{background:none!important;border:0;border-bottom:1px solid var(--ln);border-radius:0;margin:0;padding:14px 2px}
+.row:hover,.row:active{background:none;box-shadow:none;transform:none}
+.txbox{background:none!important;border:0;padding:0;margin-top:10px;box-shadow:none}
+.txi{background:none;border:0;border-bottom:1px solid var(--ln);border-radius:0;padding:12px 2px;margin:0}

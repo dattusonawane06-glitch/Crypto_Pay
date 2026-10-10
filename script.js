@@ -157,7 +157,7 @@ function buildList(){
   const order=["SHM","USDT","BTC","ETH","BNB"];
   let html=order.map(k=>`<div class="row" onclick="XA.tap('${k}')"><div class="ic"><img src="${LOGOS[k]}" alt="${k}" onerror="this.parentElement.textContent='${k[0]}'"></div><div class="mid"><div class="sym">${k}</div><div class="sub" id="s-${k}">—</div></div><div class="rt"><div class="amt" id="b-${k}">0</div><div class="sub" id="v-${k}">—</div></div></div>`).join("");
   getCustoms().forEach((t,i)=>{
-    const id="ct"+i;
+    if(order.indexOf(t.symbol)>-1)return;const id="ct"+i;
     html+=`<div class="row" onclick="XA.tap('${t.symbol}')"><div class="ic">${t.symbol==="CPAY"?CPLOGO:(t.symbol||"T")[0]}</div><div class="mid"><div class="sym">${t.symbol||"TOKEN"}</div><div class="sub" id="s-${id}">Custom token</div></div><div class="rt"><div class="amt" id="b-${id}">…</div><div class="sub" id="v-${id}">on-chain</div></div></div>`;
   });
   $("list").innerHTML=html;
@@ -170,8 +170,8 @@ function paint(){
     let chg="";
     if(t.p&&typeof t.p.chg==="number"){const c=t.p.chg<0?"var(--r)":"var(--g)";chg=` <span style="color:${c}">${t.p.chg>=0?"+":""}${t.p.chg.toFixed(2)}%</span>`}
     if($("s-"+k))$("s-"+k).innerHTML=t.p?pfx()+fmt(rt)+chg:pfx()+"--";
-    if($("b-"+k))$("b-"+k).textContent=hideBal?H:(k===native?t.bal:"—");
-    if($("v-"+k))$("v-"+k).textContent=hideBal?H:(t.p&&k===native?pfx()+fmt(bal*rt):"—");
+    if($("b-"+k))$("b-"+k).textContent=hideBal?H:(k===native?t.bal:(TOKB(k)||"—"));
+    if($("v-"+k))$("v-"+k).textContent=hideBal?H:(t.p&&k===native?pfx()+fmt(bal*rt):(t.p&&TOKB(k)?pfx()+fmt(+TOKB(k).replace(/,/g,"")*rt):"—"));
   });
   getCustoms().forEach((t,i)=>{
     const id="ct"+i,bal=t.bal!=null?parseFloat(t.bal):null;
@@ -281,7 +281,7 @@ async function readBal(detect){
 }
 function pollBal(){if(!addr||!window.ethereum)return;ethereum.request({method:"eth_chainId"}).then(id=>{if(id===NETWORKS[currentNet].chainId)readBal(true)}).catch(()=>{})}
 
-function logTx(type,amt,symbol,hash){txs.unshift({type,amt,symbol,hash:hash||"",time:Date.now()});txs=txs.slice(0,40);ls.set("txs",txs);renderTx()}
+function logTx(type,amt,symbol,hash){txs.unshift({type,amt,symbol,hash:hash||"",time:Date.now()});txs=txs.slice(0,300);ls.set("txs",txs);renderTx()}
 function renderTx(){
   const box=$("txHistory");if(!box)return;
   if(!txs.length){box.innerHTML='<div style="font-size:12px;color:var(--mut);text-align:center;padding:6px">No transactions yet</div>';return}
@@ -582,7 +582,7 @@ V.pl={t:"💹 Profit / Loss",h:function(){return C("c")+I("q","Quantity")+I("b",
 XT.pa=function(){if(nv("q")>0)XT.ad("pl",{s:g("c").value,q:nv("q"),b:nv("b")})};
 
 /* ---- Merchant QR, fee, history ---- */
-V.tx={t:"🔍 History / CSV",h:function(){return I("s","Search coin / in / out / hash","text")+'<div id="x_l"></div>'},u:function(){var q=(g("s").value||"").toLowerCase();g("l").innerHTML=txs.filter(function(x){return(x.symbol+x.type+x.hash).toLowerCase().indexOf(q)>-1}).map(function(x){return'<div class="xt-o">'+(x.type=="in"?"+":"-")+x.amt+" "+x.symbol+' <span style="color:var(--mut)">'+new Date(x.time).toLocaleString("en-IN")+"</span></div>"}).join("")||"No match"}};
+V.tx={t:"History",h:function(){return I("s","Search coin / in / out / hash","text")+'<div id="x_l"></div>'+B("Export CSV","toolExport()")+B("Clear all history","clearTxs();XT.go('tx')")},u:function(){var q=(g("s").value||"").toLowerCase();g("l").innerHTML=txs.filter(function(x){return(x.symbol+x.type+x.hash).toLowerCase().indexOf(q)>-1}).map(function(x){return'<div class="xt-o">'+(x.type=="in"?"+":"-")+x.amt+" "+x.symbol+' <span style="color:var(--mut)">'+new Date(x.time).toLocaleString("en-IN")+"</span></div>"}).join("")||"No match"}};
 
 /* ---- Streak & quiz & tips ---- */
 var td=new Date().toISOString().slice(0,10),st=K("st",{d:"",n:0});
@@ -707,12 +707,12 @@ var T=function(l,on,c){return'<div class="sr" onclick="'+c+'"><span class="sl">'
 var O=function(l,on,c){return'<div class="sr" onclick="'+c+'"><span class="sl">'+l+'</span><span class="rd'+(on?" on":"")+'"></span></div>'};
 var XL='<a class="xl" href="https://x.com/cryptopay_shm" target="_blank" rel="noopener" aria-label="X">'+sv(IC.x)+"</a>";
 var PG={
-root:["Settings",function(){var a=addr?addr.slice(0,6)+"…"+addr.slice(-4):"Not connected";return R("w","Wallet",a,"addr||connectWallet()")+R("n","Network",NETWORKS[currentNet].name,"XN.open()")+R("a","Appearance",{auto:"Auto",dark:"Dark",light:"Light"}[L("theme","auto")],"SB.g('app')")+R("s","Security",hasPin()?"PIN on":"Off","SB.g('sec')")+R("b","Notifications","","SB.g('noti')")+R("d","Display","","SB.g('disp')")+R("r","Data & help","","SB.g('dat')")+R("i","About","","SB.g('abt')")+'<div class="xw">'+XL+"</div>"}],
+root:["Settings",function(){var a=addr?addr.slice(0,6)+"…"+addr.slice(-4):"Not connected";return R("w","Wallet",a,"addr||connectWallet()")+R("n","Network",NETWORKS[currentNet].name,"XN.open()")+R("a","Appearance",{auto:"Auto",dark:"Dark",light:"Light"}[L("theme","auto")],"SB.g('app')")+R("s","Security",hasPin()?"PIN on":"Off","SB.g('sec')")+R("b","Notifications","","SB.g('noti')")+R("d","Language & display","","SB.g('disp')")+R("r","Data & help","","SB.g('dat')")+R("i","About","","SB.g('abt')")+'<div class="xw">'+XL+"</div>"}],
 app:["Appearance",function(){var m=L("theme","auto");return O("Automatic (follows phone)",m==="auto","SB.th('auto')")+O("Dark",m==="dark","SB.th('dark')")+O("Light",m==="light","SB.th('light')")}],
 sec:["Security",function(){return R("s","PIN lock",hasPin()?"On":"Off","SB.g('pin')")+'<div class="sr"><span class="sl">Auto-lock after</span><select onchange="ls.set(\'xt_am\',+this.value)">'+[1,2,5,10].map(function(x){return'<option value="'+x+'"'+(x==mins()?" selected":"")+">"+x+" min</option>"}).join("")+"</select></div>"+T("Blur screen in background",L("xt_bl",1),"SB.bl()")+'<div class="cap" style="padding:10px 4px">PIN protects this app on your phone. It does not replace your wallet password.</div>'}],
 pin:["PIN lock",function(){return hasPin()?'<div class="sr" onclick="SB.chg()"><span class="sl">Change PIN</span>'+CH+'</div><div class="sr" onclick="SB.rm()"><span class="sl" style="color:var(--r)">Remove PIN</span></div>':'<div class="sr" onclick="SB.set()"><span class="sl">Set 6-digit PIN</span>'+CH+"</div>"}],
 noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggleSound();SB.r()")+'<div class="sr" onclick="XT.go(\'al\')"><span class="sl">Price alarms</span>'+CH+'</div><div class="sr" onclick="XT.go(\'nt\')"><span class="sl">Notification centre</span>'+CH+"</div>"}],
-disp:["Display",function(){return T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
+disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"],["mr","मराठी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){return'<div style="text-align:center;padding:18px 6px"><div style="margin:0 auto 12px"><svg viewBox="0 0 512 512" style="width:96px;height:96px"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg></div><b>CryptoPay</b><div class="cap">Version 5.0<br>Non-custodial. We never hold your keys.</div><div class="xw">'+XL+'</div><div class="cap" style="margin-top:12px">Crypto is risky. Not financial advice.<br>© 2026 CryptoPay</div></div>'}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
@@ -835,4 +835,38 @@ try{var r=await all(),v=r.filter(function(x){return ok(x.v)}).map(function(x){re
 if(v.length>=2||(v.length===1&&!c)){var m=med(v);T.SHM.p={usd:m,inr:m*fx,chg:(c&&c.chg)||0};lastOk=Date.now();paint()}}catch(e){}};
 window.PC={run:async function(){var o=$("pcout");if(o)o.textContent="Checking…";var r=await all(),c=T.SHM.p;
 if(o)o.innerHTML=r.map(function(x){return x.n+": "+(x.v!=null?"$"+x.v:"failed ("+x.e+")")}).join("<br>")+"<br>App shows: "+(c?"$"+c.usd:"—")}};
+})();
+
+/* ===== Part 6: per-network tokens, flat list, short history, MetaMask mobile link, server price ===== */
+(function(){
+var CPAY="0xeB24350E1117083d27ab0fef346D2d25f03E380a".toLowerCase();
+var DEFTOK={"shardeum-testnet":[{addr:CPAY,symbol:"CPAY"}],
+ethereum:[{addr:"0xdAC17F958D2ee523a2206206994597C13D831ec7",symbol:"USDT"},{addr:"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",symbol:"USDC"},{addr:"0x6B175474E89094C44Da98b954EedeAC495271d0F",symbol:"DAI"}],
+bsc:[{addr:"0x55d398326f99059fF775485246999027B3197955",symbol:"USDT"},{addr:"0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",symbol:"USDC"}],
+polygon:[{addr:"0xc2132D05D31c914a87C6611C10748AEb04B58e8F",symbol:"USDT"},{addr:"0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",symbol:"USDC"}],
+base:[{addr:"0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",symbol:"USDC"}],
+optimism:[{addr:"0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",symbol:"USDT"},{addr:"0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",symbol:"USDC"}],
+arbitrum:[{addr:"0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",symbol:"USDT"},{addr:"0xaf88d065e77c8cC2239327C5EDb3A432268e5831",symbol:"USDC"}]};
+var TC={};
+function raw(){return(ls.get("customTokens",[])||[]).map(function(x){return typeof x==="string"?{addr:x,symbol:"TOKEN"}:x}).filter(function(x){return x&&x.addr})}
+getCustoms=function(){var seen={},out=[],mine=raw().filter(function(x){if(x.addr.toLowerCase()===CPAY)return false;return!x.chain||x.chain===currentNet});
+(DEFTOK[currentNet]||[]).concat(mine).forEach(function(t){var k=t.addr.toLowerCase();if(seen[k])return;seen[k]=1;var c=TC[currentNet+k]||{};out.push({addr:t.addr,symbol:t.symbol||"TOKEN",chain:currentNet,bal:c.bal,decimals:c.decimals||t.decimals||18})});return out};
+readCustomBalances=async function(){if(!addr||!window.ethereum)return;var cid;try{cid=await ethereum.request({method:"eth_chainId"})}catch(e){return}
+if(cid!==NETWORKS[currentNet].chainId){buildList();paint();return}
+var l=getCustoms();for(var i=0;i<l.length;i++){var t=l[i];try{var r=await ethCall(t.addr,"0x70a08231"+addr.slice(2).toLowerCase().padStart(64,"0")),d=18;try{d=parseInt(await ethCall(t.addr,"0x313ce567"),16)||18}catch(e){}
+TC[currentNet+t.addr.toLowerCase()]={bal:(Number(BigInt(r||"0x0"))/Math.pow(10,d)).toFixed(Math.min(6,d)),decimals:d}}catch(e){}}buildList();paint()};
+window.saveTok=async function(){var a=$("tokAddr").value.trim(),s=($("tokSym").value||"").trim()||"TOKEN";if(!/^0x[0-9a-fA-F]{40}$/.test(a))return toast("Invalid contract address");
+if(getCustoms().some(function(x){return x.addr.toLowerCase()===a.toLowerCase()}))return toast("Already added");if(!addr){await connectWallet();if(!addr)return}
+var l=raw();l.push({addr:a,symbol:s,chain:currentNet,time:Date.now()});ls.set("customTokens",l);buildList();await readCustomBalances();$("sheetTok").classList.remove("open");$("tokAddr").value="";$("tokSym").value="";toast(s+" added")};
+window.TOKB=function(s){var t=getCustoms().filter(function(x){return x.symbol===s})[0];return t&&t.bal!=null?fmt(+t.bal):null};
+var _cn=changeNetwork;changeNetwork=function(k){_cn(k);buildList();paint();setTimeout(function(){readCustomBalances()},1500)};
+/* history: 3 latest on Home, full list in History page */
+renderTx=function(){var b=$("txHistory");if(!b)return;if(!txs.length){b.innerHTML='<div style="font-size:12px;color:var(--mut);text-align:center;padding:6px">No transactions yet</div>';return}
+b.innerHTML=txs.slice(0,3).map(function(x){var d=new Date(x.time).toLocaleString("en-IN",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"}),c=x.type==="in"?"var(--g)":"var(--r)";return'<div class="txi"><div><b>'+(x.type==="in"?"In":"Out")+" "+x.symbol+'</b><div style="color:var(--mut);font-size:10px">'+d+'</div></div><div style="color:'+c+';font-weight:800">'+(x.type==="in"?"+":"-")+x.amt+"</div></div>"}).join("")};
+var va=document.querySelector(".txh span:last-child");if(va){va.textContent="View all";va.style.color="var(--y)";va.onclick=function(){XT.go("tx")}}
+renderTx();
+/* MetaMask on phone: open this app inside MetaMask browser */
+var _cw=connectWallet;connectWallet=async function(){if(!window.ethereum&&/Android|iPhone|iPad/i.test(navigator.userAgent)){location.href="https://metamask.app.link/dapp/"+location.host+(location.pathname||"/");return}return _cw.apply(this,arguments)};
+/* SHM price from our server (no browser blocking) */
+var _fp=fetchPrices;fetchPrices=async function(){await _fp();try{var r=await fetch("/api/price");if(r.ok){var d=await r.json();if(d.usd>0){var c=T.SHM.p;T.SHM.p={usd:d.usd,inr:d.inr||d.usd*fx,chg:(c&&c.chg)||0};lastOk=Date.now();paint()}}}catch(e){}};
 })();

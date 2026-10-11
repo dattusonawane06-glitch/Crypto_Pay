@@ -305,3 +305,5 @@ header{display:none}
 .xnh{text-align:left;color:var(--mut);font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:16px 4px 4px}
 
 .wsw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.wsw span{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:10px;font-weight:700;text-align:left}.wsw i{color:var(--mut);font-style:normal;font-size:11px;margin-right:8px}
+
+.hq{border-bottom:1px solid var(--ln);text-align:left;padding:12px 2px}.hq summary{font-weight:700;cursor:pointer}.hq p{color:var(--mut);margin:8px 0 0;line-height:1.5}

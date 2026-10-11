@@ -769,7 +769,7 @@ var C=function(k,t){return D(t,function(){showCalc(k)})},X=function(k){return fu
 var G=[["Crypto",[["Network fee","gas",D("Network fee",toolGas)],["Price converter","cv",D("Price converter",toolConvert)],["History CSV","csv",toolExport],["Block explorer","exp",openExplorer],["Price alarm","al",X("al")]]],
 ["Calculators",[["SIP","sip",C("sip","SIP calculator")],["EMI","emi",C("emi","EMI calculator")],["Rental yield","yld",C("yield","Rental yield")],["Fractional","frac",C("frac","Fractional ownership")],["ROI","roi",C("roi","ROI calculator")],["Compound","comp",C("comp","Compound interest")],["Bill split","bs",X("bs")],["Profit / Loss","pl",X("pl")]]],
 ["RWA",[["My assets","ra",X("ra")],["Rent records","rr",X("rr")],["Docs checklist","ck",X("ck")],["Scam check","sc",X("sc")],["Learn RWA","ln",X("ln")]]],
-["Safety",[["Security tips","sec",X("sec")],["Crypto quiz","qz",X("qz")],["Daily streak","st",X("st")],["Notifications","nt",X("nt")],["History","tx",X("tx")]]],["Test",[["CPAY faucet","drop",function(){FQ.open()}]]]];
+["Safety",[["Security tips","sec",X("sec")],["Crypto quiz","qz",X("qz")],["Daily streak","st",X("st")],["Notifications","nt",X("nt")],["History","tx",X("tx")]]],["Test",[["CPAY faucet","drop",function(){FQ.open()}],["About CPAY","ln",function(){HP.about()}]]],["Help",[["Help","qz",function(){HP.help()}]]]];
 function render(q){q=(q||"").toLowerCase();var h='<div class="svq"><input id="svqi" placeholder="Search services" autocomplete="off" oninput="SV.q(this.value)"></div>';if(!q)h+='<div class="svc-chips">'+G.map(function(g,i){return'<button onclick="SV.j('+i+')">'+g[0]+"</button>"}).join("")+"</div>";
 G.forEach(function(g,gi){var t=g[1].filter(function(x){return x[0].toLowerCase().indexOf(q)>-1});if(!t.length)return;h+='<div class="svg-h" id="svg'+gi+'">'+g[0]+'</div><div class="svg-g">'+t.map(function(x){return'<button onclick="SV.go('+gi+","+g[1].indexOf(x)+')"><span class="svi">'+ic(x[1])+'</span><span class="svl">'+x[0]+"</span></button>"}).join("")+"</div>"});$("svcBody").innerHTML=h}
 window.SV={q:function(v){render(v);var i=$("svqi");i.value=v;i.focus()},j:function(i){$("svg"+i).scrollIntoView({behavior:"smooth",block:"start"})},go:function(g,i){G[g][1][i][2]()}};
@@ -949,4 +949,41 @@ var g=await ethereum.request({method:"eth_estimateGas",params:[{from:addr,to:a.t
 if(f>b)return toast("Not enough SHM for the fee. You need about "+f.toFixed(0)+" SHM, you have "+b.toFixed(0)+".",6000)}
 catch(e){var m=String(e&&(e.message||e));if(/come back later/i.test(m))return toast("You already claimed in the last 24 hours.",4000);if(/empty/i.test(m))return toast("The faucet is empty.",4000)}}
 return _c.apply(this,arguments)};
+})();
+
+/* ===== Part 16: Help page, About CPAY page, "Forgot PIN" on wallet unlock ===== */
+(function(){
+var CP="0xeB24350E1117083d27ab0fef346D2d25f03E380a";
+var Q={hi:[
+["CryptoPay क्या है?","एक सरल वॉलेट। अभी यह सिर्फ़ टेस्ट (Testnet) पर चलता है, यानी इसमें असली पैसे नहीं हैं। हम इसे सीखने और जाँचने के लिए चला रहे हैं।"],
+["वॉलेट कैसे बनाएँ?","Connect दबाइए, फिर Create new wallet। 6 अंकों का PIN चुनिए और दिखने वाले 12 शब्द कागज़ पर लिख लीजिए।"],
+["12 शब्द क्या हैं?","ये आपके वॉलेट की पक्की बैकअप चाबी हैं। इन्हें सिर्फ़ कागज़ पर लिखिए। किसी को मत बताइए, फोटो मत खींचिए। कोई \"सपोर्ट\" भी इन्हें कभी नहीं माँगेगा। ये और फ़ोन दोनों खो गए तो वॉलेट वापस नहीं मिलेगा।"],
+["PIN भूल गया तो?","Connect दबाने पर PIN वाली स्क्रीन के नीचे \"Forgot PIN\" दबाइए और अपने 12 शब्दों से वॉलेट वापस बनाइए। 12 शब्द नहीं हैं तो वॉलेट वापस नहीं मिल सकता।"],
+["मुफ़्त CPAY कैसे लें?","Services → Test → CPAY faucet → \"Get 100 CPAY (free, no fee)\" दबाइए। इसमें आपको कोई फ़ीस नहीं देनी पड़ती।"],
+["CPAY की कीमत क्या है?","कोई कीमत नहीं। यह सिर्फ़ टेस्ट टोकन है।"],
+["फ़ीस (Network fee) क्या है?","ब्लॉकचेन पर हर लेनदेन के लिए नेटवर्क को थोड़ी फ़ीस देनी पड़ती है। यह नेटवर्क के सिक्के में लगती है (यहाँ SHM)। यह CryptoPay को नहीं मिलती।"],
+["भेजते समय क्या ध्यान रखें?","पता और नेटवर्क दो बार जाँचिए। गलत पते या गलत नेटवर्क पर भेजा सिक्का वापस नहीं आता।"],
+["क्या मेरा पैसा सुरक्षित है?","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है, हम उसे नहीं रखते। फिर भी अभी असली पैसे इसमें मत रखिए, यह टेस्ट स्तर है।"],
+["कौन से नेटवर्क चलते हैं?","ऐप का अपना वॉलेट अभी सिर्फ़ Shardeum Testnet पर चलता है। बाकी नेटवर्क के लिए MetaMask जोड़ सकते हैं।"],
+["12 शब्द दोबारा कहाँ देखूँ?","Settings → Security → Recovery phrase (PIN डालकर)। देखते समय आसपास कोई न हो।"]],
+en:[
+["What is CryptoPay?","A simple wallet. For now it runs on a test network (Testnet), so it holds no real money. We run it to learn and test."],
+["How do I create a wallet?","Tap Connect, then Create new wallet. Choose a 6-digit PIN and write the 12 words on paper."],
+["What are the 12 words?","They are your wallet's backup key. Write them on paper only. Never share them or take a photo. No \"support\" will ever ask for them. If you lose them and your phone, the wallet cannot be recovered."],
+["I forgot my PIN","On the PIN screen tap \"Forgot PIN\" and restore the wallet with your 12 words. Without the 12 words the wallet cannot be recovered."],
+["How do I get free CPAY?","Services → Test → CPAY faucet → \"Get 100 CPAY (free, no fee)\". You pay no fee."],
+["What is CPAY worth?","Nothing. It is a test token only."],
+["What is the network fee?","Every blockchain transaction needs a small fee paid to the network, in the network's own coin (SHM here). It does not go to CryptoPay."],
+["What should I check before sending?","Check the address and the network twice. Coins sent to a wrong address or network cannot be recovered."],
+["Is my money safe?","Your key stays only on your phone, locked by your PIN. We do not keep it. Still, do not keep real money here yet. This is a test stage."],
+["Which networks work?","The in-app wallet works on Shardeum Testnet only for now. You can connect MetaMask for other networks."],
+["Where can I see my 12 words again?","Settings → Security → Recovery phrase (after entering your PIN). Make sure nobody is watching."]]};
+function open(t,h){$("toolOut").textContent="";$("toolsTitle").textContent=t;var b=$("calcBox");b.style.display="block";$("sheetTools").classList.add("open");b.innerHTML=h}
+function L(){return lang==="en"?"en":"hi"}
+window.HP={
+help:function(){var l=L();open(l==="en"?"Help":"मदद",Q[l].map(function(x){return'<details class="hq"><summary>'+x[0]+"</summary><p>"+x[1]+"</p></details>"}).join(""))},
+about:function(){var l=L(),r=function(a,b){return'<div class="xt-o" style="display:flex;justify-content:space-between;gap:10px;text-align:left"><span style="color:var(--mut)">'+a+'</span><b style="text-align:right;word-break:break-all">'+b+"</b></div>"};var ex=NETWORKS["shardeum-testnet"].explorer+"/address/"+CP;
+open("About CPAY",r(l==="en"?"Name":"नाम","CryptoPay Test (CPAY)")+r(l==="en"?"Network":"नेटवर्क","Shardeum Testnet")+r("Decimals","18")+r(l==="en"?"Maximum supply":"अधिकतम सप्लाई","500,000,000")+r(l==="en"?"First minted":"शुरू में बने","1,000,000")+r(l==="en"?"Contract":"कॉन्ट्रैक्ट",CP.slice(0,10)+"…"+CP.slice(-8))+'<button class="btn ghost" onclick="navigator.clipboard.writeText(\''+CP+'\');toast(\'Copied\')">'+(l==="en"?"Copy contract address":"कॉन्ट्रैक्ट पता कॉपी करें")+'</button><a class="btn ghost" style="display:block;text-decoration:none;text-align:center" target="_blank" rel="noopener" href="'+ex+'">'+(l==="en"?"Open in explorer":"एक्सप्लोरर में खोलें")+'</a><p class="cap" style="text-align:left">'+(l==="en"?"Test token with no monetary value. The owner can pause the token and can mint more up to the maximum supply. This is for testing only.":"टेस्ट टोकन, कोई कीमत नहीं। मालिक टोकन को रोक सकता है और अधिकतम सप्लाई तक और बना सकता है। यह सिर्फ़ जाँच के लिए है।")+"</p>")}};
+var _u=WS.unlock;WS.unlock=function(){var p=_u(),b=$("wsBody");if(b&&!b.querySelector(".forgot"))b.insertAdjacentHTML("beforeend",'<a class="forgot" onclick="WS.forgot()">Forgot PIN? Restore with 12 words</a>');return p};
+WS.forgot=function(){if(confirm("This removes the wallet from this phone. You can restore it only with your 12 words. Continue?")){CPW.remove();WS.open()}};
 })();

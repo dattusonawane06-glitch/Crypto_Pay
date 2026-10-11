@@ -931,10 +931,22 @@ var _cw=connectWallet;connectWallet=async function(){var e=window.ethereum;if(e&
 (function(){
 var m=$("sendMsg"),el=document.createElement("div");el.id="sendFee";el.className="cap";el.style.cssText="text-align:left;margin:-2px 2px 8px";if(m)m.parentNode.insertBefore(el,m);
 async function fee(){try{var g=await ethereum.request({method:"eth_gasPrice"});return Number(BigInt(g))*(XA.tok()?70000:21000)/1e18}catch(e){return null}}
-async function show(){var f=await fee(),s=NETWORKS[currentNet].symbol;el.textContent=f==null?"":"Network fee: about "+(f>=10?f.toFixed(0):f.toFixed(2))+" "+s+" (it can change)"}
+async function show(){var f=await fee(),s=NETWORKS[currentNet].symbol,p=T[s]&&T[s].p,r=p&&f!=null?rate(p)*f:null;el.textContent=f==null?"":"Network fee: about "+(f>=10?f.toFixed(0):f.toFixed(2))+" "+s+(r?" ("+pfx()+(r<1?r.toFixed(2):fmt(r))+")":"")+". It goes to the network, not to CryptoPay."}
 var _os=openSend;openSend=async function(){await _os.apply(this,arguments);show()};
 var _pk=XA.pick;XA.pick=function(s){_pk(s);show()};
 var _ds=doSend;doSend=async function(){var f=await fee(),n=NETWORKS[currentNet].symbol,b=parseFloat((T[n]||{}).bal)||0,a=parseFloat($("sendAmt").value)||0;
 if(f!=null){var need=XA.tok()?f:a+f;if(need>b)return sendMsg("Not enough "+n+". You need about "+need.toFixed(1)+" "+n+", including the network fee of about "+f.toFixed(1)+".")}
 return _ds.apply(this,arguments)};
+})();
+
+/* ===== Part 13: clear faucet messages + fee-free "Get 100 CPAY" (server pays the fee) ===== */
+(function(){
+var _d=FQ.draw;FQ.draw=function(){_d();var b=$("calcBox");if(currentNet==="shardeum-testnet")b.insertAdjacentHTML("afterbegin",'<button class="btn" style="margin-bottom:8px" onclick="FQ.air()">Get 100 CPAY (free, no fee)</button><div class="cap" style="margin-bottom:12px">Or claim on the blockchain below. That needs SHM for the network fee.</div>')};
+FQ.air=async function(){if(!addr){await connectWallet();if(!addr)return}toast("Sending…");
+try{var r=await fetch("/api/airdrop?address="+addr),d=await r.json();if(d.ok){toast("Sent: 100 CPAY");logTx("in","100","CPAY",d.hash);setTimeout(readCustomBalances,8000)}else toast(d.error||"Not possible now",4000)}catch(e){toast("Network problem. Try again.")}};
+var _c=FQ.claim;FQ.claim=async function(){var a=FQ.fa();if(/^0x[0-9a-fA-F]{40}$/.test(a)&&addr&&window.ethereum){try{
+var g=await ethereum.request({method:"eth_estimateGas",params:[{from:addr,to:a.toLowerCase(),data:"0x4e71d92d"}]}),gp=await ethereum.request({method:"eth_gasPrice"}),f=Number(BigInt(g)*BigInt(gp))/1e18,b=parseFloat(T.SHM.bal)||0;
+if(f>b)return toast("Not enough SHM for the fee. You need about "+f.toFixed(0)+" SHM, you have "+b.toFixed(0)+".",6000)}
+catch(e){var m=String(e&&(e.message||e));if(/come back later/i.test(m))return toast("You already claimed in the last 24 hours.",4000);if(/empty/i.test(m))return toast("The faucet is empty.",4000)}}
+return _c.apply(this,arguments)};
 })();

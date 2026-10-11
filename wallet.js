@@ -13,7 +13,9 @@ case"wallet_switchEthereumChain":case"wallet_addEthereumChain":if((p[0].chainId|
 case"eth_getBalance":return"0x"+(await prov().getBalance(p[0])).toString(16);
 case"eth_call":return await prov().call(p[0]);
 case"eth_blockNumber":return"0x"+(await prov().getBlockNumber()).toString(16);
-case"eth_sendTransaction":{var t=p[0],r=await W.connect(prov()).sendTransaction({to:t.to,data:t.data,value:t.value});return r.hash}
+case"eth_gasPrice":return await prov().send("eth_gasPrice",[]);
+case"eth_estimateGas":return"0x"+(await prov().estimateGas(p[0])).toString(16);
+case"eth_sendTransaction":{var t=p[0],pv=prov(),gp=await pv.send("eth_gasPrice",[]),r=await W.connect(pv).sendTransaction({to:t.to,data:t.data,value:t.value,type:0,gasPrice:gp});return r.hash}
 default:throw{code:-32601,message:"Not supported: "+m}}},
 on:function(){},removeListener:function(){}};
 function ks(){return localStorage.getItem(KS)}

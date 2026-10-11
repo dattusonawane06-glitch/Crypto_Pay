@@ -926,3 +926,15 @@ show:function(){sh(1);ask("Enter wallet PIN",function(p){busy("Checking…");CPW
 hide:function(){sh(0)}};
 var _cw=connectWallet;connectWallet=async function(){var e=window.ethereum;if(e&&e.isCpWallet){if(!CPW.has()){WS.open();return}if(!CPW.unlocked()){var ok=await WS.unlock();if(!ok)return}}return _cw.apply(this,arguments)};
 })();
+
+/* ===== Part 12: show the network fee, check balance before sending ===== */
+(function(){
+var m=$("sendMsg"),el=document.createElement("div");el.id="sendFee";el.className="cap";el.style.cssText="text-align:left;margin:-2px 2px 8px";if(m)m.parentNode.insertBefore(el,m);
+async function fee(){try{var g=await ethereum.request({method:"eth_gasPrice"});return Number(BigInt(g))*(XA.tok()?70000:21000)/1e18}catch(e){return null}}
+async function show(){var f=await fee(),s=NETWORKS[currentNet].symbol;el.textContent=f==null?"":"Network fee: about "+(f>=10?f.toFixed(0):f.toFixed(2))+" "+s+" (it can change)"}
+var _os=openSend;openSend=async function(){await _os.apply(this,arguments);show()};
+var _pk=XA.pick;XA.pick=function(s){_pk(s);show()};
+var _ds=doSend;doSend=async function(){var f=await fee(),n=NETWORKS[currentNet].symbol,b=parseFloat((T[n]||{}).bal)||0,a=parseFloat($("sendAmt").value)||0;
+if(f!=null){var need=XA.tok()?f:a+f;if(need>b)return sendMsg("Not enough "+n+". You need about "+need.toFixed(1)+" "+n+", including the network fee of about "+f.toFixed(1)+".")}
+return _ds.apply(this,arguments)};
+})();

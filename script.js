@@ -158,7 +158,7 @@ function buildList(){
   let html=order.map(k=>`<div class="row" onclick="XA.tap('${k}')"><div class="ic"><img src="${LOGOS[k]}" alt="${k}" onerror="this.parentElement.textContent='${k[0]}'"></div><div class="mid"><div class="sym">${k}</div><div class="sub" id="s-${k}">—</div></div><div class="rt"><div class="amt" id="b-${k}">0</div><div class="sub" id="v-${k}">—</div></div></div>`).join("");
   getCustoms().forEach((t,i)=>{
     if(order.indexOf(t.symbol)>-1)return;const id="ct"+i;
-    html+=`<div class="row" onclick="XA.tap('${t.symbol}')"><div class="ic">${t.symbol==="CPAY"?CPLOGO:(t.symbol||"T")[0]}</div><div class="mid"><div class="sym">${t.symbol||"TOKEN"}</div><div class="sub" id="s-${id}">Custom token</div></div><div class="rt"><div class="amt" id="b-${id}">…</div><div class="sub" id="v-${id}">on-chain</div></div></div>`;
+    html+=`<div class="row" onclick="XA.tap('${t.symbol}')"><div class="ic">${t.symbol==="CPAY"?CPLOGO:(t.symbol||"T")[0]}</div><div class="mid"><div class="sym">${t.symbol||"TOKEN"}</div><div class="sub" id="s-${id}">Custom token</div></div><div class="rt"><div class="amt" id="b-${id}">…</div><div class="sub" id="v-${id}">${t.symbol==="CPAY"?"test coin":"token"}</div></div></div>`;
   });
   $("list").innerHTML=html;
 }
@@ -176,7 +176,7 @@ function paint(){
   getCustoms().forEach((t,i)=>{
     const id="ct"+i,bal=t.bal!=null?parseFloat(t.bal):null;
     if($("b-"+id))$("b-"+id).textContent=hideBal?H:(bal!=null?fmt(bal):"—");
-    if($("s-"+id))$("s-"+id).textContent=(t.symbol||"TOKEN")+" · custom";
+    if($("s-"+id))$("s-"+id).textContent=t.symbol==="CPAY"?"CryptoPay Test token":(t.symbol||"TOKEN")+" · token";
   });
   $("total").textContent=hideBal?pfx()+H:pfx()+fmt(total);
   const live=Date.now()-lastOk<45000;
@@ -1021,4 +1021,14 @@ var _lt=logTx;logTx=function(t){if(t==="out"&&pend){var k=KN();k.push(pend);ls.s
 window.FB={open:function(){page(tx("Send feedback","फीडबैक भेजें"),'<textarea id="fbT" rows="5" placeholder="'+tx("What went wrong, or what would you like?","क्या दिक्कत आई, या आपको क्या चाहिए?")+'" style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--ln);background:var(--bg);color:inherit;font-size:15px"></textarea><p class="cap" style="text-align:left">'+tx("Never write your 12 words, PIN or keys here.","यहाँ अपने 12 शब्द, PIN या चाबी कभी मत लिखिए।")+'</p><button class="btn" onclick="FB.send()">'+tx("Copy and open X","कॉपी करें और X खोलें")+"</button>")},
 send:function(){var t=($("fbT").value||"").trim();if(!t)return toast(tx("Write something first","पहले कुछ लिखिए"));var r=t+"\n\n— CryptoPay v5 · "+NETWORKS[currentNet].name+" · "+lang;
 navigator.clipboard.writeText(r).then(function(){toast(tx("Copied. Paste it in a message to us on X.","कॉपी हो गया। X पर हमें संदेश में चिपकाइए।"),4500)});window.open("https://x.com/cryptopay_shm","_blank")}};
+})();
+
+/* ===== Part 19: friendly error messages ===== */
+(function(){
+var tx=function(e,h){return lang==="en"?e:h};
+function nice(m){m=String(m||"");if(/insufficient funds|INSUFFICIENT_FUNDS/i.test(m))return tx("Not enough coins to pay the network fee. Add a little more and try again.","नेटवर्क फ़ीस भरने के लिए सिक्के कम हैं। थोड़े और जोड़कर दोबारा कोशिश कीजिए।");
+if(/user rejected|ACTION_REJECTED|denied/i.test(m))return tx("You cancelled the transaction.","आपने लेनदेन रद्द कर दिया।");
+if(/network|timeout|fetch|SERVER_ERROR|could not coalesce/i.test(m)&&m.length>60)return tx("Network problem. Please try again in a moment.","नेटवर्क में दिक्कत है। थोड़ी देर बाद दोबारा कोशिश कीजिए।");
+if(m.length>140)return tx("Could not send. Please check the details and try again.","भेजा नहीं जा सका। जानकारी जाँचकर दोबारा कोशिश कीजिए।");return m}
+var _sm=sendMsg;sendMsg=function(t,ok){return _sm.call(this,ok?t:nice(t),ok)};
 })();

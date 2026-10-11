@@ -307,3 +307,10 @@ header{display:none}
 .wsw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.wsw span{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:10px;font-weight:700;text-align:left}.wsw i{color:var(--mut);font-style:normal;font-size:11px;margin-right:8px}
 
 .hq{border-bottom:1px solid var(--ln);text-align:left;padding:12px 2px}.hq summary{font-weight:700;cursor:pointer}.hq p{color:var(--mut);margin:8px 0 0;line-height:1.5}
+
+/* ===== Part 19: small polish ===== */
+.scroll{padding-bottom:34px}
+#total,.amt,.bal,#balMain{font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+nav.bn button{transition:color .15s,transform .12s}
+nav.bn button:active{transform:scale(.94)}
+.msg{word-break:break-word}

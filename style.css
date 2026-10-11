@@ -303,3 +303,5 @@ header{display:none}
 .top{gap:8px;flex-wrap:nowrap}.top .chip{margin-left:auto;padding:7px 12px;font-size:12px;white-space:nowrap}
 .txbox{display:none!important}
 .xnh{text-align:left;color:var(--mut);font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin:16px 4px 4px}
+
+.wsw{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.wsw span{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:10px;font-weight:700;text-align:left}.wsw i{color:var(--mut);font-style:normal;font-size:11px;margin-right:8px}

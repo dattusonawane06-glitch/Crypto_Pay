@@ -779,7 +779,7 @@ openTools=function(){render("");$("sheetSvc").classList.add("open")};
 /* ===== Part 4: assets (CPAY), token send, scan icon, scrolling home ===== */
 (function(){
 var DEF={addr:"0xeB24350E1117083d27ab0fef346D2d25f03E380a",symbol:"CPAY",chain:"shardeum-testnet",decimals:18};
-var CPL='<svg viewBox="0 0 512 512"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg>';
+var CPL='<svg viewBox="44 44 424 424"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg>';
 window.CPLOGO=CPL;
 var _g=getCustoms;getCustoms=function(){var l=_g();if(!l.some(function(x){return x.addr.toLowerCase()===DEF.addr.toLowerCase()}))l.unshift(Object.assign({},DEF));return l.filter(function(x){return!x.chain||x.chain===currentNet})};
 var XA=window.XA={sel:null},nat=function(){return NETWORKS[currentNet].symbol};

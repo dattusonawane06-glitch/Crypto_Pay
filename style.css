@@ -314,3 +314,6 @@ header{display:none}
 nav.bn button{transition:color .15s,transform .12s}
 nav.bn button:active{transform:scale(.94)}
 .msg{word-break:break-word}
+
+/* ===== Part 20: square QR scanner ===== */
+#scanVid{width:min(100%,300px);aspect-ratio:1/1;height:auto;max-height:none;margin:0 auto 12px;object-fit:cover;border-radius:18px;border:3px solid var(--y);box-shadow:0 0 0 4px rgba(59,123,255,.18),0 10px 30px rgba(0,0,0,.4)}

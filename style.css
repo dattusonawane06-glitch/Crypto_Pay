@@ -389,3 +389,13 @@ html[data-theme=dark] body,html:not([data-theme]) body{background:radial-gradien
 html[data-theme=light] body{background:linear-gradient(180deg,#DDE5F2,#CBD6EA)!important}
 html body .app{height:calc(100dvh - 32px)!important;margin:16px auto!important;border-radius:30px;box-shadow:0 24px 70px rgba(0,0,0,.45);border:1px solid var(--ln)}
 }
+
+/* ===== Part 23: flat list like Phantom (no card, no lines), roomier rows ===== */
+html body #list{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin-top:4px}
+html body .row+.row::before{display:none!important}
+html body .row{padding:13px 2px!important}
+html body .ic{width:50px!important;height:50px!important}
+html body .sym{font-size:17px!important}
+html body .sub{font-size:13px!important}
+html body .amt{font-size:17px!important}
+html body .mid{margin-left:2px}

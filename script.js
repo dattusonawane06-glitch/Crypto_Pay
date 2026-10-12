@@ -1063,7 +1063,7 @@ p:{t:["Privacy policy","गोपनीयता नीति"],s:[
 ["What we collect","हम क्या इकट्ठा करते हैं","Nothing about you personally. CryptoPay has no accounts. We do not ask for your name, phone number or email.","आपके बारे में कुछ भी निजी नहीं। CryptoPay में कोई खाता नहीं बनता। हम आपका नाम, फ़ोन नंबर या ईमेल नहीं माँगते।"],
 ["Your wallet","आपका वॉलेट","Your wallet key is created on your phone and locked with your PIN. It is never sent to us. Your 12 words are shown only on your own screen.","आपके वॉलेट की चाबी आपके फ़ोन में बनती है और PIN से बंद रहती है। वह हमें कभी नहीं भेजी जाती। 12 शब्द सिर्फ़ आपकी अपनी स्क्रीन पर दिखते हैं।"],
 ["What the app contacts","ऐप किससे जुड़ता है","To work, the app talks to blockchain network nodes (to read balances and send transactions), price sources (through our server) and our hosting provider. These services may see your IP address and the public address you use. We do not sell any data.","चलने के लिए ऐप ब्लॉकचेन नेटवर्क के नोड (बैलेंस पढ़ने और लेनदेन भेजने के लिए), कीमत के स्रोत (हमारे सर्वर से) और हमारे होस्टिंग प्रदाता से जुड़ता है। ये सेवाएँ आपका IP पता और आपका सार्वजनिक पता देख सकती हैं। हम कोई जानकारी बेचते नहीं।"],
-["Stored on your phone","आपके फ़ोन में क्या रहता है","Your encrypted wallet, settings, history and contacts stay on your phone. Clearing browser data removes them. Only your 12 words can bring the wallet back.","आपका एन्क्रिप्टेड वॉलेट, सेटिंग, इतिहास और संपर्क आपके फ़ोन में रहते हैं। ब्राउज़र का डेटा साफ़ करने पर ये हट जाते हैं। वॉलेट सिर्फ़ 12 शब्दों से वापस आता है।"],
+["Voice input","आवाज़ से भरना","If you use the microphone button, your browser's speech service (for example Google in Chrome) hears your voice and turns it into text. CryptoPay does not record or store your voice.","माइक का बटन इस्तेमाल करने पर आपके ब्राउज़र की आवाज़-पहचान सेवा (जैसे Chrome में Google) आपकी आवाज़ सुनकर उसे लिखित में बदलती है। CryptoPay आपकी आवाज़ रिकॉर्ड या सेव नहीं करता।"],["Stored on your phone","आपके फ़ोन में क्या रहता है","Your encrypted wallet, settings, history and contacts stay on your phone. Clearing browser data removes them. Only your 12 words can bring the wallet back.","आपका एन्क्रिप्टेड वॉलेट, सेटिंग, इतिहास और संपर्क आपके फ़ोन में रहते हैं। ब्राउज़र का डेटा साफ़ करने पर ये हट जाते हैं। वॉलेट सिर्फ़ 12 शब्दों से वापस आता है।"],
 ["Changes and contact","बदलाव और संपर्क","If this changes, we will update this page. You can message us on X.","इसमें बदलाव हुआ तो हम यह पेज बदल देंगे। आप हमें X पर संदेश भेज सकते हैं।"]]},
 t:{t:["Terms of use","उपयोग की शर्तें"],s:[
 ["This is a test version","यह टेस्ट वर्शन है","CryptoPay is an early test version on a test network. Test coins like CPAY have no money value.","CryptoPay एक शुरुआती टेस्ट वर्शन है जो टेस्ट नेटवर्क पर चलता है। CPAY जैसे टेस्ट सिक्कों की कोई कीमत नहीं।"],
@@ -1075,4 +1075,49 @@ t:{t:["Terms of use","उपयोग की शर्तें"],s:[
 window.LG={open:function(k){var d=D[k],h="";d.s.forEach(function(x){h+='<div class="xt-o" style="text-align:left"><b>'+tx(x[0],x[1])+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.55">'+tx(x[2],x[3])+"</div></div>"});
 h+='<p class="cap" style="text-align:left">'+tx("Last updated: 12 Oct 2026","अंतिम बदलाव: 12 अक्टूबर 2026")+"</p>";
 $("toolOut").textContent="";$("toolsTitle").textContent=tx(d.t[0],d.t[1]);var b=$("calcBox");b.style.display="block";$("sheetTools").classList.add("open");b.innerHTML=h}};
+})();
+
+/* ===== Part 25: speak to fill the Send form (Hindi / English) ===== */
+(function(){
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+var tx=function(e,h){return lang==="en"?e:h};
+var H=("एक 1,दो 2,तीन 3,चार 4,पाँच 5,पांच 5,छह 6,छः 6,छे 6,सात 7,आठ 8,नौ 9,दस 10,ग्यारह 11,बारह 12,तेरह 13,चौदह 14,पंद्रह 15,पन्द्रह 15,सोलह 16,सत्रह 17,अठारह 18,उन्नीस 19,बीस 20,इक्कीस 21,बाईस 22,तेईस 23,चौबीस 24,पच्चीस 25,छब्बीस 26,सत्ताईस 27,अट्ठाईस 28,उनतीस 29,तीस 30,इकतीस 31,बत्तीस 32,तैंतीस 33,चौंतीस 34,पैंतीस 35,छत्तीस 36,सैंतीस 37,अड़तीस 38,उनतालीस 39,चालीस 40,इकतालीस 41,बयालीस 42,तैंतालीस 43,चौवालीस 44,पैंतालीस 45,छियालीस 46,सैंतालीस 47,अड़तालीस 48,उनचास 49,पचास 50,इक्यावन 51,बावन 52,तिरपन 53,चौवन 54,पचपन 55,छप्पन 56,सत्तावन 57,अट्ठावन 58,उनसठ 59,साठ 60,इकसठ 61,बासठ 62,तिरसठ 63,चौंसठ 64,पैंसठ 65,छियासठ 66,सड़सठ 67,अड़सठ 68,उनहत्तर 69,सत्तर 70,इकहत्तर 71,बहत्तर 72,तिहत्तर 73,चौहत्तर 74,पचहत्तर 75,छिहत्तर 76,सतहत्तर 77,अठहत्तर 78,उन्यासी 79,अस्सी 80,इक्यासी 81,बयासी 82,तिरासी 83,चौरासी 84,पचासी 85,छियासी 86,सत्तासी 87,अट्ठासी 88,नवासी 89,नब्बे 90,इक्यानवे 91,बानवे 92,तिरानवे 93,चौरानवे 94,पचानवे 95,छियानवे 96,सत्तानवे 97,अट्ठानवे 98,निन्यानवे 99,सौ 100,हज़ार 1000,हजार 1000,लाख 100000,डेढ़ 1.5,ढाई 2.5,"+
+"one 1,two 2,three 3,four 4,five 5,six 6,seven 7,eight 8,nine 9,ten 10,eleven 11,twelve 12,fifteen 15,twenty 20,thirty 30,forty 40,fifty 50,sixty 60,seventy 70,eighty 80,ninety 90,hundred 100,thousand 1000").split(",").reduce(function(o,x){var p=x.split(" ");o[p[0]]=parseFloat(p[1]);return o},{});
+var SYM={CPAY:["cpay","c pay","सीपे","सी पे","सीपाय","सीपीएवाई","सी पी ए वाई","क्रिप्टोपे"],SHM:["shm","एसएचएम","एस एच एम","शम","शार्डियम","शर्डियम","shardeum"],ETH:["eth","ईथर","ईथरियम","ethereum","ether","ईटीएच"],BNB:["bnb","बीएनबी","बी एन बी","बाइनेंस","बिनेंस"],USDT:["usdt","यूएसडीटी","यू एस डी टी","टेदर","tether"],USDC:["usdc","यूएसडीसी"],BTC:["btc","बिटकॉइन","बिटकोइन","bitcoin","बीटीसी"],DOGE:["doge","डोज","डॉज","dogecoin"],SHIB:["shib","शिबा","शीबा","shiba"],DAI:["dai","डाई"],LINK:["link","लिंक","चेनलिंक"],XRP:["xrp","एक्सआरपी"],PEPE:["pepe","पेपे"],CAKE:["cake","केक"]};
+function norm(s){return String(s||"").toLowerCase().replace(/[०-९]/g,function(d){return"०१२३४५६७८९".indexOf(d)}).replace(/(\d),(\d)/g,"$1$2").replace(/[।,!?.]+(?!\d)/g," ").replace(/\s+/g," ").trim()}
+function amount(s){var m=s.match(/\d+(?:\.\d+)?/);if(m)return parseFloat(m[0]);
+s=s.replace(/(भेज|कर|दे|पे|ट्रांसफर|send|pay)\s+दो/g,"$1 ");var t=s.split(" "),total=0,cur=0,found=false;
+t.forEach(function(w){if(!H.hasOwnProperty(w))return;var v=H[w];found=true;if(v===100){cur=(cur||1)*100}else if(v===1000||v===100000){total+=(cur||1)*v;cur=0}else if(v===1.5||v===2.5){cur=v}else cur+=v});return found?total+cur:null}
+function symbol(s){var best=null,pos=1e9;Object.keys(SYM).forEach(function(k){SYM[k].forEach(function(a){var i=s.indexOf(a);if(i>=0&&i<pos){pos=i;best=k}})});return best}
+var DV={"क":"k","ख":"k","ग":"g","घ":"g","ङ":"n","च":"c","छ":"c","ज":"j","झ":"j","ञ":"n","ट":"t","ठ":"t","ड":"d","ढ":"d","ण":"n","त":"t","थ":"t","द":"d","ध":"d","न":"n","प":"p","फ":"p","ब":"b","भ":"b","म":"m","य":"","र":"r","ल":"l","व":"v","श":"s","ष":"s","स":"s","ह":"","ं":"n","ँ":"n","ज़":"j","फ़":"p","क़":"k","ख़":"k","ग़":"g","ड़":"d","ढ़":"d"};
+function skel(t){t=String(t||"").toLowerCase().replace(/(sh|ch|kh|gh|th|dh|bh|ph|jh)/g,function(m){return m[0]}).replace(/f/g,"p").replace(/z/g,"j").replace(/q/g,"k").replace(/w/g,"v").replace(/x/g,"ks");
+var o="";for(var i=0;i<t.length;i++){var c=t[i];if(DV.hasOwnProperty(c))o+=DV[c];else if(/[bcdgjklmnprstv]/.test(c))o+=c}return o.replace(/(.)\1+/g,"$1")}
+function contact(s){var best=null,len=0,cs=(window.contacts||contacts||[]);cs.forEach(function(c){var n=norm(c.n);if(n&&s.indexOf(n)>=0&&n.length>len){best=c;len=n.length}});if(best)return best;
+var toks=s.split(" ");cs.forEach(function(c){var k=skel(c.n);if(k.length<2)return;for(var i=0;i<toks.length;i++){if(skel(toks[i])===k||(toks[i+1]&&skel(toks[i]+toks[i+1])===k)){if(k.length>len){best=c;len=k.length}}}});return best}
+function where(sym){if(sym===NETWORKS[currentNet].symbol)return{net:currentNet,sym:sym};if((DEFTOK[currentNet]||[]).some(function(t){return t.symbol===sym}))return{net:currentNet,sym:sym};
+var ks=Object.keys(NETWORKS);for(var i=0;i<ks.length;i++){var k=ks[i];if(NETWORKS[k].symbol===sym||(DEFTOK[k]||[]).some(function(t){return t.symbol===sym}))return{net:k,sym:sym}}return null}
+function parse(raw){var s=norm(raw);var bal=/(बैलेंस|balance|कितने पैसे|कितना पैसा)/.test(s)&&!/(भेज|send|pay|ट्रांसफर)/.test(s);
+return{text:s,amount:amount(s),sym:symbol(s),contact:contact(s),balance:bal}}
+function apply(r){var m=[];
+if(r.sym){var w=where(r.sym);if(w){XA.pickN(w.net,w.sym)}else m.push(tx("That coin is not in the list.","यह सिक्का सूची में नहीं है।"))}
+if(r.contact)$("sendTo").value=r.contact.a;if(r.amount!=null)$("sendAmt").value=r.amount;
+var unit=($("sendUnit")&&$("sendUnit").textContent)||"";
+if(r.amount==null)m.push(tx("I could not hear the amount.","रकम सुनाई नहीं दी।"));
+if(!r.contact&&!/^0x[0-9a-fA-F]{40}$/.test($("sendTo").value.trim()))m.push(tx("Who to send to? Pick a saved contact, paste the address or scan the QR.","किसे भेजना है? सेव किया संपर्क चुनिए, पता चिपकाइए या QR स्कैन कीजिए।"));
+var line=(r.amount!=null?r.amount+" "+unit:"")+(r.contact?" → "+r.contact.n:"");
+sendMsg((line?tx("Heard: ","सुना: ")+line+". ":"")+(m.length?m.join(" "):tx("Please check everything, then press Send.","सब जाँचकर Send दबाइए।")),!m.length)}
+function say(t){try{var u=new SpeechSynthesisUtterance(t);u.lang=lang==="en"?"en-IN":"hi-IN";speechSynthesis.speak(u)}catch(e){}}
+var rec=null;
+window.VC={parse:parse,apply:apply,
+start:function(){var b=$("micBtn");if(!SR)return toast(tx("Voice is not supported in this browser","इस ब्राउज़र में आवाज़ नहीं चलती"));
+if(rec){try{rec.stop()}catch(e){}return}
+if(!ls.get("voice_ok",0)){if(!confirm(tx("Voice input uses your browser's speech service (for example Google in Chrome) to turn your voice into text. CryptoPay does not record your voice. Continue?","आवाज़ से भरने के लिए आपके ब्राउज़र की आवाज़-पहचान सेवा (जैसे Chrome में Google) आपकी आवाज़ को लिखित में बदलती है। CryptoPay आपकी आवाज़ रिकॉर्ड नहीं करता। आगे बढ़ें?")))return;ls.set("voice_ok",1)}
+rec=new SR();rec.lang=lang==="en"?"en-IN":"hi-IN";rec.interimResults=false;rec.maxAlternatives=3;
+b.classList.add("on");b.textContent=tx("Listening… tap to stop","सुन रहा हूँ… रोकने के लिए दबाइए");
+rec.onresult=function(e){var alts=[].map.call(e.results[0],function(a){return a.transcript}),best=null;for(var i=0;i<alts.length;i++){var r=parse(alts[i]);if(r.balance){toast(tx("Balance: ","बैलेंस: ")+$("total").textContent,5000);say(tx("Your balance is ","आपका बैलेंस ")+$("total").textContent);return}if(!best||(best.amount==null&&r.amount!=null))best=r}apply(best)};
+rec.onerror=function(e){var m=e.error==="not-allowed"?tx("Microphone permission needed","माइक की अनुमति चाहिए"):e.error==="no-speech"?tx("Nothing heard. Try again.","कुछ सुनाई नहीं दिया। दोबारा बोलिए।"):e.error==="network"?tx("Internet is needed for voice","आवाज़ के लिए इंटरनेट चाहिए"):tx("Could not listen. Try again.","सुन नहीं सका। दोबारा कोशिश कीजिए।");toast(m,4000)};
+rec.onend=function(){rec=null;b.classList.remove("on");b.textContent=tx("🎙 Speak to fill","🎙 बोलकर भरें")};
+try{rec.start()}catch(e){rec=null;b.classList.remove("on")}}};
+function mount(){if(!SR||$("micBtn"))return;var t=$("sendTo");if(!t)return;t.parentNode.insertAdjacentHTML("beforebegin",'<button class="btn ghost" id="micBtn" onclick="VC.start()">'+tx("🎙 Speak to fill","🎙 बोलकर भरें")+'</button><div class="cap" id="micHint" style="margin:8px 0 12px;text-align:center">'+tx("Say: 10 CPAY to Ramesh","बोलिए: 10 CPAY रमेश को भेजो")+"</div>")}
+mount();var _os=openSend;openSend=async function(){await _os.apply(this,arguments);mount();var b=$("micBtn");if(b&&!rec)b.textContent=tx("🎙 Speak to fill","🎙 बोलकर भरें");var h=$("micHint");if(h)h.textContent=tx("Say: 10 CPAY to Ramesh","बोलिए: 10 CPAY रमेश को भेजो")};
 })();

@@ -415,3 +415,12 @@ html body nav.bn .a i svg{filter:drop-shadow(0 0 6px rgba(77,134,255,.75))}
 
 /* Part 31: three social icons in a row */
 .xw{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+
+/* Part 32: hidden 12 words, real-money banner */
+.wsv{position:relative}
+.wsv .wsw{transition:filter .25s}
+.wsv.veiled .wsw{filter:blur(13px);pointer-events:none}
+.wsv .vl{position:absolute;inset:0;display:none;align-items:center;justify-content:center}
+.wsv.veiled .vl{display:flex}
+.wsw,.wsw *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.risk.real{border-color:rgba(255,90,90,.75);background:rgba(255,60,60,.14);color:#ffb3b3;font-weight:700}

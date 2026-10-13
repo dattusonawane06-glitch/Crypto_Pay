@@ -6,6 +6,12 @@ function prov(){return new E.JsonRpcProvider(RPC,8119,{staticNetwork:true})}
 var P={isCpWallet:true,
 request:async function(a){var m=a.method,p=a.params||[];
 if(m==="eth_chainId")return CHAIN;
+switch(m){
+case"eth_getBalance":return"0x"+(await prov().getBalance(p[0])).toString(16);
+case"eth_call":return await prov().call(p[0]);
+case"eth_blockNumber":return"0x"+(await prov().getBlockNumber()).toString(16);
+case"eth_gasPrice":return await prov().send("eth_gasPrice",[]);
+case"eth_estimateGas":return"0x"+(await prov().estimateGas(p[0])).toString(16)}
 if(!W)throw{code:4100,message:"Wallet is locked"};
 switch(m){
 case"eth_requestAccounts":case"eth_accounts":return[W.address];
@@ -25,6 +31,7 @@ create:async function(pin){var w=E.Wallet.createRandom();localStorage.setItem(KS
 imp:async function(phrase,pin){var w=E.Wallet.fromPhrase(String(phrase).trim().toLowerCase().replace(/\s+/g," "));localStorage.setItem(KS,await w.encrypt(pin));W=w},
 unlock:async function(pin){W=await E.Wallet.fromEncryptedJson(ks(),pin)},
 phrase:async function(pin){var w=await E.Wallet.fromEncryptedJson(ks(),pin);return w.mnemonic?w.mnemonic.phrase:""},
+unlockKs:async function(js,pw,expect){var x=await E.Wallet.fromEncryptedJson(js,pw);if(expect&&x.address.toLowerCase()!==String(expect).toLowerCase())throw new Error("wrong wallet");W=x},
 lock:function(){W=null},remove:function(){localStorage.removeItem(KS);W=null}};
 if(!window.ethereum)window.ethereum=P;
 })();

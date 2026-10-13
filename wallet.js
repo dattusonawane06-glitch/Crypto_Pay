@@ -11,7 +11,8 @@ case"eth_getBalance":return"0x"+(await prov().getBalance(p[0])).toString(16);
 case"eth_call":return await prov().call(p[0]);
 case"eth_blockNumber":return"0x"+(await prov().getBlockNumber()).toString(16);
 case"eth_gasPrice":return await prov().send("eth_gasPrice",[]);
-case"eth_estimateGas":return"0x"+(await prov().estimateGas(p[0])).toString(16)}
+case"eth_estimateGas":return"0x"+(await prov().estimateGas(p[0])).toString(16);
+case"eth_requestAccounts":case"eth_accounts":{var ad=window.CPW.address();if(ad)return[ad];break}}
 if(!W)throw{code:4100,message:"Wallet is locked"};
 switch(m){
 case"eth_requestAccounts":case"eth_accounts":return[W.address];

@@ -717,7 +717,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 5 · Build 32 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 32 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 5 · Build 34 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 34 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#0A0F1A;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><svg viewBox="0 0 512 512" style="width:84px;height:84px"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg></div><b style="font-size:20px">CryptoPay</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 CryptoPay</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -1176,7 +1176,7 @@ put('button[onclick^="homeScan"] svg','scan');put('.addtok svg','plus');
 /* ===== Part 29: Address Book opens above the Services page ===== */
 (function(){var _ob=openBook;openBook=function(){var s=$("sheetSvc");if(s)s.classList.remove("open");return _ob.apply(this,arguments)}})();
 
-/* ===== Part 32: recovery-phrase protection, PIN attempt limit, wallet auto-lock, fingerprint unlock, safer sending ===== */
+/* ===== Part 33 (built on Part 32): recovery-phrase protection, PIN attempt limit, wallet auto-lock, fingerprint unlock, safer sending ===== */
 (function(){
 "use strict";
 if(!window.CPW||!window.WS||!window.ethers)return;
@@ -1234,27 +1234,29 @@ WSX.chk=function(){var w=(WSX.cur||"").split(" "),a=WSX.q[0],b=WSX.q[1],x=($("ws
 WS.show=function(){bSh(1);guarded(tx("Enter wallet PIN","वॉलेट PIN डालिए"),function(p){return CPW.phrase(p)},function(ph){bT(tx("Your 12 words","आपके 12 शब्द"));bB(RISK()+wordsHTML(ph)+'<button class="btn ghost" onclick="WS.hide()">'+tx("Done","हो गया")+'</button>')})};
 
 /* ---------- fingerprint (WebAuthn + PRF). The PIN always keeps working. ---------- */
-var BKS="cp3_bio_ks",BID="cp3_bio_id",enc=new TextEncoder(),SALT=enc.encode("CryptoPay bio unlock v1 / wallet key");
+var BKS="cp3_bio_ks",BID="cp3_bio_id",BMD="cp3_bio_mode",enc=new TextEncoder(),SALT=enc.encode("CryptoPay bio unlock v1 / wallet key");
 function b64u(b){var s="";new Uint8Array(b).forEach(function(c){s+=String.fromCharCode(c)});return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
 function unb64u(s){s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";var r=atob(s),u=new Uint8Array(r.length);for(var i=0;i<r.length;i++)u[i]=r.charCodeAt(i);return u}
 function hex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return("0"+x.toString(16)).slice(-2)}).join("")}
 var BIO=window.BIO={_p:null,
-  on:function(){try{return!!(localStorage.getItem(BKS)&&localStorage.getItem(BID))}catch(e){return false}},
+  on:function(){try{return!!localStorage.getItem(BID)&&(!!localStorage.getItem(BKS)||localStorage.getItem(BMD)==="gate")}catch(e){return false}},
+  full:function(){try{return!!(localStorage.getItem(BID)&&localStorage.getItem(BKS))}catch(e){return false}},
   ok:async function(){try{return!!(window.PublicKeyCredential&&navigator.credentials&&window.isSecureContext&&await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable())}catch(e){return false}},
   prf:async function(id){var a=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rpId:location.hostname,allowCredentials:[{type:"public-key",id:unb64u(id)}],userVerification:"required",timeout:60000,extensions:{prf:{eval:{first:SALT}}}}});
     var r=a&&a.getClientExtensionResults&&a.getClientExtensionResults().prf;if(!r||!r.results||!r.results.first)throw new Error("prf unsupported");return hex(r.results.first)},
+  /* "full": fingerprint also unlocks the wallet key. "gate": fingerprint only opens the app screen (the wallet PIN is still asked when sending). */
   enable:async function(mnemonic){
     var cred=await navigator.credentials.create({publicKey:{rp:{name:"CryptoPay",id:location.hostname},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:"cryptopay-wallet",displayName:"CryptoPay wallet"},challenge:crypto.getRandomValues(new Uint8Array(32)),pubKeyCredParams:[{type:"public-key",alg:-7},{type:"public-key",alg:-257}],authenticatorSelection:{authenticatorAttachment:"platform",userVerification:"required",residentKey:"discouraged"},timeout:60000,attestation:"none",extensions:{prf:{}}}});
-    var ext=cred.getClientExtensionResults?cred.getClientExtensionResults():{};
-    if(!(ext.prf&&ext.prf.enabled))throw new Error("prf unsupported");
-    var id=b64u(cred.rawId),secret=await BIO.prf(id),w=E.Wallet.fromPhrase(mnemonic);
-    var js=await E.encryptKeystoreJson({address:w.address,privateKey:w.privateKey},secret,{scrypt:{N:16384}});
-    localStorage.setItem(BID,id);localStorage.setItem(BKS,js)},
+    var id=b64u(cred.rawId),ext=cred.getClientExtensionResults?cred.getClientExtensionResults():{};
+    if(ext.prf&&ext.prf.enabled){try{var secret=await BIO.prf(id),w=E.Wallet.fromPhrase(mnemonic),js=await E.encryptKeystoreJson({address:w.address,privateKey:w.privateKey},secret,{scrypt:{N:16384}});localStorage.setItem(BID,id);localStorage.setItem(BKS,js);localStorage.removeItem(BMD);return"full"}catch(e){}}
+    localStorage.setItem(BID,id);localStorage.removeItem(BKS);localStorage.setItem(BMD,"gate");return"gate"},
   unlock:function(){
     if(BIO._p)return BIO._p;
-    BIO._p=(async function(){var id=localStorage.getItem(BID),ks=localStorage.getItem(BKS);if(!id||!ks)throw new Error("not enabled");var secret=await BIO.prf(id);await CPW.unlockKs(ks,secret,CPW.address())})().then(function(){BIO._p=null},function(e){BIO._p=null;throw e});
+    BIO._p=(async function(){var id=localStorage.getItem(BID);if(!id)throw new Error("not enabled");
+      if(BIO.full()){var secret=await BIO.prf(id);await CPW.unlockKs(localStorage.getItem(BKS),secret,CPW.address());return}
+      await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rpId:location.hostname,allowCredentials:[{type:"public-key",id:unb64u(id)}],userVerification:"required",timeout:60000}})})().then(function(){BIO._p=null},function(e){BIO._p=null;throw e});
     return BIO._p},
-  off:function(){try{localStorage.removeItem(BKS);localStorage.removeItem(BID)}catch(e){}}
+  off:function(){["cp3_bio_ks","cp3_bio_id","cp3_bio_mode"].forEach(function(k){try{localStorage.removeItem(k)}catch(e){}})}
 };
 ["create","imp","remove"].forEach(function(k){var f=CPW[k];CPW[k]=function(){BIO.off();return f.apply(this,arguments)}});
 
@@ -1262,26 +1264,28 @@ var BIO=window.BIO={_p:null,
 WS.unlock=function(){return new Promise(function(res){
   bSh(1);
   function pin(){guarded(tx("Enter wallet PIN","वॉलेट PIN डालिए"),function(p){return CPW.unlock(p)},function(){bSh(0);res(true)});
-    setTimeout(function(){if(!BIO.on()||!$("wsPin")||$("wsBio"))return;var b=document.createElement("button");b.className="btn ghost";b.id="wsBio";b.textContent=tx("Use fingerprint","फिंगरप्रिंट इस्तेमाल करें");b.onclick=bio;$("wsBody").appendChild(b)},30)}
+    window.__wsBio=bio}
   function bio(){BIO.unlock().then(function(){bSh(0);res(true)},function(){toast(tx("Fingerprint did not work. Use your PIN.","फिंगरप्रिंट नहीं चला। PIN डालिए।"),4000);pin()})}
-  if(BIO.on())bio();else pin();
+  if(BIO.full())bio();else pin();
 })};
 
 /* ---------- fingerprint on/off in Settings > Security ---------- */
 window.BIOUI={toggle:async function(){
-  if(BIO.on()){if(confirm(tx("Turn off fingerprint unlock?","फिंगरप्रिंट से खोलना बंद करें?"))){BIO.off();toast(tx("Fingerprint unlock is off","फिंगरप्रिंट से खोलना बंद"));SB.r()}return}
+  if(BIO.on()){if(confirm(tx("Turn off fingerprint?","फिंगरप्रिंट बंद करें?"))){BIO.off();toast(tx("Fingerprint is off","फिंगरप्रिंट बंद"));SB.r()}return}
   if(!await BIO.ok()){toast(tx("Fingerprint is not available on this phone or browser. Please use your PIN.","इस फ़ोन या ब्राउज़र में फिंगरप्रिंट उपलब्ध नहीं है। कृपया PIN इस्तेमाल करें।"),5500);return}
-  bSh(1);guarded(tx("Enter wallet PIN","वॉलेट PIN डालिए"),function(p){return CPW.phrase(p)},function(m){
+  bSh(1);guarded(tx("Enter wallet PIN","वॉलेट PIN डालिए"),function(p){return CPW.phrase(p)},function(mn){
     busy(tx("Touch your fingerprint sensor…","फिंगरप्रिंट सेंसर पर उँगली रखिए…"));
-    BIO.enable(m).then(function(){bSh(0);toast(tx("Fingerprint unlock is on","फिंगरप्रिंट से खोलना चालू"),4000);SB.r()},function(e){bSh(0);toast(/prf/.test(e&&e.message||"")?tx("This phone or browser cannot do secure fingerprint unlock yet. Your PIN still works.","यह फ़ोन या ब्राउज़र अभी सुरक्षित फिंगरप्रिंट नहीं कर सकता। PIN चलता रहेगा।"):tx("Fingerprint was cancelled. Your PIN still works.","फिंगरप्रिंट रद्द हुआ। PIN चलता रहेगा।"),5500)})});
+    BIO.enable(mn).then(function(mode){bSh(0);var pinOn=!!(window.ls&&ls.get("xt_pin",""));
+      toast(mode==="full"?tx("Fingerprint unlock is on","फिंगरप्रिंट से खोलना चालू"):(pinOn?tx("Fingerprint is on. It opens the app. Sending still asks for your wallet PIN.","फिंगरप्रिंट चालू। यह ऐप खोलेगा। भेजते समय वॉलेट PIN फिर भी माँगेगा।"):tx("Fingerprint is on. Now turn on PIN lock below, so the app has a lock to open.","फिंगरप्रिंट चालू। अब नीचे PIN lock चालू कीजिए, ताकि ऐप में खोलने के लिए लॉक रहे।")),8000);SB.r()},
+    function(e){bSh(0);toast(tx("Fingerprint was cancelled. Your PIN still works.","फिंगरप्रिंट रद्द हुआ। PIN चलता रहेगा।"),5500)})});
 }};
 var _sbr=SB.r;SB.r=function(){_sbr.apply(this,arguments);try{
   if($("stt").textContent==="Security"&&window.CPW&&CPW.has()&&!$("bioRow")){
-    $("sbody").insertAdjacentHTML("afterbegin",'<div class="sr" id="bioRow" onclick="BIOUI.toggle()"><span class="sl">'+tx("Unlock with fingerprint","फिंगरप्रिंट से खोलें")+' <small style="opacity:.7">(beta)</small></span><span class="sw'+(BIO.on()?" on":"")+'"></span></div>')}}catch(e){}};
+    $("sbody").insertAdjacentHTML("afterbegin",'<div class="sr" id="bioRow" onclick="BIOUI.toggle()"><span class="sl">'+(BIO.on()&&!BIO.full()?tx("Open app with fingerprint","फिंगरप्रिंट से ऐप खोलें"):tx("Unlock with fingerprint","फिंगरप्रिंट से खोलें"))+' <small style="opacity:.7">(beta)</small></span><span class="sw'+(BIO.on()?" on":"")+'"></span></div>')}}catch(e){}};
 /* fingerprint on the app lock screen too: one touch opens the app and the wallet */
 (function(){var lk=$("xtLock");if(!lk)return;var auto=false;
   var b=document.createElement("button");b.id="xtBio";b.className="btn ghost";b.style.cssText="display:none;width:200px;margin-top:8px";b.onclick=function(){BIO.unlock().then(function(){lk.style.display="none";document.dispatchEvent(new Event("click"))},function(){toast(tx("Fingerprint did not work. Use your PIN.","फिंगरप्रिंट नहीं चला। PIN डालिए।"),4000)})};lk.appendChild(b);
-  new MutationObserver(function(){if(lk.style.display==="flex"){b.textContent=tx("Use fingerprint","फिंगरप्रिंट इस्तेमाल करें");b.style.display=BIO.on()?"":"none";if(BIO.on()&&!auto){auto=true;try{b.onclick()}catch(e){}}}else auto=false}).observe(lk,{attributes:true,attributeFilter:["style"]});
+  new MutationObserver(function(){if(lk.style.display==="flex"){b.textContent=tx("Use fingerprint","फिंगरप्रिंट इस्तेमाल करें");b.style.display="none";if(BIO.on()&&!auto){auto=true;try{b.onclick()}catch(e){}}}else auto=false}).observe(lk,{attributes:true,attributeFilter:["style"]});
 })();
 
 /* ---------- wallet locks itself: after 60 s in the background or 5 minutes idle ---------- */
@@ -1303,4 +1307,40 @@ function realBanner(){var r=document.querySelector("#sheetSend .risk"),n=NETWORK
   if(currentNet!=="shardeum-testnet"){r.textContent=tx("REAL MONEY on "+n.name+". Check the address and amount in your wallet before you confirm. Sent coins cannot be returned. This app is still a test version.","असली पैसा: "+n.name+"। Confirm करने से पहले अपने वॉलेट में पता और रकम जाँचिए। भेजे गए सिक्के वापस नहीं आते। यह ऐप अभी टेस्ट वर्शन है।");r.classList.add("real")}else r.classList.remove("real")}
 var _os32=openSend;openSend=async function(){await _os32.apply(this,arguments);realBanner()};
 if(window.XA&&XA.pick){var _pk32=XA.pick;XA.pick=function(){_pk32.apply(this,arguments);realBanner()}}
+
+/* ---------- no wallet PIN at app start; it is asked when you send ---------- */
+var lazy=false,_un33=WS.unlock;WS.unlock=function(){if(lazy)return Promise.resolve(true);return _un33.apply(this,arguments)};
+var _c33=connectWallet;connectWallet=async function(){lazy=true;try{return await _c33.apply(this,arguments)}finally{lazy=false}};
+})();
+
+/* ===== Part 34: the app's own PIN keypad, with a fingerprint key ===== */
+(function(){
+"use strict";
+var tx=function(e,h){return lang==="en"?e:h};
+var FP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 0-8.5 8.5v1"/><path d="M12 6.8a5.2 5.2 0 0 0-5.2 5.2v2.3a4.2 4.2 0 0 0 .7 2.3"/><path d="M12 10a2 2 0 0 0-2 2v2.2a6 6 0 0 0 1.6 4"/><path d="M15 12v1.6a8.4 8.4 0 0 1-1.4 4.5"/><path d="M18.2 11.4V13a11 11 0 0 1-1.7 5.8"/><path d="M20.5 12A8.5 8.5 0 0 0 15.2 4.2"/></svg>';
+var BS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5H9l-6 7 6 7h11a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M13 9.5l4 5M17 9.5l-4 5"/></svg>';
+function showFp(id){return id==="xtPin"?!!(window.BIO&&BIO.on()):id==="wsPin"?!!(window.BIO&&BIO.full()):false}
+function refresh(){document.querySelectorAll(".kp").forEach(function(kp){var b=kp.querySelector(".fp");if(b)b.style.visibility=showFp(kp.getAttribute("data-for"))?"visible":"hidden"})}
+function fp(id){if(id==="xtPin"){var b=$("xtBio");if(b&&b.onclick)b.onclick()}else if(id==="wsPin"&&window.__wsBio)window.__wsBio()}
+function inject(){
+  document.querySelectorAll(".pinw").forEach(function(w){
+    var inp=w.querySelector(".pin-h");if(!inp)return;var n=w.nextElementSibling;if(n&&n.classList.contains("kp"))return;
+    inp.setAttribute("inputmode","none");inp.readOnly=true;
+    var kp=document.createElement("div");kp.className="kp";kp.setAttribute("data-for",inp.id);
+    kp.innerHTML=["1","2","3","4","5","6","7","8","9","fp","0","bs"].map(function(k){
+      return k==="fp"?'<button type="button" class="pk fp" aria-label="Fingerprint">'+FP+'</button>':k==="bs"?'<button type="button" class="pk bs" aria-label="Delete">'+BS+'</button>':'<button type="button" class="pk" data-k="'+k+'">'+k+'</button>'}).join("");
+    w.insertAdjacentElement("afterend",kp);
+    kp.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;e.preventDefault();
+      if(b.classList.contains("fp")){fp(inp.id);return}
+      if(b.classList.contains("bs")){inp.value=inp.value.slice(0,-1);PB(inp);return}
+      if(inp.value.length<6){inp.value+=b.getAttribute("data-k");PB(inp)}});
+    refresh()})
+}
+new MutationObserver(inject).observe(document.body,{childList:true,subtree:true});
+var lk=$("xtLock");if(lk)new MutationObserver(refresh).observe(lk,{attributes:true,attributeFilter:["style"]});
+setInterval(refresh,1500);inject();
+function activeInp(){var l=$("xtLock");if(l&&l.style.display==="flex")return $("xtPin");var pa=$("pinAsk");if(pa&&pa.classList.contains("open"))return $("paIn");var sw=$("sheetWallet");if(sw&&sw.classList.contains("open"))return $("wsPin");return null}
+document.addEventListener("keydown",function(e){var inp=activeInp();if(!inp)return;
+  if(/^\d$/.test(e.key)){e.preventDefault();if(inp.value.length<6){inp.value+=e.key;PB(inp)}}
+  else if(e.key==="Backspace"){e.preventDefault();inp.value=inp.value.slice(0,-1);PB(inp)}},true);
 })();

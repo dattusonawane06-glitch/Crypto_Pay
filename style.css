@@ -424,3 +424,12 @@ html body nav.bn .a i svg{filter:drop-shadow(0 0 6px rgba(77,134,255,.75))}
 .wsv.veiled .vl{display:flex}
 .wsw,.wsw *{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 .risk.real{border-color:rgba(255,90,90,.75);background:rgba(255,60,60,.14);color:#ffb3b3;font-weight:700}
+
+/* Part 34: the app's own PIN keypad */
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:292px;margin:22px auto 0;touch-action:manipulation}
+.kp .pk{height:62px;border-radius:20px;border:1.3px solid transparent;font-size:25px;font-weight:700;color:var(--tx,#EAF0FB);cursor:pointer;display:grid;place-items:center;-webkit-tap-highlight-color:transparent;transition:transform .08s,box-shadow .12s;
+  background:linear-gradient(rgba(20,32,58,.94),rgba(20,32,58,.94)) padding-box,linear-gradient(135deg,rgba(111,160,255,.7),rgba(45,212,191,.5)) border-box;box-shadow:0 0 14px rgba(77,134,255,.18)}
+html[data-theme=light] .kp .pk{background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,rgba(43,109,246,.6),rgba(15,159,123,.45)) border-box;color:#111;box-shadow:0 4px 12px rgba(43,109,246,.12)}
+.kp .pk:active{transform:scale(.93);box-shadow:0 0 22px rgba(77,134,255,.6)}
+.kp .pk svg{width:28px;height:28px}
+.kp .pk.fp[style*="hidden"]{pointer-events:none}

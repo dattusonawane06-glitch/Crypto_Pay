@@ -412,3 +412,6 @@ html[data-theme=light] body svg[viewBox="0 0 24 24"][stroke="currentColor"]{filt
 html[data-theme=dark] body .svi,html[data-theme=dark] body .si,html[data-theme=dark] body .act span,html:not([data-theme]) body .svi,html:not([data-theme]) body .act span{background:linear-gradient(rgba(20,32,56,.94),rgba(20,32,56,.94)) padding-box,linear-gradient(135deg,rgba(111,160,255,.8),rgba(45,212,191,.55)) border-box!important;border:1.3px solid transparent!important;box-shadow:0 0 18px rgba(77,134,255,.22)!important}
 html[data-theme=light] body .svi,html[data-theme=light] body .si,html[data-theme=light] body .act span{background:linear-gradient(#fff,#fff) padding-box,linear-gradient(135deg,rgba(43,109,246,.7),rgba(15,159,123,.5)) border-box!important;border:1.3px solid transparent!important;box-shadow:0 6px 16px rgba(43,109,246,.14)!important}
 html body nav.bn .a i svg{filter:drop-shadow(0 0 6px rgba(77,134,255,.75))}
+
+/* Part 31: three social icons in a row */
+.xw{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}

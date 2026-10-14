@@ -717,7 +717,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 5 · Build 37 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 37 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 5 · Build 39 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 39 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#0A0F1A;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><svg viewBox="0 0 512 512" style="width:84px;height:84px"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg></div><b style="font-size:20px">CryptoPay</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 CryptoPay</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -1186,7 +1186,7 @@ function bT(t){var e=document.querySelector("#sheetWallet .ttl");if(e)e.textCont
 function bB(h){$("wsBody").innerHTML=h}
 function bSh(o){$("sheetWallet").classList[o?"add":"remove"]("open")}
 function pinHTML(id){return'<div class="pinw" onclick="$(\''+id+'\').focus()"><div class="pbs"><i></i><i></i><i></i><i></i><i></i><i></i></div><input id="'+id+'" class="pin-h" type="password" inputmode="numeric" maxlength="6" autocomplete="off" oninput="PB(this)"></div>'}
-function ask(title,cb){bT(title);bB('<div style="padding:26px 0 8px;text-align:center">'+pinHTML("wsPin")+'</div>');PB.h.wsPin=cb;setTimeout(function(){var i=$("wsPin");if(i)i.focus()},150)}
+function ask(title,cb,msg){bT(title);bB('<div style="padding:26px 0 8px;text-align:center">'+pinHTML("wsPin")+'</div><div id="wsMsg" style="min-height:22px;text-align:center;font-size:13.5px;font-weight:700;color:#ff8f8f;padding:0 10px">'+(msg||"")+'</div><div style="text-align:center;margin-top:6px"><a href="#" onclick="WSX.forgot();return false" style="font-size:13px;opacity:.85;text-decoration:underline;color:inherit">'+tx("Forgot PIN?","PIN भूल गए?")+'</a></div>');PB.h.wsPin=cb;setTimeout(function(){var i=$("wsPin");if(i)i.focus()},150)}
 function busy(m){bB('<div class="cap" style="padding:40px 0;text-align:center">'+m+'</div>')}
 
 /* ---------- wrong-PIN limiter (5 tries, then 30 s, 1 min, 5 min, 15 min, 1 h) ---------- */
@@ -1202,9 +1202,9 @@ function waitView(ms,retry){
   var t=setInterval(function(){var e=$("pfw");if(!e){clearInterval(t);return}var l=pfLeft();if(l<=0){clearInterval(t);retry();return}e.textContent=fmtWait(l)},500);
 }
 function guarded(title,fn,onOk){
-  (function step(){
+  (function step(msg){
     var left=pfLeft();if(left>0){waitView(left,step);return}
-    ask(title,function(p){busy(tx("Checking…","जाँच रहे हैं…"));fn(p).then(function(r){pfOk();onOk(r,p)}).catch(function(){var o=pfBad();toast(o.n>=5?tx("Too many wrong PINs. Please wait.","बहुत गलत PIN। कृपया रुकिए।"):tx("Wrong PIN. "+(5-o.n)+" tries left.","गलत PIN। "+(5-o.n)+" मौके बचे।"),4000);step()})});
+    ask(title,function(p){busy(tx("Checking…","जाँच रहे हैं…"));fn(p).then(function(r){pfOk();onOk(r,p)}).catch(function(){var o=pfBad();var m=o.n>=5?tx("Too many wrong PINs. Please wait.","बहुत गलत PIN। कृपया रुकिए।"):tx("Wrong PIN. "+(5-o.n)+" tries left.","गलत PIN। "+(5-o.n)+" मौके बचे।");toast(m,4000);step(m)})},msg);
   })();
 }
 
@@ -1263,10 +1263,10 @@ var BIO=window.BIO={_p:null,
 /* ---------- wallet unlock: fingerprint first (if on), PIN as fallback ---------- */
 WS.unlock=function(){return new Promise(function(res){
   bSh(1);
-  function pin(){guarded(tx("Enter wallet PIN","वॉलेट PIN डालिए"),function(p){return CPW.unlock(p)},function(){bSh(0);res(true)});
+  function pin(){guarded(tx("Enter wallet PIN","वॉलेट PIN डालिए"),function(p){return CPW.unlock(p)},function(r,pn){try{if(window.BIO&&BIO.on()&&!BIO.canWallet()&&BIO.vaultSave)BIO.vaultSave(pn).catch(function(){})}catch(e){}bSh(0);res(true)});
     window.__wsBio=bio}
   function bio(){BIO.unlock().then(function(){bSh(0);res(true)},function(){toast(tx("Fingerprint did not work. Use your PIN.","फिंगरप्रिंट नहीं चला। PIN डालिए।"),4000);pin()})}
-  if(BIO.canWallet())bio();else pin();
+  pin();
 })};
 
 /* ---------- fingerprint on/off in Settings > Security ---------- */
@@ -1281,11 +1281,11 @@ window.BIOUI={toggle:async function(){
 }};
 var _sbr=SB.r;SB.r=function(){_sbr.apply(this,arguments);try{
   if($("stt").textContent==="Security"&&window.CPW&&CPW.has()&&!$("bioRow")){
-    $("sbody").insertAdjacentHTML("afterbegin",'<div class="sr" id="bioRow" onclick="BIOUI.toggle()"><span class="sl">'+(BIO.on()&&!BIO.canWallet()?tx("Open app with fingerprint","फिंगरप्रिंट से ऐप खोलें"):tx("Unlock with fingerprint","फिंगरप्रिंट से खोलें"))+' <small style="opacity:.7">(beta)</small></span><span class="sw'+(BIO.on()?" on":"")+'"></span></div>')}}catch(e){}};
+    $("sbody").insertAdjacentHTML("afterbegin",'<div class="sr" id="bioRow" onclick="BIOUI.toggle()"><span class="sl">'+(BIO.on()&&!BIO.canWallet()?tx("Open app with fingerprint or phone lock","फिंगरप्रिंट या फ़ोन-लॉक से ऐप खोलें"):tx("Unlock with fingerprint or phone lock","फिंगरप्रिंट या फ़ोन-लॉक से खोलें"))+' <small style="opacity:.7">(beta)</small></span><span class="sw'+(BIO.on()?" on":"")+'"></span></div>')}}catch(e){}};
 /* fingerprint on the app lock screen too: one touch opens the app and the wallet */
 (function(){var lk=$("xtLock");if(!lk)return;var auto=false;
   var b=document.createElement("button");b.id="xtBio";b.className="btn ghost";b.style.cssText="display:none;width:200px;margin-top:8px";b.onclick=function(){BIO.unlock().then(function(){lk.style.display="none";document.dispatchEvent(new Event("click"))},function(){toast(tx("Fingerprint did not work. Use your PIN.","फिंगरप्रिंट नहीं चला। PIN डालिए।"),4000)})};lk.appendChild(b);
-  new MutationObserver(function(){if(lk.style.display==="flex"){b.textContent=tx("Use fingerprint","फिंगरप्रिंट इस्तेमाल करें");b.style.display="none";if(BIO.on()&&!auto){auto=true;try{b.onclick()}catch(e){}}}else auto=false}).observe(lk,{attributes:true,attributeFilter:["style"]});
+  new MutationObserver(function(){if(lk.style.display==="flex"){b.textContent=tx("Use fingerprint","फिंगरप्रिंट इस्तेमाल करें");b.style.display="none";auto=true;}else auto=false}).observe(lk,{attributes:true,attributeFilter:["style"]});
 })();
 
 /* ---------- wallet locks itself: after 60 s in the background or 5 minutes idle ---------- */
@@ -1456,4 +1456,143 @@ window.EXIST37=function(){
 A37.setup=function(){H.guarded(tx("Enter wallet PIN","वॉलेट PIN डालिए"),function(p){return CPW.phrase(p)},function(mn,pin){window.__acct={pin:pin,mn:mn,fresh:false};window.AFTER37(true)})};
 A37.later=function(){try{localStorage.setItem("cp3_setup37",String(Date.now()))}catch(e){}H.bSh(0)};
 setTimeout(window.EXIST37,3500);
+})();
+
+/* ===== Part 38: screens open on top of Settings, Lock now, forgot-PIN way out, old fingerprint upgrades itself, CryptoPay Helper ===== */
+(function(){
+"use strict";
+if(!window.CPW||!window.WSH||!window.SB)return;
+var tx=function(e,h){return lang==="en"?e:h};
+var H=window.WSH,A38=window.A38={};
+/* ---- styles (inside this file, so only script.js needs uploading) ---- */
+var st=document.createElement("style");
+st.textContent='#sheetSet{z-index:90!important}#sheetWallet{z-index:110!important}'
++'#hbBtn{position:fixed;right:14px;bottom:100px;width:38px;height:34px;padding:0;border:1px solid var(--ln);border-radius:12px;background:var(--glass);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:grid;place-items:center;z-index:125;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;box-shadow:0 3px 12px rgba(0,0,0,.28)}#hbBtn::before{content:"";position:absolute;inset:-8px}#hbBtn:active{cursor:grabbing}#hbBtn svg{width:24px;height:24px;pointer-events:none}'
++'#hbBack{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:149;display:none}'
++'#hbPanel{position:fixed;left:0;right:0;bottom:0;margin:0 auto;max-width:420px;height:74vh;z-index:150;display:none;flex-direction:column;background:var(--sf,#12161c);color:inherit;border-radius:24px 24px 0 0;border:1px solid var(--ln,#22345C);box-shadow:0 -10px 40px rgba(0,0,0,.45)}'
++'#hbPanel.open,#hbBack.open{display:flex}#hbBack.open{display:block}'
++'.hbh{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--ln,#22345C)}.hbh svg{width:30px;height:30px;flex:none}.hbh b{font-size:16px}.hbh small{display:block;opacity:.7;font-size:12px}.hbh button{margin-left:auto;background:none;border:0;color:inherit;font-size:26px;line-height:1;cursor:pointer;padding:4px 8px}'
++'#hbMsgs{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px}'
++'.hbm{max-width:86%;padding:10px 13px;border-radius:16px;font-size:14.5px;line-height:1.5;white-space:pre-line;word-wrap:break-word}.hbm.b{align-self:flex-start;background:var(--bg,#0B1222);border:1px solid var(--ln,#22345C)}.hbm.u{align-self:flex-end;background:linear-gradient(135deg,#3F7DFF,#2B5BE6);color:#fff}.hbm a{color:#6FA0FF;text-decoration:underline}'
++'#hbChips{display:flex;flex-wrap:wrap;gap:7px;padding:6px 14px 8px;max-height:112px;overflow-y:auto}#hbChips button{border:1px solid var(--ln,#22345C);background:var(--bg,#0B1222);color:inherit;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:600;cursor:pointer}'
++'.hbi{display:flex;gap:8px;padding:8px 12px 14px}.hbi input{flex:1;padding:12px 14px;border-radius:14px;border:1px solid var(--ln,#22345C);background:var(--bg,#0B1222);color:inherit;font-size:15px;min-width:0}.hbi button{border:0;border-radius:14px;padding:0 18px;background:linear-gradient(135deg,#3F7DFF,#2B5BE6);color:#fff;font-weight:700;font-size:14px;cursor:pointer}';
+document.head.appendChild(st);
+/* ---- Lock now: locks the wallet and shows the lock screen; the separate Lock wallet row is hidden ---- */
+window.LOCKNOW=function(){
+  try{CPW.lock()}catch(e){}
+  var has=(typeof ls!=="undefined")&&ls.get("xt_pin","");
+  if(!has){toast(tx("Wallet locked. The PIN is asked when you send.","वॉलेट लॉक हो गया। भेजते समय PIN माँगेगा।"),4500);try{SB.r()}catch(e){}return}
+  var lk=$("xtLock");if(lk){lk.style.display="flex";var i=$("xtPin");if(i){i.value="";try{PB(i)}catch(e){}}}
+};
+A38.samePin=function(){H.bSh(1);H.guarded(tx("Enter wallet PIN","वॉलेट PIN डालिए"),function(p){return CPW.phrase(p)},function(mn,pin){try{ls.set("xt_pin",btoa(pin+"cp"))}catch(e){}H.bSh(0);toast(tx("Done. The app lock now uses your wallet PIN.","हो गया। अब ऐप-लॉक वॉलेट वाला PIN ही इस्तेमाल करेगा।"),5000)})};
+var _r38=SB.r;SB.r=function(){_r38.apply(this,arguments);try{
+  var b=$("sbody");if(!b)return;
+  b.querySelectorAll(".sr").forEach(function(r){var oc=r.getAttribute("onclick")||"";if(oc.indexOf("CPW.lock()")>-1)r.style.display="none"});
+  var ln=$("lockNowRow");
+  if(ln){var sl=ln.querySelector(".sl");if(sl)sl.textContent=tx("Lock now (app and wallet)","अभी लॉक करें (ऐप और वॉलेट)");
+    if(!$("samePinRow")&&(typeof ls!=="undefined")&&ls.get("xt_pin","")&&CPW.has())ln.insertAdjacentHTML("afterend",'<div class="sr" id="samePinRow" onclick="A38.samePin()"><span class="sl">'+tx("Use my wallet PIN for app lock","ऐप-लॉक के लिए वॉलेट वाला PIN इस्तेमाल करें")+'</span></div>')}
+  if($("stt")&&$("stt").textContent==="Settings"&&!$("hbRow"))b.insertAdjacentHTML("afterbegin",'<div class="sr" id="hbRow" onclick="HB.open()"><span class="sl">'+tx("Ask CryptoPay Helper","CryptoPay सहायक से पूछें")+'</span></div>');
+}catch(e){}};
+/* ---- forgot the wallet PIN: the only way is the 12 words ---- */
+WSX.forgot=function(){H.bT(tx("Forgot your PIN?","PIN भूल गए?"));
+  H.bB('<div class="risk">'+tx("The PIN cannot be reset without your 12 words. If you have them on paper, you can make the wallet again with a new PIN. First the wallet is removed from this phone. Your coins stay on the network and come back with the same 12 words. Without the 12 words the wallet cannot be recovered.","12 शब्दों के बिना PIN बदला नहीं जा सकता। अगर वे कागज़ पर हैं, तो उनसे वॉलेट नए PIN के साथ दोबारा बना सकते हैं। पहले यह वॉलेट इस फ़ोन से हट जाता है। आपके सिक्के नेटवर्क पर ही रहते हैं और वही 12 शब्द डालने पर वापस आ जाते हैं। 12 शब्द न हों तो वॉलेट वापस नहीं आ सकता।")+'</div><label class="xt-o" style="display:block;margin:12px 0"><input type="checkbox" id="fgOk" style="width:auto;margin-right:8px">'+tx("I have my 12 words on paper","मेरे पास 12 शब्द कागज़ पर हैं")+'</label><button class="btn" onclick="WSX.forgot2()">'+tx("Make the wallet again from my 12 words","12 शब्दों से वॉलेट दोबारा बनाएँ")+'</button><button class="btn ghost" onclick="WSX.forgot3()">'+tx("Back","वापस")+'</button>')};
+WSX.forgot2=function(){var c=$("fgOk");if(!c||!c.checked)return toast(tx("Please tick the box first","पहले डिब्बे पर निशान लगाइए"));try{CPW.remove();if(window.BIO)BIO.off();ls.set("xt_pin","")}catch(e){}window.__acct=null;WS.imp()};
+WSX.forgot3=function(){H.bSh(0)};
+/* ---- auto-lock: older accounts had 10 minutes; once, make it 2 ---- */
+try{if(!localStorage.getItem("cp3_am38")){localStorage.setItem("cp3_am38","1");if(+ls.get("xt_am",10)===10)ls.set("xt_am",2)}}catch(e){}
+/* ---- CryptoPay Helper: ready-made answers, free, nothing is sent anywhere ---- */
+var ROBOT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 L17.3 6.4 L18.6 11.6 L17.4 16.5 L14.5 19.9 L12 21 L9.5 19.9 L6.6 16.5 L5.4 11.6 L6.7 6.4 Z"/><path d="M6.2 10 L12 8.7 L17.8 10 L17 13.1 L12 13.9 L7 13.1 Z"/><path d="M8.7 11.2 L10.6 10.9 M15.3 11.2 L13.4 10.9"/><path d="M10.3 17.3 H13.7"/></svg>';
+var TG="https://t.me/cryptopay_web3";
+var T=[
+{k:["pin","पिन","password","पासवर्ड","keypad","कीबोर्ड","kaise dal","कैसे डाल"],q:["How do I enter the PIN?","PIN कैसे डालें?"],
+ e:"When you make an account, choose a 6-digit PIN and type it again. The app shows its own number keypad. For a new account the same PIN locks the wallet and the app.",
+ h:"खाता बनाते समय 6 अंकों का PIN चुनिए और उसे दोबारा डालिए। ऐप का अपना नंबर कीबोर्ड खुलता है। नए खाते में वही PIN वॉलेट और ऐप दोनों को लॉक करता है।"},
+{k:["forgot","bhul","bhool","भूल","reset","change pin","pin badal","बदल"],q:["I forgot my PIN","PIN भूल गया"],
+ e:"On the PIN screen tap 'Forgot PIN?'. If you have your 12 words on paper you can make the wallet again with a new PIN. Without the 12 words the wallet cannot be recovered.",
+ h:"PIN वाली स्क्रीन पर 'PIN भूल गए?' दबाइए। अगर 12 शब्द कागज़ पर हैं तो उनसे वॉलेट नए PIN के साथ दोबारा बन जाएगा। 12 शब्द न हों तो वॉलेट वापस नहीं आ सकता।"},
+{k:["finger","fingerprint","फिंगर","उँगली","ungli","biometric","touch"],q:["How to turn on fingerprint?","फिंगरप्रिंट कैसे चालू करें?"],
+ e:"1. Open Settings > Security.\n2. Tap 'Unlock with fingerprint'.\n3. Enter your wallet PIN.\n4. Touch the fingerprint sensor.\nYour fingerprint must already be saved in the phone's own Settings. This is for the test wallet only.",
+ h:"1. Settings > Security खोलिए।\n2. 'Unlock with fingerprint' दबाइए।\n3. वॉलेट PIN डालिए।\n4. फिंगरप्रिंट सेंसर पर उँगली रखिए।\nफ़ोन की अपनी Settings में आपकी उँगली पहले से दर्ज होनी चाहिए। यह सिर्फ़ टेस्ट वॉलेट के लिए है।"},
+{k:["12","words","shabd","शब्द","recovery","phrase","seed","backup","बैकअप"],q:["Where are my 12 words?","मेरे 12 शब्द कहाँ हैं?"],
+ e:"Settings > Security > Recovery phrase. Enter the PIN, then tap to show the words for 30 seconds. Write them on paper in order. No screenshot, no photo, and never tell anyone. Nobody from CryptoPay will ever ask for them.",
+ h:"Settings > Security > Recovery phrase। PIN डालिए, फिर दबाने पर 30 सेकंड तक शब्द दिखेंगे। उन्हें क्रम से कागज़ पर लिखिए। स्क्रीनशॉट या फ़ोटो नहीं, और किसी को न बताइए। CryptoPay से कोई भी इन्हें कभी नहीं माँगेगा।"},
+{k:["cpay","faucet","free","मुफ़्त","मुफ्त","test coin","टेस्ट सिक्के","claim","coin kaise","token kaise"],q:["How do I get test CPAY?","टेस्ट CPAY कैसे लूँ?"],
+ e:"Services > Test > CPAY faucet > Claim. It is free and we pay the network fee, so you do not need SHM first. These are test coins with no value.",
+ h:"Services > Test > CPAY faucet > Claim। यह मुफ़्त है और नेटवर्क फ़ीस हम भरते हैं, इसलिए पहले SHM की ज़रूरत नहीं। ये टेस्ट सिक्के हैं, इनकी कोई कीमत नहीं।"},
+{k:["send","bhej","भेज","transfer","payment","pay kaise"],q:["How do I send?","कैसे भेजूँ?"],
+ e:"Home > Send. Type or scan the address, enter the amount, check the network fee, and tap Send. You press Send yourself every time. Only send on Shardeum Testnet, and only test coins.",
+ h:"Home > Send। पता डालिए या स्कैन कीजिए, रकम डालिए, नेटवर्क फ़ीस देखिए और Send दबाइए। Send हर बार आप खुद दबाते हैं। सिर्फ़ Shardeum Testnet पर और सिर्फ़ टेस्ट सिक्के भेजिए।"},
+{k:["receive","पाना","address","पता","qr","scan","स्कैन"],q:["QR scan and my address","QR स्कैन और मेरा पता"],
+ e:"To receive: Home > Receive shows your address and QR. To scan: tap the scan icon at the top right of Home, or Send > scan QR. You can also read a QR from a photo. Open the app in Chrome.",
+ h:"पाने के लिए: Home > Receive में आपका पता और QR दिखता है। स्कैन के लिए: Home के ऊपर दाईं तरफ़ स्कैन का निशान, या Send > QR स्कैन। फ़ोटो से भी QR पढ़ सकते हैं। ऐप Chrome में खोलिए।"},
+{k:["real","असली","paisa","पैसा","money","rupee","rs","value","कीमत","price"],q:["Is this real money?","क्या यह असली पैसा है?"],
+ e:"No. This is a test version on Shardeum Testnet. Test coins have no value. Please do not put real money or real coins in it, and do not use these 12 words in another wallet.",
+ h:"नहीं। यह Shardeum Testnet पर टेस्ट वर्शन है। टेस्ट सिक्कों की कोई कीमत नहीं। इसमें असली पैसा या असली सिक्के मत डालिए, और ये 12 शब्द किसी दूसरे वॉलेट में इस्तेमाल मत कीजिए।"},
+{k:["safe","surakshit","सुरक्षित","hack","scam","fraud","trust","भरोसा"],q:["Is it safe?","क्या यह सुरक्षित है?"],
+ e:"Your key stays on your phone, locked by your PIN. We never see it. Never share your PIN or 12 words. Nobody from CryptoPay will DM you first or ask for money. It is still an early test version.",
+ h:"आपकी चाबी आपके फ़ोन में, आपके PIN से बंद रहती है। हम उसे कभी नहीं देखते। PIN और 12 शब्द किसी को न बताइए। CryptoPay से कोई पहले संदेश नहीं भेजेगा और पैसा नहीं माँगेगा। यह अभी शुरुआती टेस्ट वर्शन है।"},
+{k:["lock","लॉक","unlock","अनलॉक","auto","band","बंद"],q:["Lock and auto-lock","लॉक और ऑटो-लॉक"],
+ e:"Settings > Security: 'Lock now' locks the app and wallet at once. 'PIN lock' turns the app lock on. 'Auto-lock after' sets how long it waits. The app also locks after you leave it for a short while.",
+ h:"Settings > Security: 'अभी लॉक करें' ऐप और वॉलेट दोनों को एक साथ लॉक करता है। 'PIN lock' ऐप-लॉक चालू करता है। 'Auto-lock after' से तय करें कि कितनी देर बाद लॉक हो। ऐप से थोड़ी देर बाहर रहने पर भी वह लॉक हो जाता है।"},
+{k:["hindi","हिंदी","language","भाषा","english","अंग्रेज़ी","अंग्रेजी"],q:["Change language","भाषा बदलें"],
+ e:"Settings > Language & display. You can choose Hindi or English.",
+ h:"Settings > Language & display में हिंदी या English चुनिए।"},
+{k:["voice","bol","बोल","आवाज़","आवाज","speak","mic"],q:["Speak to fill","बोलकर भरना"],
+ e:"Send > 'Speak to fill'. Say the amount and a saved name, like '10 CPAY to Ramesh'. The app only fills the form. You press Send yourself. It needs the microphone and internet, and it is experimental.",
+ h:"Send > 'Speak to fill'। रकम और सहेजा हुआ नाम बोलिए, जैसे '10 CPAY रमेश को भेजो'। ऐप सिर्फ़ फ़ॉर्म भरता है, Send आप खुद दबाते हैं। इसके लिए माइक और इंटरनेट चाहिए, और यह प्रयोगात्मक है।"},
+{k:["contact","address book","naam","नाम","save","सहेज","friend","दोस्त"],q:["Save a contact","नाम सहेजना"],
+ e:"Services > Crypto > Address Book, or the 'Address book' button on the Send screen. Save a name with the address, then you can pick it when sending.",
+ h:"Services > Crypto > Address Book, या Send स्क्रीन का 'Address book' बटन। नाम के साथ पता सहेजिए, फिर भेजते समय उसे चुन सकते हैं।"},
+{k:["not working","काम नहीं","nahi chal","नहीं चल","error","problem","dikkat","दिक्कत","samasya","समस्या","stuck","hang","blank","खाली","button"],q:["Something is not working","कुछ काम नहीं कर रहा"],
+ e:"Try this: 1. Close Chrome fully and open the app again. 2. Settings > About: check the Build number. 3. Still stuck? Send a screenshot on Telegram and we will look at it.",
+ h:"यह कीजिए: 1. Chrome पूरी तरह बंद करके ऐप दोबारा खोलिए। 2. Settings > About में Build नंबर देखिए। 3. फिर भी न चले तो Telegram पर स्क्रीनशॉट भेजिए, हम देखेंगे।"}
+];
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+function norm(s){return String(s).toLowerCase().replace(/[^\p{L}\p{M}\p{N}\s]/gu," ")}
+function find(t){var n=" "+norm(t)+" ",best=null,sc=0;T.forEach(function(x){var s=0;x.k.forEach(function(w){if(n.indexOf(w.toLowerCase())>-1)s+=(w.length>3?2:1)});if(s>sc){sc=s;best=x}});return sc>0?best:null}
+function add(who,html){var m=$("hbMsgs");if(!m)return;var d=document.createElement("div");d.className="hbm "+who;d.innerHTML=html;m.appendChild(d);m.scrollTop=m.scrollHeight}
+function answer(x){add("b",esc(lang==="en"?x.e:x.h))}
+var built=false;
+function build(){if(built)return;built=true;
+  var bk=document.createElement("div");bk.id="hbBack";bk.onclick=function(){HB.close()};document.body.appendChild(bk);
+  var p=document.createElement("div");p.id="hbPanel";
+  p.innerHTML='<div class="hbh">'+ROBOT+'<div><b>'+tx("CryptoPay Helper","CryptoPay सहायक")+'</b><small>'+tx("Ready-made answers, not a real AI","तैयार जवाब, असली AI नहीं")+'</small></div><button onclick="HB.close()" aria-label="Close">×</button></div><div id="hbMsgs"></div><div id="hbChips"></div><div class="hbi"><input id="hbIn" placeholder="'+tx("Type your question","अपना सवाल लिखिए")+'" autocomplete="off"><button onclick="HB.send()">'+tx("Send","भेजें")+'</button></div>';
+  document.body.appendChild(p);
+  $("hbIn").addEventListener("keydown",function(e){if(e.key==="Enter")HB.send()});
+  var c=$("hbChips");T.forEach(function(x,i){var b=document.createElement("button");b.textContent=lang==="en"?x.q[0]:x.q[1];b.onclick=function(){add("u",esc(b.textContent));answer(x)};c.appendChild(b)});
+  add("b",esc(tx("Hello! I am the CryptoPay Helper. I give ready-made answers about the app. Choose a question below or type your own. Tip: hold my icon and drag it anywhere on the screen.","नमस्ते! मैं CryptoPay सहायक हूँ। मैं ऐप के बारे में तैयार जवाब देता हूँ। नीचे से सवाल चुनिए या अपना लिखिए। सुझाव: मेरे आइकॉन को उँगली से पकड़कर स्क्रीन पर कहीं भी ले जा सकते हैं।")))}
+window.HB={
+  open:function(){build();$("hbBack").classList.add("open");$("hbPanel").classList.add("open")},
+  close:function(){var a=$("hbBack"),b=$("hbPanel");if(a)a.classList.remove("open");if(b)b.classList.remove("open")},
+  send:function(){var i=$("hbIn");if(!i)return;var v=i.value.trim();if(!v)return;i.value="";add("u",esc(v));var x=find(v);
+    if(x)answer(x);else add("b",esc(tx("I do not know this one. Please ask on Telegram:","यह मुझे नहीं आता। कृपया Telegram पर पूछिए:"))+' <a href="'+TG+'" target="_blank" rel="noopener">'+TG.replace("https://","")+'</a>')}
+};
+var btn=document.createElement("button");btn.id="hbBtn";btn.setAttribute("aria-label","Helper");btn.innerHTML=ROBOT;document.body.appendChild(btn);
+(function(){
+ var KEY="cp3_hbpos",dragging=false,moved=false,sx=0,sy=0,ox=0,oy=0,pid=null;
+ function clamp(x,y){var w=btn.offsetWidth,h=btn.offsetHeight,W=window.innerWidth,H=window.innerHeight;return{x:Math.min(Math.max(4,x),Math.max(4,W-w-4)),y:Math.min(Math.max(4,y),Math.max(4,H-h-4))}}
+ function put(x,y){var c=clamp(x,y);btn.style.left=c.x+"px";btn.style.top=c.y+"px";btn.style.right="auto";btn.style.bottom="auto";return c}
+ function save(x,y){try{localStorage.setItem(KEY,JSON.stringify({fx:x/window.innerWidth,fy:y/window.innerHeight}))}catch(e){}}
+ function restore(){try{var p=JSON.parse(localStorage.getItem(KEY)||"null");if(p&&typeof p.fx==="number")put(p.fx*window.innerWidth,p.fy*window.innerHeight)}catch(e){}}
+ btn.addEventListener("pointerdown",function(e){pid=e.pointerId;dragging=true;moved=false;sx=e.clientX;sy=e.clientY;var r=btn.getBoundingClientRect();ox=r.left;oy=r.top;try{btn.setPointerCapture(pid)}catch(x){}});
+ btn.addEventListener("pointermove",function(e){if(!dragging||e.pointerId!==pid)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(!moved&&Math.abs(dx)+Math.abs(dy)<8)return;moved=true;e.preventDefault();put(ox+dx,oy+dy)});
+ btn.addEventListener("pointerup",function(e){if(!dragging||e.pointerId!==pid)return;dragging=false;try{btn.releasePointerCapture(pid)}catch(x){}if(moved){var r=btn.getBoundingClientRect();save(r.left,r.top)}else HB.open()});
+ btn.addEventListener("pointercancel",function(){dragging=false});
+ btn.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();HB.open()}});
+ window.addEventListener("resize",function(){if(btn.style.left){var r=btn.getBoundingClientRect();put(r.left,r.top)}});
+ restore();
+ setInterval(function(){var sw=$("sheetWallet");btn.style.display=(sw&&sw.classList.contains("open"))?"none":""},600);
+})();
+})();
+
+/* ===== Part 39: no automatic phone prompt (our PIN keypad stays), honest wording, a hint under the keypad ===== */
+(function(){
+"use strict";
+if(!window.BIO)return;
+var tx=function(e,h){return lang==="en"?e:h};
+var lk=$("xtLock");if(!lk)return;
+var ht=document.createElement("div");ht.id="xtHint";ht.style.cssText="min-height:16px;font-size:12px;text-align:center;opacity:.7;padding:0 12px;max-width:300px";
+var anchor=$("xtMsg");if(anchor&&anchor.parentNode===lk)lk.insertBefore(ht,anchor);else lk.insertBefore(ht,lk.lastElementChild);
+function upd(){if(lk.style.display==="flex"&&BIO.on())ht.textContent=tx("Fingerprint key: uses your phone's fingerprint or screen lock.","उँगली वाली कुंजी: फ़ोन का फिंगरप्रिंट या स्क्रीन-लॉक इस्तेमाल करती है।");else ht.textContent=""}
+new MutationObserver(upd).observe(lk,{attributes:true,attributeFilter:["style"]});upd();
 })();

@@ -717,7 +717,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 5 · Build 43 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 43 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 5 · Build 44 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 44 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#0A0F1A;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><svg viewBox="0 0 512 512" style="width:84px;height:84px"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg></div><b style="font-size:20px">CryptoPay</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 CryptoPay</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -1500,96 +1500,172 @@ WSX.forgot2=function(){var c=$("fgOk");if(!c||!c.checked)return toast(tx("Please
 WSX.forgot3=function(){H.bSh(0)};
 /* ---- auto-lock: older accounts had 10 minutes; once, make it 2 ---- */
 try{if(!localStorage.getItem("cp3_am38")){localStorage.setItem("cp3_am38","1");if(+ls.get("xt_am",10)===10)ls.set("xt_am",2)}}catch(e){}
-/* ---- CryptoPay Helper: ready-made answers, free, nothing is sent anywhere ---- */
+/* ---- CryptoPay Helper: ready-made answers in 4 languages, free, nothing is sent anywhere ---- */
 var ROBOT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="6" width="15" height="13" rx="4.4"/><path d="M2.7 11 V14.6 M21.3 11 V14.6"/><circle cx="9.1" cy="12" r="1.9" fill="#5EEAD4" stroke="none"/><circle cx="14.9" cy="12" r="1.9" fill="#5EEAD4" stroke="none"/><circle cx="9.6" cy="11.4" r=".55" fill="#fff" stroke="none"/><circle cx="15.4" cy="11.4" r=".55" fill="#fff" stroke="none"/><path d="M8.8 15.9 Q12 18.4 15.2 15.9" stroke="#5EEAD4" stroke-width="1.9"/></svg>';
 var TG="https://t.me/cryptopay_web3";
+var LG=["hi","en","mr","gu"],LN={en:"English",hi:"हिंदी",mr:"मराठी",gu:"ગુજરાતી"},VL={en:"en-IN",hi:"hi-IN",mr:"mr-IN",gu:"gu-IN"};
+var UI={
+ en:{t:"CryptoPay Helper",s:"Ready-made answers, not a real AI",g:"Hello! I am the CryptoPay Helper. I give ready-made answers about the app. Choose a question below or type your own. Tip: tap the speaker under an answer to hear it.",ph:"Type your question",sd:"Send",u:"I do not know this one. Please ask on Telegram:",nv:"This phone has no voice for this language."},
+ hi:{t:"CryptoPay सहायक",s:"तैयार जवाब, असली AI नहीं",g:"नमस्ते! मैं CryptoPay सहायक हूँ। मैं ऐप के बारे में तैयार जवाब देता हूँ। नीचे से सवाल चुनिए या अपना लिखिए। सुझाव: जवाब के नीचे 🔊 दबाकर सुन भी सकते हैं।",ph:"अपना सवाल लिखिए",sd:"भेजें",u:"यह मुझे नहीं आता। कृपया Telegram पर पूछिए:",nv:"इस फ़ोन में इस भाषा की आवाज़ नहीं है।"},
+ mr:{t:"CryptoPay सहाय्यक",s:"तयार उत्तरे, खरा AI नाही (भाषांतर चाचणी स्वरूपात)",g:"नमस्कार! मी CryptoPay सहाय्यक आहे. मी अ‍ॅपबद्दल तयार उत्तरे देतो. खालून प्रश्न निवडा किंवा तुमचा स्वतःचा लिहा. सूचना: उत्तराखालील 🔊 दाबून ऐकताही येते.",ph:"तुमचा प्रश्न लिहा",sd:"पाठवा",u:"हे मला माहीत नाही. कृपया Telegram वर विचारा:",nv:"या फोनमध्ये या भाषेचा आवाज नाही."},
+ gu:{t:"CryptoPay સહાયક",s:"તૈયાર જવાબો, અસલી AI નથી (અનુવાદ ટેસ્ટ સ્વરૂપે)",g:"નમસ્તે! હું CryptoPay સહાયક છું. હું એપ વિશે તૈયાર જવાબો આપું છું. નીચેથી પ્રશ્ન પસંદ કરો અથવા તમારો લખો. સૂચન: જવાબની નીચે 🔊 દબાવીને સાંભળી પણ શકાય.",ph:"તમારો પ્રશ્ન લખો",sd:"મોકલો",u:"આ મને ખબર નથી. કૃપા કરીને Telegram પર પૂછો:",nv:"આ ફોનમાં આ ભાષાનો અવાજ નથી."}
+};
 var T=[
-{k:["pin","पिन","password","पासवर्ड","keypad","कीबोर्ड","kaise dal","कैसे डाल"],q:["How do I enter the PIN?","PIN कैसे डालें?"],
- e:"When you make an account, choose a 6-digit PIN and type it again. The app shows its own number keypad. For a new account the same PIN locks the wallet and the app.",
- h:"खाता बनाते समय 6 अंकों का PIN चुनिए और उसे दोबारा डालिए। ऐप का अपना नंबर कीबोर्ड खुलता है। नए खाते में वही PIN वॉलेट और ऐप दोनों को लॉक करता है।"},
-{k:["forgot","bhul","bhool","भूल","reset","change pin","pin badal","बदल"],q:["I forgot my PIN","PIN भूल गया"],
- e:"On the PIN screen tap 'Forgot PIN?'. If you have your 12 words on paper you can make the wallet again with a new PIN. Without the 12 words the wallet cannot be recovered.",
- h:"PIN वाली स्क्रीन पर 'PIN भूल गए?' दबाइए। अगर 12 शब्द कागज़ पर हैं तो उनसे वॉलेट नए PIN के साथ दोबारा बन जाएगा। 12 शब्द न हों तो वॉलेट वापस नहीं आ सकता।"},
-{k:["finger","fingerprint","फिंगर","उँगली","ungli","biometric","touch"],q:["How to turn on fingerprint?","फिंगरप्रिंट कैसे चालू करें?"],
- e:"1. Open Settings > Security.\n2. Tap 'Unlock with fingerprint'.\n3. Enter your wallet PIN.\n4. Touch the fingerprint sensor.\nYour fingerprint must already be saved in the phone's own Settings. This is for the test wallet only.",
- h:"1. Settings > Security खोलिए।\n2. 'Unlock with fingerprint' दबाइए।\n3. वॉलेट PIN डालिए।\n4. फिंगरप्रिंट सेंसर पर उँगली रखिए।\nफ़ोन की अपनी Settings में आपकी उँगली पहले से दर्ज होनी चाहिए। यह सिर्फ़ टेस्ट वॉलेट के लिए है।"},
-{k:["12","words","shabd","शब्द","recovery","phrase","seed","backup","बैकअप"],q:["Where are my 12 words?","मेरे 12 शब्द कहाँ हैं?"],
- e:"Settings > Security > Recovery phrase. Enter the PIN, then tap to show the words for 30 seconds. Write them on paper in order. No screenshot, no photo, and never tell anyone. Nobody from CryptoPay will ever ask for them.",
- h:"Settings > Security > Recovery phrase। PIN डालिए, फिर दबाने पर 30 सेकंड तक शब्द दिखेंगे। उन्हें क्रम से कागज़ पर लिखिए। स्क्रीनशॉट या फ़ोटो नहीं, और किसी को न बताइए। CryptoPay से कोई भी इन्हें कभी नहीं माँगेगा।"},
-{k:["cpay","faucet","free","मुफ़्त","मुफ्त","test coin","टेस्ट सिक्के","claim","coin kaise","token kaise"],q:["How do I get test CPAY?","टेस्ट CPAY कैसे लूँ?"],
- e:"Services > Test > CPAY faucet > Claim. It is free and we pay the network fee, so you do not need SHM first. These are test coins with no value.",
- h:"Services > Test > CPAY faucet > Claim। यह मुफ़्त है और नेटवर्क फ़ीस हम भरते हैं, इसलिए पहले SHM की ज़रूरत नहीं। ये टेस्ट सिक्के हैं, इनकी कोई कीमत नहीं।"},
-{k:["send","bhej","भेज","transfer","payment","pay kaise"],q:["How do I send?","कैसे भेजूँ?"],
- e:"Home > Send. Type or scan the address, enter the amount, check the network fee, and tap Send. You press Send yourself every time. Only send on Shardeum Testnet, and only test coins.",
- h:"Home > Send। पता डालिए या स्कैन कीजिए, रकम डालिए, नेटवर्क फ़ीस देखिए और Send दबाइए। Send हर बार आप खुद दबाते हैं। सिर्फ़ Shardeum Testnet पर और सिर्फ़ टेस्ट सिक्के भेजिए।"},
-{k:["receive","पाना","address","पता","qr","scan","स्कैन"],q:["QR scan and my address","QR स्कैन और मेरा पता"],
- e:"To receive: Home > Receive shows your address and QR. To scan: tap the scan icon at the top right of Home, or Send > scan QR. You can also read a QR from a photo. Open the app in Chrome.",
- h:"पाने के लिए: Home > Receive में आपका पता और QR दिखता है। स्कैन के लिए: Home के ऊपर दाईं तरफ़ स्कैन का निशान, या Send > QR स्कैन। फ़ोटो से भी QR पढ़ सकते हैं। ऐप Chrome में खोलिए।"},
-{k:["real","असली","paisa","पैसा","money","rupee","rs","value","कीमत","price"],q:["Is this real money?","क्या यह असली पैसा है?"],
- e:"No. This is a test version on Shardeum Testnet. Test coins have no value. Please do not put real money or real coins in it, and do not use these 12 words in another wallet.",
- h:"नहीं। यह Shardeum Testnet पर टेस्ट वर्शन है। टेस्ट सिक्कों की कोई कीमत नहीं। इसमें असली पैसा या असली सिक्के मत डालिए, और ये 12 शब्द किसी दूसरे वॉलेट में इस्तेमाल मत कीजिए।"},
-{k:["safe","surakshit","सुरक्षित","hack","scam","fraud","trust","भरोसा"],q:["Is it safe?","क्या यह सुरक्षित है?"],
- e:"Your key stays on your phone, locked by your PIN. We never see it. Never share your PIN or 12 words. Nobody from CryptoPay will DM you first or ask for money. It is still an early test version.",
- h:"आपकी चाबी आपके फ़ोन में, आपके PIN से बंद रहती है। हम उसे कभी नहीं देखते। PIN और 12 शब्द किसी को न बताइए। CryptoPay से कोई पहले संदेश नहीं भेजेगा और पैसा नहीं माँगेगा। यह अभी शुरुआती टेस्ट वर्शन है।"},
-{k:["lock","लॉक","unlock","अनलॉक","auto","band","बंद"],q:["Lock and auto-lock","लॉक और ऑटो-लॉक"],
- e:"Settings > Security: 'Lock now' locks the app and wallet at once. 'PIN lock' turns the app lock on. 'Auto-lock after' sets how long it waits. The app also locks after you leave it for a short while.",
- h:"Settings > Security: 'अभी लॉक करें' ऐप और वॉलेट दोनों को एक साथ लॉक करता है। 'PIN lock' ऐप-लॉक चालू करता है। 'Auto-lock after' से तय करें कि कितनी देर बाद लॉक हो। ऐप से थोड़ी देर बाहर रहने पर भी वह लॉक हो जाता है।"},
-{k:["hindi","हिंदी","language","भाषा","english","अंग्रेज़ी","अंग्रेजी"],q:["Change language","भाषा बदलें"],
- e:"Settings > Language & display. You can choose Hindi or English.",
- h:"Settings > Language & display में हिंदी या English चुनिए।"},
-{k:["voice","bol","बोल","आवाज़","आवाज","speak","mic"],q:["Speak to fill","बोलकर भरना"],
- e:"Send > 'Speak to fill'. Say the amount and a saved name, like '10 CPAY to Ramesh'. The app only fills the form. You press Send yourself. It needs the microphone and internet, and it is experimental.",
- h:"Send > 'Speak to fill'। रकम और सहेजा हुआ नाम बोलिए, जैसे '10 CPAY रमेश को भेजो'। ऐप सिर्फ़ फ़ॉर्म भरता है, Send आप खुद दबाते हैं। इसके लिए माइक और इंटरनेट चाहिए, और यह प्रयोगात्मक है।"},
-{k:["contact","address book","naam","नाम","save","सहेज","friend","दोस्त"],q:["Save a contact","नाम सहेजना"],
- e:"Services > Crypto > Address Book, or the 'Address book' button on the Send screen. Save a name with the address, then you can pick it when sending.",
- h:"Services > Crypto > Address Book, या Send स्क्रीन का 'Address book' बटन। नाम के साथ पता सहेजिए, फिर भेजते समय उसे चुन सकते हैं।"},
-{k:["not working","काम नहीं","nahi chal","नहीं चल","error","problem","dikkat","दिक्कत","samasya","समस्या","stuck","hang","blank","खाली","button"],q:["Something is not working","कुछ काम नहीं कर रहा"],
- e:"Try this: 1. Close Chrome fully and open the app again. 2. Settings > About: check the Build number. 3. Still stuck? Send a screenshot on Telegram and we will look at it.",
- h:"यह कीजिए: 1. Chrome पूरी तरह बंद करके ऐप दोबारा खोलिए। 2. Settings > About में Build नंबर देखिए। 3. फिर भी न चले तो Telegram पर स्क्रीनशॉट भेजिए, हम देखेंगे।"}
+{k:["pin","पिन","પિન","password","पासवर्ड","પાસવર્ડ","keypad","कीबोर्ड","કીબોર્ડ","kaise dal","कैसे डाल","कसा टाक","કેવી રીતે નાખ"],
+ q:{en:"How do I enter the PIN?",hi:"PIN कैसे डालें?",mr:"PIN कसा टाकायचा?",gu:"PIN કેવી રીતે નાખવો?"},
+ a:{en:"When you make an account, choose a 6-digit PIN and type it again. The app shows its own number keypad. One PIN locks the whole app and the wallet.",
+    hi:"खाता बनाते समय 6 अंकों का PIN चुनिए और उसे दोबारा डालिए। ऐप का अपना नंबर कीबोर्ड खुलता है। एक ही PIN पूरे ऐप और वॉलेट को बंद रखता है।",
+    mr:"खाते तयार करताना 6 अंकी PIN निवडा आणि तो पुन्हा टाका. अ‍ॅपचा स्वतःचा नंबर कीबोर्ड उघडतो. एकच PIN संपूर्ण अ‍ॅप आणि वॉलेट बंद ठेवतो.",
+    gu:"એકાઉન્ટ બનાવતી વખતે 6 અંકનો PIN પસંદ કરો અને તેને ફરી નાખો. એપનું પોતાનું નંબર કીબોર્ડ ખુલે છે. એક જ PIN આખી એપ અને વોલેટને બંધ રાખે છે."}},
+{k:["forgot","bhul","bhool","भूल","reset","change pin","pin badal","बदल","विसर","विसरल","ભૂલી","ભૂલ્યો","રીસેટ"],
+ q:{en:"I forgot my PIN",hi:"PIN भूल गया",mr:"PIN विसरलो",gu:"PIN ભૂલી ગયો"},
+ a:{en:"On the PIN screen tap 'Forgot PIN?'. If you have your 12 words on paper, you can make the wallet again with a new PIN. Without the 12 words the wallet cannot be recovered.",
+    hi:"PIN वाली स्क्रीन पर 'PIN भूल गए?' दबाइए। अगर 12 शब्द कागज़ पर हैं तो उनसे वॉलेट नए PIN के साथ दोबारा बन जाएगा। 12 शब्द न हों तो वॉलेट वापस नहीं आ सकता।",
+    mr:"PIN स्क्रीनवर 'PIN विसरलात?' दाबा. 12 शब्द कागदावर असतील तर त्यांच्यापासून नवीन PIN सह वॉलेट पुन्हा तयार होईल. 12 शब्द नसतील तर वॉलेट परत मिळू शकत नाही.",
+    gu:"PIN સ્ક્રીન પર 'PIN ભૂલી ગયા?' દબાવો. જો 12 શબ્દો કાગળ પર હોય તો તેમનાથી નવા PIN સાથે વોલેટ ફરી બની જશે. 12 શબ્દો ન હોય તો વોલેટ પાછું મળી શકતું નથી."}},
+{k:["finger","fingerprint","फिंगर","उँगली","ungli","biometric","touch","बोट","ફિંગર","આંગળી"],
+ q:{en:"How to turn on fingerprint?",hi:"फिंगरप्रिंट कैसे चालू करें?",mr:"फिंगरप्रिंट कसे सुरू करू?",gu:"ફિંગરપ્રિન્ટ કેવી રીતે ચાલુ કરું?"},
+ a:{en:"1. Open Settings > Security.\n2. Tap 'Open with fingerprint'.\n3. Enter your wallet PIN.\n4. Touch the fingerprint sensor.\nYour fingerprint (or screen lock) must already be saved in the phone's own Settings. This is for the test wallet only.",
+    hi:"1. Settings > Security खोलिए।\n2. 'उँगली से खोलें' दबाइए।\n3. वॉलेट PIN डालिए।\n4. फिंगरप्रिंट सेंसर पर उँगली रखिए।\nफ़ोन की अपनी Settings में आपकी उँगली (या स्क्रीन-लॉक) पहले से दर्ज होनी चाहिए। यह सिर्फ़ टेस्ट वॉलेट के लिए है।",
+    mr:"1. Settings > Security उघडा.\n2. 'बोटाने उघडा' दाबा.\n3. वॉलेट PIN टाका.\n4. फिंगरप्रिंट सेन्सरवर बोट ठेवा.\nफोनच्या स्वतःच्या Settings मध्ये तुमचे बोट (किंवा स्क्रीन-लॉक) आधीच नोंदलेले असावे. हे फक्त टेस्ट वॉलेटसाठी आहे.",
+    gu:"1. Settings > Security ખોલો.\n2. 'આંગળીથી ખોલો' દબાવો.\n3. વોલેટ PIN નાખો.\n4. ફિંગરપ્રિન્ટ સેન્સર પર આંગળી મૂકો.\nફોનની પોતાની Settings માં તમારી આંગળી (અથવા સ્ક્રીન-લૉક) પહેલેથી સેવ હોવી જોઈએ. આ ફક્ત ટેસ્ટ વોલેટ માટે છે."}},
+{k:["12","words","shabd","शब्द","શબ્દ","recovery","phrase","seed","backup","बैकअप","बॅकअप","બેકઅપ","૧૨"],
+ q:{en:"Where are my 12 words?",hi:"मेरे 12 शब्द कहाँ हैं?",mr:"माझे 12 शब्द कुठे आहेत?",gu:"મારા 12 શબ્દો ક્યાં છે?"},
+ a:{en:"Settings > Security > Backup words (12). Enter the PIN, then tap to show the words for 30 seconds. Write them on paper in order. No screenshot, no photo, and never tell anyone. Nobody from CryptoPay will ever ask for them.",
+    hi:"Settings > Security > बैकअप शब्द (12)। PIN डालिए, फिर दबाने पर 30 सेकंड तक शब्द दिखेंगे। उन्हें क्रम से कागज़ पर लिखिए। स्क्रीनशॉट या फ़ोटो नहीं, और किसी को न बताइए। CryptoPay से कोई भी इन्हें कभी नहीं माँगेगा।",
+    mr:"Settings > Security > बॅकअप शब्द (12). PIN टाका, मग दाबल्यावर 30 सेकंद शब्द दिसतील. ते क्रमाने कागदावर लिहा. स्क्रीनशॉट किंवा फोटो नाही, आणि कोणालाही सांगू नका. CryptoPay कडून कोणीही ते कधीच मागणार नाही.",
+    gu:"Settings > Security > બેકઅપ શબ્દો (12). PIN નાખો, પછી દબાવવાથી 30 સેકન્ડ સુધી શબ્દો દેખાશે. તેને ક્રમ પ્રમાણે કાગળ પર લખો. સ્ક્રીનશોટ કે ફોટો નહીં, અને કોઈને કહેશો નહીં. CryptoPay તરફથી કોઈ પણ તે ક્યારેય માગશે નહીં."}},
+{k:["cpay","faucet","free","मुफ़्त","मुफ्त","मोफत","મફત","test coin","टेस्ट सिक्के","टेस्ट नाणी","ટેસ્ટ સિક્કા","claim","coin kaise","token kaise"],
+ q:{en:"How do I get test CPAY?",hi:"टेस्ट CPAY कैसे लूँ?",mr:"टेस्ट CPAY कसे मिळवू?",gu:"ટેસ્ટ CPAY કેવી રીતે મળે?"},
+ a:{en:"Services > Test > CPAY faucet > Claim. It is free and we pay the network fee, so you do not need SHM first. These are test coins with no value.",
+    hi:"Services > Test > CPAY faucet > Claim। यह मुफ़्त है और नेटवर्क फ़ीस हम भरते हैं, इसलिए पहले SHM की ज़रूरत नहीं। ये टेस्ट सिक्के हैं, इनकी कोई कीमत नहीं।",
+    mr:"Services > Test > CPAY faucet > Claim. हे मोफत आहे आणि नेटवर्क फी आम्ही भरतो, त्यामुळे आधी SHM ची गरज नाही. ही टेस्ट नाणी आहेत, त्यांची कोणतीही किंमत नाही.",
+    gu:"Services > Test > CPAY faucet > Claim. આ મફત છે અને નેટવર્ક ફી અમે ભરીએ છીએ, તેથી પહેલા SHM ની જરૂર નથી. આ ટેસ્ટ સિક્કા છે, તેની કોઈ કિંમત નથી."}},
+{k:["send","bhej","भेज","transfer","payment","pay kaise","पाठव","મોકલ"],
+ q:{en:"How do I send?",hi:"कैसे भेजूँ?",mr:"कसे पाठवू?",gu:"કેવી રીતે મોકલું?"},
+ a:{en:"Home > Send. Type or scan the address, enter the amount, check the network fee, and tap Send. You press Send yourself every time. Only send on Shardeum Testnet, and only test coins.",
+    hi:"Home > Send। पता डालिए या स्कैन कीजिए, रकम डालिए, नेटवर्क फ़ीस देखिए और Send दबाइए। Send हर बार आप खुद दबाते हैं। सिर्फ़ Shardeum Testnet पर और सिर्फ़ टेस्ट सिक्के भेजिए।",
+    mr:"Home > Send. पत्ता टाका किंवा स्कॅन करा, रक्कम टाका, नेटवर्क फी पाहा आणि Send दाबा. Send प्रत्येक वेळी तुम्हीच दाबता. फक्त Shardeum Testnet वर आणि फक्त टेस्ट नाणी पाठवा.",
+    gu:"Home > Send. સરનામું લખો અથવા સ્કેન કરો, રકમ લખો, નેટવર્ક ફી જુઓ અને Send દબાવો. Send દરેક વખતે તમે જાતે દબાવો છો. ફક્ત Shardeum Testnet પર અને ફક્ત ટેસ્ટ સિક્કા મોકલો."}},
+{k:["receive","पाना","address","पता","पत्ता","સરનામું","qr","scan","स्कैन","स्कॅन","સ્કેન"],
+ q:{en:"QR scan and my address",hi:"QR स्कैन और मेरा पता",mr:"QR स्कॅन आणि माझा पत्ता",gu:"QR સ્કેન અને મારું સરનામું"},
+ a:{en:"To receive: Home > Receive shows your address and QR. To scan: tap the scan icon at the top right of Home, or Send > scan QR. You can also read a QR from a photo. Open the app in Chrome.",
+    hi:"पाने के लिए: Home > Receive में आपका पता और QR दिखता है। स्कैन के लिए: Home के ऊपर दाईं तरफ़ स्कैन का निशान, या Send > QR स्कैन। फ़ोटो से भी QR पढ़ सकते हैं। ऐप Chrome में खोलिए।",
+    mr:"मिळवण्यासाठी: Home > Receive मध्ये तुमचा पत्ता आणि QR दिसतो. स्कॅनसाठी: Home च्या वर उजवीकडे स्कॅन चिन्ह, किंवा Send > QR स्कॅन. फोटोवरूनही QR वाचता येतो. अ‍ॅप Chrome मध्ये उघडा.",
+    gu:"મેળવવા માટે: Home > Receive માં તમારું સરનામું અને QR દેખાય છે. સ્કેન માટે: Home ની ઉપર જમણી બાજુ સ્કેન નિશાન, અથવા Send > QR સ્કેન. ફોટોમાંથી પણ QR વાંચી શકાય છે. એપ Chrome માં ખોલો."}},
+{k:["real","असली","खरे","खरी","અસલી","paisa","पैसा","पैसे","પૈસા","money","rupee","rs","value","कीमत","किंमत","કિંમત","price"],
+ q:{en:"Is this real money?",hi:"क्या यह असली पैसा है?",mr:"हे खरे पैसे आहेत का?",gu:"શું આ અસલી પૈસા છે?"},
+ a:{en:"No. This is a test version on Shardeum Testnet. Test coins have no value. Please do not put real money or real coins in it, and do not use these 12 words in another wallet.",
+    hi:"नहीं। यह Shardeum Testnet पर टेस्ट वर्शन है। टेस्ट सिक्कों की कोई कीमत नहीं। इसमें असली पैसा या असली सिक्के मत डालिए, और ये 12 शब्द किसी दूसरे वॉलेट में इस्तेमाल मत कीजिए।",
+    mr:"नाही. ही Shardeum Testnet वरील टेस्ट आवृत्ती आहे. टेस्ट नाण्यांची कोणतीही किंमत नाही. यात खरे पैसे किंवा खरी नाणी टाकू नका, आणि हे 12 शब्द दुसऱ्या वॉलेटमध्ये वापरू नका.",
+    gu:"ના. આ Shardeum Testnet પરનું ટેસ્ટ વર્ઝન છે. ટેસ્ટ સિક્કાની કોઈ કિંમત નથી. તેમાં અસલી પૈસા કે અસલી સિક્કા ન નાખો, અને આ 12 શબ્દો બીજા વોલેટમાં વાપરશો નહીં."}},
+{k:["safe","surakshit","सुरक्षित","સુરક્ષિત","सुरक्षा","સુરક્ષા","hack","scam","fraud","फसवणूक","છેતરપિંડી","trust","भरोसा","विश्वास","ભરોસો"],
+ q:{en:"Is it safe?",hi:"क्या यह सुरक्षित है?",mr:"हे सुरक्षित आहे का?",gu:"શું આ સુરક્ષિત છે?"},
+ a:{en:"Your key stays on your phone, locked by your PIN. We never see it. Never share your PIN or 12 words. Nobody from CryptoPay will DM you first or ask for money. It is still an early test version.",
+    hi:"आपकी चाबी आपके फ़ोन में, आपके PIN से बंद रहती है। हम उसे कभी नहीं देखते। PIN और 12 शब्द किसी को न बताइए। CryptoPay से कोई पहले संदेश नहीं भेजेगा और पैसा नहीं माँगेगा। यह अभी शुरुआती टेस्ट वर्शन है।",
+    mr:"तुमची चावी तुमच्या फोनमध्ये, तुमच्या PIN ने बंद राहते. आम्ही ती कधीच पाहत नाही. PIN आणि 12 शब्द कोणालाही सांगू नका. CryptoPay कडून कोणीही आधी मेसेज करणार नाही किंवा पैसे मागणार नाही. ही अजून सुरुवातीची टेस्ट आवृत्ती आहे.",
+    gu:"તમારી ચાવી તમારા ફોનમાં, તમારા PIN થી બંધ રહે છે. અમે તેને ક્યારેય જોતા નથી. PIN અને 12 શબ્દો કોઈને કહેશો નહીં. CryptoPay તરફથી કોઈ પહેલા મેસેજ નહીં કરે કે પૈસા નહીં માગે. આ હજી શરૂઆતનું ટેસ્ટ વર્ઝન છે."}},
+{k:["lock","लॉक","લૉક","લોક","unlock","अनलॉक","auto","band","बंद"],
+ q:{en:"Lock and auto-lock",hi:"लॉक और ऑटो-लॉक",mr:"लॉक आणि ऑटो-लॉक",gu:"લૉક અને ઓટો-લૉક"},
+ a:{en:"Settings > Security: 'Lock now' locks the app and wallet at once. 'Lock automatically after' sets how long it waits. The app also locks after you leave it for a short while.",
+    hi:"Settings > Security: 'अभी लॉक करें' ऐप और वॉलेट दोनों को एक साथ लॉक करता है। 'इतनी देर बाद अपने आप लॉक' से तय करें कि कितनी देर बाद लॉक हो। ऐप से थोड़ी देर बाहर रहने पर भी वह लॉक हो जाता है।",
+    mr:"Settings > Security: 'आता लॉक करा' अ‍ॅप आणि वॉलेट दोन्ही एकदम लॉक करते. 'इतक्या वेळाने आपोआप लॉक' मध्ये किती वेळाने लॉक व्हावे ते ठरवा. अ‍ॅपमधून थोडा वेळ बाहेर राहिल्यासही ते लॉक होते.",
+    gu:"Settings > Security: 'હમણાં લૉક કરો' એપ અને વોલેટ બંનેને એકસાથે લૉક કરે છે. 'આટલા સમય પછી આપોઆપ લૉક' માં નક્કી કરો કે કેટલા સમય પછી લૉક થાય. એપમાંથી થોડો સમય બહાર રહો તો પણ તે લૉક થઈ જાય છે."}},
+{k:["hindi","हिंदी","હિંદી","language","भाषा","ભાષા","english","अंग्रेज़ी","अंग्रेजी","मराठी","ગુજરાતી","gujarati","marathi"],
+ q:{en:"Change language",hi:"भाषा बदलें",mr:"भाषा बदला",gu:"ભાષા બદલો"},
+ a:{en:"Settings > Language & display: choose Hindi or English for the app. In this chat, use the language buttons at the top.",
+    hi:"Settings > Language & display में हिंदी या English चुनिए। इस चैट में ऊपर के भाषा वाले बटन इस्तेमाल कीजिए।",
+    mr:"Settings > Language & display मध्ये हिंदी किंवा English निवडा. या चॅटमध्ये वरील भाषेची बटणे वापरा.",
+    gu:"Settings > Language & display માં હિંદી અથવા English પસંદ કરો. આ ચેટમાં ઉપરના ભાષા બટનો વાપરો."}},
+{k:["voice","bol","बोल","आवाज़","आवाज","અવાજ","બોલ","speak","mic"],
+ q:{en:"Speak to fill",hi:"बोलकर भरना",mr:"बोलून भरणे",gu:"બોલીને ભરવું"},
+ a:{en:"Send > 'Speak to fill'. Say the amount and a saved name, like '10 CPAY to Ramesh'. The app only fills the form. You press Send yourself. It needs the microphone and internet, it works in Hindi and English for now, and it is experimental.",
+    hi:"Send > 'Speak to fill'। रकम और सहेजा हुआ नाम बोलिए, जैसे '10 CPAY रमेश को भेजो'। ऐप सिर्फ़ फ़ॉर्म भरता है, Send आप खुद दबाते हैं। इसके लिए माइक और इंटरनेट चाहिए, अभी हिंदी और अंग्रेज़ी में चलता है, और यह प्रयोगात्मक है।",
+    mr:"Send > 'Speak to fill'. रक्कम आणि सेव्ह केलेले नाव बोला, जसे '10 CPAY रमेशला पाठवा'. अ‍ॅप फक्त फॉर्म भरते, Send तुम्हीच दाबता. यासाठी मायक्रोफोन आणि इंटरनेट लागते, सध्या हिंदी आणि इंग्रजीत चालते, आणि हे प्रायोगिक आहे.",
+    gu:"Send > 'Speak to fill'. રકમ અને સેવ કરેલું નામ બોલો, જેમ કે '10 CPAY રમેશને મોકલો'. એપ ફક્ત ફોર્મ ભરે છે, Send તમે જાતે દબાવો છો. આ માટે માઇક્રોફોન અને ઇન્ટરનેટ જોઈએ, હાલમાં હિંદી અને અંગ્રેજીમાં ચાલે છે, અને આ પ્રાયોગિક છે."}},
+{k:["contact","address book","naam","नाम","નામ","save","सहेज","सेव्ह","સેવ","friend","दोस्त","मित्र","મિત્ર","संपर्क","સંપર્ક"],
+ q:{en:"Save a contact",hi:"नाम सहेजना",mr:"नाव सेव्ह करणे",gu:"નામ સેવ કરવું"},
+ a:{en:"Services > Crypto > Address Book, or the 'Address book' button on the Send screen. Save a name with the address, then you can pick it when sending.",
+    hi:"Services > Crypto > Address Book, या Send स्क्रीन का 'Address book' बटन। नाम के साथ पता सहेजिए, फिर भेजते समय उसे चुन सकते हैं।",
+    mr:"Services > Crypto > Address Book, किंवा Send स्क्रीनवरील 'Address book' बटण. नावासह पत्ता सेव्ह करा, मग पाठवताना ते निवडता येते.",
+    gu:"Services > Crypto > Address Book, અથવા Send સ્ક્રીન પરનું 'Address book' બટન. નામ સાથે સરનામું સેવ કરો, પછી મોકલતી વખતે તે પસંદ કરી શકાય."}},
+{k:["not working","काम नहीं","nahi chal","नहीं चल","चालत नाही","ચાલતું નથી","error","problem","dikkat","दिक्कत","समस्या","अडचण","સમસ્યા","મુશ્કેલી","samasya","stuck","hang","blank","खाली","button"],
+ q:{en:"Something is not working",hi:"कुछ काम नहीं कर रहा",mr:"काही चालत नाही",gu:"કંઈક ચાલતું નથી"},
+ a:{en:"Try this: 1. Close Chrome fully and open the app again. 2. Settings > About: check the Build number. 3. Still stuck? Send a screenshot on Telegram and we will look at it.",
+    hi:"यह कीजिए: 1. Chrome पूरी तरह बंद करके ऐप दोबारा खोलिए। 2. Settings > About में Build नंबर देखिए। 3. फिर भी न चले तो Telegram पर स्क्रीनशॉट भेजिए, हम देखेंगे।",
+    mr:"हे करून पाहा: 1. Chrome पूर्ण बंद करून अ‍ॅप पुन्हा उघडा. 2. Settings > About मध्ये Build क्रमांक पाहा. 3. तरीही अडले तर Telegram वर स्क्रीनशॉट पाठवा, आम्ही पाहू.",
+    gu:"આ કરી જુઓ: 1. Chrome પૂરું બંધ કરી એપ ફરી ખોલો. 2. Settings > About માં Build નંબર જુઓ. 3. છતાં અટકે તો Telegram પર સ્ક્રીનશોટ મોકલો, અમે જોઈશું."}}
 ];
 function esc(s){return String(s).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
 function norm(s){return String(s).toLowerCase().replace(/[^\p{L}\p{M}\p{N}\s]/gu," ")}
 function find(t){var n=" "+norm(t)+" ",best=null,sc=0;T.forEach(function(x){var s=0;x.k.forEach(function(w){if(n.indexOf(w.toLowerCase())>-1)s+=(w.length>3?2:1)});if(s>sc){sc=s;best=x}});return sc>0?best:null}
-function add(who,html){var m=$("hbMsgs");if(!m)return;var d=document.createElement("div");d.className="hbm "+who;d.innerHTML=html;m.appendChild(d);m.scrollTop=m.scrollHeight}
-function answer(x){add("b",esc(lang==="en"?x.e:x.h))}
+/* which language did the person write in? */
+function detect(t){
+  if(/[\u0A80-\u0AFF]/.test(t))return"gu";
+  if(/[\u0900-\u097F]/.test(t))return /(कसे|कसा|कशी|काय|आहे|आहेत|नाही|माझ|मला|तुम्ह|तुमच|करा|टाक|पाठव|विसर|करू|कुठे|मोफत|हवे|नको)/.test(t)?"mr":"hi";
+  var n=" "+t.toLowerCase()+" ";
+  if(/\b(kaise|kaisa|kya|mera|meri|mere|nahi|nahin|hai|karo|dale|dalna|daalna|kahan|kaha|bhul|bhool|chalu|batao|bhejo|kaam|kijiye|kare)\b/.test(n))return"hi";
+  if(/[a-z]{3}/.test(n))return"en";
+  return null}
+var HBL="en";try{var sv=localStorage.getItem("cp3_hbl");HBL=LG.indexOf(sv)>-1?sv:(lang==="hi"?"hi":"en")}catch(e){HBL=lang==="hi"?"hi":"en"}
+function plain(s){return String(s).replace(/\s*>\s*/g,", ")}
+function speak(txt,l){
+  if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){toast(UI[l].nv,3500);return}
+  var code=VL[l],vs=speechSynthesis.getVoices()||[],v=null;
+  for(var i=0;i<vs.length;i++){var vl=String(vs[i].lang||"").replace("_","-").toLowerCase();if(vl.indexOf(code.slice(0,2))===0){v=vs[i];if(vl===code.toLowerCase())break}}
+  if(!v&&vs.length){toast(UI[l].nv,3500);return}
+  try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(plain(txt));u.lang=code;if(v)u.voice=v;u.rate=.95;speechSynthesis.speak(u)}catch(e){toast(UI[l].nv,3500)}}
+function add(who,html,l,pt){var m=$("hbMsgs");if(!m)return;var d=document.createElement("div");d.className="hbm "+who;d.innerHTML=html+(who==="b"&&l?'<button class="hbs" data-l="'+l+'" aria-label="Listen">🔊</button>':"");if(pt)d.setAttribute("data-t",pt);m.appendChild(d);m.scrollTop=m.scrollHeight}
+function answer(x){var t=x.a[HBL];add("b",esc(t),HBL,t)}
+function setLg(l){HBL=l;try{localStorage.setItem("cp3_hbl",l)}catch(e){}
+  var u=UI[l];if($("hbT"))$("hbT").textContent=u.t;if($("hbS"))$("hbS").textContent=u.s;if($("hbIn"))$("hbIn").placeholder=u.ph;if($("hbSend"))$("hbSend").textContent=u.sd;
+  document.querySelectorAll("#hbLg button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-l")===l)});
+  var c=$("hbChips");if(c){c.innerHTML="";T.forEach(function(x){var b=document.createElement("button");b.textContent=x.q[l];b.onclick=function(){add("u",esc(x.q[l]));answer(x)};c.appendChild(b)})}}
 var built=false;
 function build(){if(built)return;built=true;
+  var st2=document.createElement("style");st2.textContent="#hbLg{display:flex;gap:6px;padding:8px 14px 0;flex-wrap:wrap}#hbLg button{border:1px solid var(--ln,#22345C);background:var(--bg,#0B1222);color:inherit;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer}#hbLg button.on{background:linear-gradient(135deg,#3F7DFF,#2B5BE6);color:#fff;border-color:transparent}.hbs{display:block;margin-top:6px;border:1px solid var(--ln,#22345C);background:transparent;color:inherit;border-radius:999px;padding:3px 10px;font-size:14px;cursor:pointer}";document.head.appendChild(st2);
   var bk=document.createElement("div");bk.id="hbBack";bk.onclick=function(){HB.close()};document.body.appendChild(bk);
   var p=document.createElement("div");p.id="hbPanel";
-  p.innerHTML='<div class="hbh">'+ROBOT+'<div><b>'+tx("CryptoPay Helper","CryptoPay सहायक")+'</b><small>'+tx("Ready-made answers, not a real AI","तैयार जवाब, असली AI नहीं")+'</small></div><button onclick="HB.close()" aria-label="Close">×</button></div><div id="hbMsgs"></div><div id="hbChips"></div><div class="hbi"><input id="hbIn" placeholder="'+tx("Type your question","अपना सवाल लिखिए")+'" autocomplete="off"><button onclick="HB.send()">'+tx("Send","भेजें")+'</button></div>';
+  p.innerHTML='<div class="hbh">'+ROBOT+'<div><b id="hbT"></b><small id="hbS"></small></div><button onclick="HB.close()" aria-label="Close">×</button></div><div id="hbLg">'+LG.map(function(l){return'<button data-l="'+l+'">'+LN[l]+'</button>'}).join("")+'</div><div id="hbMsgs"></div><div id="hbChips"></div><div class="hbi"><input id="hbIn" autocomplete="off"><button id="hbSend" onclick="HB.send()"></button></div>';
   document.body.appendChild(p);
   $("hbIn").addEventListener("keydown",function(e){if(e.key==="Enter")HB.send()});
-  var c=$("hbChips");T.forEach(function(x,i){var b=document.createElement("button");b.textContent=lang==="en"?x.q[0]:x.q[1];b.onclick=function(){add("u",esc(b.textContent));answer(x)};c.appendChild(b)});
-  add("b",esc(tx("Hello! I am the CryptoPay Helper. I give ready-made answers about the app. Choose a question below or type your own. Tip: hold my icon and drag it anywhere on the screen.","नमस्ते! मैं CryptoPay सहायक हूँ। मैं ऐप के बारे में तैयार जवाब देता हूँ। नीचे से सवाल चुनिए या अपना लिखिए। सुझाव: मेरे आइकॉन को उँगली से पकड़कर स्क्रीन पर कहीं भी ले जा सकते हैं।")))}
+  $("hbLg").addEventListener("click",function(e){var b=e.target.closest("button");if(b)setLg(b.getAttribute("data-l"))});
+  $("hbMsgs").addEventListener("click",function(e){var b=e.target.closest(".hbs");if(b){var m=b.parentNode;speak(m.getAttribute("data-t")||m.textContent,b.getAttribute("data-l"))}});
+  setLg(HBL);var g=UI[HBL].g;add("b",esc(g),HBL,g.replace(/🔊/g,""))}
 window.HB={
   open:function(){build();$("hbBack").classList.add("open");$("hbPanel").classList.add("open")},
-  close:function(){var a=$("hbBack"),b=$("hbPanel");if(a)a.classList.remove("open");if(b)b.classList.remove("open")},
-  send:function(){var i=$("hbIn");if(!i)return;var v=i.value.trim();if(!v)return;i.value="";add("u",esc(v));var x=find(v);
-    if(x)answer(x);else add("b",esc(tx("I do not know this one. Please ask on Telegram:","यह मुझे नहीं आता। कृपया Telegram पर पूछिए:"))+' <a href="'+TG+'" target="_blank" rel="noopener">'+TG.replace("https://","")+'</a>')}
+  close:function(){var a=$("hbBack"),b=$("hbPanel");if(a)a.classList.remove("open");if(b)b.classList.remove("open");try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}},
+  send:function(){var i=$("hbIn");if(!i)return;var v=i.value.trim();if(!v)return;i.value="";var dl=detect(v);if(dl&&dl!==HBL)setLg(dl);add("u",esc(v));var x=find(v);
+    if(x)answer(x);else{var u=UI[HBL].u;add("b",esc(u)+' <a href="'+TG+'" target="_blank" rel="noopener">'+TG.replace("https://","")+'</a>',HBL,u)}},
+  lang:function(l){build();setLg(l)}
 };
 var btn=document.createElement("button");btn.id="hbBtn";btn.setAttribute("aria-label","Helper");btn.innerHTML=ROBOT;document.body.appendChild(btn);
+/* the helper always starts in the bottom-right corner; moving it is only for the moment, it goes back to the corner next time */
 (function(){
- var KEY="cp3_hbpos2",dragging=false,moved=false,sx=0,sy=0,ox=0,oy=0,pid=null;
+ var mem=null,dragging=false,moved=false,sx=0,sy=0,ox=0,oy=0,pid=null;
  function col(){var a=$("app"),r=a?a.getBoundingClientRect():null;if(!r||r.width<50)return{l:0,w:window.innerWidth};return{l:r.left,w:r.width}}
  function clamp(x,y){var c=col(),w=btn.offsetWidth||38,h=btn.offsetHeight||34,H=window.innerHeight;return{x:Math.min(Math.max(c.l+4,x),Math.max(c.l+4,c.l+c.w-w-4)),y:Math.min(Math.max(4,y),Math.max(4,H-h-4))}}
  function put(x,y){var q=clamp(x,y);btn.style.left=q.x+"px";btn.style.top=q.y+"px";btn.style.right="auto";btn.style.bottom="auto";return q}
- function save(x,y){var c=col();try{localStorage.setItem(KEY,JSON.stringify({fx:(x-c.l)/c.w,fy:y/window.innerHeight}))}catch(e){}}
- function load(){try{var p=JSON.parse(localStorage.getItem(KEY)||"null");return p&&typeof p.fx==="number"?p:null}catch(e){return null}}
- function place(){var c=col(),p=load();if(p)put(c.l+p.fx*c.w,p.fy*window.innerHeight);else put(c.l+c.w-(btn.offsetWidth||38)-14,window.innerHeight-100-(btn.offsetHeight||34))}
+ function corner(){var c=col();put(c.l+c.w-(btn.offsetWidth||38)-14,window.innerHeight-100-(btn.offsetHeight||34))}
+ function place(){if(mem)put(mem.x,mem.y);else corner()}
  btn.addEventListener("pointerdown",function(e){pid=e.pointerId;dragging=true;moved=false;sx=e.clientX;sy=e.clientY;var r=btn.getBoundingClientRect();ox=r.left;oy=r.top;try{btn.setPointerCapture(pid)}catch(x){}});
  btn.addEventListener("pointermove",function(e){if(!dragging||e.pointerId!==pid)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(!moved&&Math.abs(dx)+Math.abs(dy)<8)return;moved=true;e.preventDefault();put(ox+dx,oy+dy)});
- btn.addEventListener("pointerup",function(e){if(!dragging||e.pointerId!==pid)return;dragging=false;try{btn.releasePointerCapture(pid)}catch(x){}if(moved){var r=btn.getBoundingClientRect();save(r.left,r.top)}else HB.open()});
+ btn.addEventListener("pointerup",function(e){if(!dragging||e.pointerId!==pid)return;dragging=false;try{btn.releasePointerCapture(pid)}catch(x){}if(moved){var r=btn.getBoundingClientRect();mem={x:r.left,y:r.top}}else HB.open()});
  btn.addEventListener("pointercancel",function(){dragging=false});
  btn.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();HB.open()}});
  window.addEventListener("resize",place);
+ document.addEventListener("visibilitychange",function(){if(!document.hidden){mem=null;corner()}});
+ window.addEventListener("pageshow",function(){mem=null;corner()});
+ try{localStorage.removeItem("cp3_hbpos2");localStorage.removeItem("cp3_hbpos")}catch(e){}
  place();setTimeout(place,600);
  try{if(!localStorage.getItem("cp3_hbseen")){localStorage.setItem("cp3_hbseen","1");btn.classList.add("pulse");
-   var tp=document.createElement("div");tp.id="hbTip";tp.textContent=tx("Need help? Tap me. You can drag me anywhere.","मदद चाहिए? मुझे दबाइए। मुझे कहीं भी खिसका सकते हैं।");document.body.appendChild(tp);
+   var tp=document.createElement("div");tp.id="hbTip";tp.textContent=tx("Need help? Tap me. You can move me for a while; I come back to this corner.","मदद चाहिए? मुझे दबाइए। कुछ देर के लिए मुझे खिसका सकते हैं, मैं फिर इसी कोने में आ जाऊँगा।");document.body.appendChild(tp);
    var r=btn.getBoundingClientRect();tp.style.top=Math.max(6,r.top-6)+"px";if(r.left>210)tp.style.right=(window.innerWidth-r.left+10)+"px";else tp.style.left=(r.right+10)+"px";
    var gone=function(){if(tp.parentNode)tp.parentNode.removeChild(tp);btn.classList.remove("pulse")};setTimeout(gone,9000);btn.addEventListener("pointerdown",gone,{once:true})}}catch(e){}
  setInterval(function(){var sw=$("sheetWallet");btn.style.display=(sw&&sw.classList.contains("open"))?"none":""},600);
 })();
 })();
+
 
 /* ===== Part 39: no automatic phone prompt (our PIN keypad stays), honest wording, a hint under the keypad ===== */
 (function(){

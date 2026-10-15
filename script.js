@@ -1609,7 +1609,7 @@ new MutationObserver(upd).observe(lk,{attributes:true,attributeFilter:["style"]}
 if(!window.CPW||!window.WSH||!window.XT||!window.SB||!window.BIO)return;
 var tx=function(e,h){return lang==="en"?e:h};
 var H=window.WSH,A41=window.A41={},enc=new TextEncoder();
-var st=document.createElement("style");st.textContent="#sheetWallet.fromlock{z-index:1000!important}";document.head.appendChild(st);
+var st=document.createElement("style");st.textContent="#sheetWallet.fromlock{z-index:1000!important}#splash{z-index:1001!important}";document.head.appendChild(st);
 function b64(b){var s="";new Uint8Array(b).forEach(function(c){s+=String.fromCharCode(c)});return btoa(s)}
 function unb64(s){var r=atob(s),u=new Uint8Array(r.length);for(var i=0;i<r.length;i++)u[i]=r.charCodeAt(i);return u}
 /* ---- the app PIN is stored only as a salted slow hash (PBKDF2), never as the PIN itself ---- */

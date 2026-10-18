@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cryptopay-web-six.vercel.app/sitemap.xml

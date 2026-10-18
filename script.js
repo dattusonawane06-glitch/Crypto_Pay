@@ -717,7 +717,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 5 · Build 49 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 49 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 5 · Build 51 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 51 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#0A0F1A;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><svg viewBox="0 0 512 512" style="width:84px;height:84px"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg></div><b style="font-size:20px">CryptoPay</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 CryptoPay</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -1876,3 +1876,107 @@ function upd(){var e=$("btnBS");if(e)e.textContent=(typeof lang!=="undefined"&&l
 if(typeof changeLang==="function"){var _cl=changeLang;window.changeLang=changeLang=function(){var r=_cl.apply(this,arguments);upd();return r}}
 upd();
 })();
+
+/* ===== Build 51: confirm before sending, Learn tab, small polish ===== */
+(function(){ try{
+  var tx=function(e,h){return (typeof lang!=="undefined"&&lang==="en")?e:h};
+  var esc=function(x){return String(x).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
+
+  /* ---- 1) Estimated network fee (read-only) ---- */
+  function feeInfo(isTok){
+    var job=(async function(){
+      var h=await ethereum.request({method:"eth_gasPrice"});
+      var gp=BigInt(h); if(gp<=0n) return null;
+      var gas=BigInt(isTok?70000:21000);
+      var v=Number(gp*gas)/1e18;
+      var sym=(NETWORKS[currentNet]&&NETWORKS[currentNet].symbol)||"";
+      var t=v>=100?v.toFixed(0):v>=1?v.toFixed(2):v.toFixed(5);
+      return t+" "+sym;
+    })();
+    var to=new Promise(function(r){setTimeout(function(){r(null)},2500)});
+    return Promise.race([job.catch(function(){return null}),to]);
+  }
+
+  /* ---- 2) Confirmation card ---- */
+  function confirmSend(o){
+    return new Promise(function(res){
+      var ov=document.createElement("div"); ov.className="b51-ov";
+      var a=o.to, big=a.slice(0,6)+" … "+a.slice(-6);
+      var badge=o.real?'<span class="b51-bd real">'+tx("REAL MONEY","असली पैसा")+'</span>':'<span class="b51-bd test">'+tx("TEST","टेस्ट")+'</span>';
+      var nm=(NETWORKS[currentNet]&&NETWORKS[currentNet].name)||"";
+      ov.innerHTML=
+        '<div class="b51-card" role="dialog" aria-modal="true">'+
+          '<div class="b51-ttl">'+tx("Check before you send","भेजने से पहले जाँचिए")+'</div>'+
+          '<div class="b51-row"><small>'+tx("To","किसे")+'</small><div class="b51-big">'+esc(big)+'</div><div class="b51-full">'+esc(a)+'</div></div>'+
+          '<div class="b51-row"><small>'+tx("Amount","रकम")+'</small><div class="b51-amt">'+esc(o.amt)+' <span>'+esc(o.unit)+'</span></div></div>'+
+          '<div class="b51-row two"><div><small>'+tx("Network","नेटवर्क")+'</small><div>'+esc(nm)+' '+badge+'</div></div>'+
+          '<div><small>'+tx("Network fee (about)","नेटवर्क फ़ीस (लगभग)")+'</small><div>'+(o.fee?esc(o.fee):tx("shown in your wallet","वॉलेट में दिखेगी"))+'</div></div></div>'+
+          '<div class="b51-warn">'+tx("Once sent, it cannot be taken back. Check every letter of the address.","भेजने के बाद यह वापस नहीं होगा। पते का एक-एक अक्षर जाँच लीजिए।")+'</div>'+
+          (o.real?'<label class="b51-chk"><input type="checkbox" id="b51ok"> '+tx("I checked the address and amount","मैंने पता और रकम जाँच ली है")+'</label>':'')+
+          '<div class="b51-btns"><button class="b51-no" id="b51no">'+tx("Cancel","रद्द करें")+'</button><button class="b51-go" id="b51go"'+(o.real?' disabled':'')+'>'+tx("Yes, send","हाँ, भेजें")+'</button></div>'+
+        '</div>';
+      document.body.appendChild(ov);
+      function done(v){if(ov.parentNode)ov.parentNode.removeChild(ov);res(v)}
+      var go=ov.querySelector("#b51go"), no=ov.querySelector("#b51no"), ck=ov.querySelector("#b51ok");
+      if(ck)ck.onchange=function(){go.disabled=!ck.checked};
+      go.onclick=function(){if(!go.disabled)done(true)};
+      no.onclick=function(){done(false)};
+      ov.onclick=function(e){if(e.target===ov)done(false)};
+    });
+  }
+
+  /* ---- 3) Wrap Send ---- */
+  var _p=doSend, busy=false, pass=false;
+  doSend=async function(){
+    if(pass){pass=false;return _p.apply(this,arguments)}
+    if(busy)return;
+    var to=(($("sendTo")||{}).value||"").trim();
+    var amt=parseFloat(($("sendAmt")||{}).value);
+    if(!/^0x[0-9a-fA-F]{40}$/.test(to)||!(amt>0))return _p.apply(this,arguments);
+    busy=true; var ok=false;
+    try{
+      var t=window.XA&&XA.tok&&XA.tok();
+      var unit=((($("sendUnit")||{}).textContent)||"").trim();
+      var fee=await feeInfo(!!t);
+      ok=await confirmSend({to:to,amt:$("sendAmt").value,unit:unit,fee:fee,real:currentNet!=="shardeum-testnet"});
+    }finally{busy=false}
+    if(!ok)return;
+    pass=true;
+    try{return await _p.apply(this,arguments)}finally{pass=false}
+  };
+
+  /* ---- 4) Learn tab ---- */
+  var L=[
+   ["🔑","What are the 12 words?","12 शब्द क्या हैं?","They are the real key to your wallet. Write them on paper and keep the paper safe. Never take a photo or screenshot, and never share them with anyone, not even us. If you lose your phone, these 12 words bring your wallet back.","ये आपके वॉलेट की असली चाबी हैं। इन्हें कागज़ पर लिखकर सुरक्षित रखिए। फ़ोटो या स्क्रीनशॉट कभी नहीं, और किसी को नहीं बताइए, हमें भी नहीं। फ़ोन खो जाए तो इन्हीं 12 शब्दों से वॉलेट वापस खुलता है।"],
+   ["🧪","What is a test network?","टेस्ट नेटवर्क क्या है?","A test network is for practice. Its coins have no value. You can learn to send and receive here, and a mistake costs nothing.","टेस्ट नेटवर्क अभ्यास के लिए है। इसके सिक्कों की कोई कीमत नहीं। यहाँ भेजना और पाना सीखिए, गलती हो तो कोई नुक़सान नहीं।"],
+   ["⛽","What is the network fee?","नेटवर्क फ़ीस क्या है?","Every transfer pays a small fee to the network. We do not receive it. We show you the fee before you send.","हर लेन-देन पर नेटवर्क को छोटी फ़ीस देनी पड़ती है। यह हमें नहीं मिलती। भेजने से पहले हम फ़ीस दिखाते हैं।"],
+   ["📬","I sent to a wrong address. Now what?","गलत पते पर भेज दिया तो?","Money sent on a blockchain cannot be returned. So check the full address, send a small amount first, and use the QR scan to fill the address.","ब्लॉकचेन पर भेजा हुआ वापस नहीं होता। इसलिए पूरा पता जाँचिए, पहले छोटी रकम भेजकर देखिए, और पता भरने के लिए QR स्कैन कीजिए।"],
+   ["🌐","Why does the network matter?","नेटवर्क क्यों मायने रखता है?","A coin lives on one network. If you send it on the wrong network it can be lost. Always check that the receiver is on the same network as you.","हर सिक्का किसी एक नेटवर्क पर रहता है। गलत नेटवर्क पर भेजने से पैसा खो सकता है। हमेशा देखिए कि पाने वाला उसी नेटवर्क पर है जिस पर आप हैं।"],
+   ["🎭","How to avoid scams","ठगी से कैसे बचें","If anyone asks for your 12 words, PIN or OTP, it is a scam. Promises like “double your money” are not true. Never decide in a hurry.","कोई आपके 12 शब्द, PIN या OTP माँगे तो वह ठग है। “पैसा दोगुना” जैसे वादे सच नहीं होते। जल्दबाज़ी में कभी फ़ैसला मत लीजिए।"],
+   ["💵","What is a stablecoin?","स्टेबलकॉइन क्या है?","A stablecoin tries to keep its price close to one thing, like the US dollar. This depends on the money kept behind it and on the company that issues it, so it is not risk-free.","स्टेबलकॉइन अपनी कीमत किसी एक चीज़ (जैसे डॉलर) के पास रखने की कोशिश करता है। यह उसके पीछे जमा पैसे और उसे जारी करने वाली कंपनी पर निर्भर है, इसलिए पूरी तरह जोखिम-मुक्त नहीं।"],
+   ["🔒","PIN and fingerprint","PIN और फ़िंगरप्रिंट","The PIN locks the app on your phone. It protects you from theft, not from losing the phone. Protection from loss is only the 12 words on paper.","PIN फ़ोन में ऐप को ताला लगाता है। यह चोरी से बचाता है, फ़ोन खोने से नहीं। खोने से बचाव सिर्फ़ कागज़ पर लिखे 12 शब्द हैं।"]
+  ];
+  function openLearn(){
+    var old=document.querySelector(".b51-ov.learn"); if(old)old.parentNode.removeChild(old);
+    var ov=document.createElement("div"); ov.className="b51-ov learn";
+    var items=L.map(function(x){return '<details class="b51-lr"><summary><span>'+x[0]+'</span> '+esc(tx(x[1],x[2]))+'</summary><p>'+esc(tx(x[3],x[4]))+'</p></details>'}).join("");
+    var sg=(typeof SG!=="undefined"&&SG&&SG.open)?'<button class="b51-go" id="b51sg">'+tx("Stablecoin guide","स्टेबलकॉइन गाइड")+'</button>':'';
+    ov.innerHTML='<div class="b51-card tall"><div class="b51-ttl">'+tx("Learn","सीखें")+'</div><div class="b51-sub">'+tx("Short lessons. Tap one to open.","छोटे पाठ। खोलने के लिए दबाइए।")+'</div><div class="b51-list">'+items+'</div><div class="b51-btns">'+sg+'<button class="b51-no" id="b51cl">'+tx("Close","बंद करें")+'</button></div></div>';
+    document.body.appendChild(ov);
+    function close(){if(ov.parentNode)ov.parentNode.removeChild(ov)}
+    ov.querySelector("#b51cl").onclick=close;
+    ov.onclick=function(e){if(e.target===ov)close()};
+    var b=ov.querySelector("#b51sg"); if(b)b.onclick=function(){close();try{SG.open()}catch(e){}};
+  }
+  window.B51={learn:openLearn};
+
+  function setLbl(){var e=$("navLearn");if(e)e.textContent=tx("Learn","सीखें")}
+  function addLearn(){
+    var nav=document.querySelector(".bn"); if(!nav||$("navLearn"))return;
+    var b=document.createElement("button"); b.setAttribute("onclick","B51.learn()");
+    b.innerHTML='<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2zM4 20a2 2 0 0 0 2 2h13"/></svg></i><span id="navLearn"></span>';
+    nav.insertBefore(b,nav.children[1]||null); setLbl();
+  }
+  addLearn();
+  if(typeof changeLang==="function"){var _cl2=changeLang;window.changeLang=changeLang=function(){var r=_cl2.apply(this,arguments);setLbl();return r}}
+}catch(e){try{console.error("Build51",e)}catch(_){}}})();

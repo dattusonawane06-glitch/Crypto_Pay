@@ -684,7 +684,7 @@ var IC={w:'<path d="M4 8a2 2 0 0 1 2-2h12v3M4 8v9a2 2 0 0 0 2 2h14V9H6a2 2 0 0 1
 var L=function(k,d){return ls.get(k,d)};
 
 /* ---- Theme: auto / dark / light ---- */
-function applyTheme(){var m=L("theme","light"),mq=matchMedia("(prefers-color-scheme: light)").matches,l=m==="light"||(m==="auto"&&mq);document.documentElement.setAttribute("data-theme",l?"light":"dark");var c=document.querySelector("meta[name=theme-color]");if(c)c.content=l?"#f5f6f8":"#0A0F1A"}
+function applyTheme(){var m=L("theme","dark"),mq=matchMedia("(prefers-color-scheme: light)").matches,l=m==="light"||(m==="auto"&&mq);document.documentElement.setAttribute("data-theme",l?"light":"dark");var c=document.querySelector("meta[name=theme-color]");if(c)c.content=l?"#f5f6f8":"#0A0F1A"}
 try{matchMedia("(prefers-color-scheme: light)").addEventListener("change",applyTheme)}catch(e){}
 applyTheme();
 
@@ -709,15 +709,15 @@ var T=function(l,on,c){return'<div class="sr" onclick="'+c+'"><span class="sl">'
 var O=function(l,on,c){return'<div class="sr" onclick="'+c+'"><span class="sl">'+l+'</span><span class="rd'+(on?" on":"")+'"></span></div>'};
 var XL='<a class="xl" href="https://x.com/CryptoPay_web3" target="_blank" rel="noopener" aria-label="X">'+sv(IC.x)+'</a><a class="xl" href="https://t.me/cryptopay_web3" target="_blank" rel="noopener" aria-label="Telegram">'+sv(IC.tg)+'</a><a class="xl" href="https://cryptopay-web-six.vercel.app" target="_blank" rel="noopener" aria-label="Website">'+sv(IC.n)+"</a>";
 var PG={
-root:["Settings",function(){var a=addr?addr.slice(0,6)+"…"+addr.slice(-4):"Not connected";return R("w","Wallet",a,"addr||connectWallet()")+R("n","Network",NETWORKS[currentNet].name,"XN.open()")+R("a","Appearance",{auto:"Auto",dark:"Dark",light:"Light"}[L("theme","light")],"SB.g('app')")+R("s","Security",hasPin()?"PIN on":"Off","SB.g('sec')")+R("b","Notifications","","SB.g('noti')")+R("d","Language & display","","SB.g('disp')")+R("r","Data & help","","SB.g('dat')")+R("i","About","","SB.g('abt')")+'<div class="xw">'+XL+"</div>"}],
-app:["Appearance",function(){var m=L("theme","light");return O("Automatic (follows phone)",m==="auto","SB.th('auto')")+O("Dark",m==="dark","SB.th('dark')")+O("Light",m==="light","SB.th('light')")}],
+root:["Settings",function(){var a=addr?addr.slice(0,6)+"…"+addr.slice(-4):"Not connected";return R("w","Wallet",a,"addr||connectWallet()")+R("n","Network",NETWORKS[currentNet].name,"XN.open()")+R("a","Appearance",{auto:"Auto",dark:"Dark",light:"Light"}[L("theme","dark")],"SB.g('app')")+R("s","Security",hasPin()?"PIN on":"Off","SB.g('sec')")+R("b","Notifications","","SB.g('noti')")+R("d","Language & display","","SB.g('disp')")+R("r","Data & help","","SB.g('dat')")+R("i","About","","SB.g('abt')")+'<div class="xw">'+XL+"</div>"}],
+app:["Appearance",function(){var m=L("theme","dark");return O("Automatic (follows phone)",m==="auto","SB.th('auto')")+O("Dark",m==="dark","SB.th('dark')")+O("Light",m==="light","SB.th('light')")}],
 sec:["Security",function(){return R("s","Security checkup","","SC.open()")+(window.CPW&&CPW.has()?R("w","Recovery phrase (12 words)","","WS.show()")+R("w","Lock wallet","","CPW.lock();toast('Wallet locked');SB.r()"):"")+R("s","PIN lock",hasPin()?"On":"Off","SB.g('pin')")+'<div class="sr"><span class="sl">Auto-lock after</span><select onchange="ls.set(\'xt_am\',+this.value)">'+[1,2,5,10].map(function(x){return'<option value="'+x+'"'+(x==mins()?" selected":"")+">"+x+" min</option>"}).join("")+"</select></div>"+T("Blur screen in background",L("xt_bl",1),"SB.bl()")+'<div class="cap" style="padding:10px 4px">PIN protects this app on your phone. It does not replace your wallet password.</div>'}],
 pin:["PIN lock",function(){return hasPin()?'<div class="sr" onclick="SB.chg()"><span class="sl">Change PIN</span>'+CH+'</div><div class="sr" onclick="SB.rm()"><span class="sl" style="color:var(--r)">Remove PIN</span></div>':'<div class="sr" onclick="SB.set()"><span class="sl">Set 6-digit PIN</span>'+CH+"</div>"}],
 noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggleSound();SB.r()")+'<div class="sr" onclick="XT.go(\'al\')"><span class="sl">Price alarms</span>'+CH+'</div><div class="sr" onclick="XT.go(\'nt\')"><span class="sl">Notification centre</span>'+CH+"</div>"}],
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 5 · Build 53 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 53 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 5 · Build 54 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 54 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#0A0F1A;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><svg viewBox="0 0 512 512" style="width:84px;height:84px"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg></div><b style="font-size:20px">CryptoPay</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 CryptoPay</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -1656,7 +1656,7 @@ var btn=document.createElement("button");btn.id="hbBtn";btn.setAttribute("aria-l
  function col(){var a=$("app"),r=a?a.getBoundingClientRect():null;if(!r||r.width<50)return{l:0,w:window.innerWidth};return{l:r.left,w:r.width}}
  function clamp(x,y){var c=col(),w=btn.offsetWidth||38,h=btn.offsetHeight||34,H=window.innerHeight;return{x:Math.min(Math.max(c.l+4,x),Math.max(c.l+4,c.l+c.w-w-4)),y:Math.min(Math.max(4,y),Math.max(4,H-h-4))}}
  function put(x,y){var q=clamp(x,y);btn.style.left=q.x+"px";btn.style.top=q.y+"px";btn.style.right="auto";btn.style.bottom="auto";return q}
- function corner(){var c=col();put(c.l+c.w-(btn.offsetWidth||38)-14,window.innerHeight-100-(btn.offsetHeight||34))}
+ function corner(){var c=col(),w=btn.offsetWidth||38,h=btn.offsetHeight||34,n=document.querySelector("nav.bn"),r=n?n.getBoundingClientRect():null,y=(r&&r.height>10)?r.top+(r.height-h)/2:window.innerHeight-100-h;put(c.l+c.w-w-14,y)}
  function place(){if(mem)put(mem.x,mem.y);else corner()}
  btn.addEventListener("pointerdown",function(e){pid=e.pointerId;dragging=true;moved=false;sx=e.clientX;sy=e.clientY;var r=btn.getBoundingClientRect();ox=r.left;oy=r.top;try{btn.setPointerCapture(pid)}catch(x){}});
  btn.addEventListener("pointermove",function(e){if(!dragging||e.pointerId!==pid)return;var dx=e.clientX-sx,dy=e.clientY-sy;if(!moved&&Math.abs(dx)+Math.abs(dy)<8)return;moved=true;e.preventDefault();put(ox+dx,oy+dy)});
@@ -1667,10 +1667,10 @@ var btn=document.createElement("button");btn.id="hbBtn";btn.setAttribute("aria-l
  document.addEventListener("visibilitychange",function(){if(!document.hidden){mem=null;corner()}});
  window.addEventListener("pageshow",function(){mem=null;corner()});
  try{localStorage.removeItem("cp3_hbpos2");localStorage.removeItem("cp3_hbpos")}catch(e){}
- place();setTimeout(place,600);
+ place();setTimeout(place,600);setTimeout(place,1800);
  try{if(!localStorage.getItem("cp3_hbseen")){localStorage.setItem("cp3_hbseen","1");btn.classList.add("pulse");
    var tp=document.createElement("div");tp.id="hbTip";tp.textContent=tx("Need help? Tap me. You can move me for a while; I come back to this corner.","मदद चाहिए? मुझे दबाइए। कुछ देर के लिए मुझे खिसका सकते हैं, मैं फिर इसी कोने में आ जाऊँगा।");document.body.appendChild(tp);
-   var r=btn.getBoundingClientRect();tp.style.top=Math.max(6,r.top-6)+"px";if(r.left>210)tp.style.right=(window.innerWidth-r.left+10)+"px";else tp.style.left=(r.right+10)+"px";
+   var r=btn.getBoundingClientRect();tp.style.bottom=(window.innerHeight-r.top+10)+"px";tp.style.right=Math.max(8,window.innerWidth-r.right)+"px";
    var gone=function(){if(tp.parentNode)tp.parentNode.removeChild(tp);btn.classList.remove("pulse")};setTimeout(gone,9000);btn.addEventListener("pointerdown",gone,{once:true})}}catch(e){}
  setInterval(function(){var sw=$("sheetWallet");btn.style.display=(sw&&sw.classList.contains("open"))?"none":""},600);
 })();
@@ -1951,29 +1951,6 @@ upd();
 /* ===== Build 53: own icon for every Services tile, clearer free-CPAY messages ===== */
 (function(){ try{
   var tx=function(e,h){return (typeof lang!=="undefined"&&lang==="en")?e:h};
-  var P={
-   "Learn RWA":'<path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2zM4 20a2 2 0 0 0 2 2h13"/>',
-   "Stablecoin guide":'<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>',
-   "About CPAY":'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.1"/>',
-   "Terms of use":'<path d="M7 3h7l4 4v14H7zM14 3v4h4M9.5 14l2 2 3.5-4"/>',
-   "Privacy policy":'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
-   "Help":'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/>',
-   "Send feedback":'<path d="M4 5h16v11H9l-5 4z"/>',
-   "Crypto quiz":'<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5v1a3 3 0 0 0 3 3M16 6h3v1a3 3 0 0 1-3 3M12 13v4M9 20h6"/>',
-   "Security tips":'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.1 1 1.9V16h5v-.2c0-.8.4-1.4 1-1.9A6 6 0 0 0 12 3z"/>'
-  };
-  var fixing=false;
-  function fix(){
-    if(fixing)return; fixing=true;
-    try{ document.querySelectorAll("#sheetSvc button .svl").forEach(function(l){
-      var k=(l.textContent||"").trim(), p=P[k]; if(!p)return;
-      var sp=l.parentNode.querySelector(".svi svg"); if(sp&&sp.getAttribute("data-b53")!==k){sp.innerHTML=p;sp.setAttribute("data-b53",k)}
-    }) }catch(e){}
-    fixing=false;
-  }
-  var host=document.getElementById("sheetSvc");
-  if(host){ try{ new MutationObserver(fix).observe(host,{childList:true,subtree:true}) }catch(e){} }
-  fix();
 
   /* ---- free CPAY: say clearly, in plain words, what happened ---- */
   function human(m){
@@ -2007,3 +1984,63 @@ upd();
     };
   }
 }catch(e){try{console.error("Build53",e)}catch(_){}}})();
+
+
+/* ===== Build 54: our own two-tone icons (white or dark line + one yellow part) ===== */
+(function(){ try{
+  var IC={
+   fee:['<path d="M5 20V5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v15M5 20h9M14 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8l-3-3"/>','<path d="M8 8.5h3"/>'],
+   conv:['<path d="M5 8h13M15 5l3 3-3 3"/>','<path d="M19 16H6M9 13l-3 3 3 3"/>'],
+   csv:['<path d="M5 19h14M7 15v4M17 15v4"/>','<path d="M12 4v10M8.5 10.5L12 14l3.5-3.5"/>'],
+   expl:['<circle cx="11" cy="12" r="8"/><path d="M3 12h16M11 4c3 3 3 13 0 16M11 4c-3 3-3 13 0 16"/>','<circle cx="18.5" cy="6" r="2.2" fill="currentColor" stroke="none"/>'],
+   bell:['<path d="M6 17h12M8 17v-5a4 4 0 0 1 8 0v5M10.5 20h3"/>','<path d="M4 7l2-2M20 7l-2-2"/>'],
+   book:['<rect x="5" y="3.5" width="13" height="17" rx="2.5"/><path d="M8 17c.8-2 2-3 3.5-3s2.7 1 3.5 3"/>','<circle cx="11.5" cy="9.5" r="2.4" fill="currentColor" stroke="none"/>'],
+   sip:['<path d="M4 4v16h16"/>','<path d="M7.5 15l4-4 3 3 4.5-6"/>'],
+   emi:['<path d="M6 10v7M10 10v7M14 10v7M18 10v7M4 19h16"/>','<path d="M4 10l8-5 8 5"/>'],
+   home:['<path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/>','<path d="M10 21v-5h4v5"/>'],
+   pie:['<circle cx="12" cy="12" r="8"/>','<path d="M12 12V4a8 8 0 0 1 8 8z" fill="currentColor" stroke="none"/>'],
+   roi:['<path d="M18 6L6 18"/>','<circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/>'],
+   comp:['<path d="M4 12l8 4 8-4M4 16l8 4 8-4"/>','<path d="M12 4l8 4-8 4-8-4z"/>'],
+   split:['<circle cx="9" cy="12" r="5.5"/>','<circle cx="15" cy="12" r="5.5"/>'],
+   pl:['<path d="M4 20h16"/>','<path d="M5 15l5-5 3 3 6-6M15 7h4v4"/>'],
+   assets:['<path d="M6 21V5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v16M3 21h18M15 10h3a1 1 0 0 1 1 1v10"/>','<path d="M9 8h2M9 12h2M9 16h2"/>'],
+   cal:['<rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M4 10h16"/>','<path d="M8 3v4M16 3v4"/>'],
+   check:['<path d="M10 7h9M10 12h9M10 17h9"/>','<path d="M4.5 7l1.3 1.3L8 6M4.5 12l1.3 1.3L8 11M4.5 17l1.3 1.3L8 16"/>'],
+   flag:['<path d="M6 21V4"/>','<path d="M6 5h11l-2.5 3.5L17 12H6"/>'],
+   learn:['<path d="M5 5a2 2 0 0 1 2-2h12v15H7a2 2 0 0 0-2 2z"/>','<path d="M15 3v6l-2-1.4L11 9V3"/>'],
+   coins:['<path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>','<ellipse cx="12" cy="6" rx="7" ry="3" fill="currentColor" stroke="none"/>'],
+   tips:['<path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.1 1 1.9V16h5v-.2c0-.8.4-1.4 1-1.9A6 6 0 0 0 12 3z"/>','<path d="M9.5 18.5h5M10.5 21h3"/>'],
+   quiz:['<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5v1a3 3 0 0 0 3 3M16 6h3v1a3 3 0 0 1-3 3"/>','<path d="M12 13v4M9 20h6"/>'],
+   fire:['<path d="M12 3c1 3 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-6 1-9z"/>','<path d="M12 18a2 2 0 0 0 2-2c0-1-1-1.5-2-3-1 1.5-2 2-2 3a2 2 0 0 0 2 2z"/>'],
+   hist:['<path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4"/>','<path d="M12 8v4l3 2"/>'],
+   shield:['<path d="M12 3l7 3v5.5c0 4.5-3 7.8-7 9.5-4-1.7-7-5-7-9.5V6z"/>','<path d="M8.8 12l2.4 2.4 4-4.6"/>'],
+   drop:['<path d="M12 3.5c3.5 4 6 6.7 6 10a6 6 0 0 1-12 0c0-3.3 2.5-6 6-10z"/>','<path d="M9.5 14.5a2.7 2.7 0 0 0 2.5 2.5"/>'],
+   info:['<circle cx="12" cy="12" r="9"/>','<path d="M12 11v5"/><circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none"/>'],
+   ring:['<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l3.2 3.2M15.2 15.2l3.2 3.2M18.4 5.6l-3.2 3.2M8.8 15.2l-3.2 3.2"/>','<circle cx="12" cy="12" r="2.6" fill="currentColor" stroke="none"/>'],
+   chat:['<path d="M4 5h16v11H9l-5 4z"/>','<path d="M8 9.5h8M8 12.5h5"/>'],
+   lock:['<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>','<circle cx="12" cy="15.5" r="1.4" fill="currentColor" stroke="none"/>'],
+   doc:['<path d="M7 3h7l4 4v14H7zM14 3v4h4"/>','<path d="M9.5 14l2 2 3.5-4"/>'],
+   wallet:['<path d="M4 7a2 2 0 0 1 2-2h11v4M4 7v11a2 2 0 0 0 2 2h13V9H6a2 2 0 0 1-2-2z"/>','<circle cx="16.5" cy="14.5" r="1.2" fill="currentColor" stroke="none"/>'],
+   net:['<path d="M12 9.6V5.8M9.9 13.2L6.6 15.6M14.1 13.2l3.3 2.4"/>','<circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="12" cy="4" r="1.8"/><circle cx="5.2" cy="17" r="1.8"/><circle cx="18.8" cy="17" r="1.8"/>'],
+   theme:['<circle cx="12" cy="12" r="8"/>','<path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none"/>'],
+   lang:['<path d="M4 6h9M8.5 4v2M6 6c0 4 3 7 7 8M11 6c0 3-2 6-6 8"/>','<path d="M13 20l4-9 4 9M14.5 17h5"/>'],
+   svc:['<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>','<rect x="13" y="4" width="7" height="7" rx="2" fill="currentColor" stroke="none"/>'],
+   set:['<path d="M4 7h9m4 0h3M4 17h3m4 0h9"/>','<circle cx="15" cy="7" r="2.3" fill="currentColor" stroke="none"/><circle cx="9" cy="17" r="2.3" fill="currentColor" stroke="none"/>'],
+   robot:['<rect x="5" y="8" width="14" height="11" rx="3.5"/>','<path d="M12 8V5M10 5h4"/><circle cx="9.5" cy="13.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="14.5" cy="13.5" r="1.2" fill="currentColor" stroke="none"/>']
+  };
+  var SVC=[["fee","conv","csv","expl","bell","book"],["sip","emi","home","pie","roi","comp","split","pl"],["assets","cal","check","flag","learn","coins"],["tips","quiz","fire","bell","hist","shield"],["drop","info"],["ring","chat","lock","doc"]];
+  var SETK={"XN.open":"net","connectWallet":"wallet","'app'":"theme","'sec'":"shield","'noti'":"bell","'disp'":"lang","'dat'":"ring","'abt'":"info"};
+  function mk(svg,k,sw){var d=IC[k];if(!d||!svg)return;svg.setAttribute("class","tt");svg.setAttribute("viewBox","0 0 24 24");svg.setAttribute("fill","none");svg.removeAttribute("stroke");svg.setAttribute("stroke-linecap","round");svg.setAttribute("stroke-linejoin","round");svg.setAttribute("stroke-width",sw||"1.7");svg.setAttribute("data-t",k);svg.innerHTML='<g class="m" stroke="currentColor">'+d[0]+'</g><g class="y" stroke="currentColor">'+d[1]+'</g>'}
+  var busy=false;
+  function apply(){ if(busy)return; busy=true; try{
+    document.querySelectorAll("#sheetSvc .svg-g button").forEach(function(b){var m=/SV\.go\((\d+),\s*(\d+)\)/.exec(b.getAttribute("onclick")||"");if(!m)return;var k=(SVC[+m[1]]||[])[+m[2]];var s=b.querySelector(".svi svg");if(k&&s&&s.getAttribute("data-t")!==k)mk(s,k)});
+    document.querySelectorAll("#sheetSet .sr").forEach(function(r){var oc=r.getAttribute("onclick")||"";var s=r.querySelector(".si svg");if(!s)return;var k=null;for(var p in SETK){if(oc.indexOf(p)>-1){k=SETK[p];break}}if(k&&s.getAttribute("data-t")!==k)mk(s,k)});
+    var nb=document.querySelectorAll("nav.bn button");["home","svc","set"].forEach(function(k,i){var b=nb[i];if(!b)return;var s=b.querySelector("i svg");if(s&&s.getAttribute("data-t")!==k)mk(s,k,"1.8")});
+    var hb=document.getElementById("hbBtn");if(hb){var hs=hb.querySelector("svg");if(hs&&hs.getAttribute("data-t")!=="robot")mk(hs,"robot","1.7")}
+    var hr=document.getElementById("hbRow");if(hr&&!hr.querySelector(".si")){var sp=document.createElement("span");sp.className="si";sp.innerHTML="<svg></svg>";hr.insertBefore(sp,hr.firstChild);mk(sp.firstChild,"robot")}
+    var ch=document.querySelector("#sheetSvc .svc-chips");if(ch&&!ch.querySelector("button.on")&&ch.firstElementChild)ch.firstElementChild.classList.add("on");
+  }catch(e){} busy=false}
+  ["sheetSvc","sheetSet"].forEach(function(id){var h=document.getElementById(id);if(h){try{new MutationObserver(apply).observe(h,{childList:true,subtree:true})}catch(e){}}});
+  document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".svc-chips button");if(b){var p=b.parentNode;[].forEach.call(p.children,function(x){x.classList.remove("on")});b.classList.add("on")}});
+  apply(); setTimeout(apply,800); setTimeout(apply,2000);
+}catch(e){try{console.error("Build54",e)}catch(_){}}})();

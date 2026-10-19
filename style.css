@@ -473,8 +473,8 @@ html[data-theme=light] .b51-bd.test{background:rgba(15,159,123,.14);color:#0B8A6
 html[data-theme=light] .b51-bd.real{background:rgba(214,60,60,.14);color:#B42323}
 
 /* ===== Build 52: calm, small, professional skin (navy + gold, light by default) ===== */
-html[data-theme=light]{--k-bg:#F4F6FB;--k-pan:#FFFFFF;--k-ln:rgba(20,34,77,.09);--k-tx:#14224D;--k-mut:#6B7794;--k-ac:#1B2D6B;--k-gold:#C9962B;--k-c1:#1B2D6B;--k-c2:#2A4396;--k-circ:#FFFFFF;--k-sh:0 2px 10px rgba(20,34,77,.08)}
-html[data-theme=dark],html:not([data-theme]){--k-bg:#141C30;--k-pan:#1C2640;--k-ln:rgba(255,255,255,.08);--k-tx:#EEF2FB;--k-mut:#8E9BBB;--k-ac:#DCE3F5;--k-gold:#E9B949;--k-c1:#25356B;--k-c2:#18244D;--k-circ:rgba(255,255,255,.06);--k-sh:none}
+html[data-theme=light]{--k-bg:#F4F6FB;--k-pan:#FFFFFF;--k-ln:rgba(20,34,77,.09);--k-tx:#14224D;--k-mut:#6B7794;--k-ac:#1B2D6B;--k-gold:#C9962B;--k-c1:#1B2D6B;--k-c2:#2A4396;--k-circ:#FFFFFF;--k-sh:0 2px 10px rgba(20,34,77,.08);--k-box:rgba(20,34,77,.07)}
+html[data-theme=dark],html:not([data-theme]){--k-bg:#141C30;--k-pan:#1C2640;--k-ln:rgba(255,255,255,.08);--k-tx:#EEF2FB;--k-mut:#8E9BBB;--k-ac:#DCE3F5;--k-gold:#E9B949;--k-c1:#25356B;--k-c2:#18244D;--k-circ:rgba(255,255,255,.06);--k-sh:none;--k-box:rgba(255,255,255,.09)}
 html[data-theme] body,html[data-theme] body .app{background:var(--k-bg)!important;color:var(--k-tx)!important}
 html[data-theme] body .app::before{display:none!important}
 html[data-theme] body .top .pill,html[data-theme] body .chip{background:var(--k-pan)!important;color:var(--k-tx)!important;border:1px solid var(--k-ln)!important;box-shadow:none!important;font-size:12px!important;font-weight:700!important;padding:6px 12px!important}
@@ -506,3 +506,32 @@ html[data-theme] body .bname b{color:var(--k-gold)!important;text-shadow:none!im
 html[data-theme] body #list .sub{font-size:11px!important;font-weight:500!important;color:var(--k-mut)!important}
 html[data-theme] body #list .rt{text-align:right}
 html[data-theme] body #list .mid{min-width:0}
+
+/* ===== Build 53: yellow action buttons, no lines, no neon, calm Services and PIN ===== */
+html[data-theme] body .act span{background:#FFD60A!important;border:0!important;box-shadow:none!important;color:#14224D!important}
+html[data-theme] body .act span svg{stroke:#14224D!important;color:#14224D!important}
+html[data-theme] body #list .row{border-bottom:0!important;padding:11px 0!important}
+html[data-theme] body .scroll{padding-bottom:120px!important}
+html[data-theme] body .top{background:var(--k-bg)!important;position:relative;z-index:5}
+html[data-theme] body nav.bn button{position:relative}
+html[data-theme] body nav.bn .a{color:var(--k-tx)!important;font-weight:800!important}
+html[data-theme] body nav.bn .a::before{content:"";position:absolute;top:0;left:50%;width:24px;height:3px;border-radius:0 0 3px 3px;background:#FFD60A;transform:translateX(-50%)}
+html[data-theme] body .svi,html[data-theme] body .si{width:52px!important;height:52px!important;border-radius:14px!important;background:var(--k-pan)!important;border:0!important;box-shadow:var(--k-sh)!important;color:var(--k-ac)!important;filter:none!important}
+html[data-theme] body .svi svg,html[data-theme] body .si svg{width:22px!important;height:22px!important;stroke-width:1.6!important;filter:none!important}
+html[data-theme] body .svl{font-size:12px!important;font-weight:600!important;color:var(--k-tx)!important;text-shadow:none!important}
+html[data-theme] body .svc-chips button{background:var(--k-pan)!important;border:0!important;box-shadow:var(--k-sh)!important;color:var(--k-tx)!important}
+html[data-theme] body .svq input{background:var(--k-pan)!important;border:0!important;box-shadow:var(--k-sh)!important;color:var(--k-tx)!important}
+html[data-theme=light] body #xtLock{background:#F4F6FB!important;color:#14224D!important}
+html[data-theme=dark] body #xtLock{background:#141C30!important}
+html[data-theme] body #xtLock .pk,html[data-theme] body .pinw .pk{background:var(--k-pan)!important;border:0!important;box-shadow:var(--k-sh)!important;color:var(--k-tx)!important;filter:none!important}
+html[data-theme] body #xtLock .pb,html[data-theme] body .pinw .pb{background:var(--k-box)!important;border:0!important}
+html[data-theme] body #xtLock .lkic,html[data-theme] body #xtLock .pt{color:var(--k-tx)!important;filter:none!important}
+html[data-theme] body #xtLock .forgot{color:var(--k-mut)!important}
+.b53msg{margin:10px 0 4px;padding:10px 12px;border-radius:12px;font-size:14px;font-weight:700;line-height:1.5}
+.b53msg.err{background:rgba(214,60,60,.1);color:#B42323}
+.b53msg.ok{background:rgba(15,159,123,.12);color:#0B8A69}
+.b53msg.info{background:rgba(20,34,77,.07);color:var(--k-tx)}
+html[data-theme=dark] .b53msg.err{color:#FFB3B3}
+html[data-theme=dark] .b53msg.ok{color:#5EE0BB}
+html[data-theme] body .svi svg,html[data-theme] body .si svg{stroke:var(--k-ac)!important}
+html[data-theme] body .act span svg{stroke-width:1.8!important}

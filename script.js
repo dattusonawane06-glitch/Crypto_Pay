@@ -717,7 +717,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 5 · Build 52 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 52 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 5 · Build 53 · Test version",i:"CryptoPay is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to CryptoPay. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 53 · टेस्ट वर्शन",i:"CryptoPay रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, CryptoPay को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#0A0F1A;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><svg viewBox="0 0 512 512" style="width:84px;height:84px"><path d="M378.1 110.4A190 190 0 1 0 378.1 401.6" fill="none" stroke="#2B6DF6" stroke-width="38"/><path d="M405.7 139A190 190 0 0 1 405.7 373" fill="none" stroke="#2DD4BF" stroke-width="38"/><rect x="196" y="150" width="56" height="212" rx="28" fill="#F4F6FA"/><path fill-rule="evenodd" fill="#F4F6FA" d="M300 138a76 76 0 1 0 0 152a76 76 0 1 0 0-152zM300 184a30 30 0 1 1 0 60a30 30 0 1 1 0-60z"/></svg></div><b style="font-size:20px">CryptoPay</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 CryptoPay</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -1946,3 +1946,64 @@ upd();
   };
 
 }catch(e){try{console.error("Build51",e)}catch(_){}}})();
+
+
+/* ===== Build 53: own icon for every Services tile, clearer free-CPAY messages ===== */
+(function(){ try{
+  var tx=function(e,h){return (typeof lang!=="undefined"&&lang==="en")?e:h};
+  var P={
+   "Learn RWA":'<path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2zM4 20a2 2 0 0 0 2 2h13"/>',
+   "Stablecoin guide":'<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>',
+   "About CPAY":'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.1"/>',
+   "Terms of use":'<path d="M7 3h7l4 4v14H7zM14 3v4h4M9.5 14l2 2 3.5-4"/>',
+   "Privacy policy":'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+   "Help":'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/>',
+   "Send feedback":'<path d="M4 5h16v11H9l-5 4z"/>',
+   "Crypto quiz":'<path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H5v1a3 3 0 0 0 3 3M16 6h3v1a3 3 0 0 1-3 3M12 13v4M9 20h6"/>',
+   "Security tips":'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.1 1 1.9V16h5v-.2c0-.8.4-1.4 1-1.9A6 6 0 0 0 12 3z"/>'
+  };
+  var fixing=false;
+  function fix(){
+    if(fixing)return; fixing=true;
+    try{ document.querySelectorAll("#sheetSvc button .svl").forEach(function(l){
+      var k=(l.textContent||"").trim(), p=P[k]; if(!p)return;
+      var sp=l.parentNode.querySelector(".svi svg"); if(sp&&sp.getAttribute("data-b53")!==k){sp.innerHTML=p;sp.setAttribute("data-b53",k)}
+    }) }catch(e){}
+    fixing=false;
+  }
+  var host=document.getElementById("sheetSvc");
+  if(host){ try{ new MutationObserver(fix).observe(host,{childList:true,subtree:true}) }catch(e){} }
+  fix();
+
+  /* ---- free CPAY: say clearly, in plain words, what happened ---- */
+  function human(m){
+    m=String(m||"");
+    if(/already got CPAY|last 24 hours/i.test(m))return tx("You already got CPAY in the last 24 hours. Please try again tomorrow.","आपको पिछले 24 घंटे में CPAY मिल चुका है। कल फिर कोशिश कीजिए।");
+    if(/already have/i.test(m)||/plenty/i.test(m))return tx("You already hold plenty of CPAY.","आपके पास पहले से काफ़ी CPAY है।");
+    if(/Many testers/i.test(m))return tx("Many testers today. Please try again tomorrow.","आज बहुत टेस्टर आए। कल फिर कोशिश कीजिए।");
+    if(/Too many requests/i.test(m))return tx("Too many requests from this network today. Try again tomorrow.","इस नेटवर्क से आज बहुत माँगें आईं। कल फिर कोशिश कीजिए।");
+    if(/resting/i.test(m))return tx("The test faucet is refilling. Please try again tomorrow.","टेस्ट सिक्कों का भंडार अभी भर रहा है। कल फिर कोशिश कीजिए।");
+    if(/wait a few seconds/i.test(m))return tx("Please wait a few seconds and press again.","कुछ सेकंड रुककर फिर दबाइए।");
+    if(/not set up/i.test(m))return tx("The free faucet is not set up yet.","मुफ़्त वाला भंडार अभी तैयार नहीं है।");
+    return tx("Not possible right now: ","अभी नहीं हो पाया: ")+m;
+  }
+  function say(t,k){
+    var b=document.getElementById("calcBox"); if(!b)return;
+    var d=document.getElementById("b53air");
+    if(!d){d=document.createElement("div");d.id="b53air";var c=b.querySelector(".cap");if(c&&c.parentNode)c.parentNode.insertBefore(d,c.nextSibling);else b.insertBefore(d,b.firstChild)}
+    d.className="b53msg "+k; d.textContent=t;
+  }
+  if(typeof FQ!=="undefined"&&FQ){
+    var _d=FQ.draw;
+    FQ.draw=function(){var r=_d.apply(this,arguments);try{var d=document.getElementById("b53air");if(d&&d.parentNode)d.parentNode.removeChild(d)}catch(e){}return r};
+    FQ.air=async function(){
+      if(!addr){await connectWallet();if(!addr)return}
+      say(tx("Sending 100 CPAY…","100 CPAY भेज रहा हूँ…"),"info");
+      try{
+        var r=await fetch("/api/airdrop?address="+addr),d=await r.json();
+        if(d.ok){say(tx("Sent: 100 CPAY. It will show in a few seconds.","100 CPAY भेज दिए। कुछ सेकंड में दिखेंगे।"),"ok");logTx("in","100","CPAY",d.hash);setTimeout(readCustomBalances,8000)}
+        else say(human(d.error),"err");
+      }catch(e){say(tx("Network problem. Please try again.","नेटवर्क की दिक्कत। फिर कोशिश कीजिए।"),"err")}
+    };
+  }
+}catch(e){try{console.error("Build53",e)}catch(_){}}})();

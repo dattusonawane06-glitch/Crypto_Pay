@@ -575,3 +575,18 @@ html[data-theme=light] .b51-bd.test{background:rgba(15,159,123,.14)!important;co
 html[data-theme=light] .b51-bd.real{background:rgba(214,60,60,.14)!important;color:#B42323!important}
 html[data-theme=dark] .b51-warn{background:rgba(229,72,77,.14)!important;border:0!important;color:#FF8A8D!important}
 html[data-theme] body .top svg *{stroke:var(--k-ac)!important}
+
+/* Build 55: robot = icon only, nav shows yellow on all three, bigger clearer labels, one helper only */
+html[data-theme] body #hbBtn{background:transparent!important;box-shadow:none!important;width:44px!important;height:44px!important;border-radius:0!important}
+html[data-theme] body #hbBtn svg{width:36px!important;height:36px!important}
+html[data-theme] body #hbBtn::before{display:none}
+.tt .y{color:var(--k-y)!important}
+nav.bn button:not(.a) .tt .y{color:var(--k-y)!important}
+nav.bn button:not(.a) .tt .m{color:var(--k-mut2,#A8B3C9)!important}
+html[data-theme=light]{--k-mut2:#5B6783}
+html[data-theme=dark]{--k-mut2:#B9C3D6}
+html[data-theme] body nav.bn button{font-size:12px!important;font-weight:700!important}
+html[data-theme] body nav.bn button span{font-size:12px!important;font-weight:700!important;color:var(--k-mut2,#A8B3C9)!important}
+html[data-theme] body nav.bn .a span{color:var(--k-tx)!important;font-weight:800!important}
+html[data-theme] body nav.bn button i svg{width:26px!important;height:26px!important}
+html[data-theme] body #hbRow{display:none!important}

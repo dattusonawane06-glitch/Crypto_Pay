@@ -10,8 +10,9 @@ const ABI = ["function transfer(address,uint256) returns (bool)", "function bala
 const DAY = 24 * 3600 * 1000;
 const MIN_CPAY = 500n * 10n ** 18n;   // always keep at least this much CPAY in the wallet
 const MIN_SHM = 50n * 10n ** 18n;     // and at least this much SHM for fees
+const RECV_MAX = 1000n * 10n ** 18n;   // people who already hold this much CPAY do not need more
 const PER_IP_MAX = 10;                // claims per network per day (mobile networks share addresses, so not too small)
-const GLOBAL_MAX = 60;                // claims per day in total (per running server copy)
+const GLOBAL_MAX = 30;                // claims per day in total (per running server copy)
 const MIN_GAP_MS = 8000;              // pause between two claims
 let seen = new Map(), ips = new Map(), day = [], lastAt = 0;   // best effort: reset when the server restarts
 
@@ -65,7 +66,7 @@ async function handler(req, res) {
     const c = await handler._chain.info(to);
     const amount = ethers.parseUnits(AMOUNT, 18);
     if (c.cpay < MIN_CPAY + amount || c.shm < MIN_SHM) { give(key, ip, now); return res.status(503).json({ error: "The test faucet is resting. Please try again tomorrow." }); }
-    if (c.recv >= amount) { give(key, ip, now); return res.status(429).json({ error: "You already have CPAY" }); }
+    if (c.recv >= RECV_MAX) { give(key, ip, now); return res.status(429).json({ error: "You already hold plenty of CPAY" }); }
     const hash = await handler._chain.send(c, to);
     return res.status(200).json({ ok: true, hash });
   } catch (e) {

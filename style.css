@@ -596,3 +596,23 @@ html[data-theme] body #hbRow{display:none!important}
 #splash svg{filter:none!important;animation:none!important}
 #splash .sn{font-size:36px;font-weight:800;letter-spacing:.5px}
 .cmark{background:none!important;padding:0!important;box-shadow:none!important;display:flex!important;align-items:center;justify-content:center}
+
+/* ===== Build 57 (step 1): neat pages: full-screen, solid title bar, no box-in-box, calm type, no emoji clutter ===== */
+html[data-theme] body #sheetTools .panel,html[data-theme] body #sheetSvc .panel,html[data-theme] body #sheetSet .panel{height:100%!important;max-height:100%!important;border-radius:0!important}
+html[data-theme] body .shade .panel{padding-bottom:110px!important}
+html[data-theme] body .bkh{background:var(--k-bg)!important;border:0!important;position:sticky!important;top:0!important;z-index:20!important}
+html[data-theme] body #calcBox{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;border-radius:0!important}
+html[data-theme] body .panel{font-size:15px;line-height:1.6}
+html[data-theme] body .xt-o{font-size:15px!important;line-height:1.6!important;padding:14px 16px!important;margin-bottom:10px!important}
+html[data-theme] body .xt-o b{display:block;font-size:16px;font-weight:700;margin-bottom:2px;color:var(--k-tx)}
+html[data-theme] body .xt-o>div[style*="var(--mut)"]{color:var(--k-mut2,#B9C3D6)!important;font-size:14.5px;line-height:1.65!important}
+html[data-theme] body .panel input[type=checkbox]{accent-color:#FFD60A;width:20px;height:20px;margin-right:12px;vertical-align:middle}
+html[data-theme] body .xt-o span[style*="var(--r)"]{color:#FF7A85!important}
+html[data-theme] body .xt-o span[style*="var(--g)"]{color:var(--k-y)!important}
+html[data-theme=light]{--k-mut2:#4A5675}
+html[data-theme=dark]{--k-mut2:#B9C3D6}
+
+/* Build 57: AI helper face (solid yellow robot face) */
+html[data-theme] body #hbBtn svg.face{width:42px!important;height:42px!important}
+html[data-theme] body #hbPanel .hbh svg.face{width:44px!important;height:44px!important}
+html[data-theme] body #hbBtn{width:46px!important;height:46px!important}

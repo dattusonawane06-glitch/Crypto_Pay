@@ -1,4 +1,4 @@
-/* CryptoPay in-app wallet (TESTNET ONLY). Keys are encrypted with your PIN and never leave this device. */
+/* Tazvera in-app wallet (TESTNET ONLY). Keys are encrypted with your PIN and never leave this device. */
 (function(){
 var E=window.ethers;if(!E)return;
 var KS="cp3_inapp_keystore",CHAIN="0x1fb7",RPC="https://api-mezame.shardeum.org",W=null;

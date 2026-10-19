@@ -590,3 +590,9 @@ html[data-theme] body nav.bn button span{font-size:12px!important;font-weight:70
 html[data-theme] body nav.bn .a span{color:var(--k-tx)!important;font-weight:800!important}
 html[data-theme] body nav.bn button i svg{width:26px!important;height:26px!important}
 html[data-theme] body #hbRow{display:none!important}
+
+/* Build 56: Tazvera splash and header mark */
+#splash{background:#1C2230!important}
+#splash svg{filter:none!important;animation:none!important}
+#splash .sn{font-size:36px;font-weight:800;letter-spacing:.5px}
+.cmark{background:none!important;padding:0!important;box-shadow:none!important;display:flex!important;align-items:center;justify-content:center}

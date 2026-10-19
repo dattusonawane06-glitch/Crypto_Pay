@@ -1,5 +1,5 @@
-Contact: https://x.com/CryptoPay_web3
-Contact: https://t.me/cryptopay_web3
+Contact: https://x.com/TazveraApp
+Contact: https://t.me/TazveraApp
 Expires: 2027-10-15T00:00:00.000Z
 Preferred-Languages: en, hi
 Canonical: https://cryptopay-app.vercel.app/security.txt

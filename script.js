@@ -684,7 +684,7 @@ var IC={w:'<path d="M4 8a2 2 0 0 1 2-2h12v3M4 8v9a2 2 0 0 0 2 2h14V9H6a2 2 0 0 1
 var L=function(k,d){return ls.get(k,d)};
 
 /* ---- Theme: auto / dark / light ---- */
-function applyTheme(){var m=L("theme","dark"),mq=matchMedia("(prefers-color-scheme: light)").matches,l=m==="light"||(m==="auto"&&mq);document.documentElement.setAttribute("data-theme",l?"light":"dark");var c=document.querySelector("meta[name=theme-color]");if(c)c.content=l?"#f5f6f8":"#0A0F1A"}
+function applyTheme(){var m="dark",mq=false,l=false;document.documentElement.setAttribute("data-theme",l?"light":"dark");var c=document.querySelector("meta[name=theme-color]");if(c)c.content=l?"#f5f6f8":"#0A0F1A"}
 try{matchMedia("(prefers-color-scheme: light)").addEventListener("change",applyTheme)}catch(e){}
 applyTheme();
 
@@ -709,7 +709,7 @@ var T=function(l,on,c){return'<div class="sr" onclick="'+c+'"><span class="sl">'
 var O=function(l,on,c){return'<div class="sr" onclick="'+c+'"><span class="sl">'+l+'</span><span class="rd'+(on?" on":"")+'"></span></div>'};
 var XL='<a class="xl" href="https://x.com/TazveraApp" target="_blank" rel="noopener" aria-label="X">'+sv(IC.x)+'</a><a class="xl" href="https://t.me/TazveraApp" target="_blank" rel="noopener" aria-label="Telegram">'+sv(IC.tg)+'</a><a class="xl" href="https://cryptopay-web-six.vercel.app" target="_blank" rel="noopener" aria-label="Website">'+sv(IC.n)+"</a>";
 var PG={
-root:["Settings",function(){var a=addr?addr.slice(0,6)+"…"+addr.slice(-4):"Not connected";return R("w","Wallet",a,"addr||connectWallet()")+R("n","Network",NETWORKS[currentNet].name,"XN.open()")+R("a","Appearance",{auto:"Auto",dark:"Dark",light:"Light"}[L("theme","dark")],"SB.g('app')")+R("s","Security",hasPin()?"PIN on":"Off","SB.g('sec')")+R("b","Notifications","","SB.g('noti')")+R("d","Language & display","","SB.g('disp')")+R("r","Data & help","","SB.g('dat')")+R("i","About","","SB.g('abt')")+'<div class="xw">'+XL+"</div>"}],
+root:["Settings",function(){var a=addr?addr.slice(0,6)+"…"+addr.slice(-4):"Not connected";return R("w","Wallet",a,"addr||connectWallet()")+R("n","Network",NETWORKS[currentNet].name,"XN.open()")+R("s","Security",hasPin()?"PIN on":"Off","SB.g('sec')")+R("b","Notifications","","SB.g('noti')")+R("d","Language & display","","SB.g('disp')")+R("r","Data & help","","SB.g('dat')")+R("i","About","","SB.g('abt')")+'<div class="xw">'+XL+"</div>"}],
 app:["Appearance",function(){var m=L("theme","dark");return O("Automatic (follows phone)",m==="auto","SB.th('auto')")+O("Dark",m==="dark","SB.th('dark')")+O("Light",m==="light","SB.th('light')")}],
 sec:["Security",function(){return R("s","Security checkup","","SC.open()")+(window.CPW&&CPW.has()?R("w","Recovery phrase (12 words)","","WS.show()")+R("w","Lock wallet","","CPW.lock();toast('Wallet locked');SB.r()"):"")+R("s","PIN lock",hasPin()?"On":"Off","SB.g('pin')")+'<div class="sr"><span class="sl">Auto-lock after</span><select onchange="ls.set(\'xt_am\',+this.value)">'+[1,2,5,10].map(function(x){return'<option value="'+x+'"'+(x==mins()?" selected":"")+">"+x+" min</option>"}).join("")+"</select></div>"+T("Blur screen in background",L("xt_bl",1),"SB.bl()")+'<div class="cap" style="padding:10px 4px">PIN protects this app on your phone. It does not replace your wallet password.</div>'}],
 pin:["PIN lock",function(){return hasPin()?'<div class="sr" onclick="SB.chg()"><span class="sl">Change PIN</span>'+CH+'</div><div class="sr" onclick="SB.rm()"><span class="sl" style="color:var(--r)">Remove PIN</span></div>':'<div class="sr" onclick="SB.set()"><span class="sl">Set 6-digit PIN</span>'+CH+"</div>"}],
@@ -717,7 +717,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 5 · Build 57 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 57 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 5 · Build 58 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 58 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#1C2230;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><svg viewBox="0 0 100 100" style="width:84px;height:84px"><circle cx="50" cy="50" r="48" fill="#FFD60A"/><circle cx="50" cy="40" r="11.5" fill="#1C2230"/><path d="M43.5 48H56.5L61 73H39Z" fill="#1C2230"/></svg></div><b style="font-size:20px">Tazvera</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 Tazvera</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -770,7 +770,7 @@ var P={send:'<path d="M7 17L17 7M9 7h8v8"/>',recv:'<path d="M17 7L7 17M15 17H7V9
 var ic=function(k){return'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+P[k]+"</svg>"};
 var D=function(t,f){return function(){$("toolOut").textContent="";$("calcBox").style.display="none";$("sheetTools").classList.add("open");$("toolsTitle").textContent=t;f()}};
 var C=function(k,t){return D(t,function(){showCalc(k)})},X=function(k){return function(){XT.go(k)}},H=function(f){return function(){closeAll();f()}};
-var G=[["Crypto",[["Network fee","gas",D("Network fee",toolGas)],["Price converter","cv",D("Price converter",toolConvert)],["History CSV","csv",toolExport],["Block explorer","exp",openExplorer],["Price alarm","al",X("al")],["Address Book","user",function(){openBook()}]]],
+var G=[["Crypto",[["Network fee","gas",function(){window.toolGas()}],["Price converter","cv",function(){window.toolConvert()}],["History CSV","csv",toolExport],["Block explorer","exp",openExplorer],["Price alarm","al",X("al")],["Address Book","user",function(){openBook()}]]],
 ["Calculators",[["SIP","sip",C("sip","SIP calculator")],["EMI","emi",C("emi","EMI calculator")],["Rental yield","yld",C("yield","Rental yield")],["Fractional","frac",C("frac","Fractional ownership")],["ROI","roi",C("roi","ROI calculator")],["Compound","comp",C("comp","Compound interest")],["Bill split","bs",X("bs")],["Profit / Loss","pl",X("pl")]]],
 ["RWA",[["My assets","ra",X("ra")],["Rent records","rr",X("rr")],["Docs checklist","ck",X("ck")],["Scam check","sc",X("sc")],["Learn RWA","ln",X("ln")],["Stablecoin guide","ln",function(){SG.open()}]]],
 ["Safety",[["Security tips","sec",X("sec")],["Crypto quiz","qz",X("qz")],["Daily streak","st",X("st")],["Notifications","nt",X("nt")],["History","tx",X("tx")],["Security checkup","sec",function(){SC.open()}]]],["Test",[["CPAY faucet","drop",function(){FQ.open()}],["About CPAY","ln",function(){HP.about()}]]],["Help",[["Help","qz",function(){HP.help()}],["Send feedback","nt",function(){FB.open()}],["Privacy policy","sec",function(){LG.open("p")}],["Terms of use","ln",function(){LG.open("t")}]]]];
@@ -1505,10 +1505,10 @@ var ROBOT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-lin
 var TG="https://t.me/TazveraApp";
 var LG=["hi","en","mr","gu"],LN={en:"English",hi:"हिंदी",mr:"मराठी",gu:"ગુજરાતી"},VL={en:"en-IN",hi:"hi-IN",mr:"mr-IN",gu:"gu-IN"};
 var UI={
- en:{t:"Tazvera Helper",s:"Ready-made answers, not a real AI",g:"Hello! I am the Tazvera Helper. I give ready-made answers about the app. Choose a question below or type your own. Tip: tap the speaker under an answer to hear it.",ph:"Type your question",sd:"Send",u:"I do not know this one. Please ask on Telegram:",nv:"This phone has no voice for this language."},
- hi:{t:"Tazvera सहायक",s:"तैयार जवाब, असली AI नहीं",g:"नमस्ते! मैं Tazvera सहायक हूँ। मैं ऐप के बारे में तैयार जवाब देता हूँ। नीचे से सवाल चुनिए या अपना लिखिए। सुझाव: जवाब के नीचे 🔊 दबाकर सुन भी सकते हैं।",ph:"अपना सवाल लिखिए",sd:"भेजें",u:"यह मुझे नहीं आता। कृपया Telegram पर पूछिए:",nv:"इस फ़ोन में इस भाषा की आवाज़ नहीं है।"},
- mr:{t:"Tazvera सहाय्यक",s:"तयार उत्तरे, खरा AI नाही (भाषांतर चाचणी स्वरूपात)",g:"नमस्कार! मी Tazvera सहाय्यक आहे. मी अ‍ॅपबद्दल तयार उत्तरे देतो. खालून प्रश्न निवडा किंवा तुमचा स्वतःचा लिहा. सूचना: उत्तराखालील 🔊 दाबून ऐकताही येते.",ph:"तुमचा प्रश्न लिहा",sd:"पाठवा",u:"हे मला माहीत नाही. कृपया Telegram वर विचारा:",nv:"या फोनमध्ये या भाषेचा आवाज नाही."},
- gu:{t:"Tazvera સહાયક",s:"તૈયાર જવાબો, અસલી AI નથી (અનુવાદ ટેસ્ટ સ્વરૂપે)",g:"નમસ્તે! હું Tazvera સહાયક છું. હું એપ વિશે તૈયાર જવાબો આપું છું. નીચેથી પ્રશ્ન પસંદ કરો અથવા તમારો લખો. સૂચન: જવાબની નીચે 🔊 દબાવીને સાંભળી પણ શકાય.",ph:"તમારો પ્રશ્ન લખો",sd:"મોકલો",u:"આ મને ખબર નથી. કૃપા કરીને Telegram પર પૂછો:",nv:"આ ફોનમાં આ ભાષાનો અવાજ નથી."}
+ en:{t:"Tazvera Helper",s:"",g:"Hello! I am the Tazvera Helper. I give ready-made answers about the app. Choose a question below or type your own. Tip: tap the speaker under an answer to hear it.",ph:"Type your question",sd:"Send",u:"I do not know this one. Please ask on Telegram:",nv:"This phone has no voice for this language."},
+ hi:{t:"Tazvera सहायक",s:"",g:"नमस्ते! मैं Tazvera सहायक हूँ। मैं ऐप के बारे में तैयार जवाब देता हूँ। नीचे से सवाल चुनिए या अपना लिखिए। सुझाव: जवाब के नीचे 🔊 दबाकर सुन भी सकते हैं।",ph:"अपना सवाल लिखिए",sd:"भेजें",u:"यह मुझे नहीं आता। कृपया Telegram पर पूछिए:",nv:"इस फ़ोन में इस भाषा की आवाज़ नहीं है।"},
+ mr:{t:"Tazvera सहाय्यक",s:"",g:"नमस्कार! मी Tazvera सहाय्यक आहे. मी अ‍ॅपबद्दल तयार उत्तरे देतो. खालून प्रश्न निवडा किंवा तुमचा स्वतःचा लिहा. सूचना: उत्तराखालील 🔊 दाबून ऐकताही येते.",ph:"तुमचा प्रश्न लिहा",sd:"पाठवा",u:"हे मला माहीत नाही. कृपया Telegram वर विचारा:",nv:"या फोनमध्ये या भाषेचा आवाज नाही."},
+ gu:{t:"Tazvera સહાયક",s:"",g:"નમસ્તે! હું Tazvera સહાયક છું. હું એપ વિશે તૈયાર જવાબો આપું છું. નીચેથી પ્રશ્ન પસંદ કરો અથવા તમારો લખો. સૂચન: જવાબની નીચે 🔊 દબાવીને સાંભળી પણ શકાય.",ph:"તમારો પ્રશ્ન લખો",sd:"મોકલો",u:"આ મને ખબર નથી. કૃપા કરીને Telegram પર પૂછો:",nv:"આ ફોનમાં આ ભાષાનો અવાજ નથી."}
 };
 var T=[
 {n:1,k:["your name","who are you","what can you do","what do you do","hello","hi","hey","namaste","नमस्ते","नमस्कार","નમસ્તે","तुम्हारा नाम","आपका नाम","तुम कौन","आप कौन","क्या कर सकते","क्या कर सकता","तुमचे नाव","तुझे नाव","तू कोण","तुम्ही कोण","काय करू शकता","તમારું નામ","તમારુ નામ","તમારું નામ શું","નામ શું છે","તમે કોણ","શું કરી શકો","tumhara naam","aapka naam","tum kaun","aap kaun","kya kar sakte"],
@@ -1641,7 +1641,7 @@ function build(){if(built)return;built=true;
   document.body.appendChild(p);
   $("hbIn").addEventListener("keydown",function(e){if(e.key==="Enter")HB.send()});
   $("hbMsgs").addEventListener("click",function(e){var b=e.target.closest(".hbs");if(b){var m=b.parentNode;speak(m.getAttribute("data-t")||m.textContent,b.getAttribute("data-l"))}});
-  setLg(HBL);add("b",esc("Hello! I am the Tazvera Helper. Ask me in any language: Hindi, English, Marathi or Gujarati. I answer in the same language.\n\nनमस्ते! किसी भी भाषा में पूछिए: हिंदी, English, मराठी या ગુજરાતી। मैं उसी भाषा में जवाब दूँगा।\n\nनमस्कार! तुमच्या भाषेत विचारा: हिंदी, English, मराठी किंवा ગુજરાતી. मी त्याच भाषेत उत्तर देईन.\n\nનમસ્તે! તમારી ભાષામાં પૂછો: હિંદી, English, મરાઠી અથવા ગુજરાતી. હું એ જ ભાષામાં જવાબ આપીશ."))}
+  setLg(HBL);add("b",esc(({hi:"नमस्ते! ऐप के बारे में कुछ भी पूछिए।",en:"Hi! Ask me anything about the app.",mr:"नमस्कार! अ‍ॅपबद्दल काहीही विचारा.",gu:"નમસ્તે! એપ વિશે કંઈ પણ પૂછો."})[HBL]||"Hi! Ask me anything about the app."))}
 window.HB={
   open:function(){build();$("hbBack").classList.add("open");$("hbPanel").classList.add("open")},
   close:function(){var a=$("hbBack"),b=$("hbPanel");if(a)a.classList.remove("open");if(b)b.classList.remove("open");try{if(window.speechSynthesis)speechSynthesis.cancel()}catch(e){}},
@@ -2053,7 +2053,7 @@ upd();
 }catch(e){try{console.error("Build55",e)}catch(_){}}})();
 
 
-/* ===== Build 57 (step 1): remove leftover emoji from page titles and tip rows ===== */
+/* ===== Build 58 (step 1): remove leftover emoji from page titles and tip rows ===== */
 (function(){ try{
   var RE=/^[\s\u200d\ufe0f]*(?:[\u2190-\u2bff\u3030\u303d\u3297\u3299]|[\ud83c-\ud83e][\udc00-\udfff]|\ufe0f)+[\s\u200d\ufe0f]*/;
   var busy=false;
@@ -2067,3 +2067,223 @@ upd();
   document.querySelectorAll(".shade").forEach(function(h){try{mo.observe(h,{childList:true,subtree:true,characterData:true})}catch(e){}});
   clean();
 }catch(e){try{console.error("Build57",e)}catch(_){}}})();
+
+/* ===== Build 58: clear Send (address first, then amount), tidy Receive and Request, small network-fee card, real price converter, helper face ===== */
+(function(){ try{
+var $=function(i){return document.getElementById(i)};
+var tx=function(e,h){return (typeof lang!=="undefined"&&lang==="en")?e:h};
+var ADDR=/^0x[0-9a-fA-F]{40}$/;
+var S58=window.S58={};
+function ic(p,z){return '<svg viewBox="0 0 24 24" width="'+(z||22)+'" height="'+(z||22)+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'}
+var I_PASTE='<rect x="8" y="3" width="8" height="4" rx="1"/><path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>';
+var I_SCAN='<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M4 12h16"/>';
+var I_BOOK='<rect x="5" y="3.5" width="13" height="17" rx="2.5"/><circle cx="11.5" cy="9.5" r="2.2"/><path d="M8 17c.8-2 2-3 3.5-3s2.7 1 3.5 3"/>';
+function short(a){return a?a.slice(0,6)+"…"+a.slice(-4):""}
+function tokNow(){try{return (window.XA&&XA.tok)?XA.tok():null}catch(e){return null}}
+function symNow(){var t=tokNow();return t?t.symbol:NETWORKS[currentNet].symbol}
+
+/* ---------- SEND ---------- */
+function buildSend(){
+ var pn=document.querySelector("#sheetSend .panel"),st=$("sendTo"),sa=$("sendAmt");
+ if(!pn||!st||!sa||$("s58send"))return;
+ var addrBox=st.parentNode,amtBox=sa.parentNode;
+ var w=document.createElement("div");w.id="s58send";
+ var row=document.createElement("div");row.className="s58row";
+ var a=pn.querySelector(".xnc-slot"),b=pn.querySelector(".xas-slot");if(a)row.appendChild(a);if(b)row.appendChild(b);
+ w.appendChild(row);
+ var s1=document.createElement("div");s1.id="s58s1";
+ s1.innerHTML='<div class="s58q" id="s58q1"></div><div id="s58vslot"></div><div id="s58aslot"></div><div class="s58hint" id="s58hint"></div>'+
+  '<div class="s58three"><button type="button" onclick="S58.paste()">'+ic(I_PASTE)+'<span id="s58l1"></span></button><button type="button" onclick="S58.scan()">'+ic(I_SCAN)+'<span id="s58l2"></span></button><button type="button" onclick="S58.book()">'+ic(I_BOOK)+'<span id="s58l3"></span></button></div>'+
+  '<div id="s58recent"></div><button type="button" class="btn s58off" id="s58next" onclick="S58.next()"></button>';
+ var s2=document.createElement("div");s2.id="s58s2";s2.style.display="none";
+ s2.innerHTML='<div class="s58to"><span id="s58to"></span><u onclick="S58.go(1)" id="s58chg"></u></div><div class="s58q" id="s58q2"></div><div id="s58mslot"></div><div class="s58maxrow"><button type="button" class="s58max" onclick="S58.max()" id="s58maxb">MAX</button></div><div id="s58fslot"></div><div id="s58gslot"></div><div id="s58bslot"></div>';
+ w.appendChild(s1);w.appendChild(s2);
+ var bk=pn.querySelector(".bkh");if(bk)bk.after(w);else pn.prepend(w);
+ var vid=$("scanVid");if(vid)$("s58vslot").appendChild(vid);
+ addrBox.classList.add("s58addr");$("s58aslot").appendChild(addrBox);
+ amtBox.classList.add("s58amt");$("s58mslot").appendChild(amtBox);
+ var fee=$("sendFee");if(fee)$("s58fslot").appendChild(fee);
+ var msg=$("sendMsg");if(msg)$("s58gslot").appendChild(msg);
+ var sb=$("sendBtn");if(sb)$("s58bslot").appendChild(sb);
+ st.addEventListener("input",S58.sync);
+ pn.addEventListener("click",function(e){var x=e.target.closest&&e.target.closest(".bkb");if(x&&$("s58s2").style.display!=="none"){e.stopPropagation();e.preventDefault();S58.go(1)}},true);
+ S58.text();
+}
+S58.text=function(){
+ var set=function(i,v){var e=$(i);if(e)e.textContent=v};
+ set("s58q1",tx("Who do you want to send to?","किसे भेजना है?"));
+ set("s58l1",tx("Paste","चिपकाएँ"));set("s58l2",tx("Scan","स्कैन करें"));set("s58l3",tx("Address book","पतों की किताब"));
+ set("s58next",tx("Next","आगे"));set("s58chg",tx("Change","बदलें"));
+ set("s58q2",tx("How much?","कितना भेजना है?"));
+ var st=$("sendTo");if(st)st.placeholder=tx("Type or paste the address (0x...)","यहाँ पता डालिए (0x...)");
+ var sa=$("sendAmt");if(sa)sa.placeholder="0";
+ var sb=$("sendBtn");if(sb)sb.textContent=tx("Send "+symNow(),symNow()+" भेजें");
+};
+S58.sync=function(){
+ var st=$("sendTo");if(!st)return;var v=st.value.trim(),ok=ADDR.test(v),nx=$("s58next");
+ if(nx){nx.classList.toggle("s58off",!ok)}
+ var h=$("s58hint");if(h)h.textContent=(v&&!ok)?tx("An address starts with 0x and has 42 characters.","पता 0x से शुरू होता है और 42 अक्षर का होता है।"):"";
+};
+S58.go=function(n){
+ var s1=$("s58s1"),s2=$("s58s2");if(!s1||!s2)return;
+ if(n===2){var v=$("sendTo").value.trim();if(!ADDR.test(v))return S58.sync();
+  $("s58to").textContent=short(v)+" ✓";s1.style.display="none";s2.style.display="block";S58.text();
+  var sa=$("sendAmt");try{sa.dispatchEvent(new Event("input"))}catch(e){} setTimeout(function(){try{sa.focus()}catch(e){}},200)}
+ else{s2.style.display="none";s1.style.display="block";S58.sync()}
+};
+S58.next=function(){S58.go(2)};
+S58.paste=async function(){
+ try{var t=await navigator.clipboard.readText();var m=(t||"").match(/0x[0-9a-fA-F]{40}/);
+  if(m){$("sendTo").value=m[0];S58.sync();toast(tx("Pasted","चिपका दिया"))}else toast(tx("No address copied yet","कॉपी किया हुआ पता नहीं मिला"),3000)}
+ catch(e){toast(tx("Press and hold the box, then tap Paste","डिब्बे को देर तक दबाइए, फिर चिपकाएँ चुनिए"),4000);try{$("sendTo").focus()}catch(_){}}
+};
+S58.scan=function(){try{scanQR()}catch(e){}};
+S58.book=function(){try{openBook()}catch(e){}};
+S58.max=async function(){
+ var t=tokNow(),sa=$("sendAmt"),v=0;
+ if(t){v=parseFloat(t.bal)||0}
+ else{var n=NETWORKS[currentNet],bal=parseFloat(T[n.symbol].bal)||0,fee=0;try{var g=await ethereum.request({method:"eth_gasPrice"});fee=Number(BigInt(g))*21000/1e18}catch(e){}
+  v=Math.max(0,bal-fee*1.25)}
+ sa.value=v>0?String(Math.floor(v*1e6)/1e6):"0";try{sa.dispatchEvent(new Event("input"))}catch(e){}
+};
+S58.recent=function(){
+ var b=$("s58recent");if(!b)return;var c=(typeof contacts!=="undefined"&&contacts)?contacts.slice(0,3):[];
+ if(!c.length){b.innerHTML="";return}
+ b.innerHTML='<div class="s58sub">'+tx("From your address book","पतों की किताब से")+'</div>'+c.map(function(x,i){return '<div class="s58rc" onclick="S58.pickC('+i+')"><i>'+String(x.n||"?").slice(0,1).toUpperCase()+'</i><div><b>'+String(x.n||"").replace(/</g,"&lt;")+'</b><small>'+short(x.a)+'</small></div></div>'}).join("");
+};
+S58.pickC=function(i){var c=contacts[i];if(!c)return;$("sendTo").value=c.a;S58.sync();S58.go(2)};
+var _os58=window.openSend;
+window.openSend=async function(){
+ buildSend();
+ await _os58.apply(this,arguments);
+ S58.text();S58.recent();S58.sync();
+ var v=($("sendTo")||{value:""}).value.trim();
+ S58.go(ADDR.test(v)?2:1);
+};
+/* after a QR scan fills the address, go to the amount step */
+setInterval(function(){var sh=$("sheetSend");if(!sh||!sh.classList.contains("open"))return;var m=$("sendMsg"),s1=$("s58s1");
+ if(m&&s1&&s1.style.display!=="none"&&/Scanned/i.test(m.textContent||"")&&ADDR.test($("sendTo").value.trim())){m.textContent="";S58.go(2)}
+ S58.sync()},600);
+
+/* ---------- RECEIVE ---------- */
+function buildRecv(){
+ var pn=document.querySelector("#sheetRecv .panel");if(!pn||pn.querySelector(".s58row"))return;
+ var a=pn.querySelector(".xnc-slot"),b=pn.querySelector(".xas-slot");if(!a)return;
+ var row=document.createElement("div");row.className="s58row";var h=pn.querySelector(".rc-h");
+ if(h)h.after(row);else pn.prepend(row);row.appendChild(a);if(b)row.appendChild(b);
+}
+var _or58=window.openReceive;
+if(_or58)window.openReceive=async function(){buildRecv();return _or58.apply(this,arguments)};
+
+/* ---------- REQUEST (with a coin chooser) ---------- */
+function buildReq(){
+ var pn=document.querySelector("#sheetReq .panel");if(!pn||pn.querySelector(".s58row"))return;
+ var row=document.createElement("div");row.className="s58row";row.innerHTML='<div class="xnc-slot"></div><div class="xas-slot"></div>';
+ var bk=pn.querySelector(".bkh");if(bk)bk.after(row);else pn.prepend(row);
+ var cap=pn.querySelector(".cap");if(cap)cap.style.display="none";
+}
+S58.syncChips=function(){
+ var s=document.querySelector("#sheetSend .xnc-slot"),a=document.querySelector("#sheetSend .xas-slot");
+ document.querySelectorAll("#sheetReq .xnc-slot").forEach(function(e){if(s)e.innerHTML=s.innerHTML});
+ document.querySelectorAll("#sheetReq .xas-slot").forEach(function(e){if(a)e.innerHTML=a.innerHTML});
+ var u=$("reqUnit");if(u)u.textContent=symNow();
+ var b=$("sendBtn");if(b&&$("s58s2"))S58.text();
+};
+function toUnits(amt,d){var p=String(amt).split(".");return (BigInt(p[0]||"0")*10n**BigInt(d)+BigInt(((p[1]||"")+"0".repeat(d)).slice(0,d))).toString()}
+function reqText(){
+ var n=NETWORKS[currentNet],t=tokNow(),amt=$("reqAmt").value.trim(),ok=/^\d*\.?\d+$/.test(amt)&&+amt>0;
+ if(t){return ok?("ethereum:"+t.addr+"@"+n.chainIdDec+"/transfer?address="+addr+"&uint256="+toUnits(amt,t.decimals||18)):addr}
+ var wei=toWei(amt);return wei?("ethereum:"+addr+"@"+n.chainIdDec+"?value="+wei):addr;
+}
+window.drawReqQR=function(){if(!addr)return;var box=$("reqQR");if(!box)return;box.innerHTML="";var u=$("reqUnit");if(u)u.textContent=symNow();
+ if(typeof QRCode!=="undefined")new QRCode(box,{text:reqText(),width:180,height:180,colorDark:"#000",colorLight:"#fff",correctLevel:QRCode.CorrectLevel.H})};
+window.copyReqLink=function(){if(!addr)return;navigator.clipboard.writeText(reqText()).then(function(){toast(tx("Request link copied","माँग की लिंक कॉपी हुई"))})};
+window.shareReqWA=function(){if(!addr)return;var n=NETWORKS[currentNet],sym=symNow(),amt=$("reqAmt").value.trim(),note=$("reqNote").value.trim();
+ var m="Tazvera payment request\n"+n.name+" · "+sym+"\n"+(amt?("Amount: "+amt+" "+sym+"\n"):"")+(note?("Note: "+note+"\n"):"")+"Address: "+addr;
+ window.open("https://wa.me/?text="+encodeURIComponent(m),"_blank")};
+var _oq58=window.openRequest;
+if(_oq58)window.openRequest=async function(){buildReq();await _oq58.apply(this,arguments);S58.syncChips();window.drawReqQR()};
+if(window.XA&&XA.pick){var _xp=XA.pick;XA.pick=function(){var r=_xp.apply(this,arguments);S58.syncChips();var q=$("sheetReq");if(q&&q.classList.contains("open"))window.drawReqQR();return r}}
+
+/* token must not change by itself when the same network is tapped again */
+var _cn58=window.changeNetwork;
+if(_cn58)window.changeNetwork=function(k){var same=(k===currentNet),keep=window.XA&&XA.sel;_cn58.apply(this,arguments);
+ if(same&&keep){try{XA.sel=keep;XA.pick(keep)}catch(e){}}
+ else{document.querySelectorAll(".xas-slot .xnc").forEach(function(e){e.classList.remove("s58f");void e.offsetWidth;e.classList.add("s58f")})}
+ S58.syncChips();S58.text()};
+
+/* ---------- small cards and full pages made on demand ---------- */
+function shade(id,cls,html){var e=$(id);if(e)return e;e=document.createElement("div");e.className="shade";e.id=id;e.setAttribute("onclick","if(event.target===this)this.classList.remove('open')");e.innerHTML='<div class="panel '+cls+'">'+html+'</div>';document.body.appendChild(e);return e}
+S58.close=function(id){var e=$(id);if(e)e.classList.remove("open")};
+var _ca58=window.closeAll;
+window.closeAll=function(){var r=_ca58.apply(this,arguments);["s58fee","s58conv","s58pick"].forEach(function(i){S58.close(i)});return r};
+
+/* network fee: a small card, not a whole empty page */
+S58.fee=async function(){
+ var sh=shade("s58fee","s58sm",'<div class="grab"></div><div class="s58st" id="s58ft"></div><div class="s58fv" id="s58fv">…</div><div class="s58fi" id="s58fi"></div><div class="s58fn" id="s58fn"></div><button class="btn" onclick="S58.close(\'s58fee\')" id="s58fok"></button>');
+ $("s58ft").textContent=tx("Network fee","नेटवर्क फ़ीस");$("s58fn").textContent=tx("This fee goes to the network, not to Tazvera.","यह फ़ीस नेटवर्क को जाती है, Tazvera को नहीं।");$("s58fok").textContent=tx("OK","ठीक है");$("s58fi").textContent="";$("s58fv").className="s58fv";$("s58fv").textContent="…";
+ sh.classList.add("open");
+ try{var n=NETWORKS[currentNet];
+  var r=await fetch(n.rpc,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:1,method:"eth_gasPrice",params:[]})});
+  var d=await r.json();var fe=parseInt(d.result,16)*21000/1e18;
+  $("s58fv").textContent="≈ "+(fe>=1?fe.toFixed(2):fe>=0.0001?fe.toFixed(6):fe.toPrecision(3))+" "+n.symbol;
+  var p=T[n.symbol]&&T[n.symbol].p;if(p&&p.inr){var inr=fe*p.inr;$("s58fi").textContent=tx("about ","लगभग ")+"₹"+(inr>=0.01?inr.toFixed(2):inr.toPrecision(2))}
+ }catch(e){$("s58fv").className="s58fv err";$("s58fv").textContent=tx("Could not load the fee right now","फ़ीस अभी नहीं मिल पाई, थोड़ी देर बाद देखिए")}
+};
+window.toolGas=function(){var st=$("sheetTools");if(st)st.classList.remove("open");S58.fee()};
+
+/* price converter: two clear boxes */
+var CC=[{c:"INR",n:["Indian rupee","भारतीय रुपया"],col:"#F59E0B",g:"₹"},{c:"USD",n:["US dollar","अमेरिकी डॉलर"],col:"#26A17B",g:"$"},
+ {c:"SHM",n:["Shardeum","Shardeum"],col:"#3B4BFF",g:"S"},{c:"BTC",n:["Bitcoin","Bitcoin"],col:"#F7931A",g:"₿"},{c:"ETH",n:["Ethereum","Ethereum"],col:"#627EEA",g:"Ξ"},
+ {c:"USDT",n:["Tether","Tether"],col:"#26A17B",g:"₮"},{c:"BNB",n:["BNB","BNB"],col:"#F3BA2F",g:"B"}];
+var CV={A:"USD",B:"INR"};
+function ccOf(c){for(var i=0;i<CC.length;i++)if(CC[i].c===c)return CC[i];return CC[0]}
+function dot(c){var o=ccOf(c),u=(typeof LOGOS!=="undefined"&&LOGOS[c])?'<img src="'+LOGOS[c]+'" alt="" onerror="this.remove()">':"";return '<span class="nlg" style="background:'+o.col+'">'+o.g+u+'</span>'}
+function inrOf(c){if(c==="INR")return 1;if(c==="USD")return (typeof fx!=="undefined"&&fx)?fx:null;var p=T[c]&&T[c].p;if(!p)return null;if(p.inr)return p.inr;if(p.usd&&typeof fx!=="undefined")return p.usd*fx;return null}
+function fN(x){if(!isFinite(x))return"—";var a=Math.abs(x);if(a>=1000)return x.toLocaleString("en-IN",{maximumFractionDigits:2});if(a>=1)return x.toLocaleString("en-IN",{maximumFractionDigits:4});if(a>=0.01)return x.toLocaleString("en-IN",{maximumFractionDigits:6});return String(Number(x.toPrecision(3)))}
+S58.conv=function(){
+ var sh=shade("s58conv","s58pg",
+  '<div class="bkh"><button class="bkb" onclick="S58.close(\'s58conv\')" aria-label="Back"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button><div class="ttl" id="cvT"></div></div>'+
+  '<div class="s58lab" id="cvL1"></div><div class="s58box"><input id="cvA" type="number" inputmode="decimal" step="any" value="1" oninput="S58.cv()"><button type="button" class="s58cc" onclick="S58.pick(\'A\')" id="cvAb"></button></div>'+
+  '<div class="s58swap"><button type="button" onclick="S58.swap()" aria-label="Swap">⇅</button></div>'+
+  '<div class="s58lab" id="cvL2"></div><div class="s58box res"><div class="s58out" id="cvB">0</div><button type="button" class="s58cc" onclick="S58.pick(\'B\')" id="cvBb"></button></div>'+
+  '<div class="s58rate" id="cvRate"></div><div class="s58lab" id="cvL3" style="margin-top:26px"></div><div class="s58quick" id="cvQ"></div><div class="s58note" id="cvN"></div>');
+ var st=$("sheetTools");if(st)st.classList.remove("open");
+ $("cvT").textContent=tx("Price converter","कीमत कन्वर्टर");$("cvL1").textContent=tx("From","से");$("cvL2").textContent=tx("To","में");$("cvL3").textContent=tx("Quick pairs","जल्दी चुनें");
+ $("cvN").textContent=tx("Prices are for information only.","भाव सिर्फ़ जानकारी के लिए है।");
+ var q=[["SHM","INR"],["BTC","INR"],["ETH","INR"],["USDT","INR"]];
+ $("cvQ").innerHTML=q.map(function(x,i){return '<span onclick="S58.quick('+i+')">'+x[0]+' → ₹</span>'}).join("");
+ S58.quickList=q;
+ try{if(typeof fetchPrices==="function")fetchPrices()}catch(e){}
+ S58.cv(true);sh.classList.add("open");
+ setTimeout(function(){S58.cv()},1500);
+};
+S58.cv=function(){
+ var A=$("cvA");if(!A)return;
+ $("cvAb").innerHTML=dot(CV.A)+'<b>'+CV.A+'</b><i>⌄</i>';$("cvBb").innerHTML=dot(CV.B)+'<b>'+CV.B+'</b><i>⌄</i>';
+ var a=parseFloat(A.value),ra=inrOf(CV.A),rb=inrOf(CV.B),r=$("cvRate"),o=$("cvB");
+ if(!ra||!rb){o.textContent="—";r.textContent=tx("Loading prices…","भाव लोड हो रहा है…");return}
+ var unit=ra/rb;r.textContent="1 "+CV.A+" = "+fN(unit)+" "+CV.B+" · "+tx("latest price","अभी का भाव");
+ o.textContent=(isFinite(a)&&a>0)?fN(a*unit):"—";
+};
+S58.swap=function(){var t=CV.A;CV.A=CV.B;CV.B=t;var o=$("cvB").textContent.replace(/,/g,"");if(o&&o!=="—")$("cvA").value=o;S58.cv()};
+S58.quick=function(i){var p=S58.quickList[i];CV.A=p[0];CV.B=p[1];$("cvA").value=1;S58.cv()};
+S58.pick=function(w){
+ S58.pw=w;var sh=shade("s58pick","s58sm s58tall",'<div class="grab"></div><div class="s58st" id="pkT"></div><div id="pkL"></div>');
+ $("pkT").textContent=tx("Choose","चुनिए");
+ $("pkL").innerHTML=CC.map(function(o){var nm=tx(o.n[0],o.n[1]);return '<div class="s58li" onclick="S58.setCC(\''+o.c+'\')">'+dot(o.c)+'<div><b>'+o.c+'</b><small>'+nm+'</small></div></div>'}).join("")+
+  '<div class="s58li dis">'+'<span class="nlg" style="background:#8D98B0">C</span><div><b>CPAY</b><small>'+tx("No price (test coin)","भाव नहीं (टेस्ट सिक्का)")+'</small></div></div>';
+ sh.classList.add("open");
+};
+S58.setCC=function(c){CV[S58.pw]=c;S58.close("s58pick");S58.cv()};
+window.toolConvert=function(){S58.conv()};
+
+/* helper: yellow face in the panel header too */
+function face(sv){if(!sv||sv.getAttribute("data-t")==="face")return;sv.setAttribute("class","face");sv.setAttribute("viewBox","0 0 100 100");sv.setAttribute("fill","none");sv.removeAttribute("stroke");sv.removeAttribute("stroke-width");sv.setAttribute("data-t","face");
+ sv.innerHTML='<rect x="14" y="26" width="72" height="54" rx="15" fill="#FFD60A"/><ellipse cx="37" cy="51" rx="5.2" ry="7" fill="#1C2230"/><ellipse cx="63" cy="51" rx="5.2" ry="7" fill="#1C2230"/><path d="M40 66Q50 73 60 66" fill="none" stroke="#1C2230" stroke-width="4.5" stroke-linecap="round"/><path d="M50 26V16" stroke="#FFD60A" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="13" r="4.5" fill="#FFD60A"/>'}
+if(window.HB&&HB.open){var _ho=HB.open;HB.open=function(){var r=_ho.apply(this,arguments);var s=document.querySelector("#hbPanel .hbh svg");face(s);return r}}
+
+/* old saved "light" or "auto" choice becomes dark */
+try{document.documentElement.setAttribute("data-theme","dark")}catch(e){}
+buildSend();buildRecv();buildReq();
+}catch(e){try{console.error("Build58",e)}catch(_){}}})();

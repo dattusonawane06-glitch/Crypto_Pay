@@ -616,3 +616,7 @@ html[data-theme=dark]{--k-mut2:#B9C3D6}
 html[data-theme] body #hbBtn svg.face{width:42px!important;height:42px!important}
 html[data-theme] body #hbPanel .hbh svg.face{width:44px!important;height:44px!important}
 html[data-theme] body #hbBtn{width:46px!important;height:46px!important}
+
+/* Build 57b: softer yellow round buttons, bigger and clearer icons */
+html[data-theme] body .act span{width:52px!important;height:52px!important;background:#FFE680!important}
+html[data-theme] body .act span svg{width:27px!important;height:27px!important;stroke:#1C2230!important;stroke-width:2.1!important}

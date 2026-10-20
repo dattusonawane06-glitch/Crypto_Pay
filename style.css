@@ -684,3 +684,21 @@ html[data-theme] body #sheetRecv .rc-h{background:var(--k-bg)!important}
 #sheetRecv .panel>.grab{display:none}
 .s58fv.err{font-size:22px;margin:20px 0 12px}
 .s58sub{text-align:left}
+
+/* ===== Build 59: coin chip and clean coin list ===== */
+.s58row .xnc-slot,.s58row .xas-slot{display:none!important}
+.s58row{display:block}
+.s59c{display:flex;align-items:center;gap:12px;background:var(--k-pan);border-radius:16px;padding:9px 14px 9px 10px;cursor:pointer;width:100%}
+.s59tx{flex:1;text-align:left}.s59tx b{display:block;font-size:17px;color:var(--k-tx)}.s59tx small{color:var(--k-mut);font-size:13px}
+.s59ch{width:8px;height:8px;border:solid var(--k-y);border-width:0 2.5px 2.5px 0;transform:rotate(45deg);margin:-4px 4px 0 0}
+.s59lg{position:relative;display:inline-flex;flex:none}.s59lg .nlg{width:40px;height:40px;font-size:18px}
+.s59bd{position:absolute;right:-4px;bottom:-4px;width:18px;height:18px;border-radius:50%;border:2px solid var(--k-pan);color:#fff;font-size:9px;font-style:normal;font-weight:900;display:flex;align-items:center;justify-content:center}
+.s59t{font-size:20px;font-weight:900;color:var(--k-tx);text-align:center;margin:4px 0 12px}
+.s59r{display:flex;align-items:center;gap:13px;padding:11px 4px;cursor:pointer;border-radius:14px}
+.s59r.on{background:rgba(255,214,10,.1)}
+.s59m{flex:1;min-width:0}.s59m b{display:block;font-size:17px;color:var(--k-tx)}.s59m small{color:var(--k-mut);font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s59b{color:var(--k-mut2);font-size:14px;font-weight:700}
+.s59n{margin-top:14px;background:rgba(255,214,10,.1);border:1px solid rgba(255,214,10,.4);border-radius:14px;padding:12px 14px;font-size:13.5px;line-height:1.5;color:var(--k-tx)}
+.s59w{background:rgba(255,214,10,.1);border:1px solid rgba(255,214,10,.4);border-radius:14px;padding:12px 14px;font-size:14px;line-height:1.55;color:var(--k-tx);margin-bottom:16px}
+
+.s59r,.s59m,.s59tx,.s59m small{text-align:left!important}

@@ -717,7 +717,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 5 · Build 58 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 58 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 5 · Build 59 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test CPAY, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 5 · बिल्ड 59 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट CPAY और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#1C2230;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><svg viewBox="0 0 100 100" style="width:84px;height:84px"><circle cx="50" cy="50" r="48" fill="#FFD60A"/><circle cx="50" cy="40" r="11.5" fill="#1C2230"/><path d="M43.5 48H56.5L61 73H39Z" fill="#1C2230"/></svg></div><b style="font-size:20px">Tazvera</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 Tazvera</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -2053,7 +2053,7 @@ upd();
 }catch(e){try{console.error("Build55",e)}catch(_){}}})();
 
 
-/* ===== Build 58 (step 1): remove leftover emoji from page titles and tip rows ===== */
+/* ===== Build 59 (step 1): remove leftover emoji from page titles and tip rows ===== */
 (function(){ try{
   var RE=/^[\s\u200d\ufe0f]*(?:[\u2190-\u2bff\u3030\u303d\u3297\u3299]|[\ud83c-\ud83e][\udc00-\udfff]|\ufe0f)+[\s\u200d\ufe0f]*/;
   var busy=false;
@@ -2068,7 +2068,7 @@ upd();
   clean();
 }catch(e){try{console.error("Build57",e)}catch(_){}}})();
 
-/* ===== Build 58: clear Send (address first, then amount), tidy Receive and Request, small network-fee card, real price converter, helper face ===== */
+/* ===== Build 59: clear Send (address first, then amount), tidy Receive and Request, small network-fee card, real price converter, helper face ===== */
 (function(){ try{
 var $=function(i){return document.getElementById(i)};
 var tx=function(e,h){return (typeof lang!=="undefined"&&lang==="en")?e:h};
@@ -2287,3 +2287,53 @@ if(window.HB&&HB.open){var _ho=HB.open;HB.open=function(){var r=_ho.apply(this,a
 try{document.documentElement.setAttribute("data-theme","dark")}catch(e){}
 buildSend();buildRecv();buildReq();
 }catch(e){try{console.error("Build58",e)}catch(_){}}})();
+
+/* ===== Build 59: pick the COIN first (its network is shown with it); clean coin list; one clear coin chip ===== */
+(function(){ try{
+var $=function(i){return document.getElementById(i)};
+var tx=function(e,h){return (typeof lang!=="undefined"&&lang==="en")?e:h};
+var S59=window.S59={};
+/* no meme coins in the default list */
+Object.keys(DEFTOK).forEach(function(k){DEFTOK[k]=DEFTOK[k].filter(function(t){return t.symbol!=="SHIB"&&t.symbol!=="PEPE"})});
+var NATIVE={"shardeum-testnet":"Shardeum","ethereum":"Ethereum","bsc":"BNB","polygon":"Polygon","base":"Ether","optimism":"Ether","arbitrum":"Ether"};
+var NAMES={CPAY:"Tazvera Test token",USDT:"Tether",USDC:"USD Coin",DAI:"Dai",LINK:"Chainlink",WBTC:"Wrapped Bitcoin",UNI:"Uniswap",BTCB:"Bitcoin (BEP-20)",CAKE:"PancakeSwap",XRP:"Binance-Peg XRP",DOGE:"Binance-Peg Dogecoin"};
+var NCOL={"shardeum-testnet":"#3B4BFF","ethereum":"#627EEA","bsc":"#F3BA2F","polygon":"#8247E5","base":"#0052FF","optimism":"#FF0420","arbitrum":"#28A0F0"};
+var NL={"shardeum-testnet":"S","ethereum":"E","bsc":"B","polygon":"P","base":"B","optimism":"O","arbitrum":"A"};
+function nameOf(k,t){if(t.n)return NATIVE[k]||t.symbol;if(k==="bsc"&&t.symbol==="ETH")return "Binance-Peg ETH";return NAMES[t.symbol]||t.symbol}
+function userTok(k){return(ls.get("customTokens",[])||[]).filter(function(x){return x&&x.addr&&x.chain===k&&x.addr.toLowerCase()!=="0xeb24350e1117083d27ab0fef346d2d25f03e380a"})}
+function logo(sym,k){var u=(typeof LOGOS!=="undefined")?LOGOS[sym]:null;
+ var inner=sym==="CPAY"?'<span class="nlg cpl">'+CPLOGO+'</span>':'<span class="nlg" style="background:#2B3A55">'+sym[0]+(u?'<img src="'+u+'" alt="" onerror="this.remove()">':'')+'</span>';
+ return '<span class="s59lg">'+inner+'<i class="s59bd" style="background:'+(NCOL[k]||"#555")+'">'+(NL[k]||"")+'</i></span>'}
+S59.rows=function(q){
+ q=(q||"").toLowerCase();var keys=Object.keys(NETWORKS).sort(function(a,b){return (a===currentNet?0:1)-(b===currentNet?0:1)}),h="";
+ keys.forEach(function(k){var n=NETWORKS[k];
+  [{symbol:n.symbol,n:1}].concat(DEFTOK[k]||[],userTok(k)).forEach(function(t){
+   var nm=nameOf(k,t),hay=(t.symbol+" "+nm+" "+n.name).toLowerCase();if(q&&hay.indexOf(q)<0)return;
+   var here=k===currentNet,b="";
+   if(here){if(t.n){b=T[t.symbol]&&T[t.symbol].bal}else{var c=getCustoms().filter(function(x){return x.addr.toLowerCase()===t.addr.toLowerCase()})[0];b=c&&c.bal}}
+   var on=here&&((XA.tok&&XA.tok())?(XA.tok().symbol===t.symbol&&!t.n):(!!t.n));
+   h+='<div class="s59r'+(on?" on":"")+'" onclick="XA.pickN(\''+k+"','"+t.symbol+'\')">'+logo(t.symbol,k)+'<div class="s59m"><b>'+t.symbol+'</b><small>'+nm+' · '+n.name+(k==="shardeum-testnet"?" ("+tx("test","टेस्ट")+")":"")+'</small></div><span class="s59b">'+(b!=null&&b!==""&&here?b:"")+'</span></div>'})});
+ var el=$("xaRows");if(el)el.innerHTML=h||'<div class="cap">'+tx("Nothing found","कुछ नहीं मिला")+'</div>'};
+XA.open=function(){
+ $("xaList").innerHTML='<div class="svq"><input id="xaq" placeholder="'+tx("Search coin or network","सिक्का या नेटवर्क खोजें")+'" autocomplete="off" oninput="XA.q(this.value)"></div><div id="xaRows"></div><div class="s59n">'+tx("The network is written with every coin, so a wrong-network mistake is hard.","हर सिक्के के साथ उसका नेटवर्क लिखा है, इसलिए गलत नेटवर्क की गलती मुश्किल है।")+'</div>';
+ S59.rows("");$("xaSheet").classList.add("open")};
+XA.q=function(v){S59.rows(v)};
+/* one coin chip (coin + network) in Send, Receive and Request */
+S59.paint=function(){
+ var k=currentNet,n=NETWORKS[k],t=(XA.tok&&XA.tok())||null,sym=t?t.symbol:n.symbol,nm=t?nameOf(k,{symbol:sym}):nameOf(k,{n:1,symbol:n.symbol});
+ document.querySelectorAll(".s59c").forEach(function(e){e.innerHTML=logo(sym,k)+'<span class="s59tx"><b>'+sym+'</b><small>'+nm+' · '+n.name+'</small></span><i class="s59ch"></i>'});
+ S59.note()};
+S59.note=function(){
+ var e=$("s59note");if(!e)return;var k=currentNet,n=NETWORKS[k],t=(XA.tok&&XA.tok())||null,sym=t?t.symbol:n.symbol;
+ var s=tx("You are sending "+sym+" on "+n.name+". The receiver must use the same network.","आप "+n.name+" पर "+sym+" भेज रहे हैं। पाने वाले का नेटवर्क यही होना चाहिए।");
+ if(k==="bsc"&&t&&t.symbol==="ETH")s=tx("This is Binance-Peg ETH on BNB Chain, not ETH on Ethereum. The receiver must use BNB Chain.","यह BNB चेन का ETH (Binance-Peg) है, Ethereum का असली ETH नहीं। पाने वाले को BNB चेन पर ही चाहिए।");
+ e.textContent=s};
+["#sheetSend","#sheetRecv","#sheetReq"].forEach(function(id){var row=document.querySelector(id+" .s58row");if(!row)return;if(!row.querySelector(".s59c")){var c=document.createElement("div");c.className="s59c";c.setAttribute("onclick","XA.open()");row.appendChild(c)}});
+var s2=$("s58s2");if(s2&&!$("s59note")){var q=$("s58q2");var d=document.createElement("div");d.className="s59w";d.id="s59note";if(q)q.before(d);else s2.prepend(d)}
+var _pk=XA.pick;XA.pick=function(){var r=_pk.apply(this,arguments);S59.paint();return r};
+var _cn=window.changeNetwork;window.changeNetwork=function(){var r=_cn.apply(this,arguments);S59.paint();return r};
+["openSend","openReceive","openRequest"].forEach(function(f){var o=window[f];if(o)window[f]=async function(){var r=await o.apply(this,arguments);S59.paint();return r}});
+S59.paint();
+/* S58.go(2) shows the safety line too */
+if(window.S58){var _g=S58.go;S58.go=function(n){var r=_g.apply(this,arguments);S59.paint();return r}}
+}catch(e){try{console.error("Build59",e)}catch(_){}}})();

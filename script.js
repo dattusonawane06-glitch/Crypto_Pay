@@ -1769,11 +1769,11 @@ if(window.__E)Object.assign(window.__E,{"Get 100 CPAY (free, no fee)":"100 CPAY 
 (function(){
 "use strict";
 var tx=function(e,h){return lang==="en"?e:h};
-var OK=["cryptopay-app.vercel.app","cryptoapp-zeta-rust.vercel.app","localhost","127.0.0.1",""];
+var OK=["app.tazvera.com","cryptopay-app.vercel.app","cryptoapp-zeta-rust.vercel.app","localhost","127.0.0.1",""];
 if(OK.indexOf(location.hostname)<0){
   var b=document.createElement("div");b.id="fakeBar";
   b.style.cssText="position:fixed;left:0;right:0;top:0;z-index:2000;background:#b3001b;color:#fff;padding:12px 14px;font-size:14px;font-weight:800;line-height:1.45;text-align:center";
-  b.innerHTML=tx("WARNING: this is NOT the official Tazvera address. Do not enter your PIN or your 12 words here. The real app is: ","चेतावनी: यह Tazvera का असली पता नहीं है। यहाँ अपना PIN या 12 शब्द मत डालिए। असली ऐप: ")+"<b>cryptopay-app.vercel.app</b>";
+  b.innerHTML=tx("WARNING: this is NOT the official Tazvera address. Do not enter your PIN or your 12 words here. The real app is: ","चेतावनी: यह Tazvera का असली पता नहीं है। यहाँ अपना PIN या 12 शब्द मत डालिए। असली ऐप: ")+"<b>app.tazvera.com</b>";
   document.body.appendChild(b)
 }
 if(window.__E)Object.assign(window.__E,{

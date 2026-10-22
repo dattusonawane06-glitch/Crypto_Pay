@@ -158,7 +158,7 @@ function buildList(){
   let html=order.map(k=>`<div class="row" onclick="XA.tap('${k}')"><div class="ic"><img src="${LOGOS[k]}" alt="${k}" onerror="this.parentElement.textContent='${k[0]}'"></div><div class="mid"><div class="sym">${k}</div><div class="sub" id="s-${k}">—</div></div><div class="rt"><div class="amt" id="b-${k}">0</div><div class="sub" id="v-${k}">—</div></div></div>`).join("");
   getCustoms().forEach((t,i)=>{
     if(order.indexOf(t.symbol)>-1)return;const id="ct"+i;
-    html+=`<div class="row" onclick="XA.tap('${t.symbol}')"><div class="ic">${t.symbol==="TZT"?CPLOGO:(LOGOS[t.symbol]?"<img src=\""+LOGOS[t.symbol]+"\" alt=\"\">":(t.symbol||"T")[0])}</div><div class="mid"><div class="sym">${t.symbol||"TOKEN"}</div><div class="sub" id="s-${id}">Custom token</div></div><div class="rt"><div class="amt" id="b-${id}">…</div><div class="sub" id="v-${id}">${t.symbol==="TZT"?"test coin":""}</div></div></div>`;
+    html+=`<div class="row" onclick="XA.tap('${t.symbol}')"><div class="ic">${(t.symbol==="TZT"||t.symbol==="CPAY")?CPLOGO:(LOGOS[t.symbol]?"<img src=\""+LOGOS[t.symbol]+"\" alt=\"\">":(t.symbol||"T")[0])}</div><div class="mid"><div class="sym">${t.symbol||"TOKEN"}</div><div class="sub" id="s-${id}">Custom token</div></div><div class="rt"><div class="amt" id="b-${id}">…</div><div class="sub" id="v-${id}">${(t.symbol==="TZT"||t.symbol==="CPAY")?"test coin":""}</div></div></div>`;
   });
   $("list").innerHTML=html;
 }
@@ -177,7 +177,7 @@ function paint(){
   getCustoms().forEach((t,i)=>{
     const id="ct"+i,bal=t.bal!=null?parseFloat(t.bal):null;
     if($("b-"+id))$("b-"+id).textContent=hideBal?H:(bal!=null?fmt(bal):"—");
-    if($("s-"+id))$("s-"+id).textContent=t.symbol==="TZT"?"Tazvera Test token":((window.TOKNAMES&&TOKNAMES[t.symbol])||(t.symbol||"TOKEN")+" · token");
+    if($("s-"+id))$("s-"+id).textContent=t.symbol==="TZT"?"Tazvera Test token":t.symbol==="CPAY"?"CryptoPay Test (old)":((window.TOKNAMES&&TOKNAMES[t.symbol])||(t.symbol||"TOKEN")+" · token");
   });
   $("total").textContent=hideBal?(isTest?H:pfx()+H):(isTest?fmt(nb)+" "+native:pfx()+fmt(total));
   if($("lblTotal"))$("lblTotal").textContent=isTest?(lang==="en"?"Test balance":"टेस्ट बैलेंस"):(lang==="en"?"Total Balance":"कुल बैलेंस");
@@ -789,7 +789,7 @@ var _g=getCustoms;getCustoms=function(){var l=_g();if(!l.some(function(x){return
 var XA=window.XA={sel:null},nat=function(){return NETWORKS[currentNet].symbol};
 function assets(){var a=[{s:nat(),n:1}];getCustoms().forEach(function(t){a.push({s:t.symbol||"TOKEN",t:t})});return a}
 function cur(){var a=assets();for(var i=0;i<a.length;i++)if(a[i].s===XA.sel)return a[i];XA.sel=nat();return a[0]}
-function alg(a){if(a.n){var u=LOGOS[a.s];return'<span class="nlg" style="background:#2B3A55">'+a.s[0]+(u?'<img src="'+u+'" alt="" onerror="this.remove()">':"")+"</span>"}if(a.s==="TZT")return'<span class="nlg cpl">'+CPL+"</span>";return'<span class="nlg" style="background:#2B3A55">'+a.s[0]+"</span>"}
+function alg(a){if(a.n){var u=LOGOS[a.s];return'<span class="nlg" style="background:#2B3A55">'+a.s[0]+(u?'<img src="'+u+'" alt="" onerror="this.remove()">':"")+"</span>"}if(a.s==="TZT"||a.s==="CPAY")return'<span class="nlg cpl">'+CPL+"</span>";return'<span class="nlg" style="background:#2B3A55">'+a.s[0]+"</span>"}
 document.querySelectorAll("#sheetSend .xnc-slot,#sheetRecv .xnc-slot").forEach(function(s){var d=document.createElement("div");d.className="xas-slot";s.after(d)});
 function upd2(){var c=cur(),n=NETWORKS[currentNet],s=function(i,v){var e=$(i);if(e)e.textContent=v};
 document.querySelectorAll(".xas-slot").forEach(function(e){e.innerHTML='<div class="xnc" onclick="XA.open()">'+alg(c)+"<span>"+c.s+"</span></div>"});
@@ -844,7 +844,7 @@ if(o)o.innerHTML=r.map(function(x){return x.n+": "+(x.v!=null?"$"+x.v:"failed ("
 /* ===== Part 6: per-network tokens, flat list, short history, MetaMask mobile link, server price ===== */
 (function(){
 var TZT="0xc75149e5C95a41b0a4c9E3378D5fc6aAAc2CC5F0".toLowerCase();
-var DEFTOK=window.DEFTOK={"shardeum-testnet":[{addr:TZT,symbol:"TZT"}],
+var DEFTOK=window.DEFTOK={"shardeum-testnet":[{addr:TZT,symbol:"TZT"},{addr:"0xeB24350E1117083d27ab0fef346D2d25f03E380a",symbol:"CPAY"}],
 ethereum:[{addr:"0xdAC17F958D2ee523a2206206994597C13D831ec7",symbol:"USDT"},{addr:"0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",symbol:"USDC"},{addr:"0x6B175474E89094C44Da98b954EedeAC495271d0F",symbol:"DAI"}],
 bsc:[{addr:"0x55d398326f99059fF775485246999027B3197955",symbol:"USDT"},{addr:"0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",symbol:"USDC"}],
 polygon:[{addr:"0xc2132D05D31c914a87C6611C10748AEb04B58e8F",symbol:"USDT"},{addr:"0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",symbol:"USDC"}],
@@ -885,7 +885,7 @@ function logo(s){var u=LOGOS[s];return'<span class="nlg" style="background:#2B3A
 function rows(q){q=(q||"").toLowerCase();var cs=XA.sel,h="";Object.keys(NETWORKS).forEach(function(k){var n=NETWORKS[k],list=[{symbol:n.symbol,n:1}].concat(D[k]||[],userTok(k)),here=k===currentNet,
 out=list.filter(function(t){return!q||t.symbol.toLowerCase().indexOf(q)>-1||n.name.toLowerCase().indexOf(q)>-1});if(!out.length)return;
 h+='<div class="xnh">'+n.name+(k==="shardeum-testnet"?" · test":"")+"</div>"+out.map(function(t){var b="";if(here){if(t.n)b=T[t.symbol]&&T[t.symbol].bal;else{var c=getCustoms().filter(function(x){return x.addr.toLowerCase()===t.addr.toLowerCase()})[0];b=c&&c.bal}}
-var on=here&&XA.sel===t.symbol;return'<div class="xni'+(on?" on":"")+'" onclick="XA.pickN(\''+k+"','"+t.symbol+'\')">'+(t.symbol==="TZT"?'<span class="nlg cpl">'+CPLOGO+"</span>":logo(t.symbol))+"<div>"+t.symbol+"<small>"+(t.n?"native coin":t.addr.slice(0,8)+"…"+t.addr.slice(-6))+'</small></div><span style="margin-left:auto;color:var(--mut)">'+(b!=null&&b!==""?b:"")+"</span></div>"}).join("")});
+var on=here&&XA.sel===t.symbol;return'<div class="xni'+(on?" on":"")+'" onclick="XA.pickN(\''+k+"','"+t.symbol+'\')">'+((t.symbol==="TZT"||t.symbol==="CPAY")?'<span class="nlg cpl">'+CPLOGO+"</span>":logo(t.symbol))+"<div>"+t.symbol+"<small>"+(t.n?"native coin":t.addr.slice(0,8)+"…"+t.addr.slice(-6))+'</small></div><span style="margin-left:auto;color:var(--mut)">'+(b!=null&&b!==""?b:"")+"</span></div>"}).join("")});
 $("xaRows").innerHTML=h||'<div class="cap">No match</div>'}
 XA.open=function(){$("xaList").innerHTML='<div class="svq"><input id="xaq" placeholder="Search token or network" autocomplete="off" oninput="XA.q(this.value)"></div><div id="xaRows"></div>';rows("");$("xaSheet").classList.add("open")};
 XA.q=function(v){rows(v)};
@@ -2296,13 +2296,13 @@ var S59=window.S59={};
 /* no meme coins in the default list */
 Object.keys(DEFTOK).forEach(function(k){DEFTOK[k]=DEFTOK[k].filter(function(t){return t.symbol!=="SHIB"&&t.symbol!=="PEPE"})});
 var NATIVE={"shardeum-testnet":"Shardeum","ethereum":"Ethereum","bsc":"BNB","polygon":"Polygon","base":"Ether","optimism":"Ether","arbitrum":"Ether"};
-var NAMES={TZT:"Tazvera Test token",USDT:"Tether",USDC:"USD Coin",DAI:"Dai",LINK:"Chainlink",WBTC:"Wrapped Bitcoin",UNI:"Uniswap",BTCB:"Bitcoin (BEP-20)",CAKE:"PancakeSwap",XRP:"Binance-Peg XRP",DOGE:"Binance-Peg Dogecoin"};
+var NAMES={TZT:"Tazvera Test token",CPAY:"CryptoPay Test (old)",USDT:"Tether",USDC:"USD Coin",DAI:"Dai",LINK:"Chainlink",WBTC:"Wrapped Bitcoin",UNI:"Uniswap",BTCB:"Bitcoin (BEP-20)",CAKE:"PancakeSwap",XRP:"Binance-Peg XRP",DOGE:"Binance-Peg Dogecoin"};
 var NCOL={"shardeum-testnet":"#3B4BFF","ethereum":"#627EEA","bsc":"#F3BA2F","polygon":"#8247E5","base":"#0052FF","optimism":"#FF0420","arbitrum":"#28A0F0"};
 var NL={"shardeum-testnet":"S","ethereum":"E","bsc":"B","polygon":"P","base":"B","optimism":"O","arbitrum":"A"};
 function nameOf(k,t){if(t.n)return NATIVE[k]||t.symbol;if(k==="bsc"&&t.symbol==="ETH")return "Binance-Peg ETH";return NAMES[t.symbol]||t.symbol}
 function userTok(k){return(ls.get("customTokens",[])||[]).filter(function(x){return x&&x.addr&&x.chain===k&&x.addr.toLowerCase()!=="0xc75149e5c95a41b0a4c9e3378d5fc6aaac2cc5f0"})}
 function logo(sym,k){var u=(typeof LOGOS!=="undefined")?LOGOS[sym]:null;
- var inner=sym==="TZT"?'<span class="nlg cpl">'+CPLOGO+'</span>':'<span class="nlg" style="background:#2B3A55">'+sym[0]+(u?'<img src="'+u+'" alt="" onerror="this.remove()">':'')+'</span>';
+ var inner=(sym==="TZT"||sym==="CPAY")?'<span class="nlg cpl">'+CPLOGO+'</span>':'<span class="nlg" style="background:#2B3A55">'+sym[0]+(u?'<img src="'+u+'" alt="" onerror="this.remove()">':'')+'</span>';
  return '<span class="s59lg">'+inner+'<i class="s59bd" style="background:'+(NCOL[k]||"#555")+'">'+(NL[k]||"")+'</i></span>'}
 S59.rows=function(q){
  q=(q||"").toLowerCase();var keys=Object.keys(NETWORKS).sort(function(a,b){return (a===currentNet?0:1)-(b===currentNet?0:1)}),h="";
@@ -2397,3 +2397,5 @@ WS.imp=function(){
  paint(1);setTimeout(function(){var f=$("w60_1");if(f)f.focus()},250);
 };
 }catch(e){try{console.error("Build60",e)}catch(_){}}})();
+/* Build 60: keep the old CPAY visible (muted), with its own name */
+try{window.TOKNAMES=window.TOKNAMES||{};window.TOKNAMES.CPAY="CryptoPay Test (old)"}catch(e){}

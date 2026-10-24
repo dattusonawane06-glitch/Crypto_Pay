@@ -719,7 +719,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 6 · Build 80 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test TZT, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 6 · बिल्ड 80 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट TZT और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 6 · Build 82 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test TZT, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 6 · बिल्ड 82 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट TZT और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#000;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><img src="icon-192.png" alt="Tazvera" style="width:100%;height:100%;border-radius:28px;display:block"></div><b style="font-size:20px">Tazvera</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 Tazvera</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -3104,3 +3104,60 @@ S58.fee=async function(){
  }catch(e){["b80a","b80b"].forEach(function(i){var x=$(i);if(x){x.textContent="—"}});var u=$("b80u");if(u){u.className="b80u b80err";u.textContent=tx("Could not load the fee right now. Try again in a moment.","फ़ीस अभी नहीं मिल पाई, थोड़ी देर बाद देखिए।")}}
 };
 }catch(e){try{console.error("Build80",e)}catch(_){}}})();
+
+/* Build 81: PIN screens in Tazvera style + "Ask PIN for every send" (on by default) */
+(function(){try{
+var $=function(i){return document.getElementById(i)};
+function en(){try{return lang==="en"}catch(e){return true}}
+var st=document.createElement("style");st.id="b81s";
+var L='html body #xtLock#xtLock',A='html body #pinAsk#pinAsk',W='html body #sheetWallet#sheetWallet';
+st.textContent=
+L+'{background:var(--z1)!important;color:var(--zt)!important}'+
+L+' .lkic{width:76px!important;height:76px!important;border-radius:20px!important;background:#000!important;overflow:hidden;padding:0!important;box-shadow:none!important;border:0!important}'+
+L+' .lkic img{width:100%;height:100%;display:block}'+L+' .lkic svg{display:none!important}'+
+L+' .pt{color:var(--zt)!important;font-weight:600!important;font-size:20px!important;margin-top:14px!important}'+
+[L,A,W].map(function(p){return p+' .pbs{gap:16px!important;justify-content:center;margin:22px 0 26px!important}'+
+ p+' .pbs i{width:14px!important;height:14px!important;border-radius:50%!important;border:1.5px solid var(--zt)!important;background:transparent!important;box-shadow:none!important}'+
+ p+' .pbs i.f{background:var(--zt)!important}'+p+' .pbs i.f::after{display:none!important}'+p+' .pbs i.c{border-color:var(--zgb,#00A86B)!important}'+
+ p+' .kp .pk{border:0!important;background:transparent!important;box-shadow:none!important;font-size:28px!important;font-weight:500!important;color:var(--zt)!important;height:64px!important;border-radius:50%!important}'+
+ p+' .kp .pk:active{background:var(--svt)!important}'+p+' .kp .pk svg{color:var(--zt)!important;stroke:currentColor!important}'+
+ p+'.b81bad .pbs i{border-color:#DC2626!important;background:transparent!important}'+p+'.b81bad .pbs{animation:b81sh .4s}'}).join("")+
+'@keyframes b81sh{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}'+
+L+' .forgot{color:var(--cvl,#3A4556)!important;font-weight:500!important;font-size:14px!important;text-decoration:underline}'+
+L+' #xtMsg{color:#DC2626!important;font-weight:600!important}'+L+' #xtHint{color:var(--cvl)!important;opacity:1!important}'+
+A+' .panel{background:var(--z1)!important}'+
+'html body #app #sbody .b81row{display:flex;align-items:center;justify-content:space-between;gap:12px}'+
+'html body #app #sbody .b81sw{width:46px;height:26px;border-radius:13px;background:var(--svb,#DCE1E8);position:relative;flex-shrink:0;border:0;cursor:pointer}'+
+'html body #app #sbody .b81sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s}'+
+'html body #app #sbody .b81sw.on{background:var(--zgb,#00A86B)}html body #app #sbody .b81sw.on::after{left:23px}';
+document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},3600);
+/* logo on the lock screen */
+function logo(){var k=document.querySelector("#xtLock .lkic");if(k&&!k.querySelector("img")){var i=document.createElement("img");i.src="icon-192.png";i.alt="";k.appendChild(i)}}
+setInterval(logo,1000);logo();
+/* wrong PIN: red dots + shake */
+function bad(el){if(!el)return;el.classList.remove("b81bad");void el.offsetWidth;el.classList.add("b81bad");setTimeout(function(){el.classList.remove("b81bad")},900)}
+var mg=$("xtMsg");if(mg)new MutationObserver(function(){if(/wrong|गलत|ग़लत/i.test(mg.textContent))bad($("xtLock"))}).observe(mg,{childList:true,characterData:true,subtree:true});
+var tt=$("toast");if(tt)new MutationObserver(function(){if(/wrong pin|गलत pin|ग़लत pin/i.test(tt.textContent)){bad($("pinAsk"));bad($("sheetWallet"))}}).observe(tt,{childList:true,characterData:true,subtree:true});
+/* ask PIN for every send (in-app wallet only) */
+function every(){try{return localStorage.getItem("tz_pinsend")!=="0"}catch(e){return true}}
+var PR=window.ethereum;if(PR&&PR.isCpWallet&&!PR.__b81){PR.__b81=1;var _r=PR.request.bind(PR);PR.request=async function(a){if(a&&a.method==="eth_sendTransaction"&&every()){try{if(window.CPW&&CPW.has()&&CPW.unlocked())CPW.lock()}catch(e){}}return _r(a)}}
+/* switch in Settings > Security */
+window.TZPS=function(b){var on=!every();try{localStorage.setItem("tz_pinsend",on?"1":"0")}catch(e){}b.classList.toggle("on",on)};
+function row(){var t=$("stt"),b=$("sbody");if(!t||!b)return;if(!/Security|सुरक्षा/.test(t.textContent||""))return;if(b.querySelector(".b81r"))return;
+ var d=document.createElement("div");d.className="sr b81r";d.innerHTML='<span class="b81row" style="width:100%"><span class="sl">'+(en()?"Ask PIN for every send":"हर बार भेजने पर PIN माँगें")+'</span><button type="button" class="b81sw'+(every()?" on":"")+'" aria-label="toggle" onclick="TZPS(this)"></button></span>';
+ b.insertBefore(d,b.firstChild)}
+setInterval(row,700);
+}catch(e){try{console.error("Build81",e)}catch(_){}}})();
+
+/* Build 82: bigger PIN dots, soft rounded key buttons, clean navy delete key */
+(function(){try{var st=document.createElement("style");st.id="b82s";
+var S=['html body #xtLock#xtLock','html body #pinAsk#pinAsk','html body #sheetWallet#sheetWallet'];
+st.textContent=S.map(function(p){return p+' .pbs{gap:20px!important}'+p+' .pbs i{width:20px!important;height:20px!important;border-width:2px!important}'+
+p+' .kp{gap:12px 14px!important}'+p+' .kp .pk{background:var(--svt)!important;border-radius:18px!important;height:62px!important}'+
+p+' .kp .pk.fp[style*="hidden"]{background:transparent!important}'+p+' .kp .pk:active{background:var(--svb)!important}'+
+p+' .kp .pk.bs svg{width:28px!important;height:28px!important;color:var(--zt)!important}'+p+' .kp .pk.bs svg *{stroke:currentColor!important;fill:none!important}'}).join("");
+document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},3700);
+var BS='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6-7z"/><path d="M12.5 9.5l5 5M17.5 9.5l-5 5"/></svg>';
+function fix(){document.querySelectorAll(".kp .pk.bs").forEach(function(b){if(b.getAttribute("data-b82")!=="1"){b.setAttribute("data-b82","1");b.innerHTML=BS}})}
+fix();setInterval(fix,800);
+}catch(e){}})();

@@ -2547,3 +2547,28 @@ ui();setInterval(ui,800);
 var GO={wallet:function(){connectWallet()},receive:function(){openReceive()},request:function(){openRequest()},send:function(){openSend()},tools:function(){openTools()},network:function(){XN.open()},disp:function(){openSettings();SB.g("disp")},sec:function(){openSettings();SB.g("sec")}};
 document.addEventListener("click",function(ev){var b=ev.target&&ev.target.closest?ev.target.closest(".hbgo"):null;if(!b)return;var k=b.getAttribute("data-go");try{HB.close()}catch(e){}try{if(GO[k])GO[k]()}catch(e){}},true);
 }catch(e){try{console.error("Build64",e)}catch(_){}}})();
+
+/* Build 65: soft navy + green accents, straight Send/Receive arrows */
+(function(){try{
+var st=document.createElement("style");st.id="b65s";
+st.textContent=
+'html[data-theme=light]{--zb:#16335F;--zc:#16335F;--zcl:#B8C6DC;--zg1:#E6F7EC;--zg2:#00875A;--zgb:#00A86B}'+
+'html[data-theme=dark]{--zc:#1C3B6B;--zcl:#B8C6DC;--zg1:#1F5532;--zg2:#4BE37A;--zgb:#37DE64}'+
+'html body #app .hero.hero{background:var(--zc)!important;color:#fff!important;border-radius:18px!important;padding:16px 16px 14px!important;margin:6px 14px 4px!important}'+
+'html body #app .hero.hero .lbl{color:var(--zcl)!important}'+
+'html body #app .hero.hero .total{color:#fff!important}'+
+'html body #app .hero.hero .b64eye{color:var(--zcl)!important}'+
+'html body #app .hero.hero .b64net{background:rgba(255,255,255,.14)!important;color:#fff!important}'+
+'html body #app .hero.hero .b64net::before{content:"";width:7px;height:7px;border-radius:50%;background:#37DE64;margin-right:3px}'+
+'html body #app .acts .act span{background:var(--zg1)!important;color:var(--zg2)!important}'+
+'html body #app .acts .act span svg{color:var(--zg2)!important}'+
+'html body #app nav.bn button.a{position:relative}'+
+'html body #app nav.bn button.a::after{content:"";position:absolute;left:50%;bottom:2px;width:18px;height:3px;border-radius:2px;background:var(--zgb);transform:translateX(-50%)}'+
+'html body #hbBtn#hbBtn#hbBtn#hbBtn svg circle,html body #hbPanel .hbh svg circle{fill:var(--zgb)!important}'+
+'html body #app #s58aslot .s58addr.s58addr:focus-within{border-color:var(--zgb)!important}';
+document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},2600);setTimeout(function(){document.head.appendChild(st)},4500);
+var UP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';
+var DN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';
+function ar(){[["btnSend",UP,"u"],["btnRecv",DN,"d"]].forEach(function(x){var b=document.getElementById(x[0]);if(!b)return;var bt=b.closest("button");if(!bt)return;var sp=bt.querySelector("span");if(sp&&sp.getAttribute("data-a")!==x[2]){sp.setAttribute("data-a",x[2]);sp.innerHTML=x[1]}})}
+ar();setInterval(ar,1000);
+}catch(e){try{console.error("Build65",e)}catch(_){}}})();

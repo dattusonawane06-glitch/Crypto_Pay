@@ -2748,3 +2748,30 @@ setInterval(run,250);
  if(has||a)return;if(sessionStorage.getItem("tz_wel"))return;sessionStorage.setItem("tz_wel","1");
  if(window.WS&&WS.open)WS.open();
 }catch(e){}},3400)}catch(e){}})();
+
+/* Build 69: new AI helper face (hexagon like the logo, blinking eyes, bouncing antenna) */
+(function(){try{
+var st=document.createElement("style");st.id="b69s";
+var P=['html body #hbBtn#hbBtn#hbBtn#hbBtn svg','html body #hbPanel#hbPanel .hbh svg'];
+function R(sel,body){return P.map(function(p){return p+" "+sel}).join(",")+"{"+body+"}"}
+st.textContent=
+'html[data-theme=light]{--rb:#16335F;--re:#37DE64;--rm:#FFFFFF;--rs:#16335F;--rc:#00A86B}'+
+'html[data-theme=dark]{--rb:#FFFFFF;--re:#16335F;--rm:#00A86B;--rs:#FFFFFF;--rc:#37DE64}'+
+P.join(",")+'{overflow:visible!important}'+
+R(".f69b","fill:var(--rb)!important;stroke:none!important")+
+R(".f69e","fill:var(--re)!important;stroke:none!important;transform-box:fill-box;transform-origin:center;animation:f69bl 4s infinite!important")+
+R(".f69m","fill:none!important;stroke:var(--rm)!important")+
+R(".f69s","stroke:var(--rs)!important;fill:none!important;animation:none!important")+
+R(".f69c","fill:var(--rc)!important;stroke:none!important;animation:none!important")+
+R(".f69a","transform-box:view-box;transform-origin:50px 24px;animation:f69wb 1.7s ease-in-out infinite")+
+'@keyframes f69bl{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}'+
+'@keyframes f69wb{0%,55%,100%{transform:rotate(0)}62%{transform:rotate(-16deg)}72%{transform:rotate(12deg)}82%{transform:rotate(-6deg)}91%{transform:rotate(3deg)}}';
+document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},2700);setTimeout(function(){document.head.appendChild(st)},5000);
+var F='<g class="f69a"><path class="f69s" d="M50 24V11" stroke-width="4" stroke-linecap="round"/><circle class="f69c" cx="50" cy="9" r="5.5"/></g>'+
+'<path class="f69b" d="M30 24H70L88 42V74Q88 86 76 86H24Q12 86 12 74V42Z"/>'+
+'<ellipse class="f69e" cx="38" cy="57" rx="5.5" ry="7"/><ellipse class="f69e" cx="62" cy="57" rx="5.5" ry="7"/>'+
+'<path class="f69m" d="M42 73Q50 79 58 73" stroke-width="4.5" stroke-linecap="round"/>';
+function put(sv){if(!sv||sv.querySelector(".f69b"))return;sv.setAttribute("viewBox","0 0 100 100");sv.setAttribute("fill","none");sv.removeAttribute("stroke");sv.removeAttribute("stroke-width");sv.setAttribute("data-t","face");sv.innerHTML=F}
+function go(){var b=document.getElementById("hbBtn");if(b)put(b.querySelector("svg"));put(document.querySelector("#hbPanel .hbh svg"))}
+go();setInterval(go,800);
+}catch(e){try{console.error("Build69",e)}catch(_){}}})();

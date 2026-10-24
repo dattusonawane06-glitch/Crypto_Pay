@@ -2572,3 +2572,81 @@ var DN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=
 function ar(){[["btnSend",UP,"u"],["btnRecv",DN,"d"]].forEach(function(x){var b=document.getElementById(x[0]);if(!b)return;var bt=b.closest("button");if(!bt)return;var sp=bt.querySelector("span");if(sp&&sp.getAttribute("data-a")!==x[2]){sp.setAttribute("data-a",x[2]);sp.innerHTML=x[1]}})}
 ar();setInterval(ar,1000);
 }catch(e){try{console.error("Build65",e)}catch(_){}}})();
+
+/* Build 66: Send on one page, confirm page, green Sent page; eye/arrow colour fix */
+(function(){try{
+var $=function(i){return document.getElementById(i)};
+var ADDR=/^0x[0-9a-fA-F]{40}$/;
+function en(){try{return lang==="en"}catch(e){return true}}
+function tx(e,h){return en()?e:h}
+function sh(a){return a?a.slice(0,6)+"…"+a.slice(-4):""}
+function esc(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function sym(){try{var t=(window.XA&&XA.tok)?XA.tok():null;return t?t.symbol:NETWORKS[currentNet].symbol}catch(e){return ""}}
+var st=document.createElement("style");st.id="b66s";
+st.textContent=
+'html body #app #sheetSend #s58next,html body #app #sheetSend .s58to{display:none!important}'+
+'html body #app #sheetSend #s58s2{display:block!important}'+
+'html body #app .hero.hero .b64eye,html body #app .hero.hero .b64eye svg{color:#C9D3E3!important;stroke:#C9D3E3!important}'+
+'html body #app .hero.hero .b64net svg,html body #app .hero.hero .b64net svg *{color:#fff!important;stroke:#fff!important}'+
+'#b66cf,#b66ok{position:fixed;inset:0;margin:0 auto;max-width:420px;z-index:400;background:var(--z1);color:var(--zt);display:flex;flex-direction:column;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));box-sizing:border-box;font-family:Poppins,system-ui,sans-serif}'+
+'#b66cf .h{display:flex;align-items:center;gap:12px;font-size:18px;font-weight:600}'+
+'#b66cf .h button{width:40px;height:40px;border-radius:50%;border:0;background:var(--z2);color:var(--zt);font-size:20px;cursor:pointer}'+
+'#b66cf .big{text-align:center;margin:28px 0 6px;font-size:30px;font-weight:600}'+
+'#b66cf .sub{text-align:center;font-size:13px;color:var(--zm)}'+
+'#b66cf .tb{background:var(--z2);border-radius:14px;padding:4px 14px;margin-top:22px}'+
+'#b66cf .tr{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:12px 0;border-bottom:1px solid var(--zl)}'+
+'#b66cf .tr:last-child{border-bottom:0}'+
+'#b66cf .tr span:first-child{color:var(--zm)}#b66cf .tr span:last-child{font-weight:500;text-align:right;word-break:break-all}'+
+'#b66cf .wn{font-size:12px;color:var(--zm);text-align:center;margin-top:14px;line-height:1.5}'+
+'#b66cf .go,#b66ok .go{margin-top:auto;border:0;border-radius:12px;padding:15px;font-size:16px;font-weight:600;background:var(--zb);color:var(--zbt);cursor:pointer;font-family:inherit;width:100%}'+
+'#b66cf .cn{border:0;background:transparent;color:var(--zt);font-size:14px;font-weight:500;padding:12px;margin-top:6px;cursor:pointer;font-family:inherit}'+
+'#b66ok .mid{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center}'+
+'#b66ok .tk{width:84px;height:84px;border-radius:50%;background:#22C55E;display:flex;align-items:center;justify-content:center;animation:b66p .55s cubic-bezier(.2,.9,.3,1.4) both}'+
+'#b66ok .tk svg{width:46px;height:46px}'+
+'@keyframes b66p{from{transform:scale(0)}to{transform:scale(1)}}'+
+'#b66ok .t1{font-size:24px;font-weight:600;margin-top:6px}#b66ok .t2{font-size:14px;color:var(--zm)}'+
+'#b66ok a{font-size:14px;font-weight:500;color:var(--zt);text-decoration:underline;margin-top:6px}';
+document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},2600);setTimeout(function(){document.head.appendChild(st)},4600);
+/* one page: both steps always shown */
+function onePage(){if(!window.S58||S58.__b66)return;var og=S58.go;S58.__b66=1;
+ S58.go=function(n){var s1=$("s58s1"),s2=$("s58s2");if(!s1||!s2)return og.apply(this,arguments);s1.style.display="block";s2.style.display="block";try{S58.text()}catch(e){}try{$("sendAmt").dispatchEvent(new Event("input"))}catch(e){}}}
+onePage();setInterval(onePage,1500);
+/* let the back button close the page */
+document.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("#sheetSend .bkb"):null;if(b){var s2=$("s58s2");if(s2)s2.style.display="none"}},true);
+/* confirm page */
+var pass=false;
+function feeTxt(){var f=$("sendFee");var t=f?(f.textContent||"").trim():"";return t||tx("Small, paid in SHM","थोड़ी, SHM में")}
+function confirmShow(to,amt,sy){
+ var old=$("b66cf");if(old)old.remove();
+ var n="";try{n=NETWORKS[currentNet].name}catch(e){}
+ var d=document.createElement("div");d.id="b66cf";
+ d.innerHTML='<div class="h"><button type="button" aria-label="Back">‹</button>'+esc(tx("Confirm","पक्का करें"))+'</div>'+
+ '<div class="big">− '+esc(amt)+' '+esc(sy)+'</div><div class="sub">'+esc(n)+'</div>'+
+ '<div class="tb"><div class="tr"><span>'+esc(tx("To","किसे"))+'</span><span>'+esc(sh(to))+'</span></div>'+
+ '<div class="tr"><span>'+esc(tx("Network fee","नेटवर्क फ़ीस"))+'</span><span>'+esc(feeTxt())+'</span></div>'+
+ '<div class="tr"><span>'+esc(tx("Total","कुल"))+'</span><span>'+esc(amt)+' '+esc(sy)+' + '+esc(tx("fee","फ़ीस"))+'</span></div></div>'+
+ '<div class="wn">'+esc(tx("Check the address. Sent coins cannot be returned.","पता जाँच लीजिए। भेजे हुए सिक्के वापस नहीं आते।"))+'</div>'+
+ '<button type="button" class="go">'+esc(tx("Send now","अभी भेजें"))+'</button><button type="button" class="cn">'+esc(tx("Cancel","रद्द करें"))+'</button>';
+ (document.getElementById("app")||document.body).appendChild(d);
+ var close=function(){d.remove()};
+ d.querySelector(".h button").onclick=close;d.querySelector(".cn").onclick=close;
+ d.querySelector(".go").onclick=function(){close();pass=true;var b=$("sendBtn");if(b)b.click();setTimeout(function(){pass=false},500)};
+}
+document.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("#sendBtn"):null;if(!b)return;if(pass)return;
+ var to=($("sendTo")||{}).value||"",amt=(($("sendAmt")||{}).value||"").trim();to=to.trim();
+ if(!ADDR.test(to)||!(parseFloat(amt)>0))return;
+ e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();confirmShow(to,amt,sym())},true);
+/* green Sent page after a real send */
+function okShow(amt,sy,hash){
+ var old=$("b66ok");if(old)old.remove();
+ var to=(($("sendTo")||{}).value||"").trim();var ex="";try{ex=NETWORKS[currentNet].explorer}catch(e){}
+ var d=document.createElement("div");d.id="b66ok";
+ d.innerHTML='<div class="mid"><div class="tk"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>'+
+ '<div class="t1">'+esc(tx("Sent","भेज दिया"))+'</div><div class="t2">'+esc(amt)+' '+esc(sy)+(to?' → '+esc(sh(to)):'')+'</div>'+
+ (ex&&hash?'<a href="'+esc(ex+"/tx/"+hash)+'" target="_blank" rel="noopener">'+esc(tx("View on explorer","Explorer पर देखें"))+'</a>':'')+'</div>'+
+ '<button type="button" class="go">'+esc(tx("Done","ठीक है"))+'</button>';
+ (document.getElementById("app")||document.body).appendChild(d);
+ d.querySelector(".go").onclick=function(){d.remove();try{closeAll()}catch(e){}};
+}
+if(typeof window.logTx==="function"&&!window.logTx.__b66){var _lt=window.logTx;window.logTx=function(type,amt,symbol,hash){var r=_lt.apply(this,arguments);try{if(type==="out"&&hash)okShow(amt,symbol,hash)}catch(e){}return r};window.logTx.__b66=1}
+}catch(e){try{console.error("Build66",e)}catch(_){}}})();

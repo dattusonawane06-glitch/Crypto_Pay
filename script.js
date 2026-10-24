@@ -2650,3 +2650,101 @@ function okShow(amt,sy,hash){
 }
 if(typeof window.logTx==="function"&&!window.logTx.__b66){var _lt=window.logTx;window.logTx=function(type,amt,symbol,hash){var r=_lt.apply(this,arguments);try{if(type==="out"&&hash)okShow(amt,symbol,hash)}catch(e){}return r};window.logTx.__b66=1}
 }catch(e){try{console.error("Build66",e)}catch(_){}}})();
+
+/* Build 68: new-wallet pages like the design: welcome, PIN, secret words, quick check */
+(function(){try{
+var $=function(i){return document.getElementById(i)};
+function en(){try{return lang==="en"}catch(e){return true}}
+function tx(e,h){return en()?e:h}
+function esc(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var st=document.createElement("style");st.id="b68s";
+st.textContent=
+'#sheetWallet .b68st{display:flex;gap:5px;margin:2px 4px 16px}#sheetWallet .b68st span{flex:1;height:4px;border-radius:2px;background:var(--zl)}#sheetWallet .b68st span.on{background:var(--zt)}'+
+'#sheetWallet .b68sub{font-size:13px;color:var(--zm);line-height:1.5;margin:0 4px 14px;text-align:left}'+
+/* welcome */
+'#sheetWallet .panel.b68-wel .ttl{visibility:hidden}'+
+'#sheetWallet .panel.b68-wel #wsBody{display:flex;flex-direction:column;min-height:calc(100dvh - 110px)}'+
+'#sheetWallet .b68hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:20px 0}'+
+'#sheetWallet .b68hero .tile{width:92px;height:92px;border-radius:24px;background:#000;overflow:hidden}#sheetWallet .b68hero .tile img{width:100%;height:100%;display:block}'+
+'#sheetWallet .b68hero .nm{font-family:"Russo One",Poppins,sans-serif;font-size:28px;letter-spacing:3px;color:var(--zt)}'+
+'#sheetWallet .b68hero .tg{font-size:14px;color:var(--zm)}'+
+'#sheetWallet .panel.b68-wel #wsBody>.cap{order:9;text-align:center!important;font-size:12px;margin-top:10px}'+
+'#sheetWallet .panel.b68-wel #wsBody .btn{margin-top:10px}'+
+/* PIN */
+'#sheetWallet .pbs{gap:14px!important;justify-content:center}'+
+'html body #sheetWallet .pbs i{width:14px!important;height:14px!important;border-radius:50%!important;border:1.5px solid var(--zt)!important;background:transparent!important;box-shadow:none!important}'+
+'html body #sheetWallet .pbs i.f{background:var(--zt)!important}html body #sheetWallet .pbs i.f::after{display:none!important}'+
+'html body #sheetWallet .pbs i.c{border-color:var(--zgb,#00A86B)!important;box-shadow:none!important}'+
+'html body #sheetWallet .kp .pk{border:0!important;background:transparent!important;box-shadow:none!important;font-size:26px!important;font-weight:500!important;color:var(--zt)!important;height:62px!important;border-radius:50%!important}'+
+'html body #sheetWallet .kp .pk:active{background:var(--z2)!important}'+
+'html body #sheetWallet .kp .pk svg{color:var(--zt)!important;stroke:currentColor!important}'+
+/* words */
+'#sheetWallet .panel.b68-wds .risk,#sheetWallet .panel.b68-wds label.xt-o,#sheetWallet .panel.b68-wds #wsBody>.cap:not(#wsCd){display:none!important}'+
+'html body #sheetWallet .wsw{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}'+
+'html body #sheetWallet .wsw span{border:1px solid var(--zl)!important;background:transparent!important;border-radius:10px!important;padding:10px!important;font-size:14px!important;font-weight:500!important;color:var(--zt)!important;display:flex!important;gap:8px;align-items:center}'+
+'html body #sheetWallet .wsw span i{font-style:normal;color:var(--zm)!important;font-size:12px;min-width:16px;background:none!important}'+
+'html body #sheetWallet .vl .btn{background:transparent!important;color:var(--zt)!important;border:0!important;box-shadow:none!important;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:14px!important}'+
+'#sheetWallet .b68wn{display:flex;gap:8px;background:var(--z2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--zt);line-height:1.5;margin:12px 0}'+
+'#sheetWallet .b68wn svg{width:18px;height:18px;flex-shrink:0;color:var(--zt)}'+
+/* quick check */
+'#sheetWallet .panel.b68-ck #wsBody>*:not(.b68ckw){display:none!important}'+
+'#sheetWallet .b68q{font-size:14px;font-weight:500;margin:16px 4px 8px;color:var(--zt)}'+
+'#sheetWallet .b68ch{display:flex;flex-wrap:wrap;gap:8px;margin:0 4px}'+
+'#sheetWallet .b68ch button{border:1px solid var(--zl);background:transparent;color:var(--zt);border-radius:20px;padding:8px 16px;font-size:14px;font-family:inherit;cursor:pointer}'+
+'#sheetWallet .b68ch button.ok{background:var(--zb);color:var(--zbt);border-color:var(--zb)}'+
+'#sheetWallet .b68ch button.no{border-color:#E5484D;color:#E5484D;animation:b68sh .3s}'+
+'@keyframes b68sh{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}'+
+'#sheetWallet .b68msg{min-height:20px;font-size:13px;color:#E5484D;margin:12px 4px 0}'+
+'#sheetWallet .b68ckw .btn[disabled]{opacity:.35}'+
+'#sheetWallet .b68lnk{display:block;text-align:center;margin-top:12px;font-size:14px;font-weight:500;color:var(--zt);cursor:pointer;background:none;border:0;width:100%;font-family:inherit}';
+document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},2600);
+var EYE='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+var SHD='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><rect x="9.5" y="10.5" width="5" height="4.5" rx="1"/><path d="M10.5 10.5V9a1.5 1.5 0 0 1 3 0v1.5"/></svg>';
+function steps(pn,n){var b=pn.querySelector(".b68st");if(!b){b=document.createElement("div");b.className="b68st";b.innerHTML="<span></span><span></span><span></span>";var h=pn.querySelector(".bkh");if(h)h.after(b);else pn.prepend(b)}
+ b.querySelectorAll("span").forEach(function(x,i){x.className=i<n?"on":""})}
+function noSteps(pn){var b=pn.querySelector(".b68st");if(b)b.remove()}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function run(){
+ var sh=$("sheetWallet");if(!sh||!sh.classList.contains("open"))return;var pn=sh.querySelector(".panel"),b=$("wsBody"),tt=pn&&pn.querySelector(".ttl");if(!pn||!b)return;
+ var mode=b.querySelector('button[onclick="WS.c1()"]')?"wel":b.querySelector(".pinw")?"pin":($("wsv")&&$("wsOk"))?"wds":$("wsQ1")?"ck":"";
+ ["wel","pin","wds","ck"].forEach(function(m){pn.classList.toggle("b68-"+m,m===mode)});
+ if(mode==="wel"){noSteps(pn);
+  if(!b.querySelector(".b68hero")){var h=document.createElement("div");h.className="b68hero";h.innerHTML='<div class="tile"><img src="icon-192.png" alt=""></div><div class="nm">TAZVERA</div><div class="tg">'+esc(tx("Your keys. Your crypto.","आपकी चाबी। आपका पैसा।"))+'</div>';b.prepend(h)}
+  var g=b.querySelector('button[onclick="WS.imp()"]');if(g&&!g.__b68){g.__b68=1;g.textContent=tx("I already have a wallet","मेरे पास पहले से वॉलेट है")}
+ } else if(mode==="pin"){var t=(tt&&tt.textContent)||"";if(/Choose|Confirm|PIN चुन|पक्का/i.test(t))steps(pn,1);else noSteps(pn)}
+ else if(mode==="wds"){steps(pn,2);
+  if(tt&&tt.getAttribute("data-b68")!=="w"){tt.setAttribute("data-b68","w");tt.textContent=tx("Your secret 12 words","आपके गुप्त 12 शब्द")}
+  if(!b.querySelector(".b68sub")){var s=document.createElement("div");s.className="b68sub";s.textContent=tx("Write them on paper, in order. They are the only way to get your wallet back.","इन्हें क्रम से काग़ज़ पर लिखिए। वॉलेट वापस लाने का यही एक तरीक़ा है।");b.prepend(s)}
+  var v=$("wsv");if(v&&!b.querySelector(".b68wn")){var w=document.createElement("div");w.className="b68wn";w.innerHTML=SHD+'<span>'+esc(tx("Never share these words. Tazvera will never ask for them. No screenshots.","ये शब्द कभी किसी को मत बताइए। Tazvera कभी नहीं माँगेगा। स्क्रीनशॉट मत लीजिए।"))+'</span>';var cd=$("wsCd");(cd||v).after(w)}
+  var vb=b.querySelector(".vl .btn");if(vb&&!vb.__b68){vb.__b68=1;vb.innerHTML=EYE+'<span>'+esc(tx("Tap to show","दिखाने के लिए दबाइए"))+'</span>'}
+  var cb=b.querySelector('button.btn[onclick="WS.fin()"]');if(cb&&!cb.__b68){cb.__b68=1;cb.textContent=tx("I wrote them down","मैंने लिख लिए");cb.addEventListener("click",function(){var o=$("wsOk");if(o)o.checked=true},true)}
+ } else if(mode==="ck"){steps(pn,3);
+  if(tt&&tt.getAttribute("data-b68")!=="c"){tt.setAttribute("data-b68","c");tt.textContent=tx("Quick check","छोटी जाँच")}
+  if(!b.querySelector(".b68ckw"))build(b);
+ } else noSteps(pn);
+}
+function build(b){
+ var w=(window.WSX&&WSX.cur||"").split(" ");if(w.length!==12)return;var q=[(WSX.q||[1])[0]];while(q.length<3){var c=1+Math.floor(Math.random()*12);if(q.indexOf(c)<0)q.push(c)}q.sort(function(x,y){return x-y});
+ var box=document.createElement("div");box.className="b68ckw";var done={};
+ var h='<div class="b68sub">'+esc(tx("Pick the right words to make sure you saved them.","सही शब्द चुनिए, ताकि पक्का हो कि आपने लिख लिए।"))+'</div>';
+ q.forEach(function(n){var right=w[n-1],others=shuffle(w.filter(function(x,i){return i!==n-1&&x!==right})).slice(0,2),opts=shuffle([right].concat(others));
+  h+='<div class="b68q">'+esc(tx("Word #","शब्द नंबर "))+n+'</div><div class="b68ch" data-n="'+n+'">'+opts.map(function(o){return'<button type="button" data-w="'+esc(o)+'">'+esc(o)+'</button>'}).join("")+'</div>'});
+ h+='<div class="b68msg"></div><button type="button" class="btn b68go" disabled>'+esc(tx("Continue","आगे"))+'</button><button type="button" class="b68lnk">'+esc(tx("Show my words again","मेरे शब्द फिर दिखाइए"))+'</button>';
+ box.innerHTML=h;b.appendChild(box);
+ var msg=box.querySelector(".b68msg"),go=box.querySelector(".b68go");
+ box.querySelectorAll(".b68ch").forEach(function(row){var n=+row.getAttribute("data-n");row.querySelectorAll("button").forEach(function(bt){bt.onclick=function(){
+  row.querySelectorAll("button").forEach(function(x){x.classList.remove("ok","no")});
+  if(bt.getAttribute("data-w")===w[n-1]){bt.classList.add("ok");done[n]=1;msg.textContent=""}else{bt.classList.add("no");delete done[n];msg.textContent=tx("Not right. Look at your paper again.","सही नहीं है। अपना काग़ज़ फिर देखिए।")}
+  go.disabled=Object.keys(done).length!==3}})});
+ go.onclick=function(){if(Object.keys(done).length!==3)return;var a=$("wsQ1"),b2=$("wsQ2");if(a)a.value=w[WSX.q[0]-1];if(b2&&WSX.q[1])b2.value=w[WSX.q[1]-1];try{localStorage.setItem("cp3_backup_ok","1")}catch(e){}try{WSX.chk()}catch(e){}setTimeout(function(){var k=document.getElementById("bkBanner");if(k)k.remove()},600)};
+ box.querySelector(".b68lnk").onclick=function(){try{WS.done(WSX.cur)}catch(e){}};
+}
+setInterval(run,250);
+}catch(e){try{console.error("Build68",e)}catch(_){}}})();
+
+/* Build 68b: show the welcome page by itself to a new user (no wallet yet), once per visit */
+(function(){try{setTimeout(function(){try{
+ var has=(window.CPW&&CPW.has&&CPW.has());var a="";try{a=addr||""}catch(e){}
+ if(has||a)return;if(sessionStorage.getItem("tz_wel"))return;sessionStorage.setItem("tz_wel","1");
+ if(window.WS&&WS.open)WS.open();
+}catch(e){}},3400)}catch(e){}})();

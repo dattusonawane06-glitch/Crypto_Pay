@@ -719,7 +719,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 6 · Build 88 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test TZT, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 6 · बिल्ड 88 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट TZT और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 6 · Build 90 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test TZT, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 6 · बिल्ड 90 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट TZT और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#000;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><img src="icon-192.png" alt="Tazvera" style="width:100%;height:100%;border-radius:28px;display:block"></div><b style="font-size:20px">Tazvera</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 Tazvera</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -961,10 +961,10 @@ return _c.apply(this,arguments)};
 var CP="0xc75149e5C95a41b0a4c9E3378D5fc6aAAc2CC5F0";
 var Q={hi:[
 ["Tazvera क्या है?","एक सरल वॉलेट। अभी यह सिर्फ़ टेस्ट (Testnet) पर चलता है, यानी इसमें असली पैसे नहीं हैं। हम इसे सीखने और जाँचने के लिए चला रहे हैं।"],
-["वॉलेट कैसे बनाएँ?","Connect दबाइए, फिर Create new wallet। 6 अंकों का PIN चुनिए और दिखने वाले 12 शब्द कागज़ पर लिख लीजिए।"],
+["वॉलेट कैसे बनाएँ?","होम पर ऊपर \"Set up wallet\" दबाइए, फिर Create new wallet। 6 अंकों का PIN चुनिए और दिखने वाले 12 शब्द कागज़ पर लिख लीजिए।"],
 ["12 शब्द क्या हैं?","ये आपके वॉलेट की पक्की बैकअप चाबी हैं। इन्हें सिर्फ़ कागज़ पर लिखिए। किसी को मत बताइए, फोटो मत खींचिए। कोई \"सपोर्ट\" भी इन्हें कभी नहीं माँगेगा। ये और फ़ोन दोनों खो गए तो वॉलेट वापस नहीं मिलेगा।"],
-["PIN भूल गया तो?","Connect दबाने पर PIN वाली स्क्रीन के नीचे \"Forgot PIN\" दबाइए और अपने 12 शब्दों से वॉलेट वापस बनाइए। 12 शब्द नहीं हैं तो वॉलेट वापस नहीं मिल सकता।"],
-["मुफ़्त TZT कैसे लें?","Services → Test → TZT faucet → \"Get 100 TZT (free, no fee)\" दबाइए। इसमें आपको कोई फ़ीस नहीं देनी पड़ती।"],
+["PIN भूल गया तो?","PIN वाली स्क्रीन के नीचे \"Forgot PIN\" दबाइए और अपने 12 शब्दों से वॉलेट वापस बनाइए। 12 शब्द नहीं हैं तो वॉलेट वापस नहीं मिल सकता।"],
+["मुफ़्त TZT कैसे लें?","Home → Get TZT → \"Get 100 TZT (free, no fee)\" दबाइए। इसमें आपको कोई फ़ीस नहीं देनी पड़ती।"],
 ["TZT की कीमत क्या है?","कोई कीमत नहीं। यह सिर्फ़ टेस्ट टोकन है।"],
 ["फ़ीस (Network fee) क्या है?","ब्लॉकचेन पर हर लेनदेन के लिए नेटवर्क को थोड़ी फ़ीस देनी पड़ती है। यह नेटवर्क के सिक्के में लगती है (यहाँ SHM)। यह Tazvera को नहीं मिलती।"],
 ["भेजते समय क्या ध्यान रखें?","पता और नेटवर्क दो बार जाँचिए। गलत पते या गलत नेटवर्क पर भेजा सिक्का वापस नहीं आता।"],
@@ -973,10 +973,10 @@ var Q={hi:[
 ["12 शब्द दोबारा कहाँ देखूँ?","Settings → Security → बैकअप शब्द (12) (PIN डालकर)। देखते समय आसपास कोई न हो।"]],
 en:[
 ["What is Tazvera?","A simple wallet. For now it runs on a test network (Testnet), so it holds no real money. We run it to learn and test."],
-["How do I create a wallet?","Tap Connect, then Create new wallet. Choose a 6-digit PIN and write the 12 words on paper."],
+["How do I create a wallet?","Tap \"Set up wallet\" at the top of Home, then Create new wallet. Choose a 6-digit PIN and write the 12 words on paper."],
 ["What are the 12 words?","They are your wallet's backup key. Write them on paper only. Never share them or take a photo. No \"support\" will ever ask for them. If you lose them and your phone, the wallet cannot be recovered."],
 ["I forgot my PIN","On the PIN screen tap \"Forgot PIN\" and restore the wallet with your 12 words. Without the 12 words the wallet cannot be recovered."],
-["How do I get free TZT?","Services → Test → TZT faucet → \"Get 100 TZT (free, no fee)\". You pay no fee."],
+["How do I get free TZT?","Home → Get TZT → \"Get 100 TZT (free, no fee)\". You pay no fee."],
 ["What is TZT worth?","Nothing. It is a test token only."],
 ["What is the network fee?","Every blockchain transaction needs a small fee paid to the network, in the network's own coin (SHM here). It does not go to Tazvera."],
 ["What should I check before sending?","Check the address and the network twice. Coins sent to a wrong address or network cannot be recovered."],
@@ -1067,7 +1067,7 @@ p:{t:["Privacy policy","गोपनीयता नीति"],s:[
 ["Your wallet","आपका वॉलेट","Your wallet key is created on your phone and locked with your PIN. It is never sent to us. Your 12 words are shown only on your own screen.","आपके वॉलेट की चाबी आपके फ़ोन में बनती है और PIN से बंद रहती है। वह हमें कभी नहीं भेजी जाती। 12 शब्द सिर्फ़ आपकी अपनी स्क्रीन पर दिखते हैं।"],
 ["What the app contacts","ऐप किससे जुड़ता है","To work, the app talks to blockchain network nodes (to read balances and send transactions), price sources (through our server) and our hosting provider. These services may see your IP address and the public address you use. We do not sell any data.","चलने के लिए ऐप ब्लॉकचेन नेटवर्क के नोड (बैलेंस पढ़ने और लेनदेन भेजने के लिए), कीमत के स्रोत (हमारे सर्वर से) और हमारे होस्टिंग प्रदाता से जुड़ता है। ये सेवाएँ आपका IP पता और आपका सार्वजनिक पता देख सकती हैं। हम कोई जानकारी बेचते नहीं।"],
 ["Voice input","आवाज़ से भरना","If you use the microphone button, your browser's speech service (for example Google in Chrome) hears your voice and turns it into text. Tazvera does not record or store your voice.","माइक का बटन इस्तेमाल करने पर आपके ब्राउज़र की आवाज़-पहचान सेवा (जैसे Chrome में Google) आपकी आवाज़ सुनकर उसे लिखित में बदलती है। Tazvera आपकी आवाज़ रिकॉर्ड या सेव नहीं करता।"],["Stored on your phone","आपके फ़ोन में क्या रहता है","Your encrypted wallet, settings, history and contacts stay on your phone. Clearing browser data removes them. Only your 12 words can bring the wallet back.","आपका एन्क्रिप्टेड वॉलेट, सेटिंग, इतिहास और संपर्क आपके फ़ोन में रहते हैं। ब्राउज़र का डेटा साफ़ करने पर ये हट जाते हैं। वॉलेट सिर्फ़ 12 शब्दों से वापस आता है।"],
-["Changes and contact","बदलाव और संपर्क","If this changes, we will update this page. You can message us on X.","इसमें बदलाव हुआ तो हम यह पेज बदल देंगे। आप हमें X पर संदेश भेज सकते हैं।"]]},
+["Changes and contact","बदलाव और संपर्क","If this changes, we will update this page. Write to contact@tazvera.com or message us on Telegram (t.me/TazveraApp).","इसमें बदलाव हुआ तो हम यह पेज बदल देंगे। हमें contact@tazvera.com पर लिखिए या Telegram (t.me/TazveraApp) पर संदेश भेजिए।"]]},
 t:{t:["Terms of use","उपयोग की शर्तें"],s:[
 ["This is a test version","यह टेस्ट वर्शन है","Tazvera is an early test version on a test network. Test coins like TZT have no money value.","Tazvera एक शुरुआती टेस्ट वर्शन है जो टेस्ट नेटवर्क पर चलता है। TZT जैसे टेस्ट सिक्कों की कोई कीमत नहीं।"],
 ["Not financial advice","वित्तीय सलाह नहीं","Nothing in the app is financial, legal or tax advice. Crypto is risky.","ऐप में कुछ भी वित्तीय, कानूनी या कर संबंधी सलाह नहीं है। क्रिप्टो जोखिम भरा है।"],
@@ -1076,7 +1076,7 @@ t:{t:["Terms of use","उपयोग की शर्तें"],s:[
 ["Fair use","सही इस्तेमाल","Do not use the app to cheat, harm others or break the law. Free test coins may be limited or stopped to prevent misuse.","ऐप का इस्तेमाल धोखे, किसी को नुकसान पहुँचाने या कानून तोड़ने के लिए मत कीजिए। दुरुपयोग रोकने के लिए मुफ़्त टेस्ट सिक्के सीमित या बंद किए जा सकते हैं।"],
 ["Changes","बदलाव","We may update these terms. If you keep using the app, you accept the new terms.","हम ये शर्तें बदल सकते हैं। ऐप इस्तेमाल करते रहने का मतलब है कि आप नई शर्तें मानते हैं।"]]}};
 window.LG={open:function(k){var d=D[k],h="";d.s.forEach(function(x){h+='<div class="xt-o" style="text-align:left"><b>'+tx(x[0],x[1])+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.55">'+tx(x[2],x[3])+"</div></div>"});
-h+='<p class="cap" style="text-align:left">'+tx("Last updated: 12 Oct 2026","अंतिम बदलाव: 12 अक्टूबर 2026")+"</p>";
+h+='<p class="cap" style="text-align:left">'+tx("Last updated: 25 Oct 2026","अंतिम बदलाव: 25 अक्टूबर 2026")+"</p>";
 $("toolOut").textContent="";$("toolsTitle").textContent=tx(d.t[0],d.t[1]);var b=$("calcBox");b.style.display="block";$("sheetTools").classList.add("open");b.innerHTML=h}};
 })();
 
@@ -3476,3 +3476,109 @@ function nots(){$("xtT").textContent=tx("Notifications","सूचनाएँ")
  $("xtB").innerHTML=h;var c=$("xtB").querySelector(".cl");if(c)c.onclick=function(){if(confirm(tx("Clear all notifications?","सारी सूचनाएँ मिटाएँ?")))XT.cl("nt")}}
 if(window.XT&&XT.go&&!XT.__b88){XT.__b88=1;var og=XT.go;XT.go=function(n){og.apply(this,arguments);try{if(n==="sec")tips();else if(n==="nt")nots()}catch(e){}}}
 }catch(e){try{console.error("Build88",e)}catch(_){}}})();
+
+/* Build 89: Help group: clean cards, help contacts, feedback by Email/Telegram/Discord/X, About TZT copy + explorer */
+(function(){try{
+var $=function(i){return document.getElementById(i)};
+function en(){try{return lang==="en"}catch(e){return true}}
+function tx(e,h){return en()?e:h}
+var P="html body #app #sheetTools#sheetTools ";
+var st=document.createElement("style");st.id="b89s";
+st.textContent=
+P+'details.hq{border:1px solid var(--svb)!important;border-radius:16px!important;padding:0!important;margin-top:10px!important;background:var(--z1)!important;text-align:left;overflow:hidden}'+
+P+'details.hq summary{list-style:none;cursor:pointer;padding:14px 44px 14px 14px;font-weight:600;font-size:15px;color:var(--zt);position:relative}'+P+'details.hq summary::-webkit-details-marker{display:none}'+
+P+'details.hq summary::after{content:"+";position:absolute;right:14px;top:10px;font-size:22px;color:var(--svi)}'+P+'details.hq[open] summary::after{content:"−"}'+
+P+'details.hq p{margin:0!important;padding:0 14px 14px!important;color:var(--cvl)!important;font-size:14px!important;line-height:1.6!important;font-weight:500}'+
+P+'#calcBox .xt-o{border:1px solid var(--svb)!important;border-radius:16px!important;background:var(--z1)!important;padding:14px!important;margin-top:10px!important;box-shadow:none!important}'+
+P+'#calcBox .xt-o b{color:var(--zt)!important;font-weight:600!important}'+P+'#calcBox .xt-o div{color:var(--cvl)!important;font-weight:500}'+
+P+'.b89h{margin-top:18px;border-top:1px solid var(--svb);padding-top:14px;text-align:left}'+P+'.b89h .lb{font-size:13.5px;font-weight:600;color:var(--cvl);margin-bottom:10px}'+
+P+'.b89g{display:grid;grid-template-columns:1fr 1fr;gap:8px}'+P+'.b89g a,'+P+'.b89g button{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--svb);background:var(--z1);color:var(--zt);border-radius:14px;padding:12px 8px;font-weight:600;font-size:14px;font-family:inherit;text-decoration:none;cursor:pointer}'+
+P+'.b89g .pri{grid-column:1/-1;background:var(--zb);color:var(--zbt);border-color:var(--zb)}'+
+P+'.b89g svg{width:18px;height:18px;flex-shrink:0}'+
+P+'#fbT{border:1px solid var(--svb)!important;border-radius:16px!important;background:var(--z1)!important;font-family:inherit}';
+document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},4200);
+var I={m:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg>',
+t:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/></svg>',
+d:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7.5C6.2 8 5 9 5 9c-1.2 2.2-1.9 4.6-1.8 7.1 1.4 1.3 3 2 4.6 2.4l1-1.8M16 7.5c1.8.5 3 1.5 3 1.5 1.2 2.2 1.9 4.6 1.8 7.1-1.4 1.3-3 2-4.6 2.4l-1-1.8M8.5 8.2a12 12 0 0 1 7 0"/><circle cx="9.5" cy="12.8" r="1"/><circle cx="14.5" cy="12.8" r="1"/></svg>',
+x:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z" transform="scale(.75) translate(4 4)"/></svg>',
+b:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V5"/><circle cx="12" cy="4" r="1"/><circle cx="9" cy="14" r="1.2"/><circle cx="15" cy="14" r="1.2"/></svg>',
+c:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>',
+e:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>'};
+function box(){return $("calcBox")}
+function contacts(){return'<a href="mailto:contact@tazvera.com">'+I.m+'Email</a><a href="https://t.me/TazveraApp" target="_blank" rel="noopener">'+I.t+'Telegram</a><a href="https://discord.gg/s2tjFdaCVN" target="_blank" rel="noopener">'+I.d+'Discord</a><a href="https://x.com/TazveraApp" target="_blank" rel="noopener">'+I.x+'X</a>'}
+if(window.HP){var _h=HP.help;HP.help=function(){_h.apply(this,arguments);var b=box();if(!b)return;var d=document.createElement("div");d.className="b89h";
+ d.innerHTML='<div class="lb">'+tx("Still need help?","और मदद चाहिए?")+'</div><div class="b89g"><button type="button" class="pri">'+I.b+tx("Ask the AI helper","AI सहायक से पूछिए")+'</button>'+contacts()+'</div>';b.appendChild(d);
+ d.querySelector(".pri").onclick=function(){try{closeAll()}catch(e){}setTimeout(function(){var hb=$("hbBtn");if(hb)hb.click()},200)}};
+ var _a=HP.about;HP.about=function(){_a.apply(this,arguments);var b=box();if(!b)return;var CPa="0xc75149e5C95a41b0a4c9E3378D5fc6aAAc2CC5F0";
+  b.querySelectorAll(".xt-o").forEach(function(r){var sp=r.querySelector("span");if(sp&&/First minted|पहली बार/i.test(sp.textContent))sp.textContent=tx("Created so far","अब तक बने")});
+  b.querySelectorAll(".xt-o").forEach(function(r){var sp=r.querySelector("span"),bb=r.querySelector("b");if(sp&&bb&&/Source code|सोर्स कोड/i.test(sp.textContent))bb.textContent=tx("Not verified yet","अभी verify नहीं")});
+  var d=document.createElement("div");d.className="b89h";d.innerHTML='<div class="lb" style="font-weight:500">ⓘ '+tx("The contract is not verified on the explorer yet. TZT is a test token with no value.","कॉन्ट्रैक्ट अभी explorer पर verify नहीं हुआ है। TZT टेस्ट टोकन है, इसकी कोई क़ीमत नहीं।")+'</div>';b.appendChild(d)}}
+if(window.FB){var _f=FB.open;FB.open=function(){_f.apply(this,arguments);var b=box();if(!b)return;var old=b.querySelector('.btn[onclick="FB.send()"]');if(!old)return;
+ var d=document.createElement("div");d.className="b89h";d.style.borderTop="0";d.style.paddingTop="0";
+ d.innerHTML='<div class="lb">'+tx("Send it by","किससे भेजें")+'</div><div class="b89g"><button type="button" data-w="m" class="pri">'+I.m+tx("Email us","ईमेल भेजें")+'</button><button type="button" data-w="t">'+I.t+'Telegram</button><button type="button" data-w="d">'+I.d+'Discord</button><button type="button" data-w="x" style="grid-column:1/-1">'+I.x+'X</button></div>';
+ old.replaceWith(d);
+ d.querySelectorAll("button").forEach(function(btn){btn.onclick=function(){var t=(($("fbT")||{}).value||"").trim();if(!t){try{toast(tx("Write something first","पहले कुछ लिखिए"))}catch(e){}return}
+  var r=(window.__fbMeta?window.__fbMeta():"")+t+"\n\n— Tazvera · "+(function(){try{return NETWORKS[currentNet].name}catch(e){return""}})()+" · "+(en()?"en":"hi");var w=btn.getAttribute("data-w");
+  if(w==="m"){location.href="mailto:contact@tazvera.com?subject="+encodeURIComponent("Tazvera feedback")+"&body="+encodeURIComponent(r);return}
+  try{navigator.clipboard.writeText(r)}catch(e){}try{toast(tx("Copied. Paste it in your message to us.","कॉपी हो गया। हमें संदेश में चिपकाइए।"),4500)}catch(e){}
+  window.open(w==="t"?"https://t.me/TazveraApp":w==="d"?"https://discord.gg/s2tjFdaCVN":"https://x.com/TazveraApp","_blank","noopener")}})}}
+}catch(e){try{console.error("Build89",e)}catch(_){}}})();
+
+/* Build 90: Help (search, topics, groups), Feedback (rating + type), About TZT (header + stats), Privacy/Terms (summary) */
+(function(){try{
+var $=function(i){return document.getElementById(i)};
+function en(){try{return lang==="en"}catch(e){return true}}
+function tx(e,h){return en()?e:h}
+var P="html body #app #sheetTools#sheetTools ";
+var st=document.createElement("style");st.id="b90s";
+st.textContent=
+P+'.b90hero{background:var(--zc,#16335F);color:#fff;border-radius:20px;padding:16px;text-align:left}'+P+'.b90hero b{display:block;font-size:18px;font-weight:600}'+P+'.b90hero small{color:#C9D5E8;font-size:13px;font-weight:500}'+
+P+'.b90hero input{width:100%;margin-top:12px;border:0;border-radius:12px;padding:12px 14px;font-size:15px;font-family:inherit;background:#fff;color:#0B1D3A;box-sizing:border-box}'+
+P+'.b90ch{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}'+P+'.b90ch button{border:0;background:var(--svt);color:var(--svi);border-radius:16px;padding:7px 14px;font-weight:600;font-size:13.5px;font-family:inherit;cursor:pointer}'+P+'.b90ch button.on{background:var(--zb);color:var(--zbt)}'+
+P+'.b90gh{font-size:14px;font-weight:600;color:var(--cvl);margin:18px 2px 2px;text-align:left}'+
+P+'.b90em{text-align:center;color:var(--cvl);font-size:14px;padding:16px;font-weight:500}'+
+P+'.b90rt{display:flex;justify-content:space-between;gap:8px;margin:6px 0 4px}'+P+'.b90rt button{flex:1;height:56px;border-radius:16px;border:1px solid var(--svb);background:var(--z1);font-size:26px;cursor:pointer}'+P+'.b90rt button.on{background:var(--zb);border-color:var(--zb)}'+
+P+'.b90l{font-size:14px;font-weight:600;color:var(--cvl);margin:14px 2px 8px;text-align:left}'+
+P+'.b90tk{text-align:center;padding:6px 0 4px}'+P+'.b90tk .lg{width:84px;height:84px;border-radius:22px;background:#000;margin:0 auto;overflow:hidden}'+P+'.b90tk .lg img{width:100%;height:100%;display:block}'+
+P+'.b90tk b{display:block;font-size:19px;font-weight:600;color:var(--zt);margin-top:10px}'+P+'.b90tk small{display:inline-flex;align-items:center;gap:6px;background:var(--svt);color:var(--svi);border-radius:14px;padding:4px 12px;font-size:13px;font-weight:600;margin-top:6px}'+P+'.b90tk small i{width:7px;height:7px;border-radius:50%;background:#22C55E}'+
+P+'.b90st{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}'+P+'.b90st div{background:var(--svt);border-radius:16px;padding:12px;text-align:left}'+P+'.b90st small{display:block;font-size:12.5px;color:var(--cvl);font-weight:500}'+P+'.b90st b{font-size:17px;font-weight:600;color:var(--zt)}'+
+P+'.b90ca{border:1px solid var(--svb);border-radius:16px;padding:14px;margin-top:12px;text-align:left}'+P+'.b90ca small{font-size:12.5px;color:var(--cvl);font-weight:600}'+P+'.b90ca code{display:block;font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--zt);word-break:break-all;margin:6px 0 12px}'+
+P+'.b90ca .r{display:flex;gap:8px}'+P+'.b90ca .r a,'+P+'.b90ca .r button{flex:1;border:1px solid var(--svb);background:var(--z1);color:var(--zt);border-radius:12px;padding:11px;font-weight:600;font-size:14px;font-family:inherit;cursor:pointer;text-align:center;text-decoration:none}'+P+'.b90ca .r button{background:var(--zb);color:var(--zbt);border-color:var(--zb)}'+P+'.b90ca .r a{color:var(--zt)!important}'+
+P+'.b90wn{background:#FFF7E6;color:#7A4B00;border-radius:14px;padding:12px 14px;margin-top:12px;font-size:13px;line-height:1.5;font-weight:500;text-align:left}'+
+'html[data-theme=dark] '+P+'.b90wn{background:#2A2210;color:#F5C76B}'+
+P+'.b90sum{background:var(--svt);border-radius:18px;padding:14px;text-align:left;margin-bottom:6px}'+P+'.b90sum b{display:block;font-size:15px;font-weight:600;color:var(--zt);margin-bottom:6px}'+
+P+'.b90sum div{display:flex;gap:8px;font-size:13.5px;line-height:1.5;color:var(--zt);font-weight:500;margin-top:4px}'+P+'.b90sum i{font-style:normal;color:var(--zgb,#00A86B);font-weight:700}';
+document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},4300);
+function box(){return $("calcBox")}
+/* Help */
+var GR=[["w",tx("Wallet","वॉलेट"),/wallet|PIN|12 words|words|वॉलेट|शब्द|PIN/i],["s",tx("Send","भेजना"),/fee|send|network|address|फ़ीस|फीस|भेज|नेटवर्क|पता/i],["f",tx("Safety","सुरक्षा"),/safe|scam|risk|सुरक्षित|धोखा|जोखिम/i],["t","TZT",/TZT|faucet|test/i]];
+if(window.HP){var _h=HP.help;HP.help=function(){_h.apply(this,arguments);var b=box();if(!b)return;var D=Array.prototype.slice.call(b.querySelectorAll("details.hq"));if(!D.length)return;
+ var more=b.querySelector(".b89h");
+ var hero=document.createElement("div");hero.className="b90hero";hero.innerHTML='<b>'+tx("How can we help?","हम कैसे मदद करें?")+'</b><small>'+tx("Answers in Hindi and English","हिंदी और English में जवाब")+'</small><input type="search" placeholder="'+tx("Search help","मदद में खोजें")+'">';
+ var ch=document.createElement("div");ch.className="b90ch";ch.innerHTML=GR.map(function(g){return'<button type="button" data-g="'+g[0]+'">'+g[1]+'</button>'}).join("");
+ var groups={};D.forEach(function(d){var t=d.textContent;var g=GR.filter(function(x){return x[2].test(d.querySelector("summary").textContent)})[0]||GR.filter(function(x){return x[2].test(t)})[0];var k=g?g[0]:"o";(groups[k]=groups[k]||[]).push(d)});
+ var wrap=document.createElement("div");
+ GR.concat([["o",tx("More","और")]]).forEach(function(g){if(!groups[g[0]])return;var h=document.createElement("div");h.className="b90gh";h.textContent=g[1];h.setAttribute("data-g",g[0]);wrap.appendChild(h);groups[g[0]].forEach(function(d){d.setAttribute("data-g",g[0]);wrap.appendChild(d)})});
+ var em=document.createElement("div");em.className="b90em";em.style.display="none";em.textContent=tx("No answer found. Ask the AI helper below.","जवाब नहीं मिला। नीचे AI सहायक से पूछिए।");
+ b.insertBefore(hero,b.firstChild);hero.after(ch);ch.after(wrap);wrap.after(em);if(more)em.after(more);
+ var sel="";function flt(){var q=hero.querySelector("input").value.toLowerCase().trim(),n=0;wrap.querySelectorAll("details.hq").forEach(function(d){var ok=(!sel||d.getAttribute("data-g")===sel)&&(!q||d.textContent.toLowerCase().indexOf(q)>-1);d.style.display=ok?"":"none";if(ok)n++;if(q&&ok)d.open=true});
+  wrap.querySelectorAll(".b90gh").forEach(function(h){var any=Array.prototype.some.call(wrap.querySelectorAll('details.hq[data-g="'+h.getAttribute("data-g")+'"]'),function(d){return d.style.display!=="none"});h.style.display=any?"":"none"});em.style.display=n?"none":""}
+ hero.querySelector("input").oninput=flt;ch.querySelectorAll("button").forEach(function(btn){btn.onclick=function(){sel=sel===btn.getAttribute("data-g")?"":btn.getAttribute("data-g");ch.querySelectorAll("button").forEach(function(x){x.classList.toggle("on",x.getAttribute("data-g")===sel)});flt()}})};
+/* About TZT */
+ var _a=HP.about;HP.about=function(){_a.apply(this,arguments);var b=box();if(!b)return;var CPa="0xc75149e5C95a41b0a4c9E3378D5fc6aAAc2CC5F0",ex="https://explorer-mezame.shardeum.org/address/"+CPa;
+  b.innerHTML='<div class="b90tk"><div class="lg"><img src="icon-192.png" alt="TZT"></div><b>Tazvera Test (TZT)</b><small><i></i>Shardeum Testnet</small></div>'+
+  '<div class="b90st"><div><small>'+tx("Created so far","अब तक बने")+'</small><b>1,000,000</b></div><div><small>'+tx("Maximum limit","अधिकतम सीमा")+'</small><b>500,000,000</b></div><div><small>Decimals</small><b>18</b></div><div><small>'+tx("Value","क़ीमत")+'</small><b>'+tx("Test only","सिर्फ़ टेस्ट")+'</b></div></div>'+
+  '<div class="b90ca"><small>'+tx("Contract address","कॉन्ट्रैक्ट पता")+'</small><code>'+CPa+'</code><div class="r"><button type="button">'+tx("Copy","कॉपी")+'</button><a href="'+ex+'" target="_blank" rel="noopener">'+tx("Explorer","Explorer")+'</a></div></div>'+
+  '<div class="b90wn">⚠ '+tx("Not verified on the explorer yet. TZT is a test token with no value. The owner can pause it and mint more up to the limit.","अभी explorer पर verify नहीं। TZT टेस्ट टोकन है, इसकी कोई क़ीमत नहीं। मालिक इसे रोक सकता है और सीमा तक और बना सकता है।")+'</div>';
+  b.querySelector(".b90ca button").onclick=function(){try{navigator.clipboard.writeText(CPa).then(function(){toast(tx("Address copied","पता कॉपी हुआ"))})}catch(e){}}}}
+/* Feedback: rating + type */
+var fbR="",fbT2="";window.__fbMeta=function(){var a=[];if(fbR)a.push(tx("Rating: ","रेटिंग: ")+fbR);if(fbT2)a.push(tx("Type: ","प्रकार: ")+fbT2);return a.length?"["+a.join(" · ")+"]\n":""};
+if(window.FB){var _f=FB.open;FB.open=function(){fbR="";fbT2="";_f.apply(this,arguments);var b=box(),ta=$("fbT");if(!b||!ta)return;
+ var d=document.createElement("div");d.innerHTML='<div class="b90l" style="margin-top:2px">'+tx("How is Tazvera so far?","अब तक Tazvera कैसा लगा?")+'</div><div class="b90rt">'+["😞","😐","🙂","😍"].map(function(e){return'<button type="button" data-r="'+e+'">'+e+'</button>'}).join("")+'</div><div class="b90l">'+tx("About","किस बारे में")+'</div><div class="b90ch" style="margin-top:0">'+[["Problem","दिक़्क़त"],["Idea","सुझाव"],["Question","सवाल"]].map(function(x){return'<button type="button" data-t="'+x[0]+'">'+tx(x[0],x[1])+'</button>'}).join("")+'</div><div class="b90l">'+tx("Your message","आपका संदेश")+'</div>';
+ ta.before(d);ta.placeholder=tx("Tell us what happened…","बताइए क्या हुआ…");
+ d.querySelectorAll(".b90rt button").forEach(function(x){x.onclick=function(){fbR=x.getAttribute("data-r");d.querySelectorAll(".b90rt button").forEach(function(y){y.classList.toggle("on",y===x)})}});
+ d.querySelectorAll(".b90ch button").forEach(function(x){x.onclick=function(){fbT2=x.getAttribute("data-t");d.querySelectorAll(".b90ch button").forEach(function(y){y.classList.toggle("on",y===x)})}})}}
+/* Privacy / Terms summary */
+if(window.LG){var _l=LG.open;LG.open=function(k){_l.apply(this,arguments);var b=box();if(!b)return;var S=k==="p"?[tx("In short","संक्षेप में"),[tx("We do not collect your personal data. No accounts.","हम आपका निजी डेटा नहीं लेते। कोई खाता नहीं।"),tx("Your wallet key stays on your phone, locked by your PIN.","आपकी वॉलेट चाबी आपके फ़ोन में, PIN के ताले में।"),tx("Only your 12 words can bring your wallet back.","सिर्फ़ आपके 12 शब्द वॉलेट वापस ला सकते हैं।")]]:[tx("In short","संक्षेप में"),[tx("This is a test version. Test coins have no value.","यह टेस्ट वर्शन है। टेस्ट सिक्कों की कोई क़ीमत नहीं।"),tx("Nothing here is financial advice.","यहाँ कुछ भी वित्तीय सलाह नहीं।"),tx("You alone control your wallet and your 12 words.","आपका वॉलेट और 12 शब्द सिर्फ़ आपके नियंत्रण में।")]];
+ var d=document.createElement("div");d.className="b90sum";d.innerHTML='<b>'+S[0]+'</b>'+S[1].map(function(x){return'<div><i>✓</i><span>'+x+'</span></div>'}).join("");b.insertBefore(d,b.firstChild)}}
+}catch(e){try{console.error("Build90",e)}catch(_){}}})();

@@ -719,7 +719,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 6 · Build 83 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test TZT, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 6 · बिल्ड 83 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट TZT और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 6 · Build 84 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test TZT, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 6 · बिल्ड 84 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट TZT और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#000;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><img src="icon-192.png" alt="Tazvera" style="width:100%;height:100%;border-radius:28px;display:block"></div><b style="font-size:20px">Tazvera</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 Tazvera</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -3219,3 +3219,79 @@ function render(){var B=$("xtB");if(!B)return;var t=$("xtT");if(t)t.textContent=
 }
 if(window.XT&&XT.go&&!XT.__b83){XT.__b83=1;var og=XT.go;XT.go=function(n){og.apply(this,arguments);if(n==="al"){try{render()}catch(e){}}}}
 }catch(e){try{console.error("Build83",e)}catch(_){}}})();
+
+/* Build 84: Address book redesigned (contact cards first, add form with paste/scan, duplicate check) */
+(function(){try{
+var $=function(i){return document.getElementById(i)};
+function en(){try{return lang==="en"}catch(e){return true}}
+function tx(e,h){return en()?e:h}
+function esc(t){return String(t).replace(/[&<>"']/g,function(c){return"&#"+c.charCodeAt(0)+";"})}
+var P="html body #app #sheetBook#sheetBook ";
+var st=document.createElement("style");st.id="b84s";
+st.textContent=
+P+'.panel>.btn.ghost[onclick="closeAll()"]{display:none!important}'+
+P+'#b84q{width:100%;border:1px solid var(--svb);border-radius:14px;padding:12px 14px;font-size:15px;background:var(--z1);color:var(--zt);font-family:inherit;margin:6px 0 4px;box-sizing:border-box}'+
+P+'.b84c{display:flex;align-items:center;gap:12px;border:1px solid var(--svb);border-radius:16px;padding:12px 12px;margin-top:10px;cursor:pointer}'+
+P+'.b84c .av{width:42px;height:42px;border-radius:50%;background:var(--svt);color:var(--svi);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:600;flex-shrink:0}'+
+P+'.b84c .nm{flex:1;min-width:0}'+P+'.b84c b{display:block;font-size:15px;font-weight:600;color:var(--zt);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'+P+'.b84c small{font-size:12.5px;color:var(--cvl);font-weight:500;font-family:ui-monospace,Menlo,monospace}'+
+P+'.b84c .sd{border:0;background:var(--zb);color:var(--zbt);border-radius:12px;padding:8px 14px;font-weight:600;font-size:13px;font-family:inherit;cursor:pointer}'+
+P+'.b84c .dl{border:0;background:var(--svt);color:var(--zt);width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;flex-shrink:0}'+
+P+'.b84e{text-align:center;color:var(--cvl);font-size:14px;line-height:1.6;padding:22px 10px;font-weight:500}'+
+P+'.b84e .ei{width:56px;height:56px;border-radius:18px;background:var(--svt);color:var(--svi);display:flex;align-items:center;justify-content:center;margin:0 auto 10px}'+P+'.b84e svg{width:26px;height:26px}'+
+P+'.b84add{width:100%;margin-top:16px;border:1px dashed var(--svb);background:transparent;color:var(--zt);border-radius:14px;padding:14px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer}'+
+P+'#b84f{display:none;border:1px solid var(--svb);border-radius:18px;padding:14px;margin-top:14px}'+P+'#b84f.on{display:block}'+
+P+'#b84f .lb{font-size:13px;font-weight:600;color:var(--cvl);margin:0 2px 6px;text-align:left}'+P+'#b84m{text-align:left}'+
+P+'#b84f .inp{position:relative;border:1px solid var(--svb)!important;border-radius:14px!important;background:var(--z1)!important;margin-bottom:12px!important}'+
+P+'#b84f .inp input{color:var(--zt)!important;font-weight:500!important}'+P+'#b84f .inp:focus-within{border-color:var(--zgb,#00A86B)!important}'+
+P+'#b84f .ai{position:absolute;right:6px;top:50%;transform:translateY(-50%);display:flex;gap:2px}'+P+'#b84f .ai button{width:38px;height:38px;border:0;background:transparent;color:var(--zt);border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}'+P+'#b84f .ai svg{width:21px;height:21px}'+
+P+'#bookAddr{padding-right:88px!important;font-family:ui-monospace,Menlo,monospace!important;font-size:13px!important}'+
+P+'#b84m{min-height:18px;font-size:13px;font-weight:600;color:#DC2626;margin:-4px 2px 8px}'+
+P+'#b84f .btn{background:var(--zb)!important;color:var(--zbt)!important;border:0!important;border-radius:14px!important;font-weight:600!important;margin:0!important;width:100%}'+
+P+'#b84v{width:100%;border-radius:14px;margin-bottom:10px;display:none;background:#000}'+
+P+'.b84n{font-size:12.5px;color:var(--cvl);text-align:center;margin-top:14px;font-weight:500}';
+document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},3900);
+var PA='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/></svg>';
+var SC='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16M7 12h10"/></svg>';
+var BK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.5"/><path d="M5 20c1.2-3.5 4-5 7-5s5.8 1.5 7 5"/></svg>';
+var stream=null,scanning=false;
+function stop(){scanning=false;if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null}var v=$("b84v");if(v)v.style.display="none"}
+async function scan(){var m=$("b84m");if(!("BarcodeDetector" in window)){m.textContent=tx("Scanning is not supported here. Please paste the address.","यहाँ स्कैन नहीं होता, पता चिपकाइए।");return}
+ try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});var v=$("b84v");v.srcObject=stream;v.style.display="block";await v.play();var d=new BarcodeDetector({formats:["qr_code"]});scanning=true;
+  while(scanning){try{var r=await d.detect(v);if(r.length){var a=(r[0].rawValue.match(/0x[0-9a-fA-F]{40}/)||[])[0];stop();if(a){$("bookAddr").value=a;m.textContent=""}else m.textContent=tx("No address in this QR","इस QR में पता नहीं");break}}catch(e){}await new Promise(function(r){setTimeout(r,300)})}
+ }catch(e){m.textContent=tx("Camera permission needed","कैमरा की अनुमति चाहिए");stop()}}
+function build(){var sh=$("sheetBook");if(!sh||sh.__b84)return;var pn=sh.querySelector(".panel");if(!pn)return;sh.__b84=1;
+ var tt=pn.querySelector(".ttl");if(tt)tt.textContent=tx("Address book","पता-पुस्तिका");
+ var n=$("bookName"),a=$("bookAddr"),sv=pn.querySelector('.btn[onclick="saveContact()"]'),L=$("bookList");if(!n||!a||!sv||!L)return;
+ var q=document.createElement("input");q.id="b84q";q.placeholder=tx("Search contacts","संपर्क खोजें");q.style.display="none";q.oninput=function(){renderBook()};
+ var ab=document.createElement("button");ab.type="button";ab.className="b84add";ab.textContent="+ "+tx("Add contact","संपर्क जोड़ें");
+ var F=document.createElement("div");F.id="b84f";
+ var l1=document.createElement("div");l1.className="lb";l1.textContent=tx("Name","नाम");
+ var l2=document.createElement("div");l2.className="lb";l2.textContent=tx("Address","पता");
+ var v=document.createElement("video");v.id="b84v";v.setAttribute("playsinline","");v.muted=true;
+ var msg=document.createElement("div");msg.id="b84m";
+ var nt=document.createElement("div");nt.className="b84n";nt.textContent=tx("Contacts are saved only on this phone.","संपर्क सिर्फ़ इसी फ़ोन में सेव होते हैं।");
+ pn.insertBefore(q,n.parentNode);pn.insertBefore(L,n.parentNode);pn.insertBefore(ab,n.parentNode);pn.insertBefore(F,n.parentNode);
+ F.appendChild(l1);F.appendChild(n.parentNode);F.appendChild(l2);F.appendChild(v);F.appendChild(a.parentNode);F.appendChild(msg);F.appendChild(sv);F.after(nt);
+ n.placeholder=tx("e.g. Ramesh","जैसे रमेश");a.placeholder="0x…";sv.textContent=tx("Save","सेव करें");
+ var ai=document.createElement("span");ai.className="ai";ai.innerHTML='<button type="button" aria-label="Paste">'+PA+'</button><button type="button" aria-label="Scan">'+SC+'</button>';a.parentNode.appendChild(ai);
+ var bt=ai.querySelectorAll("button");bt[0].onclick=async function(){try{var t=await navigator.clipboard.readText();var m=(t.match(/0x[0-9a-fA-F]{40}/)||[])[0];if(m){a.value=m;msg.textContent=""}else msg.textContent=tx("No address in the copied text","कॉपी किए हुए में पता नहीं")}catch(e){msg.textContent=tx("Allow paste, or type the address","चिपकाने की अनुमति दीजिए या पता लिखिए")}};
+ bt[1].onclick=function(){scan()};
+ ab.onclick=function(){F.classList.toggle("on");ab.style.display=F.classList.contains("on")?"none":"";if(F.classList.contains("on"))n.focus()};
+}
+window.renderBook=renderBook=function(){build();var L=$("bookList");if(!L)return;var c=[];try{c=contacts}catch(e){}
+ var q=$("b84q");if(q)q.style.display=c.length>6?"":"none";var f=(q&&q.value||"").toLowerCase().trim();
+ if(!c.length){L.innerHTML='<div class="b84e"><div class="ei">'+BK+'</div>'+tx("No contacts yet. Save the addresses you send to often.","अभी कोई संपर्क नहीं। जिन्हें बार-बार भेजते हैं, उनके पते यहाँ सेव कीजिए।")+'</div>';return}
+ var h="";c.forEach(function(x,i){if(f&&x.n.toLowerCase().indexOf(f)<0&&x.a.toLowerCase().indexOf(f)<0)return;
+  h+='<div class="b84c" data-i="'+i+'"><span class="av">'+esc((x.n||"?").trim().charAt(0).toUpperCase())+'</span><span class="nm"><b>'+esc(x.n)+'</b><small>'+x.a.slice(0,6)+'…'+x.a.slice(-6)+'</small></span><button type="button" class="sd" data-s="'+i+'">'+tx("Send","भेजें")+'</button><button type="button" class="dl" data-d="'+i+'" aria-label="Delete">✕</button></div>'});
+ L.innerHTML=h||'<div class="b84e">'+tx("No match","कोई मेल नहीं")+'</div>';
+ L.querySelectorAll(".b84c").forEach(function(r){r.onclick=function(e){if(e.target.closest("button"))return;var x=contacts[+r.getAttribute("data-i")];try{navigator.clipboard.writeText(x.a).then(function(){toast(tx("Address copied","पता कॉपी हुआ"))})}catch(_){}}});
+ L.querySelectorAll(".sd").forEach(function(b){b.onclick=function(){useContact(+b.getAttribute("data-s"))}});
+ L.querySelectorAll(".dl").forEach(function(b){b.onclick=function(){var x=contacts[+b.getAttribute("data-d")];if(confirm(tx("Delete "+x.n+"?",x.n+" को हटाएँ?")))delContact(+b.getAttribute("data-d"))}});
+};
+var _sv=saveContact;window.saveContact=saveContact=function(){var a=($("bookAddr").value||"").trim(),n=($("bookName").value||"").trim(),m=$("b84m");
+ if(!n){m.textContent=tx("Enter a name","नाम लिखिए");return}
+ if(!/^0x[0-9a-fA-F]{40}$/.test(a)){m.textContent=tx("This address is not valid. It starts with 0x and has 42 characters.","यह पता सही नहीं। यह 0x से शुरू होकर 42 अक्षरों का होता है।");return}
+ try{if(contacts.some(function(c){return c.a.toLowerCase()===a.toLowerCase()})){m.textContent=tx("This address is already saved","यह पता पहले से सेव है");return}}catch(e){}
+ m.textContent="";stop();_sv();$("bookName").value="";$("bookAddr").value="";var F=$("b84f");if(F){F.classList.remove("on");var ab=document.querySelector("#sheetBook .b84add");if(ab)ab.style.display=""}renderBook()};
+document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("#sheetBook .bkb"))stop()},true);
+}catch(e){try{console.error("Build84",e)}catch(_){}}})();

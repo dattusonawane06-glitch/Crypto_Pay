@@ -165,7 +165,7 @@ function buildList(){
   $("list").innerHTML=html;
 }
 function paint(){
-  let total=0;const H="••••";const native=NETWORKS[currentNet].symbol;const isTest=currentNet==="shardeum-testnet";const nb=parseFloat((T[native]||{}).bal)||0;
+  let total=0;const H="••••";const native=NETWORKS[currentNet].symbol;const isTest=/testnet|sepolia/.test(currentNet);const nb=parseFloat((T[native]||{}).bal)||0;
   Object.keys(T).forEach(k=>{
     const t=T[k],bal=parseFloat(t.bal)||0,rt=rate(t.p);
     if(bal>0&&rt)total+=bal*rt;
@@ -620,8 +620,8 @@ ta();lock();
 /* Tazvera extras: runs after index.html. If this file fails, the main app still works. */
 (function(){
 "use strict";
-var NL={"shardeum-testnet":["#2563EB","S","Testnet · test coins"],shardeum:["#2563EB","S","Mainnet · real money"],ethereum:["#627EEA","E","Mainnet · real money"],bsc:["#F0B90B","B","Mainnet · real money"],polygon:["#8247E5","P","Mainnet · real money"],base:["#0052FF","B","Mainnet · real money"],optimism:["#FF0420","O","Mainnet · real money"],arbitrum:["#28A0F0","A","Mainnet · real money"]};
-var NU={"shardeum-testnet":LOGOS.SHM,shardeum:LOGOS.SHM,ethereum:LOGOS.ETH,bsc:LOGOS.BNB,polygon:"https://assets.coingecko.com/coins/images/4713/small/polygon.png",optimism:"https://assets.coingecko.com/coins/images/25244/small/Optimism.png",arbitrum:"https://assets.coingecko.com/coins/images/16547/small/arb.jpg"};
+var NL={"shardeum-testnet":["#2563EB","S","Testnet · test coins"],shardeum:["#2563EB","S","Mainnet · real money"],ethereum:["#627EEA","E","Mainnet · real money"],bsc:["#F0B90B","B","Mainnet · real money"],polygon:["#8247E5","P","Mainnet · real money"],base:["#0052FF","B","Mainnet · real money"],optimism:["#FF0420","O","Mainnet · real money"],arbitrum:["#28A0F0","A","Mainnet · real money"],"bsc-testnet":["#F0B90B","B","Testnet · test coins"],sepolia:["#627EEA","E","Testnet · test coins"]};
+var NU={"shardeum-testnet":LOGOS.SHM,shardeum:LOGOS.SHM,ethereum:LOGOS.ETH,bsc:LOGOS.BNB,polygon:"https://assets.coingecko.com/coins/images/4713/small/polygon.png",optimism:"https://assets.coingecko.com/coins/images/25244/small/Optimism.png",arbitrum:"https://assets.coingecko.com/coins/images/16547/small/arb.jpg","bsc-testnet":LOGOS.BNB,sepolia:LOGOS.ETH};
 var lg=function(k){var l=NL[k]||["#555","?"],u=NU[k];return'<span class="nlg" style="background:'+l[0]+(k==="bsc"?";color:#111":"")+'">'+l[1]+(u?'<img src="'+u+'" alt="" onerror="this.remove()">':"")+"</span>"};
 var S=function(p){return'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'+p+"</svg>"};
 var A=document.querySelector(".app");
@@ -646,7 +646,7 @@ ns.onclick=function(e){if(e.target===ns)ns.classList.remove("open")};
 ns.innerHTML='<div class="panel"><div class="grab"></div><div class="ttl">Select Network</div><div id="xnList"></div><div class="cap" style="margin-top:12px">Mainnet networks use real money. Test first on Testnet.</div></div>';
 A.appendChild(ns);
 var XN=window.XN={open:function(){$("xnList").innerHTML=Object.keys(NETWORKS).map(function(k){return'<div class="xni'+(k===currentNet?" on":"")+'" onclick="XN.pick(\''+k+"')\">"+lg(k)+"<div>"+NETWORKS[k].name+"<small>"+(NL[k]?NL[k][2]:"")+"</small></div></div>"}).join("");ns.classList.add("open")},
-pick:function(k){if(window.ethereum&&window.ethereum.isCpWallet&&k!=="shardeum-testnet"){ns.classList.remove("open");toast((typeof lang!=="undefined"&&lang==="en")?"The in-app wallet works on the test network only for now. Other networks need MetaMask.":"ऐप के अपने वॉलेट में अभी सिर्फ़ टेस्ट नेटवर्क चलता है। दूसरे नेटवर्क के लिए MetaMask चाहिए।",5000);return}var s=$("netSelect");if(s)s.value=k;changeNetwork(k);ns.classList.remove("open");if(k!=="shardeum-testnet")toast("Mainnet: real money. Double-check before sending.",3200)}};
+pick:function(k){if(window.ethereum&&window.ethereum.isCpWallet&&!/testnet|sepolia/.test(k)){ns.classList.remove("open");toast((typeof lang!=="undefined"&&lang==="en")?"The in-app wallet works on test networks only. Real-money networks need MetaMask.":"ऐप के अपने वॉलेट में सिर्फ़ टेस्ट नेटवर्क चलते हैं। असली पैसे वाले नेटवर्क के लिए MetaMask चाहिए।",5000);return}var s=$("netSelect");if(s)s.value=k;changeNetwork(k);ns.classList.remove("open");if(!/testnet|sepolia/.test(k))toast("Mainnet: real money. Double-check before sending.",3200)}};
 function upd(){var n=NETWORKS[currentNet];document.querySelectorAll(".xnc-slot").forEach(function(e){e.innerHTML=chip()});
 var c=$("recvCap");if(c)c.textContent="Only send "+n.name+" assets to this address. Other assets will be lost forever.";
 if($("sheetRecv")&&$("sheetRecv").classList.contains("open"))drawQR()}
@@ -719,7 +719,7 @@ noti:["Notifications",function(){return T("Sound & voice alerts",soundOn,"toggle
 disp:["Language & display",function(){return'<div class="sr"><span class="sl">Language</span><select onchange="changeLang(this.value)">'+[["en","English"],["hi","हिंदी"]].map(function(o){return'<option value="'+o[0]+'"'+(o[0]===lang?" selected":"")+">"+o[1]+"</option>"}).join("")+'</select></div><div class="sr"><span class="sl">Currency</span><select onchange="changeCurrency(this.value)">'+["INR","USD"].map(function(o){return'<option'+(o===cur?" selected":"")+">"+o+"</option>"}).join("")+"</select></div>"+T("Hide balance",hideBal,"togglePriv();SB.r()")+'<div class="sr"><span class="sl">Text size</span><span><button class="mini" onclick="XT.zm(-.1)">A−</button> <button class="mini" onclick="XT.zm(.1)">A+</button></span></div>'}],
 dat:["Data & help",function(){return'<div class="sr" onclick="refreshAll()"><span class="sl">Refresh prices</span></div><div class="sr" onclick="testVoice()"><span class="sl">Test voice alert</span></div>'+(currentNet==="shardeum-testnet"?'<div class="sr" onclick="openFaucet()"><span class="sl">Testnet faucet</span></div>':"")+'<div class="sr" onclick="PC.run()"><span class="sl">Check SHM price sources</span></div><div id="pcout" class="cap" style="padding:8px 4px;text-align:left"></div><div class="sr" onclick="location.reload()"><span class="sl">Reload app</span></div>'}],
 abt:["About",function(){var en=lang==="en",P=function(a,b){return'<div class="xt-o" style="text-align:left"><b>'+a+'</b><div style="color:var(--mut);margin-top:4px;line-height:1.5">'+b+"</div></div>"};
-var T=en?{v:"Version 6 · Build 92 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test TZT, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 6 · बिल्ड 92 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट TZT और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
+var T=en?{v:"Version 6 · Build 93 · Test version",i:"Tazvera is a simple wallet for everyday crypto payments. We are building it step by step, in the open.",h:"Our promises",a:["Your keys, your control","Your key stays on your phone, locked by your PIN. We never hold it."],b:["Honest by default","Right now this is a test version. We will not call it more than it is."],c:["No hidden fees","Network fees go to the network, not to Tazvera. We show them before you send."],d:["We tell you our mistakes","If something goes wrong, we will say so and fix it."],w:"What works today",wt:"A wallet on your phone, send and receive on Shardeum Testnet, free test TZT, and useful tools.",n:"Not yet",nt:"Real-money networks, Buy and Swap. We will open them only after proper security checks.",f:"Crypto is risky. Test coins have no value. Not financial advice."}:{v:"वर्शन 6 · बिल्ड 93 · टेस्ट वर्शन",i:"Tazvera रोज़मर्रा के क्रिप्टो भुगतान के लिए एक सरल वॉलेट है। हम इसे धीरे-धीरे, खुलकर बना रहे हैं।",h:"हमारे वादे",a:["आपकी चाबी, आपका नियंत्रण","आपकी चाबी सिर्फ़ आपके फ़ोन में PIN के ताले में रहती है। हम उसे कभी नहीं रखते।"],b:["जो है, वही बताएँगे","अभी यह टेस्ट वर्शन है। हम इसे जितना है उससे ज़्यादा नहीं बताएँगे।"],c:["कोई छिपी फ़ीस नहीं","नेटवर्क की फ़ीस नेटवर्क को जाती है, Tazvera को नहीं। भेजने से पहले हम उसे दिखाते हैं।"],d:["अपनी गलतियाँ बताएँगे","कुछ गलत हुआ तो हम बताएँगे और ठीक करेंगे।"],w:"आज क्या चलता है",wt:"फ़ोन में अपना वॉलेट, Shardeum Testnet पर भेजना और पाना, मुफ़्त टेस्ट TZT और काम के टूल।",n:"अभी नहीं",nt:"असली पैसे वाले नेटवर्क, Buy और Swap। ये सही सुरक्षा जाँच के बाद ही खोलेंगे।",f:"क्रिप्टो जोखिम भरा है। टेस्ट सिक्कों की कोई कीमत नहीं। वित्तीय सलाह नहीं।"};
 return'<div style="text-align:center;padding:14px 6px"><div style="margin:0 auto 12px;width:104px;height:104px;border-radius:28px;background:#000;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)"><img src="icon-192.png" alt="Tazvera" style="width:100%;height:100%;border-radius:28px;display:block"></div><b style="font-size:20px">Tazvera</b><div class="cap">'+T.v+'</div></div><p class="cap" style="text-align:left;line-height:1.6">'+T.i+'</p><div class="ttl" style="text-align:left;font-size:16px;margin:12px 0 4px">'+T.h+"</div>"+P(T.a[0],T.a[1])+P(T.b[0],T.b[1])+P(T.c[0],T.c[1])+P(T.d[0],T.d[1])+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.w+"</div>"+P("",T.wt)+'<div class="ttl" style="text-align:left;font-size:16px;margin:14px 0 4px">'+T.n+"</div>"+P("",T.nt)+'<div class="xw">'+XL+'</div><div class="cap" style="margin-top:8px">'+T.f+"<br>© 2026 Tazvera</div><div class=\"cap\" style=\"margin-top:10px\"><a onclick=\"LG.open('p')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Privacy policy":"गोपनीयता नीति")+"</a> · <a onclick=\"LG.open('t')\" style=\"color:var(--y);cursor:pointer\">"+(en?"Terms of use":"उपयोग की शर्तें")+"</a></div>"}]};
 var SB=window.SB={r:function(){var p=PG[stk[stk.length-1]];$("stt").textContent=p[0];$("sbody").innerHTML=p[1]()},g:function(i){stk.push(i);SB.r()},back:function(){if(stk.length>1){stk.pop();SB.r();return true}return false},
 th:function(m){ls.set("theme",m);applyTheme();SB.r()},bl:function(){ls.set("xt_bl",L("xt_bl",1)?0:1);SB.r()},
@@ -1305,7 +1305,7 @@ var _dsD=doSend;doSend=async function(){
     catch(e){return sendMsg(tx("Could not check this token. Please try again.","इस टोकन की जाँच नहीं हो सकी। फिर कोशिश कीजिए।"))}}
   return _dsD.apply(this,arguments)};
 function realBanner(){var r=document.querySelector("#sheetSend .risk"),n=NETWORKS[currentNet];if(!r||!n)return;
-  if(currentNet!=="shardeum-testnet"){r.textContent=tx("REAL MONEY on "+n.name+". Check the address and amount in your wallet before you confirm. Sent coins cannot be returned. This app is still a test version.","असली पैसा: "+n.name+"। Confirm करने से पहले अपने वॉलेट में पता और रकम जाँचिए। भेजे गए सिक्के वापस नहीं आते। यह ऐप अभी टेस्ट वर्शन है।");r.classList.add("real")}else r.classList.remove("real")}
+  if(!/testnet|sepolia/.test(currentNet)){r.textContent=tx("REAL MONEY on "+n.name+". Check the address and amount in your wallet before you confirm. Sent coins cannot be returned. This app is still a test version.","असली पैसा: "+n.name+"। Confirm करने से पहले अपने वॉलेट में पता और रकम जाँचिए। भेजे गए सिक्के वापस नहीं आते। यह ऐप अभी टेस्ट वर्शन है।");r.classList.add("real")}else r.classList.remove("real")}
 var _os32=openSend;openSend=async function(){await _os32.apply(this,arguments);realBanner()};
 if(window.XA&&XA.pick){var _pk32=XA.pick;XA.pick=function(){_pk32.apply(this,arguments);realBanner()}}
 
@@ -1967,7 +1967,7 @@ upd();
       var t=window.XA&&XA.tok&&XA.tok();
       var unit=((($("sendUnit")||{}).textContent)||"").trim();
       var fee=await feeInfo(!!t);
-      ok=await confirmSend({to:to,amt:$("sendAmt").value,unit:unit,fee:fee,real:currentNet!=="shardeum-testnet"});
+      ok=await confirmSend({to:to,amt:$("sendAmt").value,unit:unit,fee:fee,real:!/testnet|sepolia/.test(currentNet)});
     }finally{busy=false}
     if(!ok)return;
     pass=true;
@@ -2077,7 +2077,7 @@ upd();
 
 /* ===== Build 55: in-app wallet stays on the test network ===== */
 (function(){ try{
-  function fix(){try{if(window.ethereum&&window.ethereum.isCpWallet&&typeof currentNet!=="undefined"&&currentNet!=="shardeum-testnet"&&typeof changeNetwork==="function"){changeNetwork("shardeum-testnet")}}catch(e){}}
+  function fix(){try{if(window.ethereum&&window.ethereum.isCpWallet&&typeof currentNet!=="undefined"&&!/testnet|sepolia/.test(currentNet)&&typeof changeNetwork==="function"){changeNetwork("shardeum-testnet")}}catch(e){}}
   setTimeout(fix,1200);setTimeout(fix,3000);
 }catch(e){try{console.error("Build55",e)}catch(_){}}})();
 
@@ -2809,8 +2809,8 @@ function run(){
   else if(a){var f=fmtN(a.textContent);if(f!==null&&a.textContent!==f)a.textContent=f}
  });
  var h=$("b70h");if(any&&!h){h=document.createElement("div");h.id="b70h";L.appendChild(h)}if(h){h.style.display=any?"":"none";var tx=en()?"Market prices":"बाज़ार भाव";if(h.textContent!==tx)h.textContent=tx}
- var bs=$("btnBS");if(bs){var bt=bs.closest("button");var lb=en()?"Get TZT":"TZT लें";if(bs.textContent!==lb)bs.textContent=lb;
-  if(bt&&!bt.__b70){bt.__b70=1;bt.removeAttribute("onclick");bt.onclick=function(){try{FQ.open()}catch(e){}}}
+ var bs=$("btnBS");if(bs){var bt=bs.closest("button");var lb=currentNet==="shardeum-testnet"?(en()?"Get TZT":"TZT लें"):(en()?"Test coins":"टेस्ट सिक्के");if(bs.textContent!==lb)bs.textContent=lb;
+  if(bt&&!bt.__b70){bt.__b70=1;bt.removeAttribute("onclick");bt.onclick=function(){var k=currentNet;if(k==="bsc-testnet")return void window.open("https://www.bnbchain.org/en/testnet-faucet","_blank","noopener");if(k==="sepolia")return void window.open("https://cloud.google.com/application/web3/faucet/ethereum/sepolia","_blank","noopener");try{FQ.open()}catch(e){}}}
   var sp2=bt&&bt.querySelector("span");if(sp2&&sp2.getAttribute("data-a")!=="g"){sp2.setAttribute("data-a","g");sp2.innerHTML=DROP}}
  var ad=document.querySelector("#app .addtok");if(ad&&ad.getAttribute("data-p")!=="1"){ad.setAttribute("data-p","1");ad.innerHTML=PLUS}
 }
@@ -3638,3 +3638,33 @@ setInterval(run,400);
 st.textContent='html body #hbChips#hbChips{flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;max-height:none!important;padding:6px 14px 10px!important;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}'+
 'html body #hbChips#hbChips::-webkit-scrollbar{display:none}html body #hbChips#hbChips button{flex:0 0 auto!important;white-space:nowrap!important;scroll-snap-align:start}';
 document.head.appendChild(st);setTimeout(function(){document.head.appendChild(st)},4500);}catch(e){}})();
+
+/* Build 93: BNB Testnet and Ethereum Sepolia (test networks) for the in-app wallet and MetaMask */
+(function(){try{
+var $=function(i){return document.getElementById(i)};
+function en(){try{return lang==="en"}catch(e){return true}}
+var X={"bsc-testnet":{name:"BNB Testnet",chainId:"0x61",chainIdDec:97,symbol:"tBNB",rpc:"https://data-seed-prebsc-1-s1.bnbchain.org:8545",explorer:"https://testnet.bscscan.com"},
+sepolia:{name:"Sepolia",chainId:"0xaa36a7",chainIdDec:11155111,symbol:"SepoliaETH",rpc:"https://ethereum-sepolia-rpc.publicnode.com",explorer:"https://sepolia.etherscan.io"}};
+Object.keys(X).forEach(function(k){if(NETWORKS[k])return;NETWORKS[k]=X[k];var s=$("netSelect");if(s){var o=document.createElement("option");o.value=k;o.textContent=X[k].name;s.appendChild(o)}});
+try{if(!T.tBNB)T.tBNB={bal:"0.0000",p:null};if(!T.SepoliaETH)T.SepoliaETH={bal:"0.0000",p:null}}catch(e){}
+try{if(window.LOGOS){LOGOS.tBNB=LOGOS.tBNB||LOGOS.BNB;LOGOS.SepoliaETH=LOGOS.SepoliaETH||LOGOS.ETH}}catch(e){}
+/* always sign on the network the app shows */
+var PR=window.ethereum;if(PR&&PR.isCpWallet&&!PR.__b93){PR.__b93=1;var _r=PR.request.bind(PR);PR.request=async function(a){if(a&&a.method==="eth_sendTransaction"){var n=NETWORKS[currentNet];await _r({method:"wallet_switchEthereumChain",params:[{chainId:n.chainId}]})}return _r(a)}}
+function sync(){try{if(window.ethereum&&window.ethereum.isCpWallet&&/testnet|sepolia/.test(currentNet))window.ethereum.request({method:"wallet_switchEthereumChain",params:[{chainId:NETWORKS[currentNet].chainId}]}).catch(function(){})}catch(e){}}
+var last="";setInterval(function(){try{if(currentNet!==last){last=currentNet;sync()}}catch(e){}},700);
+/* network picker: test networks first, then real-money networks */
+if(window.XN&&!XN.__b93){XN.__b93=1;var _o=XN.open;XN.open=function(){_o.apply(this,arguments);var L=$("xnList");if(!L)return;var it=Array.prototype.slice.call(L.querySelectorAll(".xni"));
+ var tst=it.filter(function(e){return/testnet|sepolia/.test(e.getAttribute("onclick")||"")}),real=it.filter(function(e){return tst.indexOf(e)<0});
+ function h(t){var d=document.createElement("div");d.className="b93h";d.textContent=t;return d}
+ L.innerHTML="";L.appendChild(h(en()?"Test networks · free test coins":"टेस्ट नेटवर्क · मुफ़्त टेस्ट सिक्के"));tst.forEach(function(e){L.appendChild(e)});L.appendChild(h(en()?"Real networks · real money (MetaMask)":"असली नेटवर्क · असली पैसा (MetaMask)"));real.forEach(function(e){L.appendChild(e)})}}
+var st=document.createElement("style");st.textContent='#xnList .b93h{font-size:13px;font-weight:600;color:var(--cvl,#3A4556);margin:14px 4px 6px;text-align:left}#xnList .b93h:first-child{margin-top:4px}';document.head.appendChild(st);
+}catch(e){try{console.error("Build93",e)}catch(_){}}})();
+
+/* Build 93b: on BNB Testnet / Sepolia show the right coin in place of SHM and hide Shardeum-only tokens */
+(function(){try{var IMG={"bsc-testnet":"BNB",sepolia:"ETH"};
+setInterval(function(){try{var L=document.getElementById("list");if(!L)return;var k=currentNet,o=IMG[k],r=L.querySelector('.row[onclick="XA.tap(\'SHM\')"]');
+ L.querySelectorAll('.row').forEach(function(x){var y=x.querySelector(".sym");if(!y)return;var sy=y.textContent.trim();if(sy==="TZT"||sy==="CPAY")x.style.display=k==="shardeum-testnet"?"":"none"});
+ if(!r)return;var y=r.querySelector(".sym"),am=r.querySelector(".rt .amt"),sb=r.querySelector(".mid .sub"),im=r.querySelector(".ic img");
+ if(o){var nat=NETWORKS[k].symbol,b=(T[nat]&&T[nat].bal)||"0";if(y.textContent!==nat)y.textContent=nat;var f=parseFloat(String(b).replace(/,/g,""))||0;var t=f.toLocaleString("en-IN",{maximumFractionDigits:4});if(am.textContent!==t)am.textContent=t;var st=(typeof lang!=="undefined"&&lang!=="en")?"टेस्ट सिक्का":"Test coin";if(sb&&sb.textContent!==st)sb.textContent=st;if(im&&LOGOS[o]&&im.getAttribute("src")!==LOGOS[o])im.setAttribute("src",LOGOS[o])}
+ else if(y.textContent!=="SHM"){y.textContent="SHM";if(im&&LOGOS.SHM)im.setAttribute("src",LOGOS.SHM)}
+}catch(e){}},700)}catch(e){}})();

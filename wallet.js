@@ -1,27 +1,33 @@
-/* Tazvera in-app wallet (TESTNET ONLY). Keys are encrypted with your PIN and never leave this device. */
+/* Tazvera in-app wallet (TEST NETWORKS ONLY: Shardeum Testnet, BNB Testnet, Sepolia). Keys are encrypted with your PIN and never leave this device. */
 (function(){
 var E=window.ethers;if(!E)return;
-var KS="cp3_inapp_keystore",CHAIN="0x1fb7",RPC="https://api-mezame.shardeum.org",W=null;
-function prov(){return new E.JsonRpcProvider(RPC,8119,{staticNetwork:true})}
+var KS="cp3_inapp_keystore",W=null;
+/* Test networks only. Real-money networks are not allowed in the in-app wallet. */
+var NETS={"0x1fb7":{id:8119,r:["https://api-mezame.shardeum.org"]},"0x61":{id:97,r:["https://data-seed-prebsc-1-s1.bnbchain.org:8545","https://bsc-testnet-rpc.publicnode.com"]},"0xaa36a7":{id:11155111,r:["https://ethereum-sepolia-rpc.publicnode.com","https://sepolia.drpc.org"]}};
+var CHAIN="0x1fb7";try{var sc=localStorage.getItem("cp3_inapp_chain");if(sc&&NETS[sc])CHAIN=sc}catch(e){}
+var RI=0;
+function prov(){var n=NETS[CHAIN];return new E.JsonRpcProvider(n.r[RI%n.r.length],n.id,{staticNetwork:true})}
+async function tryP(f){try{return await f(prov())}catch(e){if(NETS[CHAIN].r.length>1){RI++;return await f(prov())}throw e}}
+function setChain(c){c=String(c||"").toLowerCase();if(!NETS[c])throw{code:4902,message:"The in-app wallet works on test networks only (Shardeum Testnet, BNB Testnet, Sepolia)."};if(c!==CHAIN){CHAIN=c;RI=0;try{localStorage.setItem("cp3_inapp_chain",c)}catch(e){}}return null}
 var P={isCpWallet:true,
 request:async function(a){var m=a.method,p=a.params||[];
 if(m==="eth_chainId")return CHAIN;
+if(m==="wallet_switchEthereumChain"||m==="wallet_addEthereumChain")return setChain(p[0]&&p[0].chainId);
 switch(m){
-case"eth_getBalance":return"0x"+(await prov().getBalance(p[0])).toString(16);
-case"eth_call":return await prov().call(p[0]);
-case"eth_blockNumber":return"0x"+(await prov().getBlockNumber()).toString(16);
-case"eth_gasPrice":return await prov().send("eth_gasPrice",[]);
-case"eth_estimateGas":return"0x"+(await prov().estimateGas(p[0])).toString(16);
+case"eth_getBalance":return"0x"+(await tryP(function(v){return v.getBalance(p[0])})).toString(16);
+case"eth_call":return await tryP(function(v){return v.call(p[0])});
+case"eth_blockNumber":return"0x"+(await tryP(function(v){return v.getBlockNumber()})).toString(16);
+case"eth_gasPrice":return await tryP(function(v){return v.send("eth_gasPrice",[])});
+case"eth_estimateGas":return"0x"+(await tryP(function(v){return v.estimateGas(p[0])})).toString(16);
 case"eth_requestAccounts":case"eth_accounts":{var ad=window.CPW.address();if(ad)return[ad];break}}
 if(!W)throw{code:4100,message:"Wallet is locked"};
 switch(m){
 case"eth_requestAccounts":case"eth_accounts":return[W.address];
-case"wallet_switchEthereumChain":case"wallet_addEthereumChain":if((p[0].chainId||"").toLowerCase()!==CHAIN)throw{code:4902,message:"The in-app wallet works on Shardeum Testnet only for now."};return null;
-case"eth_getBalance":return"0x"+(await prov().getBalance(p[0])).toString(16);
-case"eth_call":return await prov().call(p[0]);
-case"eth_blockNumber":return"0x"+(await prov().getBlockNumber()).toString(16);
-case"eth_gasPrice":return await prov().send("eth_gasPrice",[]);
-case"eth_estimateGas":return"0x"+(await prov().estimateGas(p[0])).toString(16);
+case"eth_getBalance":return"0x"+(await tryP(function(v){return v.getBalance(p[0])})).toString(16);
+case"eth_call":return await tryP(function(v){return v.call(p[0])});
+case"eth_blockNumber":return"0x"+(await tryP(function(v){return v.getBlockNumber()})).toString(16);
+case"eth_gasPrice":return await tryP(function(v){return v.send("eth_gasPrice",[])});
+case"eth_estimateGas":return"0x"+(await tryP(function(v){return v.estimateGas(p[0])})).toString(16);
 case"eth_sendTransaction":{var t=p[0],pv=prov(),gp=await pv.send("eth_gasPrice",[]),r=await W.connect(pv).sendTransaction({to:t.to,data:t.data,value:t.value,type:0,gasPrice:gp});return r.hash}
 default:throw{code:-32601,message:"Not supported: "+m}}},
 on:function(){},removeListener:function(){}};

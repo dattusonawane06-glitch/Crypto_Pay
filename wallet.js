@@ -4,11 +4,13 @@ var E=window.ethers;if(!E)return;
 var KS="cp3_inapp_keystore",W=null;
 /* Test networks only. Real-money networks are not allowed in the in-app wallet. */
 var NETS={"0x1fb7":{id:8119,r:["https://api-mezame.shardeum.org"]},"0x61":{id:97,r:["https://data-seed-prebsc-1-s1.bnbchain.org:8545","https://bsc-testnet-rpc.publicnode.com"]},"0xaa36a7":{id:11155111,r:["https://ethereum-sepolia-rpc.publicnode.com","https://sepolia.drpc.org"]}};
-var CHAIN="0x1fb7";try{var sc=localStorage.getItem("cp3_inapp_chain");if(sc&&NETS[sc])CHAIN=sc}catch(e){}
+/* Shardeum Mainnet only when the hidden "Mainnet beta" switch is on */
+function nets(){var n={};for(var k in NETS)n[k]=NETS[k];try{if(localStorage.getItem("cp3_mainnet_beta")==="1")n["0x1fb6"]={id:8118,r:["https://api.shardeum.org"]}}catch(e){}return n}
+var CHAIN="0x1fb7";try{var sc=localStorage.getItem("cp3_inapp_chain");if(sc&&nets()[sc])CHAIN=sc}catch(e){}
 var RI=0;
-function prov(){var n=NETS[CHAIN];return new E.JsonRpcProvider(n.r[RI%n.r.length],n.id,{staticNetwork:true})}
-async function tryP(f){try{return await f(prov())}catch(e){if(NETS[CHAIN].r.length>1){RI++;return await f(prov())}throw e}}
-function setChain(c){c=String(c||"").toLowerCase();if(!NETS[c])throw{code:4902,message:"The in-app wallet works on test networks only (Shardeum Testnet, BNB Testnet, Sepolia)."};if(c!==CHAIN){CHAIN=c;RI=0;try{localStorage.setItem("cp3_inapp_chain",c)}catch(e){}}return null}
+function prov(){var n=nets()[CHAIN]||NETS["0x1fb7"];return new E.JsonRpcProvider(n.r[RI%n.r.length],n.id,{staticNetwork:true})}
+async function tryP(f){try{return await f(prov())}catch(e){if((nets()[CHAIN]||NETS["0x1fb7"]).r.length>1){RI++;return await f(prov())}throw e}}
+function setChain(c){c=String(c||"").toLowerCase();if(!nets()[c])throw{code:4902,message:"The in-app wallet works on test networks only (Shardeum Testnet, BNB Testnet, Sepolia)."};if(c!==CHAIN){CHAIN=c;RI=0;try{localStorage.setItem("cp3_inapp_chain",c)}catch(e){}}return null}
 var P={isCpWallet:true,
 request:async function(a){var m=a.method,p=a.params||[];
 if(m==="eth_chainId")return CHAIN;

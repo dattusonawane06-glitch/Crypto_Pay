@@ -85,6 +85,12 @@ Found a security problem? Please **do not** open a public Issue. Email **contact
 
 The Tazvera team will **never** ask for your 12 words, PIN, passwords or money. Anyone who does is a scammer.
 
+## License
+
+The code is released under the [MIT License](LICENSE).
+
+The **Tazvera** name and the green T logo are not covered by this license. Please do not use them to present another app or token as Tazvera.
+
 ## Maintainer
 
 Dattu Sonawane, founder ([@dattusonawane](https://x.com/dattusonawane))
